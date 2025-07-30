@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O nas - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/O_nas.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+      /* --- MENU Z INDEX.HTML --- */
+      .main-nav {
+        width: 100vw;
+        background: rgba(0,0,0,0.85);
+        box-shadow: 0 2px 18px #00ff0033;
+        position: relative;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin-bottom: 0;
+      }
+      .nav-logo {
+        color: #00ff00;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-right: 18px;
+        letter-spacing: 1px;
+        text-shadow: 0 0 8px #00ff00;
+      }
+      .nav-list {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        background: none;
+      }
+      .nav-list li a {
+        color: #00ff00;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 15px 20px;
+        display: block;
+        border-radius: 5px;
+        transition: background 0.3s, color 0.3s;
+      }
+      .nav-list li a:hover {
+        background: #00ff00;
+        color: #222;
+      }
+      .nav-toggle {
+        display: none;
+      }
+      .nav-toggle-label {
+        display: none;
+        cursor: pointer;
+        margin-left: 12px;
+        margin-right: 12px;
+        z-index: 101;
+      }
+      .nav-toggle-label span {
+        display: block;
+        width: 32px;
+        height: 4px;
+        margin: 7px 0;
+        background: #00ff00;
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      @media (max-width: 1100px) {
+        .nav-list li a {
+          padding: 12px 10px;
+          font-size: 0.95rem;
+        }
+      }
+      @media (max-width: 900px) {
+        .main-nav {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .nav-list {
+          flex-direction: column;
+          width: 100vw;
+          background: rgba(0,0,0,0.97);
+          position: absolute;
+          top: 100%;
+          left: 0;
+          z-index: 100;
+          box-shadow: 0 2px 18px #00ff0033;
+          display: none;
+        }
+        .nav-list.open {
+          display: flex;
+        }
+        .nav-toggle {
+          display: block;
+        }
+        .nav-toggle-label {
+          display: block;
+        }
+      }
+      @media (max-width: 700px) {
+        .nav-logo {
+          font-size: 1.3rem;
+        }
+        .nav-list li a {
+          padding: 10px 6px;
+          font-size: 0.8rem;
+        }
+      }
+      /* --- KONIEC MENU --- */
+      /* --- STYLES DLA SEKCJI O NAS --- */
+      #o-nas {
+        max-width: 900px;
+        margin: 48px auto 40px auto;
+        padding: 40px 20px;
+        background: rgba(34, 34, 34, 0.4);
+        border-radius: 15px;
+        border: 3px solid #00ff00;
+        box-shadow: 0 0 32px 8px #00ff00, 0 0 5px rgba(255, 215, 0, 0.5);
+        animation: premiumGlowGreen 2.2s ease-in-out infinite alternate;
+        position: relative;
+        z-index: 2;
+      }
+      @keyframes premiumGlowGreen {
+        0% { box-shadow: 0 0 32px 8px #00ff00, 0 0 5px rgba(255, 215, 0, 0.5); }
+        100% { box-shadow: 0 0 64px 16px #00ff00, 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4); }
+      }
+      #o-nas h2 {
+        color: #00ff00;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 40px;
+        text-shadow: 0 0 10px #00ff00;
+      }
+      #o-nas h3 {
+        color: #00ff00;
+        font-size: 1.8rem;
+        margin: 30px 0 15px 0;
+        border-bottom: 2px solid #00ff00;
+        padding-bottom: 5px;
+      }
+      .intro-section,
+      .mission-section,
+      .experience-section,
+      .team-section,
+      .contact-section {
+        background: rgba(0, 0, 0, 0.0);
+        padding: 25px;
+        margin: 20px 0;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        border: 3px solid #00ff00;
+        box-shadow: 0 0 7px 2px #00ff00, 0 0 10px 2px rgba(0,255,0,0.12);
+      }
+      .intro-section:hover,
+      .mission-section:hover,
+      .experience-section:hover,
+      .team-section:hover,
+      .contact-section:hover {
+        background: rgba(0, 0, 0, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 0 18px 4px #00ff00, 0 0 24px 8px rgba(0,255,0,0.18);
+        border: 3px solid #00ff00;
+      }
+      #o-nas p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 15px;
+        text-align: justify;
+      }
+      #o-nas ul {
+        margin: 15px 0;
+        padding-left: 20px;
+      }
+      #o-nas ul li {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 8px;
+        color: #ddd;
+      }
+      #o-nas ul li strong {
+        color: #00ff00;
+      }
+      @media (max-width: 900px) {
+        #o-nas {
+          margin: 32px 8px 28px 8px;
+          padding: 24px 8px;
+          box-shadow: 0 0 24px 6px #00ff00, 0 0 5px rgba(255,215,0,0.3);
+        }
+        #o-nas h2 {
+          font-size: 2rem;
+        }
+      }
+      @media (max-width: 600px) {
+        #o-nas {
+          margin: 18px 2px 16px 2px;
+          padding: 12px 2vw;
+          box-shadow: 0 0 12px 3px #00ff00, 0 0 2px rgba(255,215,0,0.2);
+        }
+        #o-nas h2 {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+</head>
+<body>
+    <!-- MENU Z INDEX.HTML -->
+    <nav class="main-nav">
+      <div class="nav-logo">eCVjob.pl</div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+      <label for="nav-toggle" class="nav-toggle-label">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <ul class="nav-list">
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="#o-nas">O nas</a></li>
+        <li><a href="#baza-cv">Baza CV</a></li>
+        <li><a href="#oferty-pracy">Oferty pracy</a></li>
+        <li><a href="#uslugi">Usługi</a></li>
+        <li><a href="#kreator-cv">Kreator CV</a></li>
+        <li><a href="#cv-tips">CV Tips</a></li>
+        <li><a href="#webresume">WebResume</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#europass">Europass</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="logowanie.html">Logowanie</a></li>
+        <li><a href="rejestracja.html">Rejestracja</a></li>
+      </ul>
+    </nav>
+    <div class="logo-top-right" style="position: absolute; top: -40px; right: -20px; z-index: 100; display: flex; align-items: center; justify-content: flex-end;">
+      <a href="index.html">
+        <img src="images/logo.png" alt="Logo eCVjob.pl" style="height: 60px; width: auto; display: block;">
+      </a>
+    </div>
+    <main>
+      <section id="o-nas">
+        <h2 style="margin-bottom: 32px;">O nas</h2>
+        <!-- Karuzela O nas -->
+        <div id="onas-carousel-wrapper" style="display:block; position:relative; max-width:98vw; margin:0 auto 24px auto; z-index:3;">
+          <button id="onas-carousel-prev" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:#00ff00;color:#222;border:none;border-radius:50%;width:38px;height:38px;font-size:1.7em;font-weight:bold;cursor:pointer;z-index:2;">&#8592;</button>
+          <div id="onas-carousel" style="overflow:hidden;"></div>
+          <button id="onas-carousel-next" style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:#00ff00;color:#222;border:none;border-radius:50%;width:38px;height:38px;font-size:1.7em;font-weight:bold;cursor:pointer;z-index:2;">&#8594;</button>
+          <div id="onas-carousel-dots" style="display:flex;gap:10px;justify-content:center;margin-top:18px;"></div>
+        </div>
+      </section>
+    </main>
+    <script>
+    // MENU JS Z INDEX.HTML
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.getElementById('nav-toggle');
+      const navList = document.querySelector('.nav-list');
+      const navToggleLabel = document.querySelector('.nav-toggle-label');
+      function updateMenu() {
+        if(window.innerWidth <= 900) {
+          if(navToggle.checked) {
+            navList.classList.add('open');
+          } else {
+            navList.classList.remove('open');
+          }
+        } else {
+          navList.classList.remove('open');
+        }
+      }
+      navToggle.addEventListener('change', updateMenu);
+      window.addEventListener('resize', updateMenu);
+      updateMenu();
+    });
+
+    // Karuzela O nas
+    const onasSlides = [
+      {
+        title: 'O nas',
+        content: `Jesteśmy firmą, która specjalizuje się w dostarczaniu najwyższej jakości usług rekrutacyjnych.<br>Naszym celem jest łączenie pracodawców z najlepszymi kandydatami na rynku pracy.<br>Dzięki naszemu doświadczeniu i zaangażowaniu, pomagamy firmom znaleźć idealnych pracowników, a kandydatom znaleźć wymarzoną pracę.`
+      },
+      {
+        title: 'Nasza Misja',
+        content: `<strong>eCVjob.pl</strong> to platforma, która powstała z myślą o uproszczeniu procesu rekrutacji i poszukiwania pracy.<br>Wierzymy, że każdy zasługuje na możliwość znalezienia pracy, która będzie nie tylko źródłem dochodu, ale także spełnieniem zawodowym.<br><br>Naszą misją jest tworzenie mostów między talentami a pracodawcami, oferując nowoczesne narzędzia i rozwiązania, które czynią proces rekrutacji bardziej efektywnym i przyjaznym dla wszystkich stron.`
+      },
+      {
+        title: 'Nasze Doświadczenie',
+        content: `Nasza firma działa na rynku od wielu lat, zdobywając zaufanie zarówno pracodawców, jak i kandydatów.<br>Oferujemy szeroki zakres usług, w tym:<br><ul style='text-align:left; margin:10px 0 0 20px;'>
+          <li><strong>Doradztwo personalne</strong> - indywidualne konsultacje kariery</li>
+          <li><strong>Rekrutację specjalistyczną</strong> - na stanowiska specjalistyczne i menedżerskie</li>
+          <li><strong>Szkolenia i rozwój zawodowy</strong> - programy doskonalenia umiejętności</li>
+          <li><strong>Kreator CV</strong> - profesjonalne narzędzia do tworzenia aplikacji</li>
+          <li><strong>Usługi freelancerskie</strong> - platforma dla niezależnych specjalistów</li>
+        </ul>`
+      },
+      {
+        title: 'Nasz Zespół',
+        content: `Nasz zespół składa się z doświadczonych specjalistów, którzy z pasją podchodzą do swojej pracy i zawsze dążą do osiągnięcia najlepszych wyników.<br>Współpracujemy z wieloma firmami z różnych branż, co pozwala nam na skuteczne dopasowanie kandydatów do specyficznych wymagań naszych klientów.<br><br>Jesteśmy dumni z naszych osiągnięć i nieustannie dążymy do doskonalenia naszych usług, aby sprostać rosnącym oczekiwaniom rynku pracy.`
+      },
+      {
+        title: 'Skontaktuj się z nami',
+        content: `Masz pytania? Chcesz dowiedzieć się więcej o naszych usługach?<br>Jesteśmy tutaj, aby pomóc Ci osiągnąć Twoje cele zawodowe.<br><br><a href='index.html#kontakt' style='color: #00ff00; text-decoration: none; font-weight: bold;'>→ Przejdź do formularza kontaktowego</a>`
+      }
+    ];
+    let onasCarouselIndex = 0;
+    function renderOnasCarousel() {
+      const carousel = document.getElementById('onas-carousel');
+      carousel.innerHTML = '';
+      const slide = onasSlides[onasCarouselIndex];
+      const slideDiv = document.createElement('div');
+      slideDiv.className = 'onas-card-carousel';
+      slideDiv.style.margin = '0 auto';
+      slideDiv.style.maxWidth = '98vw';
+      slideDiv.style.background = 'rgba(0,0,0,0.7)';
+      slideDiv.style.border = '2px solid #00ff00';
+      slideDiv.style.borderRadius = '14px';
+      slideDiv.style.boxShadow = '0 2px 18px #00ff0033';
+      slideDiv.style.padding = '18px 12px';
+      slideDiv.style.display = 'flex';
+      slideDiv.style.flexDirection = 'column';
+      slideDiv.style.alignItems = 'center';
+      slideDiv.style.gap = '8px';
+      slideDiv.style.color = '#fff';
+      slideDiv.innerHTML = `<h3 style=\"color:#00ff00;font-size:1.15rem;font-weight:bold;margin-bottom:4px;\">${slide.title}</h3><div style=\"font-size:1.01rem;color:#fff;\">${slide.content}</div>`;
+      carousel.appendChild(slideDiv);
+      // Kropki
+      const dots = document.getElementById('onas-carousel-dots');
+      dots.innerHTML = '';
+      for(let i=0;i<onasSlides.length;i++){
+        const dot = document.createElement('span');
+        dot.style.width='16px';dot.style.height='16px';dot.style.borderRadius='50%';dot.style.background=i===onasCarouselIndex?'#00ff00':'#333';dot.style.cursor='pointer';dot.style.transition='background 0.2s, transform 0.2s';
+        dot.onclick=()=>{onasCarouselIndex=i;renderOnasCarousel();};
+        dots.appendChild(dot);
+      }
+    }
+    document.getElementById('onas-carousel-prev').onclick=function(){onasCarouselIndex=(onasCarouselIndex-1+onasSlides.length)%onasSlides.length;renderOnasCarousel();};
+    document.getElementById('onas-carousel-next').onclick=function(){onasCarouselIndex=(onasCarouselIndex+1)%onasSlides.length;renderOnasCarousel();};
+    document.addEventListener('DOMContentLoaded',renderOnasCarousel);
+    </script>
+    <script src="js/logo.js"></script>
+</body>
+</html>
