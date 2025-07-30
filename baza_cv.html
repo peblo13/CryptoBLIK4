@@ -261,13 +261,13 @@
         .plan-card:not(.basic), .plan-card:not(.basic) * {
             font-weight: bold !important;
             color: #00fff7 !important;
-            text-shadow: 0 0 8px #00fff7, 0 0 2px #00bfae;
+            text-shadow: none !important;
         }
         /* Plan za 0 zł (basic) - normalna waga i kolor zielony */
         .plan-card.basic, .plan-card.basic * {
             font-weight: normal !important;
             color: #00ff88 !important;
-            text-shadow: 0 2px 8px #003300, 0 0 2px #00ff00;
+            text-shadow: none !important;
         }
 
         .plan-card.advanced .plan-title {
@@ -299,7 +299,7 @@
         .plan-card.blue .plan-features li,
         .plan-card.blue .plan-button {
             color: #00cfff !important;
-            text-shadow: 0 2px 8px #001a33, 0 0 2px #00cfff;
+            text-shadow: none !important;
         }
         .plan-card.gold .plan-title,
         .plan-card.gold .plan-price,
@@ -307,7 +307,7 @@
         .plan-card.gold .plan-button {
             color: #ffe066 !important;
             font-weight: bold !important;
-            text-shadow: 0 2px 8px #332900, 0 0 2px #FFD700;
+            text-shadow: none !important;
         }
         .plan-card.sea .plan-title,
         .plan-card.sea .plan-price,
@@ -315,7 +315,7 @@
         .plan-card.sea .plan-button {
             color: #00ffd0 !important;
             font-weight: bold !important;
-            text-shadow: 0 2px 8px #003333, 0 0 2px #00ffd0;
+            text-shadow: none !important;
         }
 
         /* Pogrubienie i kolor dla wszystkich cen w planach */
@@ -364,7 +364,7 @@
         color: #fff !important;
         font-size: 1.25rem !important;
         position: relative;
-        text-shadow: 1px 1px 8px rgba(0, 255, 0, 0.18), 0 0 2px #fff;
+        text-shadow: none !important;
         font-weight: 500;
         text-align: center !important;
         line-height: 2.3rem !important;
@@ -391,26 +391,26 @@
 
         /* Wewnętrzna łuna w kontenerze planu, w kolorze obramowania */
         .plan-card {
-            box-shadow: 0 0 0 8px rgba(0,255,136,0.12) inset, 0 8px 32px 0 rgba(0,0,0,0.65), 0 1.5px 8px 0 rgba(0,255,0,0.08) !important;
+            box-shadow: 0 0 0 2px rgba(0,255,136,0.02) inset, 0 1px 4px 0 rgba(0,0,0,0.075), 0 0.25px 1px 0 rgba(0,255,0,0.01) !important;
         }
         .plan-card.basic {
-            box-shadow: 0 0 0 12px rgba(0,255,136,0.22) inset, 0 8px 32px 0 rgba(0,0,0,0.65), 0 1.5px 8px 0 rgba(0,255,0,0.08) !important;
+            box-shadow: 0 0 0 3px rgba(0,255,136,0.03) inset, 0 1px 4px 0 rgba(0,0,0,0.075), 0 0.25px 1px 0 rgba(0,255,0,0.01) !important;
         }
         .plan-card.blue {
-            box-shadow: 0 0 0 12px rgba(0,207,255,0.22) inset, 0 8px 32px 0 rgba(0,0,0,0.65), 0 1.5px 8px 0 rgba(0,255,0,0.08) !important;
+            box-shadow: 0 0 0 3px rgba(0,207,255,0.03) inset, 0 1px 4px 0 rgba(0,0,0,0.075), 0 0.25px 1px 0 rgba(0,255,0,0.01) !important;
         }
         .plan-card.gold.basic {
-            box-shadow: 0 0 0 12px rgba(255,215,0,0.22) inset, 0 8px 32px 0 rgba(0,0,0,0.65), 0 1.5px 8px 0 rgba(0,255,0,0.08) !important;
+            box-shadow: 0 0 0 3px rgba(255,215,0,0.03) inset, 0 1px 4px 0 rgba(0,0,0,0.075), 0 0.25px 1px 0 rgba(0,255,0,0.01) !important;
         }
         .plan-card.gold.advanced {
-            box-shadow: 0 0 0 12px rgba(229,128,255,0.22) inset, 0 8px 32px 0 rgba(0,0,0,0.65), 0 1.5px 8px 0 rgba(0,255,0,0.08) !important;
+            box-shadow: 0 0 0 3px rgba(229,128,255,0.03) inset, 0 1px 4px 0 rgba(0,0,0,0.075), 0 0.25px 1px 0 rgba(0,255,0,0.01) !important;
         }
         .plan-card.sea.advanced {
             box-shadow:
-                0 0 48px 12px rgba(0,255,247,0.38) inset,
-                0 0 0 8px rgba(0,255,247,0.18) inset,
-                0 8px 32px 0 rgba(0,0,0,0.65),
-                0 1.5px 8px 0 rgba(0,255,0,0.08) !important;
+                0 0 6px 1.5px rgba(0,255,247,0.045) inset,
+                0 0 0 1px rgba(0,255,247,0.02) inset,
+                0 1px 4px 0 rgba(0,0,0,0.075),
+                0 0.25px 1px 0 rgba(0,255,0,0.01) !important;
         }
 
         .plan-card.advanced .plan-features li::before {
@@ -718,14 +718,14 @@
                     <h3 class="plan-title" style="color:#00cfff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00cfff,0 0 2px #fff;text-align:center;">Starter</h3>
                     <div class="plan-price" style="color:#00cfff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00cfff,0 0 2px #fff;text-align:center;margin-bottom:18px;">14,99 <span class="currency" style="color:#0078ff;font-size:2.1rem;">zł/miesiąc</span></div>
                     <ul class="plan-features" style="font-size:1.25rem;color:#00cfff;font-weight:bold;text-shadow:0 0 8px #00cfff,0 0 2px #fff;text-align:center;">
-                      <li>Dodanie CV do bazy aktualnych CV</li>
-                      <li>5 podstawowych szablonów</li>
-                      <li>Eksport PDF</li>
-                      <li>Podstawowe wskazówki</li>
-                      <li>Bez reklam</li>
-                      <li>Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li>Dodanie 3 ogłoszeń o pracę/miesiąc</li>
-                      <li>Dodanie 3 ogłoszeń usług/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie CV do bazy aktualnych CV</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">5 podstawowych szablonów</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Podstawowe wskazówki</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 3 ogłoszeń o pracę/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 3 ogłoszeń usług/miesiąc</li>
                     </ul>
 <a href="#" class="plan-button" style="background:linear-gradient(90deg,#0078ff 0%,#00cfff 100%);color:#fff;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #0078ffa0,0 2px 8px #001a33a0;letter-spacing:2px;text-shadow:0 0 8px #00cfff,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#00cfff 0%,#0078ff 100%)';this.style.boxShadow='0 12px 36px #00cfffcc,0 4px 12px #001a33cc';" onmouseout="this.style.background='linear-gradient(90deg,#0078ff 0%,#00cfff 100%)';this.style.boxShadow='0 8px 32px #0078ffa0,0 2px 8px #001a33a0';" onclick="selectPlan('starter', 14.99)">Wybierz Starter</a>
                   </div>
@@ -738,14 +738,14 @@
                     <h3 class="plan-title" style="color:#FFD700;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #FFD700,0 0 2px #fff;text-align:center;">Premium</h3>
                     <div class="plan-price" style="color:#FFD700;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #FFD700,0 0 2px #fff;text-align:center;margin-bottom:18px;">29,99 <span class="currency" style="color:#FFA500;font-size:2.1rem;">zł/miesiąc</span></div>
                     <ul class="plan-features" style="font-size:1.25rem;color:#FFD700;font-weight:bold;text-shadow:0 0 8px #FFD700,0 0 2px #fff;text-align:center;">
-                      <li>Dodanie CV do bazy aktualnych CV</li>
-                      <li>Wszystkie szablony CV</li>
-                      <li>Eksport PDF</li>
-                      <li>Zaawansowane wskazówki</li>
-                      <li>Bez reklam</li>
-                      <li>Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li>Dodanie 10 ogłoszeń o pracę/miesiąc</li>
-                      <li>Dodanie 10 ogłoszeń usług/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie CV do bazy aktualnych CV</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Wszystkie szablony CV</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Zaawansowane wskazówki</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 10 ogłoszeń o pracę/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 10 ogłoszeń usług/miesiąc</li>
                     </ul>
 <a href="#" class="plan-button" style="background:linear-gradient(90deg,#FFD700 0%,#FFA500 100%);color:#222;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #FFD700a0,0 2px 8px #332900a0;letter-spacing:2px;text-shadow:0 0 8px #FFD700,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#FFA500 0%,#FFD700 100%)';this.style.boxShadow='0 12px 36px #FFD700cc,0 4px 12px #332900cc';" onmouseout="this.style.background='linear-gradient(90deg,#FFD700 0%,#FFA500 100%)';this.style.boxShadow='0 8px 32px #FFD700a0,0 2px 8px #332900a0';" onclick="selectPlan('premium', 29.99)">Wybierz Premium</a>
                   </div>
@@ -753,14 +753,14 @@
                     <h3 class="plan-title" style="color:#00ffd0;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;">Business Podstawowy</h3>
                     <div class="plan-price" style="color:#00ffd0;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;margin-bottom:18px;">49,99 <span class="currency" style="color:#00bfae;font-size:2.1rem;">zł/miesiąc</span></div>
                     <ul class="plan-features" style="font-size:1.25rem;color:#00ffd0;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;">
-                      <li>Dostęp do <strong>50 CV</strong> z bazy danych</li>
-                      <li>Wszystkie szablony CV</li>
-                      <li>Eksport PDF</li>
-                      <li>Zaawansowane wskazówki</li>
-                      <li>Bez reklam</li>
-                      <li>Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li>Dodanie 20 ogłoszeń o pracę/miesiąc</li>
-                      <li>Dodanie 20 ogłoszeń usług/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dostęp do <strong>50 CV</strong> z bazy danych</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Wszystkie szablony CV</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Zaawansowane wskazówki</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 20 ogłoszeń o pracę/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 20 ogłoszeń usług/miesiąc</li>
                     </ul>
 <a href="#" class="plan-button" style="background:linear-gradient(90deg,#00ffd0 0%,#00bfae 100%);color:#003333;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #00ffd0a0,0 2px 8px #003333a0;letter-spacing:2px;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#00bfae 0%,#00ffd0 100%)';this.style.boxShadow='0 12px 36px #00ffd0cc,0 4px 12px #003333cc';" onmouseout="this.style.background='linear-gradient(90deg,#00ffd0 0%,#00bfae 100%)';this.style.boxShadow='0 8px 32px #00ffd0a0,0 2px 8px #003333a0';" onclick="selectPlan('business-podstawowy', 49.99)">Wybierz Business Podstawowy</a>
                   </div>
@@ -768,14 +768,14 @@
                     <h3 class="plan-title" style="color:#e580ff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #e580ff,0 0 2px #fff;text-align:center;">Business Zaawansowany</h3>
                     <div class="plan-price" style="color:#e580ff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #e580ff,0 0 2px #fff;text-align:center;margin-bottom:18px;">99,99 <span class="currency" style="color:#c800ff;font-size:2.1rem;">zł/miesiąc</span></div>
                     <ul class="plan-features" style="font-size:1.25rem;color:#e580ff;font-weight:bold;text-shadow:0 0 8px #e580ff,0 0 2px #fff;text-align:center;">
-                      <li>Dostęp do bazy CV</li>
-                      <li>Wszystkie szablony CV</li>
-                      <li>Eksport PDF</li>
-                      <li>Zaawansowane wskazówki</li>
-                      <li>Bez reklam</li>
-                      <li>Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li>Dodanie nielimitowanej liczby ogłoszeń o pracę</li>
-                      <li>Dodanie nielimitowanej liczby ogłoszeń usług</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dostęp do bazy CV</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Wszystkie szablony CV</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Zaawansowane wskazówki</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie nielimitowanej liczby ogłoszeń o pracę</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie nielimitowanej liczby ogłoszeń usług</li>
                     </ul>
 <a href="#" class="plan-button" style="background:linear-gradient(90deg,#e580ff 0%,#c800ff 100%);color:#fff;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #e580ffa0,0 2px 8px #c800ffa0;letter-spacing:2px;text-shadow:0 0 8px #e580ff,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#c800ff 0%,#e580ff 100%)';this.style.boxShadow='0 12px 36px #e580ffcc,0 4px 12px #c800ffcc';" onmouseout="this.style.background='linear-gradient(90deg,#e580ff 0%,#c800ff 100%)';this.style.boxShadow='0 8px 32px #e580ffa0,0 2px 8px #c800ffa0';" onclick="selectPlan('business-zaawansowany', 99.99)">Wybierz Business Zaawansowany</a>
                   </div>

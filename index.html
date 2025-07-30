@@ -8,6 +8,10 @@
     <!-- <script src="js/main.js"></script> -->
 
     <style>
+      body {
+        background: url('images/tlo.jpg') no-repeat center center fixed;
+        background-size: cover;
+      }
       /* --- MENU 14 ELEMENTÓW --- */
       .main-nav {
         display: flex;
@@ -122,8 +126,6 @@
         #cv-tips .dos-card,
         #cv-tips .donts-card {
           padding: 1.2rem !important;
-          min-width: 0;
-          box-sizing: border-box;
         }
       }
       @media (max-width: 600px) {
@@ -140,48 +142,7 @@
           padding: 0.7rem !important;
         }
       }
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        width: 100%;
-        box-sizing: border-box;
-        border: 3px solid #39ff14;
-        background: rgba(0,0,0,0.65);
-        border-radius: 18px;
-<!-- Sekcja Kreator CV z karuzelą -->
-        box-shadow: 0 0 32px 0 #ff2222cc, 0 0 64px 0 #ff222288, 0 0 0 0 #00eaff00;
-        transition: box-shadow 0.5s;
-      }
 
-      /* Baza CV: łuna niebiesko-morska, bardzo świecąca */
-      #baza-cv .container {
-        box-shadow: 0 0 48px 0 #00eaffcc, 0 0 96px 0 #00ffd4cc, 0 0 128px 0 #00eaff99, 0 0 0 0 #ff222200;
-        border-color: #00eaff;
-      }
-body {
-        background: #181818 url('./images/tlo.jpg') no-repeat center center fixed;
-        background-size: cover;
-        min-height: 100vh;
-        color: #fff;
-        font-family: 'Segoe UI', 'Arial', sans-serif;
-      }
-      /* --- ANIMACJE SEKCJI --- */
-      section {
-        opacity: 1;
-        transform: none;
-        filter: none;
-        transition: none;
-      }
-      /* --- ANIMACJA FAQ --- */
-      .faq-answer {
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        transform: translateY(18px) scale(0.98);
-        filter: blur(2px) brightness(0.85);
-        background: rgba(0,255,0,0.07);
-        box-shadow: 0 0 0 0 #00ff0033;
         transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.45s cubic-bezier(0.4,0,0.2,1), transform 0.45s, filter 0.45s, box-shadow 0.7s;
         margin-bottom: 0;
       }
@@ -380,14 +341,29 @@ body {
     </style>
   </div>
 </section>
+<script>
+// Prosta karuzela Do/Don't w sekcji CV Tips
+document.addEventListener('DOMContentLoaded', function() {
+  let current = 0;
+  const items = [
+    document.getElementById('carousel-do'),
+    document.getElementById('carousel-dont')
+  ];
+  setInterval(() => {
+    items[current].style.display = 'none';
+    current = (current + 1) % items.length;
+    items[current].style.display = 'block';
+  }, 3500);
+});
+</script>
 
 
 
 
 
             <!-- Sekcja Baza CV -->
-            <section id="baza-cv" class="glow-cvblue" style="box-shadow: none;">
-              <div class="container">
+            <section id="baza-cv" class="glow-green" style="background: rgba(0, 0, 0, 0.6); border: 2px solid #00ff00; border-radius: 16px; box-shadow: 0 0 32px #00ff00cc, 0 4px 16px rgba(0, 0, 0, 0.3); margin: 40px auto 30px auto; padding: 40px;">
+              <div class="cv-base-container" style="background: rgba(0,0,0,0.35); border-radius: 16px; box-shadow: 0 0 32px #00ff00cc; padding: 32px 24px;">
                 <h2 style="
                     color: #00eaff;
                     font-size: 2.7rem;
@@ -585,77 +561,20 @@ function closeJobForm() {
       <input type="text" id="service-search-input" placeholder="Szukaj usług po nazwie, lokalizacji lub opisie" style="padding: 10px 14px; border-radius: 8px; border: 2px solid #00ff00; font-size: 1.05rem; min-width: 180px; max-width: 320px; width: 100%; outline: none; background: #181818; color: #00ff00;">
       <button id="service-search-btn" style="background: linear-gradient(90deg, #00ff00 60%, #00fff7 100%); color: #111; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: bold; padding: 10px 18px; cursor: pointer;">Szukaj</button>
     </div>
-    <div class="uslugi-list" id="uslugi-list"></div>
+
+    <!-- Karuzela usług na mobile -->
+    <div id="uslugi-carousel-wrapper" style="width:100%;max-width:420px;margin:0 auto 18px auto;display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+        <button id="uslugi-carousel-prev" style="background:#222;border:none;border-radius:50%;width:38px;height:38px;color:#00ff00;font-size:1.5rem;cursor:pointer;">&#8592;</button>
+        <div id="uslugi-carousel" style="flex:1;min-width:0;"></div>
+        <button id="uslugi-carousel-next" style="background:#222;border:none;border-radius:50%;width:38px;height:38px;color:#00ff00;font-size:1.5rem;cursor:pointer;">&#8594;</button>
+      </div>
+      <div id="uslugi-carousel-dots" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:10px;"></div>
+    </div>
     <style>
     .uslugi-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(260px, 1fr));
-      gap: 22px 28px;
-      justify-content: center;
-      align-items: start;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding-bottom: 10px;
-      justify-items: center;
-      align-content: center;
-    }
-    .uslugi-list > div {
-      width: 100%;
-      max-width: 340px;
-      min-width: 0;
-      box-sizing: border-box;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    @media (max-width: 700px) {
-      .uslugi-list {
-        grid-template-columns: 1fr;
-        gap: 18px 0;
-        max-width: 98vw;
-      }
-      .uslugi-list > div {
-        max-width: 98vw;
-      }
-    }
-    .uslugi-list > div {
-      width: 100%;
-      max-width: 340px;
-      min-width: 0;
-      box-sizing: border-box;
-    }
-    @media (max-width: 700px) {
-      .uslugi-list {
-        grid-template-columns: 1fr;
-        gap: 18px 0;
-        max-width: 98vw;
-      }
-      .uslugi-list > div {
-        max-width: 98vw;
-      }
-    }
-    .uslugi-list > div {
-      width: 100%;
-      max-width: 340px;
-      min-width: 0;
-      box-sizing: border-box;
-    }
-    @media (max-width: 700px) {
-      .uslugi-list {
-        grid-template-columns: 1fr !important;
-        gap: 18px 0;
-        max-width: 98vw;
-      }
-      .uslugi-list > div {
-        max-width: 98vw;
-      }
-    }
-    </style>
-    <style>
-    @media (max-width: 900px) {
-      .uslugi-list {
-        grid-template-columns: 1fr !important;
-      }
+      /* ...pozostałe style... */
     }
     .job-offer-grid {
       display: grid;
@@ -701,14 +620,16 @@ function closeJobForm() {
     </div>
     <!-- Formularz kontaktowy do usług -->
     <div id="service-contact-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
-      <div style="background:#181818;border:2px solid #00ff00;border-radius:16px;max-width:400px;width:90vw;padding:32px 24px;box-shadow:0 0 32px #00ff00;position:relative;">
+      <div style="background:#181818;border:2px solid #00ff00;border-radius:16px;max-width:420px;width:90vw;padding:32px 24px;box-shadow:0 0 32px #00ff00;position:relative;">
         <button onclick="document.getElementById('service-contact-modal').style.display='none'" style="position:absolute;top:10px;right:16px;background:none;border:none;font-size:2rem;color:#00ff00;cursor:pointer;">&times;</button>
-        <h3 style="color:#00ff00;text-align:center;margin-bottom:18px;">Kontakt z usługodawcą</h3>
-        <form id="service-contact-form-modal">
-          <input type="text" name="name" placeholder="Imię i nazwisko" required style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1.5px solid #00ff00;background:#181818;color:#00ff00;">
-          <input type="email" name="email" placeholder="Email" required style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1.5px solid #00ff00;background:#181818;color:#00ff00;">
-          <textarea name="message" placeholder="Wiadomość" rows="4" style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1.5px solid #00ff00;background:#181818;color:#00ff00;"></textarea>
-          <button type="submit" style="width:100%;padding:12px;background:linear-gradient(90deg,#00ff00 60%,#00fff7 100%);color:#111;border:none;border-radius:8px;font-weight:bold;font-size:1.1rem;">Wyślij</button>
+        <h3 style='color:#00ff00;text-align:center;margin-bottom:18px;'>Formularz kontaktowy do usługodawcy</h3>
+        <form id="service-contact-form-inner" style="display:flex;flex-direction:column;gap:14px;">
+          <input type="text" name="name" placeholder="Imię i nazwisko" required style="padding:10px 14px;border-radius:8px;border:1.5px solid #00ff00;font-size:1.05rem;background:#222;color:#fff;">
+          <input type="email" name="email" placeholder="E-mail" required style="padding:10px 14px;border-radius:8px;border:1.5px solid #00ff00;font-size:1.05rem;background:#222;color:#fff;">
+          <input type="tel" name="phone" placeholder="Telefon" style="padding:10px 14px;border-radius:8px;border:1.5px solid #00ff00;font-size:1.05rem;background:#222;color:#fff;">
+          <textarea name="message" placeholder="Wiadomość" required style="padding:10px 14px;border-radius:8px;border:1.5px solid #00ff00;font-size:1.05rem;background:#222;color:#fff;min-height:80px;"></textarea>
+          <button type="submit" style="background:linear-gradient(90deg,#00ff00 60%,#00fff7 100%);color:#111;border:none;border-radius:8px;font-size:1.08rem;font-weight:bold;padding:12px 0;cursor:pointer;margin-top:8px;">Wyślij zapytanie</button>
+          <button type="button" onclick="document.getElementById('service-contact-modal').style.display='none'" style="background:#222;color:#fff;border:none;border-radius:8px;font-size:1rem;padding:8px 0;cursor:pointer;margin-top:4px;">Anuluj</button>
         </form>
       </div>
     </div>
@@ -1441,48 +1362,53 @@ function closeJobForm() {
       <div id="cv-carousel" class="cv-carousel" style="overflow: hidden; position: relative;">
         <!-- Slajdy karuzeli -->
         <div class="cv-carousel-slide" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 14px; box-shadow: 0 4px 18px #00ff00a0; padding: 24px 38px; color: #222; min-height: 340px;">
-          <img src="images/szablon1.jpg" alt="Szablon CV Klasyczny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px;">
-          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #222;">Klasyczny</h3>
-          <p style="color: #222; margin-bottom: 1rem; font-size: 0.9rem;">Tradycyjny, elegancki design odpowiedni dla korporacji i firm konserwatywnych.</p>
-          <a href="kreator-formularz.html?template=1" class="template-button-main" style="display: block; width: 100%; background: #eee; color: #222; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px;">Wybierz szablon</a>
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(18,18,18,0.82);border-radius:14px;z-index:1;"></div>
+          <img src="images/szablon1.jpg" alt="Szablon CV Klasyczny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px; position:relative; z-index:2;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #00fff7; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Klasyczny</h3>
+          <p style="color: #00ff00; margin-bottom: 1rem; font-size: 1rem; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Tradycyjny, elegancki design odpowiedni dla korporacji i firm konserwatywnych.</p>
+          <a href="kreator-formularz.html?template=1" class="template-button-main" style="display: block; width: 100%; background: linear-gradient(90deg,#00ff00 60%,#00fff7 100%); color: #181818; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px; position:relative; z-index:2;">Wybierz szablon</a>
         </div>
         <div class="cv-carousel-slide" style="display: none; flex-direction: column; align-items: center; justify-content: center; background: #e0f7fa; border-radius: 14px; box-shadow: 0 4px 18px #00ff00a0; padding: 24px 38px; color: #222; min-height: 340px;">
-          <img src="images/szablon2.jpg" alt="Szablon CV Kreatywny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px;">
-          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #00ff00;">Kreatywny</h3>
-          <p style="color: #222; margin-bottom: 1rem; font-size: 0.9rem;">Nowoczesny design z elementami graficznymi, idealny dla branż kreatywnych i IT.</p>
-          <a href="kreator-formularz.html?template=2" class="template-button-main" style="display: block; width: 100%; background: #eee; color: #222; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px;">Wybierz szablon</a>
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(18,18,18,0.82);border-radius:14px;z-index:1;"></div>
+          <img src="images/szablon2.jpg" alt="Szablon CV Kreatywny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px; position:relative; z-index:2;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #00fff7; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Kreatywny</h3>
+          <p style="color: #00ff00; margin-bottom: 1rem; font-size: 1rem; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Nowoczesny design z elementami graficznymi, idealny dla branż kreatywnych i IT.</p>
+          <a href="kreator-formularz.html?template=2" class="template-button-main" style="display: block; width: 100%; background: linear-gradient(90deg,#00ff00 60%,#00fff7 100%); color: #181818; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px; position:relative; z-index:2;">Wybierz szablon</a>
         </div>
         <div class="cv-carousel-slide" style="display: none; flex-direction: column; align-items: center; justify-content: center; background: #fffde7; border-radius: 14px; box-shadow: 0 4px 18px #00ff00a0; padding: 24px 38px; color: #222; min-height: 340px;">
-          <img src="images/szablon3.jpg" alt="Szablon CV Minimalistyczny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px;">
-          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #222;">Minimalistyczny</h3>
-          <p style="color: #222; margin-bottom: 1rem; font-size: 0.9rem;">Prosty, przejrzysty układ dla osób ceniących czytelność i elegancję.</p>
-          <a href="kreator-formularz.html?template=3" class="template-button-main" style="display: block; width: 100%; background: #eee; color: #222; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px;">Wybierz szablon</a>
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(18,18,18,0.82);border-radius:14px;z-index:1;"></div>
+          <img src="images/szablon3.jpg" alt="Szablon CV Minimalistyczny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px; position:relative; z-index:2;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #00fff7; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Minimalistyczny</h3>
+          <p style="color: #00ff00; margin-bottom: 1rem; font-size: 1rem; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Prosty, przejrzysty układ dla osób ceniących czytelność i elegancję.</p>
+          <a href="kreator-formularz.html?template=3" class="template-button-main" style="display: block; width: 100%; background: linear-gradient(90deg,#00ff00 60%,#00fff7 100%); color: #181818; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px; position:relative; z-index:2;">Wybierz szablon</a>
         </div>
         <div class="cv-carousel-slide" style="display: none; flex-direction: column; align-items: center; justify-content: center; background: #f3e5f5; border-radius: 14px; box-shadow: 0 4px 18px #00ff00a0; padding: 24px 38px; color: #222; min-height: 340px;">
-          <img src="images/szablon4.jpg" alt="Szablon CV Nowoczesny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px;">
-          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #222;">Nowoczesny</h3>
-          <p style="color: #222; margin-bottom: 1rem; font-size: 0.9rem;">Dynamiczny układ z akcentami kolorystycznymi, dla osób chcących się wyróżnić.</p>
-          <a href="kreator-formularz.html?template=4" class="template-button-main" style="display: block; width: 100%; background: #eee; color: #222; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px;">Wybierz szablon</a>
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(18,18,18,0.82);border-radius:14px;z-index:1;"></div>
+          <img src="images/szablon4.jpg" alt="Szablon CV Nowoczesny" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 12px #00ff00a0; margin-bottom:18px; position:relative; z-index:2;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #00fff7; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Nowoczesny</h3>
+          <p style="color: #00ff00; margin-bottom: 1rem; font-size: 1rem; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Dynamiczny układ z akcentami kolorystycznymi, dla osób chcących się wyróżnić.</p>
+          <a href="kreator-formularz.html?template=4" class="template-button-main" style="display: block; width: 100%; background: linear-gradient(90deg,#00ff00 60%,#00fff7 100%); color: #181818; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px; position:relative; z-index:2;">Wybierz szablon</a>
         </div>
-        <div class="cv-carousel-slide premium-main" style="display: none; flex-direction: column; align-items: center; justify-content: center; background: #fffbe6; border-radius: 18px; box-shadow: 0 0 60px 20px #ffd70099, 0 0 0 0 #ffd700; border: 4px solid #ffd700; position: relative; min-height: 340px;">
+        <div class="cv-carousel-slide premium-main" style="display: none; flex-direction: column; align-items: center; justify-content: center; background: #fffbe6; border-radius: 18px; box-shadow: 0 0 60px 20px #ffd70099, 0 0 160px 40px #ffffffcc, 0 0 0 0 #ffd700; border: 4px solid #ffd700; position: relative; min-height: 340px;">
           <div style="position: absolute; top: 22px; left: -40px; width: 320px; transform: rotate(-18deg); z-index: 20;">
-            <div style="display: flex; align-items: center; justify-content: center; background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%); color: #b8860b; font-weight: bold; font-size: 1.08rem; padding: 7px 0 7px 0; border-radius: 18px; box-shadow: 0 2px 12px #ffd70099; border: 2px solid #fffbe6; letter-spacing: 1px;">
+            <div style="display: flex; align-items: center; justify-content: center; background: linear-gradient(90deg, #181818 80%, #222 100%); color: #fff; font-weight: bold; font-size: 1.08rem; padding: 7px 0 7px 0; border-radius: 18px; box-shadow: 0 2px 12px #ffd70099; border: 2px solid #ffd700; letter-spacing: 1px;">
               <span style="font-size: 1.5em; margin-right: 10px;">🏆</span> Najczęściej wybierany
             </div>
           </div>
-          <div class="premium-badge-main" style="position: absolute; top: 10px; right: 10px; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #000; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; z-index: 10; box-shadow: 0 2px 8px rgba(255, 215, 0, 0.5);">PREMIUM</div>
-          <img src="images/2.png" alt="Reklama Szablonu Premium" style="width: 100%; max-height: 60%; object-fit: contain; transition: transform 0.3s ease; filter: brightness(1); background: #fff; border: 2px solid #ffd700; border-radius: 10px; display: block; margin-bottom: 2px;" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=\'color:#ff2222;font-weight:bold;font-size:1.1rem;\'>Brak podglądu szablonu (2.png nie znaleziony)</div>';">
-          <img src="images/1.png" alt="Podgląd Szablonu Premium" style="width: 100%; max-height: 40%; object-fit: contain; transition: transform 0.3s ease; filter: brightness(1); background: #fff; border: 2px solid #ffd700; border-radius: 10px; display: block;" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=\'color:#ff2222;font-weight:bold;font-size:1.1rem;\'>Brak podglądu szablonu (1.png nie znaleziony)</div>';">
-          <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: #ffd700; font-weight: bold; text-shadow: 0 0 12px #ffd700, 0 0 24px #fffbe6;">eCVjob.pl Profesjonalny</h3>
-          <div style="margin-bottom: 0.7rem;">
+          <div class="premium-badge-main" style="position: absolute; top: 10px; right: 10px; background: linear-gradient(45deg, #ffd700, #181818); color: #ffd700; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; z-index: 10; box-shadow: 0 2px 8px rgba(255, 215, 0, 0.5); border: 2px solid #ffd700;">PREMIUM</div>
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(18,18,18,0.82);border-radius:18px;z-index:1;"></div>
+          <img src="images/2.png" alt="Reklama Szablonu Premium" style="width: 100%; max-height: 60%; object-fit: contain; transition: transform 0.3s ease; filter: brightness(1.1); background: transparent; border: 2px solid #ffd700; border-radius: 10px; display: block; margin-bottom: 2px; position:relative; z-index:2;" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=\'color:#ff2222;font-weight:bold;font-size:1.1rem;\'>Brak podglądu szablonu (2.png nie znaleziony)</div>';">
+          <img src="images/1.png" alt="Podgląd Szablonu Premium" style="width: 100%; max-height: 40%; object-fit: contain; transition: transform 0.3s ease; filter: brightness(1.1); background: transparent; border: 2px solid #ffd700; border-radius: 10px; display: block; position:relative; z-index:2;" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=\'color:#ff2222;font-weight:bold;font-size:1.1rem;\'>Brak podglądu szablonu (1.png nie znaleziony)</div>';">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: #ffd700; font-weight: bold; text-shadow: 0 0 12px #ffd700, 0 0 24px #181818; position:relative; z-index:2;">eCVjob.pl Profesjonalny</h3>
+          <div style="margin-bottom: 0.7rem; position:relative; z-index:2;">
             <span style="color: #FFD700; font-size: 1.35em; text-shadow: 0 0 8px #FFD700;">★</span>
             <span style="color: #FFD700; font-size: 1.35em; text-shadow: 0 0 8px #FFD700;">★</span>
             <span style="color: #FFD700; font-size: 1.35em; text-shadow: 0 0 8px #FFD700;">★</span>
             <span style="color: #FFD700; font-size: 1.35em; text-shadow: 0 0 8px #FFD700;">★</span>
             <span style="color: #FFD700; font-size: 1.35em; text-shadow: 0 0 8px #FFD700;">★</span>
           </div>
-          <p style="color: #222; margin-bottom: 1rem; font-size: 0.9rem;">Autorski szablon z systemem ocen umiejętności, miejscem na zdjęcie i designem eCVjob.pl.</p>
-          <a href="cv-form.html" class="template-button-main premium-button" style="display: block; width: 100%; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #000; border: 2px solid #ffd700; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px; box-shadow: 0 0 16px #ffd700;">Wybierz szablon</a>
+          <p style="color: #ffd700; margin-bottom: 1rem; font-size: 0.98rem; position:relative; z-index:2; text-shadow:0 2px 8px #000;">Autorski szablon z systemem ocen umiejętności, miejscem na zdjęcie i designem eCVjob.pl.</p>
+          <a href="cv-form.html" class="template-button-main premium-button" style="display: block; width: 100%; background: linear-gradient(90deg, #181818 80%, #222 100%); color: #fff; border: 2px solid #ffd700; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px; box-shadow: 0 0 16px #ffd700; position:relative; z-index:2;">Wybierz szablon</a>
         </div>
       </div>
       <!-- Nawigacja karuzeli -->
@@ -1568,42 +1494,28 @@ document.addEventListener('DOMContentLoaded', function() {
             </section>
             -->
             <section id="cv-tips" class="dos-donts-section glow-green" style="background: rgba(0, 0, 0, 0.6); border: 2px solid #00ff00; border-radius: 10px; padding: 40px; margin: 20px 0; box-shadow: 0 4px 16px rgba(0,0,0,0.3); margin: 40px auto 30px auto;">
-              <div class="container">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap;">
-                    <h2 class="dos-donts-title" style="text-align: center; font-size: 2.5rem; color: #00ff00; margin: 0; font-weight: bold; flex: 1;">CV Tips: Co robić, a czego unikać</h2>
-                    <a href="cv-tips.html" style="display: inline-block; background: #00ff00; color: #222; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1rem; margin-left: 20px; transition: all 0.3s ease;">Więcej porad</a>
+  <h2 style="color:#00ff00; font-size:2rem; font-weight:bold; text-align:center; margin-bottom:24px;">CV Tips - porady</h2>
+  <div style="display: flex; justify-content: center; margin-top: 28px;">
+    <a href="cv-tips.html" style="display: inline-block; background: #00ff00; color: #222; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 1.15rem; text-decoration: none; box-shadow: 0 2px 12px rgba(0,255,0,0.13); border: 2px solid #00ff00; transition: background 0.2s, color 0.2s; margin-top: 56px;">Zobacz więcej</a>
+  </div>
+<div id="cv-carousel" style="max-width: 480px; margin: 0 auto; position: relative; margin-bottom: 40px;">
+                <div class="cv-carousel-item" id="carousel-do" style="display: block; padding: 32px 24px; background: linear-gradient(135deg, #003d1a 80%, #00ff00 20%); border-radius: 18px; box-shadow: 0 0 32px 8px #00ff00cc, 0 0 0 0 #00ff00; text-align: center;">
+                  <h2 style="color: #00ff00; margin-bottom: 18px; text-shadow: 0 0 18px #00ff00, 0 0 32px #00ff00;">Do</h2>
+                  <style>
+                    #carousel-do {
+                      box-shadow: 0 0 48px 12px #00ff00cc, 0 0 0 0 #00ff00;
+                    }
+                  </style>
+                  <p style="font-size: 1.15rem; color: #fff;">Dostosuj CV do oferty, używaj słów kluczowych, sprawdzaj pisownię, używaj czytelnej czcionki, zapisuj w PDF.</p>
                 </div>
-                <div class="dos-donts-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                    <div class="dos-card" style="background: rgba(0, 0, 0, 0.4); border-radius: 15px; padding: 2rem; border: 2px solid #00ff00; transition: transform 0.3s ease; box-shadow: 0 0 32px 8px #00ff00, 0 0 12px 2px #00ffcc;">
-                        <h3 style="color: #00ff00; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">✅ DO - Rób to</h3>
-                        <ul style="color: #ffffff; margin: 0; padding-left: 1.5rem;">
-                            <li>Dostosowuj CV do każdej oferty pracy</li>
-                            <li>Używaj słów kluczowych z ogłoszenia</li>
-                            <li>Sprawdzaj pisownię i gramatykę</li>
-                            <li>Używaj czytelnej czcionki (Arial, Calibri)</li>
-                            <li>Zapisuj w formacie PDF</li>
-                            <li>Kwantyfikuj swoje osiągnięcia</li>
-                            <li>Używaj aktywnych czasowników</li>
-                            <li>Zachowaj spójny format</li>
-                            <li>Dodaj profesjonalny adres e-mail</li>
-                            <li>Aktualizuj CV regularnie</li>
-                        </ul>
-                    </div>
-                    <div class="donts-card" style="background: rgba(0, 0, 0, 0.4); border-radius: 15px; padding: 2rem; border: 2px solid #ff4444; transition: transform 0.3s ease; box-shadow: 0 0 32px 8px #ff2222, 0 0 12px 2px #ff4444;">
-                        <h3 style="color: #ff4444; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">❌ DON'T - Nie rób tego</h3>
-                        <ul style="color: #ffffff; margin: 0; padding-left: 1.5rem;">
-                            <li>Nie dodawaj zdjęcia (w Polsce)</li>
-                            <li>Nie podawaj wieku, stanu cywilnego</li>
-                            <li>Nie używaj kolorowych czcionek</li>
-                            <li>Nie przekraczaj 2 stron</li>
-                            <li>Nie kłam ani nie przesadzaj</li>
-                            <li>Nie używaj żargonu branżowego</li>
-                            <li>Nie dodawaj referencji bez pytania</li>
-                            <li>Nie używaj pierwszej osoby ("ja", "mój")</li>
-                            <li>Nie dodawaj nieistotnych informacji</li>
-                            <li>Nie wysyłaj tego samego CV wszędzie</li>
-                        </ul>
-                    </div>
+                <div class="cv-carousel-item" id="carousel-dont" style="display: none; padding: 32px 24px; background: linear-gradient(135deg, #2a0000 80%, #ff2222 20%); border-radius: 18px; box-shadow: 0 0 32px 8px #ff2222cc, 0 0 0 0 #ff2222; text-align: center;">
+                  <h2 style="color: #ff2222; margin-bottom: 18px; text-shadow: 0 0 18px #ff2222, 0 0 32px #ff2222;">Don't</h2>
+                  <style>
+                    #carousel-dont {
+                      box-shadow: 0 0 48px 12px #ff2222cc, 0 0 0 0 #ff2222;
+                    }
+                  </style>
+                  <p style="font-size: 1.15rem; color: #fff;">Nie dodawaj zdjęcia, nie podawaj wieku, nie używaj kolorowych czcionek, nie przekraczaj 2 stron, nie kłam.</p>
                 </div>
               </div>
             </section>
@@ -1952,29 +1864,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <!-- Sekcja Kontakt -->
             <section id="kontakt" class="glow-green">
-                <h2 style="display:flex;align-items:center;gap:16px;">
-                    Kontakt
-                    <button id="mic-btn-kontakt" type="button" aria-label="Wypełnij formularz głosowo">
-                        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="30" cy="30" r="30" fill="#00ff00"/>
-                            <rect x="22" y="14" width="16" height="24" rx="8" fill="white"/>
-                            <rect x="28" y="40" width="4" height="4" fill="white"/>
-                            <rect x="18" y="46" width="24" height="4" fill="white"/>
-                        </svg>
-                    </button>
-                    <span id="mic-status-kontakt">Słucham...</span>
-                </h2>
-                <form id="kontakt-form">
-                    <label for="name">Imię:</label>
-                    <input type="text" id="name" name="name" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <label for="message">Wiadomość:</label>
-                    <textarea id="message" name="message" required style="height: 180px;"></textarea>
-                    <button type="submit">Wyślij</button>
-                </form>
+  <div class="kontakt-container" style="max-width: 480px; margin: 0 auto 64px auto; background: rgba(0,0,0,0.7); border-radius: 16px; box-shadow: 0 0 32px #00ff00cc; padding: 32px 24px;">
+    <h2 style="color:#00ff00; font-size:2rem; font-weight:bold; text-align:center; margin-bottom:24px; display:flex; align-items:center; justify-content:center; gap:16px;">
+      Kontakt
+      <button id="mic-btn-kontakt" type="button" aria-label="Wypełnij formularz głosowo" style="background:none;border:none;vertical-align:middle;">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+          <circle cx="30" cy="30" r="30" fill="#00ff00"/>
+          <rect x="22" y="14" width="16" height="24" rx="8" fill="white"/>
+          <rect x="28" y="40" width="4" height="4" fill="white"/>
+          <rect x="18" y="46" width="24" height="4" fill="white"/>
+        </svg>
+      </button>
+      <span id="mic-status-kontakt" style="color:#fff; font-size:1rem; margin-left:10px;">Słucham...</span>
+    </h2>
+    <form id="kontakt-form" style="display:flex;flex-direction:column;gap:18px;">
+      <label for="name" style="color:#00ff00;font-weight:bold;">Imię:</label>
+      <input type="text" id="name" name="name" required style="padding:10px;border-radius:8px;border:2px solid #00ff00;background:#181818;color:#fff;font-size:1rem;">
+      <label for="email" style="color:#00ff00;font-weight:bold;">Email:</label>
+      <input type="email" id="email" name="email" required style="padding:10px;border-radius:8px;border:2px solid #00ff00;background:#181818;color:#fff;font-size:1rem;">
+      <label for="message" style="color:#00ff00;font-weight:bold;">Wiadomość:</label>
+      <textarea id="message" name="message" required style="height: 140px; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#181818; color:#fff; font-size:1rem;"></textarea>
+      <button type="submit" style="background:linear-gradient(90deg,#00ff00 60%,#00fff7 100%);color:#111;border:none;border-radius:8px;font-weight:bold;font-size:1.1rem;padding:12px 0;cursor:pointer;transition:background 0.2s;">Wyślij</button>
+    </form>
+  </div>
             </section>
         </main>
+<footer style="width:100%;background:rgba(0,0,0,0.85);border-top:2px solid #00ff00;padding:24px 0 12px 0;position:relative;bottom:0;left:0;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <img src="images/logo.png" alt="Logo" style="height:64px;width:64px;border-radius:20px;background:#00ff00;box-shadow:0 0 16px #00ff00;object-fit:cover;">
+      <span style="color:#00ff00;font-weight:bold;font-size:1.1rem;">eCVjob.pl</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+      <a href="polityka-prywatnosci.html" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">Polityka prywatności</a>
+      <a href="regulamin.html" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">Regulamin</a>
+      <a href="kontakt.html" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">Kontakt</a>
+      <a href="o-nas.html" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">O nas</a>
+    </div>
+  </div>
+  <div style="text-align:center;color:#00ff00;font-size:1.05rem;font-weight:bold;margin-top:18px;">&copy; 2024 eCVjob.pl i Paweł Ślwiński, Wszelkie prawa zastrzeżone.</div>
+  
+</footer>
         <script>
         // Animacje WebResume (feature-card, benefit-item, cta-button)
         (function() {
@@ -2308,10 +2238,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
 
-        <!-- Stopka -->
-        <footer>
-            <p>&copy; 2024 Moja Strona. Wszelkie prawa zastrzeżone.</p>
-        </footer>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -2347,6 +2273,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .job-desc-overlay { background: none !important; box-shadow: none !important; }
     </style>
     <script src="js/logo.js"></script>
+    <script src="uslugi-carousel.js"></script>
     <script>
     // --- GENEROWANIE OFERT PRACY ---
     // Funkcja do generowania pojedynczej oferty pracy
@@ -2727,4 +2654,6 @@ function closeApplicationForm() {
 // Udostępnij globalnie
 window.openApplicationForm = openApplicationForm;
 window.closeApplicationForm = closeApplicationForm;
+
+<script src="src/cv-tips-carousel.js"></script>
 
