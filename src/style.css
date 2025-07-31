@@ -1,0 +1,188 @@
+/* --- Szablony CV za kłódką --- */
+.cv-template {
+  position: relative;
+  background: #222;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px #00ff00aa;
+  margin-bottom: 28px;
+  padding: 24px 38px;
+  color: #fff;
+  max-width: 340px;
+  width: 98vw;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.3s, opacity 0.3s;
+}
+.cv-template.cv-locked {
+  filter: grayscale(0.85) brightness(0.7);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.cv-template.cv-locked::after {
+  content: '\1F512'; /* Unicode kłódka */
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 2.2rem;
+  color: #00cfff;
+  opacity: 0.85;
+}
+/* --- FAQ animacja powiększenia i podświetlenia pytania po najechaniu --- */
+.faq-question {
+  transition: transform 0.22s cubic-bezier(.5,1.8,.5,1), box-shadow 0.22s, background 0.22s;
+}
+.faq-question:hover {
+  transform: scale(1.08);
+  box-shadow: 0 2px 18px #00ff00a0;
+  background: #232;
+  color: #00ff00;
+  cursor: pointer;
+}
+/* --- Stylizacja ofert pracy --- */
+.job-offer-card-ue {
+  margin-bottom: 28px !important;
+  padding: 24px 38px !important;
+  background: #222 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 18px #00ff00aa !important;
+  max-width: 900px;
+  width: 98vw;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fff !important;
+}
+.job-offer-card-ue h3 {
+  color: #00ff00 !important;
+}
+.job-offer-card-ue .firma-miasto {
+  color: #00cfff !important;
+  font-weight: bold;
+}
+.job-offer-card-ue .wynagrodzenie {
+  color: #fff !important;
+}
+.job-offer-card-ue .typ {
+  color: #ccc !important;
+}
+.job-offer-card-ue .opis {
+  color: #eee !important;
+}
+@media (max-width: 700px) {
+  #job-listings {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .job-offer-card-ue {
+    margin-bottom: 0 !important;
+  }
+  #pagination-bar {
+    margin-top: 0 !important;
+  }
+}
+@media (min-width: 1100px) {
+  #job-listings {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 28px !important;
+    width: 100% !important;
+  }
+  .job-offer-card-ue {
+    margin-bottom: 28px !important;
+    padding: 24px 38px !important;
+    background: #222 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 18px #00ff00aa !important;
+    max-width: 900px;
+    width: 98vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .job-offer-card-ue:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+/* --- Stylizacja rankingu miast --- */
+#city-ranking {
+  background: #181818;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #00ff00a0;
+  padding: 32px 22px 24px 22px;
+  max-width: 340px;
+  min-width: 220px;
+  margin: 0 auto;
+}
+#city-ranking h2 {
+  color: #00ff00;
+  text-align: center;
+  font-size: 1.35rem;
+  margin-bottom: 22px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+#ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#ranking-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 10px 0;
+  font-size: 1.13rem;
+  font-weight: 500;
+  color: #eaffea;
+  border-bottom: 1px solid #00ff0030;
+  transition: background 0.3s, color 0.3s;
+}
+#ranking-list li:last-child {
+  border-bottom: none;
+}
+.ranking-highlight {
+  background: linear-gradient(90deg,#00ff00 60%,#00fff7 100%);
+  color: #181818 !important;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 12px;
+  box-shadow: 0 0 16px 2px #00ff00cc;
+  border-bottom: none !important;
+  position: relative;
+}
+.ranking-highlight::before {
+  content: '🏆';
+  font-size: 1.3em;
+  margin-right: 10px;
+  margin-left: -2px;
+}
+#ranking-list li span:last-child {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: #00ff00;
+  background: #222;
+  border-radius: 6px;
+  padding: 2px 10px;
+  margin-left: 12px;
+  box-shadow: 0 2px 8px #00ff0030;
+}
+/* --- Animacje --- */
+@keyframes pinBounce {
+  0% { transform: translateY(-24px) scale(0.7); opacity:0; }
+  60% { transform: translateY(0) scale(1.1); opacity:1; }
+  80% { transform: translateY(-8px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+.map-pin {
+  animation: pinBounce 0.7s cubic-bezier(.5,1.8,.5,1) both;
+}
+@keyframes highlightPulse {
+  0% { box-shadow:0 0 0 0 #00ff00aa; background:linear-gradient(90deg,#00ff00 60%,#00fff7 100%); }
+  100% { box-shadow:0 0 16px 4px #00ff00cc; background:linear-gradient(90deg,#00fff7 60%,#00ff00 100%); }
+}
+.ranking-highlight {
+  animation: highlightPulse 2s infinite alternate;
+}

@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jak się zarejestrować - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/logo.css">
+    <style>
+        /* Basic reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Page header styling */
+        #page-header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 2px solid #00ff00;
+            width: 100%;
+        }
+
+        #page-header h1 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Navigation styling */
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        nav ul li {
+            flex: 1 1 auto;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 15px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #00ff00;
+            transition: background 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav ul li:last-child a {
+            border-right: none;
+        }
+
+        nav ul li a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Logo styling */
+        .logo {
+            position: fixed;
+            right: 20px;
+            top: 80px;
+            width: 150px;
+            height: 150px;
+            z-index: 9999;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 2px 8px rgba(0, 255, 0, 0.3));
+        }
+
+        /* Main content styling */
+        main {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        /* Answer section styling */
+        .answer-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .question-title {
+            color: #00ff00;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .question-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 5px #00ff00);
+        }
+
+        .answer-content {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .answer-content p {
+            margin-bottom: 20px;
+        }
+
+        /* Registration steps */
+        .registration-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 255, 0, 0.05) 100%);
+            border: 2px solid #00ff00;
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: #00ff00;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .step-title {
+            color: #00ff00;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 15px 0 15px 0;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .step-details {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .step-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+            display: flex;
+            align-items: center;
+        }
+
+        .step-details li:before {
+            content: "✓";
+            color: #00ff00;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Tips section */
+        .tips-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .tips-title {
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-item {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .tip-title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tip-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #00cc00 0%, #00aa00 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 255, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ff00;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            main {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .answer-section {
+                padding: 25px 20px;
+            }
+
+            .question-title {
+                font-size: 1.8rem;
+            }
+
+            .registration-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #page-header h1 {
+                font-size: 2rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+                top: 60px;
+                right: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                width: 100%;
+                min-width: unset;
+            }
+
+            nav ul li a {
+                border-right: none;
+                border-bottom: 1px solid #00ff00;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .answer-section {
+                padding: 20px 15px;
+            }
+
+            .question-title {
+                font-size: 1.5rem;
+            }
+
+            .step-card, .tips-section {
+                padding: 20px;
+            }
+
+            #page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Main content -->
+    <main>
+        <section class="answer-section">
+            <h2 class="question-title">
+                <span class="question-icon">👤</span>
+                Jak mogę się zarejestrować na stronie?
+            </h2>
+            
+            <div class="answer-content">
+                <p>Rejestracja w eCVjob.pl jest szybka, bezpłatna i daje dostęp do wszystkich podstawowych funkcji platformy. Proces rejestracji został zaprojektowany tak, aby był intuicyjny i bezpieczny.</p>
+                
+                <p>Poniżej znajdziesz szczegółowy przewodnik krok po kroku, który pomoże Ci w całym procesie rejestracji.</p>
+            </div>
+
+            <div class="registration-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Wejdź na stronę główną</div>
+                    <div class="step-description">
+                        Przejdź na stronę główną eCVjob.pl i znajdź przycisk rejestracji
+                    </div>
+                    <ul class="step-details">
+                        <li>Kliknij "Rejestracja" w prawym górnym rogu</li>
+                        <li>Lub skorzystaj z linku w stopce strony</li>
+                        <li>Możesz także kliknąć "Zaloguj się" i wybrać "Załóż konto"</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Wypełnij podstawowe dane</div>
+                    <div class="step-description">
+                        Podaj swoje podstawowe informacje osobowe
+                    </div>
+                    <ul class="step-details">
+                        <li>Imię i nazwisko (wymagane)</li>
+                        <li>Adres email (będzie to Twój login)</li>
+                        <li>Hasło (minimum 8 znaków)</li>
+                        <li>Potwierdzenie hasła</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Wybierz typ konta</div>
+                    <div class="step-description">
+                        Określ, w jaki sposób będziesz korzystać z platformy
+                    </div>
+                    <ul class="step-details">
+                        <li>Osoby szukające pracy</li>
+                        <li>Pracodawcy i rekruterzy</li>
+                        <li>Firmy świadczące usługi HR</li>
+                        <li>Agencje pracy tymczasowej</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Akceptacja regulaminu</div>
+                    <div class="step-description">
+                        Zapoznaj się z warunkami korzystania z serwisu
+                    </div>
+                    <ul class="step-details">
+                        <li>Przeczytaj regulamin serwisu</li>
+                        <li>Zaakceptuj politykę prywatności</li>
+                        <li>Zgodź się na przetwarzanie danych osobowych</li>
+                        <li>Opcjonalnie: zgoda na newsletter</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Weryfikacja email</div>
+                    <div class="step-description">
+                        Potwierdź swój adres email, aby aktywować konto
+                    </div>
+                    <ul class="step-details">
+                        <li>Sprawdź skrzynkę pocztową</li>
+                        <li>Znajdź email od eCVjob.pl</li>
+                        <li>Kliknij link aktywacyjny</li>
+                        <li>Jeśli nie ma emaila, sprawdź spam</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Pierwsze logowanie</div>
+                    <div class="step-description">
+                        Zaloguj się po raz pierwszy i skonfiguruj profil
+                    </div>
+                    <ul class="step-details">
+                        <li>Użyj emaila i hasła do logowania</li>
+                        <li>Uzupełnij informacje w profilu</li>
+                        <li>Dodaj zdjęcie profilowe (opcjonalnie)</li>
+                        <li>Zapoznaj się z funkcjami platformy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <div class="tips-title">💡 Przydatne wskazówki</div>
+                <div class="tips-grid">
+                    <div class="tip-item">
+                        <div class="tip-title">Bezpieczne hasło</div>
+                        <div class="tip-description">
+                            Użyj kombinacji liter, cyfr i znaków specjalnych. Unikaj prostych haseł jak "123456" lub "hasło".
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-title">Prawdziwy email</div>
+                        <div class="tip-description">
+                            Podaj aktualny adres email - będziesz otrzymywać na niego powiadomienia o ofertach pracy.
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-title">Kompletny profil</div>
+                        <div class="tip-description">
+                            Uzupełnij wszystkie dane w profilu - zwiększa to Twoją widoczność dla pracodawców.
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-title">Regularne aktualizacje</div>
+                        <div class="tip-description">
+                            Regularnie aktualizuj swoje CV i informacje - świeże profile są częściej wyświetlane.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="answer-content">
+                <h3 style="color: #00ff00; margin-bottom: 15px;">🎯 Co dalej po rejestracji?</h3>
+                <ol style="padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Stwórz profesjonalne CV</strong> używając naszego kreatora</li>
+                    <li><strong>Przeglądaj oferty pracy</strong> w bazie CV</li>
+                    <li><strong>Skonfiguruj alerty</strong> dla interesujących Cię stanowisk</li>
+                    <li><strong>Aplikuj na wybrane oferty</strong> bezpośrednio przez platformę</li>
+                    <li><strong>Śledź status aplikacji</strong> w panelu użytkownika</li>
+                </ol>
+
+                <p style="margin-top: 20px;"><strong>Pamiętaj:</strong> Rejestracja jest całkowicie bezpłatna i daje dostęp do wszystkich podstawowych funkcji eCVjob.pl. Funkcje premium możesz aktywować później, jeśli będziesz ich potrzebować.</p>
+            </div>
+
+            <a href="index.html#faq" class="back-button">Powrót do FAQ</a>
+        </section>
+    </main>
+
+
+
+</body>
+</html>
+
