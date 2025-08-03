@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona nie znaleziona - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/optimized-styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .error-code {
+            font-size: 8rem;
+            color: #00ff00;
+            font-weight: bold;
+            text-shadow: 0 0 50px #00ff00;
+            margin-bottom: 20px;
+            animation: glow-pulse 2s ease-in-out infinite alternate;
+        }
+        .error-message {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        .error-description {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .back-home {
+            background: linear-gradient(45deg, #00ff00, #00fff7);
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        .back-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,255,0,0.4);
+        }
+        .search-suggestions {
+            margin-top: 40px;
+        }
+        .search-suggestions h3 {
+            color: #00ff00;
+            margin-bottom: 20px;
+        }
+        .suggestions-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .suggestion-link {
+            background: rgba(0,255,0,0.1);
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .suggestion-link:hover {
+            background: #00ff00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Ups! Strona nie została znaleziona</div>
+        <div class="error-description">
+            Szukana strona mogła zostać przeniesiona, usunięta lub wpisałeś nieprawidłowy adres URL.
+            Nie martw się - pomoże Ci znaleźć to czego szukasz!
+        </div>
+        
+        <a href="index.html" class="back-home">🏠 Wróć do strony głównej</a>
+        
+        <div class="search-suggestions">
+            <h3>🔍 Najpopularniejsze sekcje:</h3>
+            <div class="suggestions-list">
+                <a href="index.html#kreator-cv" class="suggestion-link">📄 Kreator CV</a>
+                <a href="baza_cv.html" class="suggestion-link">👥 Baza CV</a>
+                <a href="index.html#oferty-pracy" class="suggestion-link">💼 Oferty Pracy</a>
+                <a href="rejestracja.html" class="suggestion-link">📞 Kontakt</a>
+                <a href="index.html#faq" class="suggestion-link">❓ FAQ</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Auto redirect if common misspellings
+        const path = window.location.pathname.toLowerCase();
+        const redirects = {
+            '/cv': '/index.html#kreator-cv',
+            '/praca': '/index.html#oferty-pracy',
+            '/oferty': '/index.html#oferty-pracy',
+            '/kandydaci': '/baza_cv.html',
+            '/contact': '/rejestracja.html',
+            '/kontakt': '/rejestracja.html',
+            '/login': '/logowanie.html',
+            '/register': '/rejestracja.html'
+        };
+        
+        if (redirects[path]) {
+            window.location.href = redirects[path];
+        }
+        
+        // Send 404 event to analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_not_found', {
+                'page_path': window.location.pathname
+            });
+        }
+    </script>
+</body>
+</html>

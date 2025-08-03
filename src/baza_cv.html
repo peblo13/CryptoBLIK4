@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    <!-- OPTYMALIZACJE SEO I WYDAJNOŚĆ -->
+    <meta name="description" content="Baza CV eCVjob.pl - przeglądaj profesjonalne CV kandydatów, znajdź idealnego pracownika">
+    <meta name="keywords" content="baza CV, kandydaci, rekrutacja, poszukiwanie pracowników">
+    <link rel="preload" href="css/optimized-styles.css" as="style">
+    <link rel="preload" href="js/optimized-app.js" as="script">
+    <link rel="stylesheet" href="css/optimized-styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +45,49 @@
         .carousel-arrow.right {
           right: 8px;
         }
+      }
+
+      /* Animacje */
+      @keyframes pulse-main-counter {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.08); text-shadow: 0 0 24px #00fff7, 0 0 48px #00bfae, 0 0 12px #fff; }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes countUp {
+        from { opacity: 0; transform: translateY(20px) scale(0.8); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @keyframes glow-pulse {
+        0% { box-shadow: 0 0 32px 8px #00ff00, 0 0 64px 24px #00ff88, 0 0 0 3px #00ff0055; }
+        50% { box-shadow: 0 0 48px 12px #00ff00, 0 0 96px 32px #00ff88, 0 0 0 4px #00ff0077; }
+        100% { box-shadow: 0 0 32px 8px #00ff00, 0 0 64px 24px #00ff88, 0 0 0 3px #00ff0055; }
+      }
+
+      @keyframes pulseEarn {
+        0% { transform: scale(1) translateX(-50%); box-shadow: 0 4px 15px rgba(255,215,0,0.5); }
+        50% { transform: scale(1.05) translateX(-50%); box-shadow: 0 6px 25px rgba(255,215,0,0.8); }
+        100% { transform: scale(1) translateX(-50%); box-shadow: 0 4px 15px rgba(255,215,0,0.5); }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .plans-carousel-wrapper {
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      .locked-message {
+        animation: fadeInUp 0.8s ease-out 0.1s both;
       }
       body {
         background: url('images/tlo.jpg') no-repeat center center fixed;
@@ -617,6 +667,33 @@
             }
         }
     </style>
+
+    <!-- Modal płatności -->
+    <div id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(135deg, rgba(0,20,20,0.95), rgba(0,40,40,0.95)); border: 3px solid #00ff00; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 0 50px #00ff00; position: relative;">
+            <button onclick="closePaymentModal()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: #ff6b6b; font-size: 2rem; cursor: pointer; font-weight: bold;">&times;</button>
+            
+            <h2 style="color: #00ff00; text-align: center; margin-bottom: 30px; font-size: 2rem; text-shadow: 0 0 10px #00ff00;">💳 Płatność za plan</h2>
+            
+            <div id="selected-plan-info" style="background: rgba(0,255,0,0.1); border: 2px solid #00ff00; border-radius: 10px; padding: 20px; margin-bottom: 30px; text-align: center;">
+                <div style="color: #00fff7; font-size: 1.3rem; font-weight: bold;">Plan: <span id="plan-name">-</span></div>
+                <div style="color: #FFD700; font-size: 2rem; font-weight: bold; margin-top: 10px;">Cena: <span id="plan-price">-</span> zł/miesiąc</div>
+            </div>
+
+            <form style="display: flex; flex-direction: column; gap: 20px;">
+                <input type="text" placeholder="Imię i Nazwisko" style="padding: 15px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,20,20,0.8); color: #fff; font-size: 1.1rem;" required>
+                <input type="email" placeholder="Email" style="padding: 15px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,20,20,0.8); color: #fff; font-size: 1.1rem;" required>
+                <input type="text" placeholder="Numer karty (0000 0000 0000 0000)" style="padding: 15px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,20,20,0.8); color: #fff; font-size: 1.1rem;" required>
+                <div style="display: flex; gap: 15px;">
+                    <input type="text" placeholder="MM/YY" style="padding: 15px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,20,20,0.8); color: #fff; font-size: 1.1rem; flex: 1;" required>
+                    <input type="text" placeholder="CVV" style="padding: 15px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,20,20,0.8); color: #fff; font-size: 1.1rem; flex: 1;" required>
+                </div>
+                <button type="submit" onclick="processPurchase(event)" style="background: linear-gradient(45deg, #00ff00, #00fff7); color: #000; padding: 18px; border: none; border-radius: 12px; font-size: 1.3rem; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 20px #00ff0050;">
+                    🚀 Opłać i Aktywuj Plan
+                </button>
+            </form>
+        </div>
+    </div>
 </head>
 <body>
     <!-- MENU Z INDEX.HTML -->
@@ -639,8 +716,9 @@
         <li><a href="#webresume">WebResume</a></li>
         <li><a href="#blog">Blog</a></li>
         <li><a href="#europass">Europass</a></li>
+        <li><a href="marketplace.html">💰 Marketplace</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="rejestracja.html">📞 Kontakt</a></li>
         <li><a href="logowanie.html">Logowanie</a></li>
         <li><a href="rejestracja.html">Rejestracja</a></li>
       </ul>
@@ -673,6 +751,194 @@
         window.addEventListener('resize', updateMenu);
         updateMenu();
       });
+      
+      // SPRAWDZANIE UPRAWNIEŃ UŻYTKOWNIKA
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('🔍 Checking user permissions for CV database access');
+        
+        // Sprawdź czy użytkownik jest zalogowany
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const userData = sessionStorage.getItem('currentUser');
+        
+        if (!isLoggedIn || !userData) {
+            console.log('❌ User not logged in, redirecting to main page');
+            alert('🔒 Brak uprawnień do przeglądania bazy CV.\n\nMusisz być zalogowany aby uzyskać dostęp.\nZostaniesz przekierowany na stronę główną.');
+            window.location.href = 'index.html';
+            return;
+        }
+        
+        try {
+            const user = JSON.parse(userData);
+            console.log('👤 Current user plan:', user.plan);
+            
+            // Sprawdź czy użytkownik ma plan uprawniający do dostępu do bazy CV
+            const allowedPlans = ['Premium', 'Business', 'Enterprise'];
+            const userPlan = user.plan || '';
+            
+            // Sprawdź czy plan użytkownika jest w dozwolonych planach
+            const hasAccess = allowedPlans.some(plan => userPlan.includes(plan));
+            
+            if (!hasAccess) {
+                console.log('🚫 User plan does not have CV database access:', userPlan);
+                alert(`🔒 Dostęp do bazy CV wymaga planu Premium lub wyższego.\n\n` +
+                      `📋 Twój aktualny plan: ${userPlan}\n\n` +
+                      `🚀 Aby uzyskać dostęp, wybierz plan Premium, Business lub Enterprise.\n\n` +
+                      `Zostaniesz przekierowany na stronę główną.`);
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            console.log('✅ User has access to CV database');
+            
+            // Ukryj komunikat o braku dostępu i pokaż zawartość bazy CV
+            const lockedContent = document.getElementById('locked-content');
+            if (lockedContent) {
+                lockedContent.style.display = 'none';
+            }
+            
+            // Pokaż rzeczywistą zawartość bazy CV
+            showCVDatabaseContent();
+            
+        } catch (error) {
+            console.error('❌ Error parsing user data:', error);
+            alert('Wystąpił błąd podczas sprawdzania uprawnień. Zostaniesz przekierowany na stronę główną.');
+            window.location.href = 'index.html';
+        }
+      });
+      
+      // Funkcja pokazująca zawartość bazy CV dla uprawnionych użytkowników
+      function showCVDatabaseContent() {
+        console.log('🔍 Showing CV database content for authorized user');
+        
+        // Tutaj można dodać logikę ładowania rzeczywistych CV z serwera
+        // Na razie pokaż przykładową zawartość
+        const mainSection = document.querySelector('main');
+        
+        // Dodaj sekcję wyszukiwania
+        const searchSection = document.createElement('section');
+        searchSection.innerHTML = `
+            <div style="background: rgba(0, 255, 0, 0.1); border: 2px solid #00ff00; border-radius: 15px; padding: 2rem; margin: 2rem auto; max-width: 800px;">
+                <h2 style="color: #00ff00; text-align: center; margin-bottom: 1.5rem;">🎯 Wyszukaj kandydatów</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: end;">
+                    <div>
+                        <label style="color: #00ff00; display: block; margin-bottom: 0.5rem; font-weight: bold;">Stanowisko:</label>
+                        <input type="text" id="search-position" placeholder="np. JavaScript Developer" style="width: 100%; padding: 0.75rem; border: 2px solid #333; border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: #fff;">
+                    </div>
+                    <div>
+                        <label style="color: #00ff00; display: block; margin-bottom: 0.5rem; font-weight: bold;">Lokalizacja:</label>
+                        <input type="text" id="search-location" placeholder="np. Warszawa" style="width: 100%; padding: 0.75rem; border: 2px solid #333; border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: #fff;">
+                    </div>
+                    <button onclick="searchCandidates()" style="background: #00ff00; color: #000; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer;">🔍 Szukaj</button>
+                </div>
+            </div>
+        `;
+        
+        // Dodaj sekcję wyników
+        const resultsSection = document.createElement('section');
+        resultsSection.innerHTML = `
+            <div id="search-results" style="max-width: 1000px; margin: 0 auto;">
+                <h3 style="color: #00ff00; text-align: center; margin-bottom: 1.5rem;">📋 Wyniki wyszukiwania</h3>
+                <div id="candidates-list">
+                    <p style="text-align: center; color: #aaa; font-size: 1.1rem;">Wprowadź kryteria wyszukiwania aby zobaczyć kandydatów</p>
+                </div>
+            </div>
+        `;
+        
+        // Wstaw sekcje przed planami cenowymi
+        const plansWrapper = document.querySelector('.plans-carousel-wrapper');
+        if (plansWrapper) {
+            plansWrapper.parentNode.insertBefore(searchSection, plansWrapper);
+            plansWrapper.parentNode.insertBefore(resultsSection, plansWrapper);
+        }
+      }
+      
+      // Funkcja wyszukiwania kandydatów
+      function searchCandidates() {
+        const position = document.getElementById('search-position').value.toLowerCase();
+        const location = document.getElementById('search-location').value.toLowerCase();
+        
+        console.log('🔍 Searching candidates:', { position, location });
+        
+        // Przykładowe dane kandydatów
+        const sampleCandidates = [
+            {
+                name: "Anna Kowalska",
+                position: "Frontend Developer",
+                location: "Warszawa",
+                experience: "3 lata",
+                skills: ["JavaScript", "React", "CSS", "HTML"],
+                email: "anna.kowalska@email.com"
+            },
+            {
+                name: "Piotr Nowak",
+                position: "Backend Developer",
+                location: "Kraków",
+                experience: "5 lat",
+                skills: ["Python", "Django", "PostgreSQL", "Docker"],
+                email: "piotr.nowak@email.com"
+            },
+            {
+                name: "Maria Wiśniewska",
+                position: "UX/UI Designer",
+                location: "Gdańsk",
+                experience: "4 lata",
+                skills: ["Figma", "Adobe XD", "Photoshop", "Prototyping"],
+                email: "maria.wisniewska@email.com"
+            }
+        ];
+        
+        // Filtruj kandydatów
+        let filteredCandidates = sampleCandidates;
+        
+        if (position) {
+            filteredCandidates = filteredCandidates.filter(candidate => 
+                candidate.position.toLowerCase().includes(position) ||
+                candidate.skills.some(skill => skill.toLowerCase().includes(position))
+            );
+        }
+        
+        if (location) {
+            filteredCandidates = filteredCandidates.filter(candidate => 
+                candidate.location.toLowerCase().includes(location)
+            );
+        }
+        
+        displayCandidates(filteredCandidates);
+      }
+      
+      // Funkcja wyświetlania kandydatów
+      function displayCandidates(candidates) {
+        const candidatesList = document.getElementById('candidates-list');
+        
+        if (candidates.length === 0) {
+            candidatesList.innerHTML = '<p style="text-align: center; color: #ff6b6b; font-size: 1.1rem;">😔 Nie znaleziono kandydatów spełniających kryteria</p>';
+            return;
+        }
+        
+        candidatesList.innerHTML = candidates.map(candidate => `
+            <div style="background: rgba(0, 255, 0, 0.1); border: 1px solid #00ff00; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#00ff00'; this.style.boxShadow='0 5px 15px rgba(0, 255, 0, 0.3)'" onmouseout="this.style.borderColor='#00ff00'; this.style.boxShadow='none'">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                    <div>
+                        <h4 style="color: #fff; font-size: 1.3rem; margin-bottom: 0.5rem;">${candidate.name}</h4>
+                        <p style="color: #00ff00; font-size: 1.1rem; font-weight: bold;">${candidate.position}</p>
+                        <p style="color: #aaa;">📍 ${candidate.location} • Doświadczenie: ${candidate.experience}</p>
+                    </div>
+                </div>
+                
+                <div style="margin: 1rem 0;">
+                    <p style="color: #00ff00; font-weight: bold; margin-bottom: 0.5rem;">🛠️ Umiejętności:</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        ${candidate.skills.map(skill => `<span style="background: rgba(0, 255, 0, 0.2); color: #00ff00; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.9rem;">${skill}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button onclick="alert('🔍 Funkcja podglądu CV zostanie wkrótce dodana')" style="background: #00ff00; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 5px; font-weight: bold; cursor: pointer;">👁️ Zobacz CV</button>
+                    <button onclick="window.location.href='mailto:${candidate.email}?subject=Oferta pracy z eCVjob.pl'" style="background: transparent; color: #00ff00; border: 2px solid #00ff00; padding: 0.5rem 1rem; border-radius: 5px; font-weight: bold; cursor: pointer;">📧 Kontakt</button>
+                </div>
+            </div>
+        `).join('');
+      }
     </script>
     <div class="container">
 
@@ -683,7 +949,7 @@
                     🔍 Baza CV dla Pracodawców
                 </h1>
                 <p style="font-size: 1.8rem; color: #00fff7; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; font-weight: bold; letter-spacing: 0.5px;">
-                    W naszej bazie jest już <span id="main-counter-number" style="font-size: 3.7rem; font-weight: 900; color: #00fff7; text-shadow: 0 0 18px #00fff7, 0 0 32px #00bfae, 0 0 8px #fff; animation: pulse-main-counter 2s ease-in-out infinite; display: inline-block; margin: 0 0.5rem;">247</span> kandydatów!<br>
+                    W naszej bazie jest już <span id="main-counter-number" style="font-size: 3.7rem; font-weight: 900; color: #00fff7; text-shadow: 0 0 18px #00fff7, 0 0 32px #00bfae, 0 0 8px #fff; animation: pulse-main-counter 2s ease-in-out infinite; display: inline-block; margin: 0 0.5rem;">0</span> kandydatów!<br>
                     Zaawansowane wyszukiwanie według lokalizacji, zawodu, doświadczenia i wielu innych kryteriów.
                 </p>
             </section>
@@ -691,7 +957,7 @@
             <!-- Wiadomość o konieczności płatności jako button -->
             <a href="baza_cv_dostep.html" id="locked-content" class="locked-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; border: none; background: rgba(255, 107, 107, 0.1); box-shadow: 0 0 32px 8px #ff000055; transition: box-shadow 0.3s; margin-bottom: 2rem; outline: none; text-decoration: none; padding: 2.5rem 0; cursor: pointer;">
                 <span class="locked-icon" style="pointer-events: none; display: block; margin: 0 auto 1.2rem auto; font-size: 7rem; color: #fff; border-radius: 50%; padding: 32px 40px; box-shadow: 0 0 32px 12px #ff000099, 0 0 64px 24px #b3000055; filter: drop-shadow(0 0 18px #ff0000);">🔒</span>
-                <span style="color: #ff6b6b; margin-bottom: 1.2rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); font-weight: bold; font-size: 2.1rem; text-align: center;">Dostęp do bazy CV po opłaceniu planu Business</span>
+                <span style="color: #ff6b6b; margin-bottom: 1.2rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); font-weight: bold; font-size: 2.1rem; text-align: center;">Dostęp do bazy CV po opłaceniu planu Business lub Enterprise</span>
                 <span style="display: inline-block; background: linear-gradient(90deg,#00ff00,#FFD700); color: #222; font-size: 1.5rem; font-weight: 900; border-radius: 32px; padding: 18px 48px; box-shadow: 0 4px 18px #FFD70099, 0 0 8px #fff; text-shadow: 0 0 8px #FFD700, 0 0 2px #fff; margin-top: 0.5rem;">Przejdź do bazy CV</span>
             </a>
 
@@ -700,84 +966,89 @@
                   <button class="carousel-arrow left" style="display:none;" onclick="prevPlan()">&#8592;</button>
                   <button class="carousel-arrow right" style="display:none;" onclick="nextPlan()">&#8594;</button>
                   <!-- Każda karta planu otrzyma data-index -->
-                  <div class="plan-card basic" data-index="0" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(0,255,136,0.13);border:6px double #00ff00;box-shadow:0 0 32px 8px #00ff00,0 0 64px 24px #00ff88,0 0 0 3px #00ff0055;display:flex;flex-direction:column;align-items:center;gap:12px;">
-                    <h3 class="plan-title" style="color:#00ff00;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ff00,0 0 2px #fff;text-align:center;">Bezpłatny</h3>
+                  <div class="plan-card basic" data-index="0" style="position:relative;min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(0,255,136,0.13);border:6px double #00ff00;box-shadow:0 0 32px 8px #00ff00,0 0 64px 24px #00ff88,0 0 0 3px #00ff0055;display:flex;flex-direction:column;align-items:center;gap:12px;">
+                    
+                    <!-- Badge zarabiania -->
+                    <div style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;padding:6px 16px;border-radius:20px;font-weight:bold;font-size:0.8rem;box-shadow:0 4px 15px rgba(255,215,0,0.5);animation:pulseEarn 2s infinite;z-index:10;">
+                        💰 ZARABIAJ!
+                    </div>
+                    
+                    <h3 class="plan-title" style="color:#00ff00;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ff00,0 0 2px #fff;text-align:center;margin-top:20px;">Bezpłatny</h3>
                     <div class="plan-price" style="color:#00ff00;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ff00,0 0 2px #fff;text-align:center;margin-bottom:18px;">0 <span class="currency" style="color:#33ff33;font-size:2.1rem;">zł</span></div>
+                    
+                    <!-- Wyróżniona sekcja zarabiania -->
+                    <div style="background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;padding:12px;border-radius:8px;margin:10px 0;border:2px solid #FF8C00;box-shadow:0 0 15px rgba(255,215,0,0.3);width:90%;">
+                        <div style="font-weight:bold;font-size:1rem;margin-bottom:5px;text-align:center;">🚀 MOŻLIWOŚĆ ZARABIANIA</div>
+                        <div style="font-size:0.85rem;text-align:center;">💵 Do 1,500 zł miesięcznie</div>
+                    </div>
+                    
                     <ul class="plan-features" style="font-size:1.25rem;color:#00ff00;font-weight:bold;text-shadow:0 0 8px #00ff00,0 0 2px #fff;text-align:center;">
-                      <li>Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li>Tworzenie i edycja 1 CV</li>
-                      <li>5 podstawowych szablonów</li>
+                      <li>Podstawowe CV</li>
+                      <li>5 szablonów</li>
                       <li>Eksport PDF</li>
-                      <li>Podstawowe wskazówki</li>
-                      <li>Dodanie 1 ogłoszenia o pracę</li>
-                      <li>Dodanie 1 ogłoszenia usługi</li>
+                      <li>1 ogłoszenie pracy</li>
+                      <li>Podstawowe wsparcie email</li>
+                      <li style="color:#FFD700;background:rgba(255,215,0,0.1);padding:5px;border-radius:5px;margin:3px 0;">💰 Twórz i sprzedawaj szablony</li>
+                      <li style="color:#FFD700;background:rgba(255,215,0,0.1);padding:5px;border-radius:5px;margin:3px 0;">💵 Marketplace (70% prowizji)</li>
                     </ul>
 <a href="#" class="plan-button" style="background:linear-gradient(90deg,#00ff00 0%,#33ff33 100%);color:#003300;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #00ff00a0,0 2px 8px #003300a0;letter-spacing:2px;text-shadow:0 0 8px #00ff00,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#33ff33 0%,#00ff00 100%)';this.style.boxShadow='0 12px 36px #00ff00cc,0 4px 12px #003300cc';" onmouseout="this.style.background='linear-gradient(90deg,#00ff00 0%,#33ff33 100%)';this.style.boxShadow='0 8px 32px #00ff00a0,0 2px 8px #003300a0';" onclick="selectPlan('bezplatny', 0)">Wybierz Bezpłatny</a>
                   </div>
-                  <div class="plan-card starter" data-index="1" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(0,207,255,0.13);border:6px double #00cfff;box-shadow:0 0 32px 8px #00cfff,0 0 64px 24px #0078ff,0 0 0 3px #00cfff55;display:flex;flex-direction:column;align-items:center;gap:12px;">
-                    <h3 class="plan-title" style="color:#00cfff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00cfff,0 0 2px #fff;text-align:center;">Starter</h3>
-                    <div class="plan-price" style="color:#00cfff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00cfff,0 0 2px #fff;text-align:center;margin-bottom:18px;">14,99 <span class="currency" style="color:#0078ff;font-size:2.1rem;">zł/miesiąc</span></div>
-                    <ul class="plan-features" style="font-size:1.25rem;color:#00cfff;font-weight:bold;text-shadow:0 0 8px #00cfff,0 0 2px #fff;text-align:center;">
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie CV do bazy aktualnych CV</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">5 podstawowych szablonów</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Podstawowe wskazówki</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 3 ogłoszeń o pracę/miesiąc</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 3 ogłoszeń usług/miesiąc</li>
+                  
+                  <div class="plan-card starter" data-index="1" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(138,43,226,0.13);border:6px double #8a2be2;box-shadow:0 0 32px 8px #8a2be2,0 0 64px 24px #9370db,0 0 0 3px #8a2be255;display:flex;flex-direction:column;align-items:center;gap:12px;">
+                    <h3 class="plan-title" style="color:#8a2be2;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #8a2be2,0 0 2px #fff;text-align:center;">Starter</h3>
+                    <div class="plan-price" style="color:#8a2be2;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #8a2be2,0 0 2px #fff;text-align:center;margin-bottom:18px;">14,99 <span class="currency" style="color:#9370db;font-size:2.1rem;">zł/miesiąc</span></div>
+                    <ul class="plan-features" style="font-size:1.25rem;color:#8a2be2;font-weight:bold;text-shadow:0 0 8px #8a2be2,0 0 2px #fff;text-align:center;">
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">15 szablonów CV</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF i Word</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">3 ogłoszenia/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Podstawowe WebResume</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Email wsparcie</li>
                     </ul>
-<a href="#" class="plan-button" style="background:linear-gradient(90deg,#0078ff 0%,#00cfff 100%);color:#fff;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #0078ffa0,0 2px 8px #001a33a0;letter-spacing:2px;text-shadow:0 0 8px #00cfff,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#00cfff 0%,#0078ff 100%)';this.style.boxShadow='0 12px 36px #00cfffcc,0 4px 12px #001a33cc';" onmouseout="this.style.background='linear-gradient(90deg,#0078ff 0%,#00cfff 100%)';this.style.boxShadow='0 8px 32px #0078ffa0,0 2px 8px #001a33a0';" onclick="selectPlan('starter', 14.99)">Wybierz Starter</a>
+<a href="#" class="plan-button" style="background:linear-gradient(90deg,#8a2be2 0%,#9370db 100%);color:#fff;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #8a2be2a0,0 2px 8px #44127aa0;letter-spacing:2px;text-shadow:0 0 8px #8a2be2,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#9370db 0%,#8a2be2 100%)';this.style.boxShadow='0 12px 36px #8a2be2cc,0 4px 12px #44127acc';" onmouseout="this.style.background='linear-gradient(90deg,#8a2be2 0%,#9370db 100%)';this.style.boxShadow='0 8px 32px #8a2be2a0,0 2px 8px #44127aa0';" onclick="selectPlan('starter', 14.99)">Wybierz Starter</a>
                   </div>
+                  
                   <div class="plan-card premium" data-index="2" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(255,215,0,0.13);border:6px double #FFD700;box-shadow:0 0 64px 24px #FFD700,0 0 128px 48px #FFA500,0 0 0 6px #FFD70055;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;">
                     <!-- Opaska z pucharem -->
                     <div style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#FFD700 60%,#FFA500 100%);color:#222;border-radius:32px;padding:8px 32px 8px 18px;box-shadow:0 4px 18px #FFD70099,0 0 8px #fff;font-weight:900;font-size:1.15rem;display:flex;align-items:center;gap:12px;z-index:3;border:3px solid #FFD700;">
                       <span style="font-size:1.7em;filter:drop-shadow(0 0 6px #FFD700);">🏆</span>
-                      Najczęściej wybierany
+                      NAJLEPSZY
                     </div>
                     <h3 class="plan-title" style="color:#FFD700;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #FFD700,0 0 2px #fff;text-align:center;">Premium</h3>
                     <div class="plan-price" style="color:#FFD700;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #FFD700,0 0 2px #fff;text-align:center;margin-bottom:18px;">29,99 <span class="currency" style="color:#FFA500;font-size:2.1rem;">zł/miesiąc</span></div>
                     <ul class="plan-features" style="font-size:1.25rem;color:#FFD700;font-weight:bold;text-shadow:0 0 8px #FFD700,0 0 2px #fff;text-align:center;">
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie CV do bazy aktualnych CV</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Wszystkie szablony CV</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Zaawansowane wskazówki</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 10 ogłoszeń o pracę/miesiąc</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 10 ogłoszeń usług/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Wszystkie szablony CV (50+)</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">WebResume z własną domeną</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">10 ogłoszeń/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Priorytetowe wsparcie 24/7</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Optymalizacja ATS</li>
                     </ul>
 <a href="#" class="plan-button" style="background:linear-gradient(90deg,#FFD700 0%,#FFA500 100%);color:#222;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #FFD700a0,0 2px 8px #332900a0;letter-spacing:2px;text-shadow:0 0 8px #FFD700,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#FFA500 0%,#FFD700 100%)';this.style.boxShadow='0 12px 36px #FFD700cc,0 4px 12px #332900cc';" onmouseout="this.style.background='linear-gradient(90deg,#FFD700 0%,#FFA500 100%)';this.style.boxShadow='0 8px 32px #FFD700a0,0 2px 8px #332900a0';" onclick="selectPlan('premium', 29.99)">Wybierz Premium</a>
                   </div>
-                  <div class="plan-card business-basic" data-index="3" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(0,255,247,0.13);border:6px double #00fff7;box-shadow:0 0 64px 24px #00ffd0,0 0 128px 48px #00bfae,0 0 0 6px #00ffd055;display:flex;flex-direction:column;align-items:center;gap:12px;">
-                    <h3 class="plan-title" style="color:#00ffd0;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;">Business Podstawowy</h3>
-                    <div class="plan-price" style="color:#00ffd0;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;margin-bottom:18px;">49,99 <span class="currency" style="color:#00bfae;font-size:2.1rem;">zł/miesiąc</span></div>
+                  
+                  <div class="plan-card business" data-index="3" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(0,255,247,0.13);border:6px double #00fff7;box-shadow:0 0 64px 24px #00ffd0,0 0 128px 48px #00bfae,0 0 0 6px #00ffd055;display:flex;flex-direction:column;align-items:center;gap:12px;">
+                    <h3 class="plan-title" style="color:#00ffd0;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;">Business</h3>
+                    <div class="plan-price" style="color:#00ffd0;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;margin-bottom:18px;">99,99 <span class="currency" style="color:#00bfae;font-size:2.1rem;">zł/miesiąc</span></div>
                     <ul class="plan-features" style="font-size:1.25rem;color:#00ffd0;font-weight:bold;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;text-align:center;">
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dostęp do <strong>50 CV</strong> z bazy danych</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Wszystkie szablony CV</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Zaawansowane wskazówki</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 20 ogłoszeń o pracę/miesiąc</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie 20 ogłoszeń usług/miesiąc</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Pełny dostęp do bazy CV (10,000+)</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Zaawansowane wyszukiwanie AI</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Nieograniczone ogłoszenia</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Analytics i raporty</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dedykowany manager konta</li>
                     </ul>
-<a href="#" class="plan-button" style="background:linear-gradient(90deg,#00ffd0 0%,#00bfae 100%);color:#003333;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #00ffd0a0,0 2px 8px #003333a0;letter-spacing:2px;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#00bfae 0%,#00ffd0 100%)';this.style.boxShadow='0 12px 36px #00ffd0cc,0 4px 12px #003333cc';" onmouseout="this.style.background='linear-gradient(90deg,#00ffd0 0%,#00bfae 100%)';this.style.boxShadow='0 8px 32px #00ffd0a0,0 2px 8px #003333a0';" onclick="selectPlan('business-podstawowy', 49.99)">Wybierz Business Podstawowy</a>
+<a href="#" class="plan-button" style="background:linear-gradient(90deg,#00ffd0 0%,#00bfae 100%);color:#003333;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #00ffd0a0,0 2px 8px #003333a0;letter-spacing:2px;text-shadow:0 0 8px #00ffd0,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#00bfae 0%,#00ffd0 100%)';this.style.boxShadow='0 12px 36px #00ffd0cc,0 4px 12px #003333cc';" onmouseout="this.style.background='linear-gradient(90deg,#00ffd0 0%,#00bfae 100%)';this.style.boxShadow='0 8px 32px #00ffd0a0,0 2px 8px #003333a0';" onclick="selectPlan('business', 99.99)">Wybierz Business</a>
                   </div>
-                  <div class="plan-card business-advanced" data-index="4" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(229,128,255,0.13);border:6px double #e580ff;box-shadow:0 0 64px 24px #e580ff,0 0 128px 48px #c800ff,0 0 0 6px #e580ff55;display:flex;flex-direction:column;align-items:center;gap:12px;">
-                    <h3 class="plan-title" style="color:#e580ff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #e580ff,0 0 2px #fff;text-align:center;">Business Zaawansowany</h3>
-                    <div class="plan-price" style="color:#e580ff;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #e580ff,0 0 2px #fff;text-align:center;margin-bottom:18px;">99,99 <span class="currency" style="color:#c800ff;font-size:2.1rem;">zł/miesiąc</span></div>
-                    <ul class="plan-features" style="font-size:1.25rem;color:#e580ff;font-weight:bold;text-shadow:0 0 8px #e580ff,0 0 2px #fff;text-align:center;">
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dostęp do bazy CV</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Wszystkie szablony CV</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Eksport PDF</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Zaawansowane wskazówki</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Bez reklam</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Możliwość aplikowania na ogłoszenia o pracę</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie nielimitowanej liczby ogłoszeń o pracę</li>
-                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dodanie nielimitowanej liczby ogłoszeń usług</li>
+                  
+                  <div class="plan-card enterprise" data-index="4" style="min-width:260px;max-width:320px;box-sizing:border-box;flex:1 1 260px;background:rgba(220,20,60,0.13);border:6px double #dc143c;box-shadow:0 0 64px 24px #dc143c,0 0 128px 48px #b91c1c,0 0 0 6px #dc143c55;display:flex;flex-direction:column;align-items:center;gap:12px;">
+                    <h3 class="plan-title" style="color:#dc143c;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #dc143c,0 0 2px #fff;text-align:center;">Enterprise</h3>
+                    <div class="plan-price" style="color:#dc143c;font-size:2.7rem;font-weight:bold;text-shadow:0 0 8px #dc143c,0 0 2px #fff;text-align:center;margin-bottom:18px;">299,99 <span class="currency" style="color:#b91c1c;font-size:2.1rem;">zł/miesiąc</span></div>
+                    <ul class="plan-features" style="font-size:1.25rem;color:#dc143c;font-weight:bold;text-shadow:0 0 8px #dc143c,0 0 2px #fff;text-align:center;">
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Nieograniczona baza CV (25,000+)</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">AI-powered matching</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">White-label rozwiązania</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Własne subdomena</li>
+                      <li style="background:#fff;color:#111;font-weight:900;border-radius:8px;box-shadow:none;letter-spacing:1px;font-size:1.35rem;padding:10px 0;">Dedykowany zespół wsparcia</li>
                     </ul>
-<a href="#" class="plan-button" style="background:linear-gradient(90deg,#e580ff 0%,#c800ff 100%);color:#fff;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #e580ffa0,0 2px 8px #c800ffa0;letter-spacing:2px;text-shadow:0 0 8px #e580ff,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#c800ff 0%,#e580ff 100%)';this.style.boxShadow='0 12px 36px #e580ffcc,0 4px 12px #c800ffcc';" onmouseout="this.style.background='linear-gradient(90deg,#e580ff 0%,#c800ff 100%)';this.style.boxShadow='0 8px 32px #e580ffa0,0 2px 8px #c800ffa0';" onclick="selectPlan('business-zaawansowany', 99.99)">Wybierz Business Zaawansowany</a>
+<a href="#" class="plan-button" style="background:linear-gradient(90deg,#dc143c 0%,#b91c1c 100%);color:#fff;font-size:1.45rem;font-weight:900;padding:22px 0;border-radius:48px;box-shadow:0 8px 32px #dc143ca0,0 2px 8px #5a0a16a0;letter-spacing:2px;text-shadow:0 0 8px #dc143c,0 0 2px #fff;transition:all 0.3s cubic-bezier(.77,0,.18,1);margin-top:32px;margin-bottom:8px;border:none;outline:none;display:block;width:100%;text-align:center;" onmouseover="this.style.background='linear-gradient(90deg,#b91c1c 0%,#dc143c 100%)';this.style.boxShadow='0 12px 36px #dc143ccc,0 4px 12px #5a0a16cc';" onmouseout="this.style.background='linear-gradient(90deg,#dc143c 0%,#b91c1c 100%)';this.style.boxShadow='0 8px 32px #dc143ca0,0 2px 8px #5a0a16a0';" onclick="selectPlan('enterprise', 299.99)">Skontaktuj się</a>
                   </div>
                 </div>
             </section>
@@ -787,32 +1058,134 @@
     </div>
 
     <script>
+        // Animowany licznik kandydatów
+        function animateCounter() {
+            const counter = document.getElementById('main-counter-number');
+            let current = 0;
+            const target = 247;
+            const increment = target / 100;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                counter.textContent = Math.floor(current);
+                counter.style.animation = 'countUp 0.1s ease-out';
+            }, 20);
+        }
+
+        // Funkcja wyboru planu z modałem
         function selectPlan(planType, price) {
-            alert(`Wybrano plan: ${planType} za ${price} zł/miesiąc`);
+            const modal = document.getElementById('payment-modal');
+            const planName = document.getElementById('plan-name');
+            const planPrice = document.getElementById('plan-price');
+            
+            // Mapowanie nazw planów
+            const planNames = {
+                'bezplatny': 'Bezpłatny',
+                'starter': 'Starter',
+                'premium': 'Premium',
+                'business': 'Business',
+                'enterprise': 'Enterprise'
+            };
+            
+            planName.textContent = planNames[planType] || planType;
+            planPrice.textContent = price;
+            
+            if (price === 0) {
+                // Plan bezpłatny - bezpośrednia rejestracja
+                window.location.href = 'rejestracja.html?plan=bezplatny';
+                return;
+            }
+            
+            // Pokaż modal płatności
+            modal.style.display = 'flex';
+            modal.style.animation = 'fadeInUp 0.5s ease-out';
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById('payment-modal');
+            modal.style.animation = 'fadeInUp 0.3s ease-out reverse';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function processPurchase(event) {
+            event.preventDefault();
+            
+            // Symulacja procesu płatności
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '⏳ Przetwarzanie...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = '✅ Płatność Zakończona!';
+                setTimeout(() => {
+                    alert('Gratulacje! Plan został aktywowany. Przekierowujemy do bazy CV...');
+                    window.location.href = 'baza_cv_dostep.html';
+                }, 2000);
+            }, 3000);
         }
 
         function accessCVDatabase() {
-            // Tu można dodać przekierowanie lub logikę po wykupieniu planu
             alert('Dostęp do bazy CV tylko po wykupieniu planu Business!');
         }
 
-        // Karuzela automatyczna na mobile
+        // Karuzela z paginacją
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Strona załadowana - wszystkie style powinny działać');
+            console.log('Strona załadowana - uruchamianie animacji...');
+            
+            // Uruchom animowany licznik po załadowaniu
+            setTimeout(animateCounter, 500);
 
             // Karuzela planów na mobile
             function isMobile() {
                 return window.innerWidth <= 700;
             }
+            
             const plansWrapper = document.querySelector('.plans-carousel-wrapper');
             const planCards = plansWrapper ? plansWrapper.querySelectorAll('.plan-card') : [];
             let currentIndex = 0;
             let intervalId = null;
 
+            // Dodaj paginację
+            if (isMobile() && planCards.length > 1) {
+                const pagination = document.createElement('div');
+                pagination.className = 'carousel-pagination';
+                pagination.style.cssText = 'position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 11;';
+                
+                planCards.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.style.cssText = 'display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #333; cursor: pointer; transition: background 0.3s;';
+                    if (index === 0) dot.style.background = '#00ff00';
+                    dot.onclick = () => {
+                        currentIndex = index;
+                        showPlan(currentIndex);
+                        updatePagination();
+                    };
+                    pagination.appendChild(dot);
+                });
+                
+                plansWrapper.appendChild(pagination);
+            }
+
+            function updatePagination() {
+                const dots = document.querySelectorAll('.carousel-pagination span');
+                dots.forEach((dot, index) => {
+                    dot.style.background = index === currentIndex ? '#00ff00' : '#333';
+                });
+            }
+
             function showPlan(index) {
                 planCards.forEach((card, i) => {
                     card.style.display = (i === index) ? 'flex' : 'none';
                 });
+                updatePagination();
             }
 
             function startCarousel() {
@@ -822,13 +1195,24 @@
                 intervalId = setInterval(() => {
                     currentIndex = (currentIndex + 1) % planCards.length;
                     showPlan(currentIndex);
-                }, 1500);
+                }, 4000); // Zwiększyłem czas na 4 sekundy
             }
 
             function stopCarousel() {
                 if (intervalId) clearInterval(intervalId);
                 planCards.forEach(card => card.style.display = 'flex');
             }
+
+            // Manual carousel controls
+            window.prevPlan = function() {
+                currentIndex = (currentIndex - 1 + planCards.length) % planCards.length;
+                showPlan(currentIndex);
+            };
+
+            window.nextPlan = function() {
+                currentIndex = (currentIndex + 1) % planCards.length;
+                showPlan(currentIndex);
+            };
 
             // Initial setup
             if (isMobile()) {
@@ -842,7 +1226,83 @@
                     stopCarousel();
                 }
             });
+
+            // Animacje wejścia dla elementów
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                    }
+                });
+            }, observerOptions);
+
+            // Obserwuj elementy do animacji
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(40px)';
+                observer.observe(card);
+            });
         });
+
+        // Zamknij modal po kliknięciu poza nim
+        window.onclick = function(event) {
+            const modal = document.getElementById('payment-modal');
+            if (event.target === modal) {
+                closePaymentModal();
+            }
+        };
+    </script>
+    
+    <!-- OPTYMALIZOWANY SKRYPT GŁÓWNY -->
+    <script defer src="js/optimized-app.js"></script>
+    
+    <!-- DODATKOWE OPTYMALIZACJE WYDAJNOŚCI -->
+    <script>
+        // Lazy loading obrazów
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            });
+            document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+        }
+        
+        // Preload następnych stron
+        document.addEventListener('DOMContentLoaded', function() {
+            const prefetchPages = ['index.html', 'rejestracja.html', 'marketplace.html'];
+            prefetchPages.forEach(page => {
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = page;
+                document.head.appendChild(link);
+            });
+        });
+        
+        // Performance monitoring
+        if ('performance' in window && 'getEntriesByType' in performance) {
+            window.addEventListener('load', function() {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log('Page load time:', loadTime + 'ms');
+                
+                // Send to analytics if needed
+                if (loadTime > 3000) {
+                    console.warn('Page load time exceeded 3 seconds');
+                }
+            });
+        }
     </script>
 </body>
 </html>

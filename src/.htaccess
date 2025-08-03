@@ -1,0 +1,154 @@
+# eCVjob.pl - Optymalizacje serwera Apache
+
+# ===== KOMPRESJA GZIP =====
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/csv
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ===== MIME TYPES =====
+<IfModule mod_mime.c>
+    AddType text/csv .csv
+    AddType application/json .json
+</IfModule>
+
+# ===== CACHE HEADERS =====
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS i JS
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/truetype "access plus 1 year"
+    ExpiresByType font/opentype "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    
+    # HTML - krótszy cache
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # Manifest i Service Worker
+    ExpiresByType application/manifest+json "access plus 1 week"
+    ExpiresByType text/cache-manifest "access plus 0 seconds"
+</IfModule>
+
+# ===== CACHE CONTROL HEADERS =====
+<IfModule mod_headers.c>
+    # Remove ETags
+    Header unset ETag
+    FileETag None
+    
+    # Cache static assets
+    <filesMatch "\.(css|js|png|jpg|jpeg|gif|webp|ico|svg|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </filesMatch>
+    
+    # HTML files
+    <filesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=3600, public, must-revalidate"
+    </filesMatch>
+    
+    # Service Worker - no cache
+    <filesMatch "sw\.js$">
+        Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    </filesMatch>
+    
+    # Security headers
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ===== URL REWRITING =====
+<IfModule mod_rewrite.c>
+    # RewriteEngine On - WYŁĄCZONE dla debugowania
+    # RewriteEngine On
+    
+    # Redirect to HTTPS - WYŁĄCZONE dla rozwoju lokalnego
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Remove www - WYŁĄCZONE dla rozwoju lokalnego
+    # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    
+    # Clean URLs - WYŁĄCZONE dla debugowania
+    # RewriteCond %{REQUEST_FILENAME} !-d
+    # RewriteCond %{REQUEST_FILENAME} !-f
+    # RewriteRule ^([^\.]+)$ $1.html [NC,L]
+    
+    # Remove .html extension from URLs - WYŁĄCZONE dla debugowania
+    # RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+    # RewriteRule ^ /%1 [NC,L,R=301]
+</IfModule>
+
+# ===== MIME TYPES =====
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType text/css .css
+    AddType image/webp .webp
+    AddType application/manifest+json .webmanifest
+    AddType application/manifest+json .json
+    AddType image/svg+xml .svg
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+</IfModule>
+
+# ===== SECURITY =====
+# Disable server signature
+ServerSignature Off
+
+# Prevent access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Prevent access to backup files
+<FilesMatch ".*~$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# ===== PERFORMANCE =====
+# Disable ETags
+FileETag None
+
+# ===== CORS dla plików CSV =====
+<Files "*.csv">
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type"
+</Files>
+
+# Limit request size (10MB)
+LimitRequestBody 10485760
+
+# ===== ERROR PAGES =====
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html

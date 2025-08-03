@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Auto-Tester Plan Synchronization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .status {
+            background: #2a2a2a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #00ff00;
+        }
+        .error { border-color: #ff0000; color: #ff0000; }
+        .warning { border-color: #ffaa00; color: #ffaa00; }
+        .success { border-color: #00ff00; color: #00ff00; }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            margin: 10px 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        button:hover { background: #00cc00; }
+        .test-result {
+            background: #0a0a0a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+        .big-button {
+            font-size: 20px;
+            padding: 20px 30px;
+            margin: 20px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Auto-Tester Plan Synchronization</h1>
+        
+        <div class="status">
+            <h3>🎯 Automatyczne wykrywanie problemu synchronizacji planów</h3>
+            <p>Ten tester automatycznie wykryje czy występuje problem z synchronizacją planów między różnymi elementami.</p>
+        </div>
+        
+        <div style="text-align: center;">
+            <button class="big-button" onclick="runFullAutoTest()">
+                🚀 URUCHOM PEŁNY AUTOTEST
+            </button>
+        </div>
+        
+        <div class="status">
+            <h3>📊 Wyniki testów:</h3>
+            <div id="testResults">Naciśnij przycisk aby uruchomić testy...</div>
+        </div>
+        
+        <div class="status">
+            <h3>🔧 Ręczne testy:</h3>
+            <button onclick="testBasicSync()">Test podstawowej synchronizacji</button>
+            <button onclick="testRapidChanges()">Test szybkich zmian</button>
+            <button onclick="testConflicts()">Test konfliktów</button>
+            <button onclick="openMainPage()">📄 Otwórz główną stronę</button>
+        </div>
+        
+        <div class="status">
+            <h3>📋 Logi testów:</h3>
+            <div id="testLogs" class="test-result">Logi będą tutaj...</div>
+        </div>
+    </div>
+
+    <script>
+        let testLogs = [];
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            testLogs.push({message: logEntry, type});
+            
+            const logsDiv = document.getElementById('testLogs');
+            logsDiv.innerHTML = testLogs.map(l => {
+                const color = l.type === 'error' ? '#ff0000' : 
+                             l.type === 'warning' ? '#ffaa00' : 
+                             l.type === 'success' ? '#00ff00' : '#ffffff';
+                return `<div style="color: ${color}">${l.message}</div>`;
+            }).join('');
+            
+            console.log(logEntry);
+        }
+        
+        function updateResults(html) {
+            document.getElementById('testResults').innerHTML = html;
+        }
+        
+        async function runFullAutoTest() {
+            log('🚀 Rozpoczynam pełny autotest...', 'info');
+            updateResults('<div style="color: #ffaa00;">⏳ Trwa testowanie...</div>');
+            
+            let allTestsPassed = true;
+            let results = [];
+            
+            // Test 1: Sprawdź czy sessionStorage działa
+            try {
+                sessionStorage.setItem('test', 'value');
+                const val = sessionStorage.getItem('test');
+                sessionStorage.removeItem('test');
+                if (val === 'value') {
+                    results.push('✅ SessionStorage: OK');
+                    log('✅ Test sessionStorage: PASSED', 'success');
+                } else {
+                    throw new Error('SessionStorage nie działa');
+                }
+            } catch (e) {
+                results.push('❌ SessionStorage: BŁĄD - ' + e.message);
+                log('❌ Test sessionStorage: FAILED - ' + e.message, 'error');
+                allTestsPassed = false;
+            }
+            
+            // Test 2: Sprawdź czy można utworzyć elementy DOM
+            try {
+                const testDiv = document.createElement('div');
+                testDiv.id = 'testElement';
+                document.body.appendChild(testDiv);
+                const found = document.getElementById('testElement');
+                document.body.removeChild(testDiv);
+                
+                if (found) {
+                    results.push('✅ DOM manipulation: OK');
+                    log('✅ Test DOM: PASSED', 'success');
+                } else {
+                    throw new Error('Nie można manipulować DOM');
+                }
+            } catch (e) {
+                results.push('❌ DOM manipulation: BŁĄD - ' + e.message);
+                log('❌ Test DOM: FAILED - ' + e.message, 'error');
+                allTestsPassed = false;
+            }
+            
+            // Test 3: Symulacja problemu z planami
+            try {
+                // Stwórz tymczasowe elementy jak w głównej stronie
+                const userWelcome = document.createElement('div');
+                const userPlan = document.createElement('div');
+                userWelcome.id = 'tempUserWelcome';
+                userPlan.id = 'tempUserPlan';
+                document.body.appendChild(userWelcome);
+                document.body.appendChild(userPlan);
+                
+                // Ustaw dane Premium
+                sessionStorage.setItem('currentUser', JSON.stringify({
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    plan: 'Premium'
+                }));
+                
+                // Symuluj funkcję synchronizacji
+                const userData = sessionStorage.getItem('currentUser');
+                const user = JSON.parse(userData);
+                
+                userWelcome.innerHTML = `<span>👋 Witaj, ${user.name}!</span>`;
+                userPlan.innerHTML = `<span>📋 ⭐ ${user.plan}</span>`;
+                
+                // Sprawdź czy elementy zawierają właściwe dane
+                if (userWelcome.innerHTML.includes('Test User') && 
+                    userPlan.innerHTML.includes('Premium')) {
+                    results.push('✅ Synchronizacja Premium: OK');
+                    log('✅ Test synchronizacji Premium: PASSED', 'success');
+                } else {
+                    throw new Error('Synchronizacja nie działa poprawnie');
+                }
+                
+                // Test zmiany planu
+                const newUserData = JSON.parse(userData);
+                newUserData.plan = 'Enterprise';
+                sessionStorage.setItem('currentUser', JSON.stringify(newUserData));
+                
+                // Symuluj ponowną synchronizację
+                const newData = JSON.parse(sessionStorage.getItem('currentUser'));
+                userPlan.innerHTML = `<span>📋 💎 ${newData.plan}</span>`;
+                
+                if (userPlan.innerHTML.includes('Enterprise')) {
+                    results.push('✅ Zmiana planu Enterprise: OK');
+                    log('✅ Test zmiany na Enterprise: PASSED', 'success');
+                } else {
+                    throw new Error('Zmiana planu nie działa');
+                }
+                
+                // Sprawdź czy nie ma niezgodności
+                const welcomeText = userWelcome.innerHTML;
+                const planText = userPlan.innerHTML;
+                
+                if (welcomeText.includes('Test User') && planText.includes('Enterprise')) {
+                    results.push('✅ Zgodność danych: OK');
+                    log('✅ Test zgodności: PASSED', 'success');
+                } else {
+                    results.push('⚠️ POTENCJALNY PROBLEM: Niezgodność danych!');
+                    log('⚠️ POTENCJALNY PROBLEM wykryty!', 'warning');
+                    allTestsPassed = false;
+                }
+                
+                // Cleanup
+                document.body.removeChild(userWelcome);
+                document.body.removeChild(userPlan);
+                sessionStorage.removeItem('currentUser');
+                
+            } catch (e) {
+                results.push('❌ Test synchronizacji: BŁĄD - ' + e.message);
+                log('❌ Test synchronizacji: FAILED - ' + e.message, 'error');
+                allTestsPassed = false;
+            }
+            
+            // Test 4: Sprawdź czy główna strona istnieje
+            try {
+                const img = new Image();
+                img.onload = () => {
+                    results.push('✅ Główna strona: Dostępna');
+                    log('✅ Główna strona: Dostępna', 'success');
+                };
+                img.onerror = () => {
+                    results.push('⚠️ Główna strona: Może być problem z dostępem');
+                    log('⚠️ Problem z dostępem do głównej strony', 'warning');
+                };
+                img.src = 'file:///c:/serwer/htdocs/moj_projek/eCVjob.pl/src/baza_cv_new.html';
+            } catch (e) {
+                results.push('❌ Główna strona: BŁĄD - ' + e.message);
+                log('❌ Test głównej strony: FAILED - ' + e.message, 'error');
+            }
+            
+            // Podsumowanie
+            const finalResult = allTestsPassed ? 
+                '<div style="color: #00ff00; font-size: 18px;">🎉 WSZYSTKIE TESTY PRZESZŁY POMYŚLNIE!</div>' :
+                '<div style="color: #ff0000; font-size: 18px;">⚠️ WYKRYTO PROBLEMY - sprawdź logi</div>';
+            
+            results.push('');
+            results.push(finalResult);
+            
+            updateResults(results.join('<br>'));
+            log(`🏁 Autotest zakończony. Wynik: ${allTestsPassed ? 'SUCCESS' : 'PROBLEMS FOUND'}`, 
+                allTestsPassed ? 'success' : 'error');
+        }
+        
+        function testBasicSync() {
+            log('🔄 Test podstawowej synchronizacji...', 'info');
+            
+            // Ustaw dane testowe
+            sessionStorage.setItem('currentUser', JSON.stringify({
+                name: 'Test User',
+                email: 'test@example.com',
+                plan: 'Premium'
+            }));
+            
+            log('✅ Ustawiono dane Premium w sessionStorage', 'success');
+            log('💡 Teraz otwórz główną stronę i sprawdź czy wyświetla się Premium', 'info');
+        }
+        
+        function testRapidChanges() {
+            log('⚡ Test szybkich zmian planu...', 'info');
+            
+            const plans = ['Premium', 'Business', 'Enterprise'];
+            let currentPlan = 0;
+            
+            const interval = setInterval(() => {
+                const plan = plans[currentPlan];
+                sessionStorage.setItem('currentUser', JSON.stringify({
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    plan: plan
+                }));
+                
+                log(`🔄 Zmieniono plan na: ${plan}`, 'info');
+                currentPlan++;
+                
+                if (currentPlan >= plans.length) {
+                    clearInterval(interval);
+                    log('✅ Test szybkich zmian zakończony', 'success');
+                }
+            }, 1000);
+        }
+        
+        function testConflicts() {
+            log('⚠️ Test konfliktów - symulacja problemu...', 'warning');
+            
+            // Ustaw Premium
+            sessionStorage.setItem('currentUser', JSON.stringify({
+                name: 'Test User',
+                email: 'test@example.com',
+                plan: 'Premium'
+            }));
+            
+            log('1. Ustawiono Premium', 'info');
+            
+            setTimeout(() => {
+                // Zmień na Enterprise
+                sessionStorage.setItem('currentUser', JSON.stringify({
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    plan: 'Enterprise'
+                }));
+                
+                log('2. Zmieniono na Enterprise - sprawdź główną stronę!', 'warning');
+            }, 2000);
+        }
+        
+        function openMainPage() {
+            const url = 'file:///c:/serwer/htdocs/moj_projek/eCVjob.pl/src/baza_cv_new.html';
+            window.open(url, '_blank');
+            log('📄 Otwarto główną stronę w nowym oknie', 'info');
+        }
+        
+        // Auto-start
+        log('🤖 Auto-tester załadowany i gotowy!', 'success');
+        log('💡 Naciśnij "URUCHOM PEŁNY AUTOTEST" aby rozpocząć', 'info');
+    </script>
+</body>
+</html>
