@@ -36,9 +36,9 @@
             background: rgba(0,0,0,0.9);
             padding: 1rem 0;
             box-shadow: 0 2px 20px rgba(0,255,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            /* position: sticky; */
+            /* top: 0; */
+            /* z-index: 1000; */
         }
         
         .nav-container {
@@ -48,6 +48,68 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+        }
+
+        /* Hamburger menu styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 4px;
+            margin: 4px 0;
+            background: #00ff00;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        @media (max-width: 900px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100vw;
+                width: 70vw;
+                max-width: 320px;
+                height: 100vh;
+                background: rgba(0,0,0,0.98);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                padding: 60px 30px 30px 30px;
+                box-shadow: -4px 0 24px #00ff0033;
+                transition: right 0.35s cubic-bezier(.77,0,.18,1);
+                z-index: 2000;
+                display: flex;
+            }
+            .nav-menu.open {
+                right: 0;
+            }
+            .nav-menu li {
+                width: 100%;
+                margin: 0 0 18px 0;
+            }
+            .nav-menu a {
+                display: block;
+                width: 100%;
+                padding: 16px 0 16px 10px;
+                font-size: 1.2rem;
+                border-radius: 8px;
+            }
+        }
+        @media (max-width: 900px) {
+            .nav-container {
+                padding: 0 8px;
+            }
         }
         
         .logo {
@@ -144,6 +206,27 @@
             grid-template-columns: 2fr 1fr 1fr auto;
             gap: 15px;
             align-items: end;
+        }
+
+        @media (max-width: 900px) {
+            .search-form {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .search-section {
+                padding: 16px 4vw;
+            }
+            .search-form {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .search-btn {
+                width: 100%;
+                padding: 14px 0;
+                font-size: 1.1rem;
+            }
+        }
         }
         
         .form-group {
@@ -590,37 +673,119 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .search-form {
-                grid-template-columns: 1fr;
+        /* Mobile Responsive - menu identyczne jak index.html */
+        @media (max-width: 900px) {
+            .hamburger {
+                display: flex;
             }
-            
             .nav-menu {
-                display: none;
-            }
-            
-            .page-title h1 {
-                font-size: 2rem;
-            }
-            
-            .job-header {
+                position: fixed;
+                top: 0;
+                right: -100vw;
+                width: 70vw;
+                max-width: 320px;
+                height: 100vh;
+                background: rgba(0,0,0,0.98);
                 flex-direction: column;
-                gap: 10px;
+                align-items: flex-start;
+                gap: 0;
+                padding: 60px 30px 30px 30px;
+                box-shadow: -4px 0 24px #00ff0033;
+                transition: right 0.35s cubic-bezier(.77,0,.18,1);
+                z-index: 2000;
+                display: flex;
             }
-            
-            .job-actions {
-                flex-direction: column;
+            .nav-menu.open {
+                right: 0;
+            }
+            .nav-menu li {
+                width: 100%;
+                margin: 0 0 18px 0;
+            }
+            .nav-menu a {
+                display: block;
+                width: 100%;
+                padding: 16px 0 16px 10px;
+                font-size: 1.2rem;
+                border-radius: 8px;
+            }
+            .nav-container {
+                padding: 0 8px;
+            }
+        }
+        @media (max-width: 600px) {
+            .nav-menu {
+                width: 90vw;
+                max-width: none;
+                padding: 60px 10vw 30px 10vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .main-container {
+                padding: 20px 4vw;
+            }
+        }
+        /* Menu zawsze rozwinięte na najmniejszych ekranach (identycznie jak index.html/uslugi.html) */
+        @media (max-width: 480px) {
+            .hamburger {
+                display: none !important;
+            }
+            .nav-menu {
+                display: flex !important;
+                position: static !important;
+                right: 0 !important;
+                width: 100vw !important;
+                max-width: none !important;
+                height: auto !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                box-shadow: none !important;
+                background: rgba(0,0,0,0.98) !important;
+                padding: 60px 0 30px 0 !important;
+                z-index: 2000 !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+            .nav-menu.open {
+                right: 0 !important;
+            }
+            .nav-container {
+                width: 100vw !important;
+                max-width: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .nav-menu li {
+                width: 100% !important;
+                margin: 0 0 18px 0 !important;
+            }
+            .nav-menu a {
+                display: block !important;
+                width: 100% !important;
+                padding: 16px 0 16px 10px !important;
+                font-size: 1.2rem !important;
+                border-radius: 8px !important;
+            }
+            /* Wymuś widoczność menu nawet jeśli JS lub inne style próbują je ukryć */
+            ul.nav-menu[style*="display: none"] {
+                display: flex !important;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Dekoracyjne logo po prawej stronie, pod wszystkimi sekcjami -->
+    <img src="images/logo.png" alt="Logo" style="position:fixed; top:80px; right:0; width:180px; opacity:0.13; z-index:0; pointer-events:none; user-select:none;" />
     <!-- Header -->
     <header class="header">
         <nav class="nav-container">
             <a href="index.html" class="logo">eCVjob.pl</a>
-            <ul class="nav-menu">
+            <div class="hamburger" id="hamburger-menu" aria-label="Otwórz menu" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="main-nav-menu">
                 <li><a href="index.html">Strona główna</a></li>
                 <li><a href="index.html#baza-cv">Baza CV</a></li>
                 <li><a href="oferty-pracy.html">Oferty pracy</a></li>
@@ -780,6 +945,68 @@
             
             <!-- Zaawansowana Paginacja -->
             <div class="pagination-bar" id="pagination-bar" style="display: none;"></div>
+            <!-- Modal aplikacyjny -->
+            <div id="applyJobModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:99999; justify-content:center; align-items:center;" role="dialog" aria-modal="true" aria-labelledby="applyJobModalTitle">
+              <div style="background:#222; padding:40px 30px; border-radius:20px; max-width:540px; width:97%; box-shadow:0 8px 40px #00ff0033; color:#fff; position:relative; max-height:92vh; overflow-y:auto; display:flex; flex-direction:column;" tabindex="-1">
+                <button id="closeApplyJobModalBtn" type="button" aria-label="Zamknij okno aplikacji" style="position:absolute; top:18px; right:18px; background:none; border:none; color:#00ff00; font-size:2rem; cursor:pointer;">&times;</button>
+                <h2 id="applyJobModalTitle" style="color:#00ff00; margin-bottom:10px; text-align:center;">Formularz aplikacyjny</h2>
+                <div id="applyJobModalOfferInfo" style="text-align:center; margin-bottom:18px; color:#FFD700; font-weight:bold;"></div>
+                <form id="applyJobForm" autocomplete="off" enctype="multipart/form-data" aria-describedby="applyJobMsg">
+                  <div style="display:flex; gap:10px; margin-bottom:16px;">
+                    <div style="flex:1;">
+                      <label for="appImie" style="color:#00ff00; font-weight:bold;">Imię* <span class="sr-only">(pole wymagane)</span></label>
+                      <input type="text" id="appImie" name="imie" required aria-required="true" aria-label="Imię" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                    </div>
+                    <div style="flex:1;">
+                      <label for="appNazwisko" style="color:#00ff00; font-weight:bold;">Nazwisko* <span class="sr-only">(pole wymagane)</span></label>
+                      <input type="text" id="appNazwisko" name="nazwisko" required aria-required="true" aria-label="Nazwisko" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                    </div>
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="appEmail" style="color:#00ff00; font-weight:bold;">E-mail* <span class="sr-only">(pole wymagane)</span></label>
+                    <input type="email" id="appEmail" name="email" required aria-required="true" aria-label="E-mail" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="appTelefon" style="color:#00ff00; font-weight:bold;">Telefon* <span class="sr-only">(pole wymagane)</span></label>
+                    <input type="tel" id="appTelefon" name="telefon" required pattern="[0-9\-\+ ]{7,}" aria-required="true" aria-label="Telefon" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                  </div>
+                  <!-- Dostępność -->
+                  <fieldset style="margin-bottom:16px; border:2px solid #00ff00; border-radius:10px; padding:12px;">
+                    <legend style="color:#00ff00; font-weight:bold;">Dostępność do podjęcia pracy*</legend>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <input type="radio" id="appDostepnoscZaraz" name="dostepnosc" value="od_zaraz" required aria-required="true" aria-label="Od zaraz" style="accent-color:#00ff00; width:20px; height:20px;">
+                        <label for="appDostepnoscZaraz" style="color:#00ff00; font-weight:normal;">Od zaraz</label>
+                      </div>
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <input type="radio" id="appDostepnoscWypowiedzenie" name="dostepnosc" value="wypowiedzenie" aria-label="Po okresie wypowiedzenia" style="accent-color:#00ff00; width:20px; height:20px;">
+                        <label for="appDostepnoscWypowiedzenie" style="color:#00ff00; font-weight:normal;">Po okresie wypowiedzenia</label>
+                        <input type="number" id="appOkresWypowiedzenia" name="okresWypowiedzenia" min="1" max="52" placeholder="liczba tygodni" aria-label="Liczba tygodni okresu wypowiedzenia" style="width:110px; margin-left:10px; padding:7px; border-radius:6px; border:1.5px solid #FFD700; background:#111; color:#FFD700; display:none;">
+                        <span id="okresWypowiedzeniaLabel" style="color:#FFD700; display:none;">tygodni</span>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div style="margin-bottom:16px;">
+                    <label for="appCV" style="color:#00ff00; font-weight:bold;">CV (PDF, max 5MB)* <span class="sr-only">(pole wymagane)</span></label>
+                    <input type="file" id="appCV" name="cv" accept="application/pdf" required aria-required="true" aria-label="CV" style="width:100%; padding:10px; border-radius:8px; border:2px solid #FFD700; background:#111; color:#FFD700;">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="appListMotywacyjny" style="color:#00ff00; font-weight:bold;">List motywacyjny</label>
+                    <textarea id="appListMotywacyjny" name="listMotywacyjny" rows="3" aria-label="List motywacyjny" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;"></textarea>
+                  </div>
+                  <div style="margin-bottom:16px; display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="appRODO" name="rodo" required aria-required="true" aria-label="Zgoda RODO" style="accent-color:#00ff00; width:22px; height:22px;">
+                    <label for="appRODO" style="color:#FFD700; font-weight:bold; font-size:1.05rem;">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu rekrutacji (RODO)*</label>
+                  </div>
+                  <div style="margin-bottom:22px; display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="appMarketing" name="marketing" aria-label="Zgoda marketingowa" style="accent-color:#00ff00; width:22px; height:22px;">
+                    <label for="appMarketing" style="color:#00ff00; font-size:1.01rem;">Zgadzam się na otrzymywanie informacji marketingowych</label>
+                  </div>
+                  <button type="submit" style="width:100%; background:linear-gradient(90deg,#00ff00,#00cc00); color:#111; font-size:1.2rem; font-weight:bold; padding:15px 0; border:none; border-radius:12px; box-shadow:0 4px 18px #00ff0055; cursor:pointer; margin-bottom:8px;">📧 Wyślij aplikację</button>
+                </form>
+                <div id="applyJobMsg" role="status" aria-live="polite" style="margin-top:10px; text-align:center; color:#FFD700; font-weight:bold;"></div>
+              </div>
+            </div>
         </section>
     </main>
 
@@ -787,6 +1014,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <script>
+        // Hamburger menu logic for mobile + wymuszenie rozwinięcia menu na najmniejszych ekranach
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('main-nav-menu');
+            // Wymuszamy menu zawsze widoczne na <=480px, hamburger ukryty
+            // Usunięto JS wymuszający widoczność menu na mobile - kontrola wyłącznie przez CSS
+        });
         // Global variables
         let allOffers = [];
         let filteredOffers = [];
@@ -1107,315 +1341,324 @@
         }
 
         // Render advanced pagination bar
-        function renderPaginationBar() {
-          const bar = document.getElementById('pagination-bar');
-          if (!bar) return;
-          bar.innerHTML = '';
-          totalPages = Math.max(1, Math.ceil(filteredOffers.length / offersPerPage));
-          
-          if (totalPages <= 1) {
-            bar.style.display = 'none';
-            return;
-          }
-          
-          bar.style.display = 'flex';
-          
-          // Previous button
-          const prevBtn = document.createElement('button');
-          prevBtn.textContent = '←';
-          prevBtn.className = 'pagination-btn';
-          prevBtn.disabled = currentPage === 1;
-          prevBtn.onclick = function() {
-            if (currentPage > 1) {
-              currentPage--;
-              displayOffers();
-            }
-          };
-          addRippleEffect(prevBtn);
-          bar.appendChild(prevBtn);
-          
-          // Page number buttons logic
-          let maxPagesToShow = 7;
-          let startPage = Math.max(1, currentPage - 3);
-          let endPage = Math.min(totalPages, currentPage + 3);
-          
-          if (totalPages > maxPagesToShow) {
-            if (currentPage <= 4) {
-              startPage = 1;
-              endPage = maxPagesToShow;
-            } else if (currentPage >= totalPages - 3) {
-              startPage = totalPages - maxPagesToShow + 1;
-              endPage = totalPages;
-            } else {
-              startPage = currentPage - 3;
-              endPage = currentPage + 3;
-            }
-          } else {
-            startPage = 1;
-            endPage = totalPages;
-          }
-          
-          // First page button
-          if (startPage > 1) {
-            const firstBtn = document.createElement('button');
-            firstBtn.textContent = '1';
-            firstBtn.className = 'pagination-btn';
-            firstBtn.onclick = function() {
-              currentPage = 1;
-              displayOffers();
-            };
-            addRippleEffect(firstBtn);
-            bar.appendChild(firstBtn);
-            
-            if (startPage > 2) {
-              const dots = document.createElement('span');
-              dots.textContent = '...';
-              dots.style = 'color:#00ff00;font-weight:bold;padding:0 6px;';
-              bar.appendChild(dots);
-            }
-          }
-          
-          // Page number buttons
-          for (let i = startPage; i <= endPage; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = i;
-            btn.className = 'pagination-btn' + (i === currentPage ? ' active' : '');
-            btn.disabled = i === currentPage;
-            btn.onclick = function() {
-              currentPage = i;
-              displayOffers();
-            };
-            addRippleEffect(btn);
-            bar.appendChild(btn);
-          }
-          
-          // Last page button
-          if (endPage < totalPages) {
-            if (endPage < totalPages - 1) {
-              const dots = document.createElement('span');
-              dots.textContent = '...';
-              dots.style = 'color:#00ff00;font-weight:bold;padding:0 6px;';
-              bar.appendChild(dots);
-            }
-            
-            const lastBtn = document.createElement('button');
-            lastBtn.textContent = totalPages;
-            lastBtn.className = 'pagination-btn';
-            lastBtn.onclick = function() {
-              currentPage = totalPages;
-              displayOffers();
-            };
-            addRippleEffect(lastBtn);
-            bar.appendChild(lastBtn);
-          }
-          
-          // Next button
-          const nextBtn = document.createElement('button');
-          nextBtn.textContent = '→';
-          nextBtn.className = 'pagination-btn';
-          nextBtn.disabled = currentPage === totalPages;
-          nextBtn.onclick = function() {
-            if (currentPage < totalPages) {
-              currentPage++;
-              displayOffers();
-            }
-          };
-          addRippleEffect(nextBtn);
-          bar.appendChild(nextBtn);
-          
-          // Advanced navigation section
-          const advancedNav = document.createElement('div');
-          advancedNav.className = 'pagination-advanced-nav';
-          advancedNav.style.display = 'flex';
-          advancedNav.style.alignItems = 'center';
-          advancedNav.style.gap = '12px';
-          
-          // Position info
-          const positionInfo = document.createElement('span');
-          positionInfo.className = 'pagination-position-info';
-          positionInfo.textContent = `Strona ${currentPage} z ${totalPages}`;
-          advancedNav.appendChild(positionInfo);
-          
-          // Separator
-          const separator1 = document.createElement('span');
-          separator1.textContent = '|';
-          separator1.className = 'pagination-separator';
-          advancedNav.appendChild(separator1);
-          
-          // First page button
-          const firstPageBtn = document.createElement('button');
-          firstPageBtn.textContent = '⏮️';
-          firstPageBtn.className = 'pagination-navigation-btn';
-          firstPageBtn.title = 'Pierwsza strona';
-          firstPageBtn.disabled = currentPage === 1;
-          firstPageBtn.onclick = function() {
-            currentPage = 1;
-            displayOffers();
-          };
-          advancedNav.appendChild(firstPageBtn);
-          
-          // Last page button
-          const lastPageBtn = document.createElement('button');
-          lastPageBtn.textContent = '⏭️';
-          lastPageBtn.className = 'pagination-navigation-btn';
-          lastPageBtn.title = 'Ostatnia strona';
-          lastPageBtn.disabled = currentPage === totalPages;
-          lastPageBtn.onclick = function() {
-            currentPage = totalPages;
-            displayOffers();
-          };
-          advancedNav.appendChild(lastPageBtn);
-          
-          // Separator
-          const separator2 = document.createElement('span');
-          separator2.textContent = '|';
-          separator2.className = 'pagination-separator';
-          advancedNav.appendChild(separator2);
-          
-          // Quick jump dropdown
-          const quickJumpSelect = document.createElement('select');
-          quickJumpSelect.className = 'pagination-quick-select';
-          quickJumpSelect.title = 'Szybki dostęp do strony';
-          
-          const quickPages = [1, 10, 25, 50, 100, 250, 500, 1000];
-          quickPages.forEach(pageNum => {
-            if (pageNum <= totalPages) {
-              const option = document.createElement('option');
-              option.value = pageNum;
-              option.textContent = `Strona ${pageNum}`;
-              if (pageNum === currentPage) option.selected = true;
-              quickJumpSelect.appendChild(option);
-            }
-          });
-          
-          // Add last page if not in list
-          if (!quickPages.includes(totalPages) && totalPages > 1) {
-            const option = document.createElement('option');
-            option.value = totalPages;
-            option.textContent = `Strona ${totalPages} (ostatnia)`;
-            if (totalPages === currentPage) option.selected = true;
-            quickJumpSelect.appendChild(option);
-          }
-          
-          quickJumpSelect.onchange = function() {
-            const selectedPage = parseInt(this.value, 10);
-            if (selectedPage && selectedPage !== currentPage) {
-              currentPage = selectedPage;
-              displayOffers();
-            }
-          };
-          advancedNav.appendChild(quickJumpSelect);
-          
-          // Separator
-          const separator3 = document.createElement('span');
-          separator3.textContent = '|';
-          separator3.className = 'pagination-separator';
-          advancedNav.appendChild(separator3);
-          
-          // Jump to page input
-          const jumpContainer = document.createElement('span');
-          jumpContainer.style.display = 'flex';
-          jumpContainer.style.alignItems = 'center';
-          jumpContainer.style.gap = '6px';
-          
-          const jumpLabel = document.createElement('span');
-          jumpLabel.textContent = 'Idź do:';
-          jumpLabel.className = 'pagination-jump-label';
-          jumpContainer.appendChild(jumpLabel);
-          
-          const jumpInput = document.createElement('input');
-          jumpInput.type = 'number';
-          jumpInput.min = 1;
-          jumpInput.max = totalPages;
-          jumpInput.value = currentPage;
-          jumpInput.className = 'pagination-jump-input';
-          jumpInput.style.width = '70px';
-          jumpInput.style.fontSize = '1rem';
-          jumpInput.title = `Wpisz numer strony (1-${totalPages})
-🔥 Skróty klawiszowe:
-• Enter - przejdź do strony
-• Ctrl + ← - poprzednia strona  
-• Ctrl + → - następna strona
-• Ctrl + Home - pierwsza strona
-• Ctrl + End - ostatnia strona`;
-          jumpInput.placeholder = 'Nr str.';
-          
-          const jumpBtn = document.createElement('button');
-          jumpBtn.type = 'button';
-          jumpBtn.textContent = '🚀 PRZEJDŹ';
-          jumpBtn.className = 'pagination-jump-btn';
-          jumpBtn.style.fontSize = '0.9rem';
-          jumpBtn.style.fontWeight = 'bold';
-          jumpBtn.onclick = function() {
-            let val = parseInt(jumpInput.value, 10);
-            if (isNaN(val) || val < 1) {
-              val = 1;
-              jumpInput.value = 1;
-            }
-            if (val > totalPages) {
-              val = totalPages;
-              jumpInput.value = totalPages;
-            }
-            if (val !== currentPage) {
-              currentPage = val;
-              displayOffers();
-            }
-          };
-          
-          jumpInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-              jumpBtn.click();
-            }
-            // Ctrl + arrows for quick navigation
-            if (e.ctrlKey) {
-              if (e.key === 'ArrowLeft' && currentPage > 1) {
-                e.preventDefault();
-                currentPage--;
-                displayOffers();
-              } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
-                e.preventDefault();
-                currentPage++;
-                displayOffers();
-              } else if (e.key === 'Home') {
-                e.preventDefault();
-                currentPage = 1;
-                displayOffers();
-              } else if (e.key === 'End') {
-                e.preventDefault();
-                currentPage = totalPages;
-                displayOffers();
-              }
-            }
-          });
-          
-          jumpContainer.appendChild(jumpInput);
-          jumpContainer.appendChild(jumpBtn);
-          advancedNav.appendChild(jumpContainer);
-          
-          bar.appendChild(advancedNav);
-        }
-        
-        // Add ripple effect to buttons
+        // ...existing code...
+        // Ripple effect for pagination buttons
         function addRippleEffect(btn) {
-          btn.addEventListener('click', function(e) {
-            const rect = btn.getBoundingClientRect();
-            const ripple = document.createElement('span');
-            ripple.className = 'ripple';
-            ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
-            ripple.style.left = (e.clientX - rect.left - rect.width/2) + 'px';
-            ripple.style.top = (e.clientY - rect.top - rect.height/2) + 'px';
-            btn.appendChild(ripple);
-            setTimeout(() => {
-              ripple.remove();
-            }, 500);
-          });
+            btn.addEventListener('click', function (e) {
+                const rect = btn.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+                btn.appendChild(ripple);
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
         }
+        function renderPaginationBar() {
+            const bar = document.getElementById('pagination-bar');
+            if (!filteredOffers.length) {
+                bar.style.display = 'none';
+                return;
+            }
+            const total = filteredOffers.length;
+            const totalPages = Math.ceil(total / offersPerPage);
+            if (totalPages <= 1) {
+                bar.style.display = 'none';
+                return;
+            }
+            bar.style.display = 'flex';
+            bar.innerHTML = '';
 
+            // Przycisk poprzednia strona
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn pagination-navigation-btn';
+            prevBtn.innerHTML = '⏮️';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.setAttribute('aria-label', 'Poprzednia strona');
+            prevBtn.onclick = function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayOffers();
+                }
+            };
+            addRippleEffect(prevBtn);
+            bar.appendChild(prevBtn);
+
+            // Szybka nawigacja: pierwsza strona
+            if (currentPage > 3) {
+                const firstBtn = document.createElement('button');
+                firstBtn.className = 'pagination-btn';
+                firstBtn.textContent = '1';
+                firstBtn.onclick = function() {
+                    currentPage = 1;
+                    displayOffers();
+                };
+                addRippleEffect(firstBtn);
+                bar.appendChild(firstBtn);
+                if (currentPage > 4) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.className = 'pagination-separator';
+                    bar.appendChild(dots);
+                }
+            }
+
+            // Główne numery stron
+            for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                const btn = document.createElement('button');
+                btn.className = 'pagination-btn' + (i === currentPage ? ' active' : '');
+                btn.textContent = i;
+                btn.disabled = i === currentPage;
+                btn.onclick = function() {
+                    currentPage = i;
+                    displayOffers();
+                };
+                addRippleEffect(btn);
+                bar.appendChild(btn);
+            }
+
+            // Szybka nawigacja: ostatnia strona
+            if (currentPage < totalPages - 2) {
+                if (currentPage < totalPages - 3) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.className = 'pagination-separator';
+                    bar.appendChild(dots);
+                }
+                const lastBtn = document.createElement('button');
+                lastBtn.className = 'pagination-btn';
+                lastBtn.textContent = totalPages;
+                lastBtn.onclick = function() {
+                    currentPage = totalPages;
+                    displayOffers();
+                };
+                addRippleEffect(lastBtn);
+                bar.appendChild(lastBtn);
+            }
+
+            // Przycisk następna strona
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn pagination-navigation-btn';
+            nextBtn.innerHTML = '⏭️';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.setAttribute('aria-label', 'Następna strona');
+            nextBtn.onclick = function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayOffers();
+                }
+            };
+            addRippleEffect(nextBtn);
+            bar.appendChild(nextBtn);
+
+            // Zaawansowana nawigacja
+            const advancedNav = document.createElement('div');
+            advancedNav.className = 'pagination-advanced-nav';
+            advancedNav.style.display = 'flex';
+            advancedNav.style.alignItems = 'center';
+            advancedNav.style.gap = '12px';
+
+            // Info o pozycji
+            const positionInfo = document.createElement('span');
+            positionInfo.className = 'pagination-position-info';
+            positionInfo.textContent = `Strona ${currentPage} z ${totalPages}`;
+            advancedNav.appendChild(positionInfo);
+
+            // Separator
+            const separator1 = document.createElement('span');
+            separator1.textContent = '|';
+            separator1.className = 'pagination-separator';
+            advancedNav.appendChild(separator1);
+
+            // Skok do strony
+            const jumpContainer = document.createElement('span');
+            jumpContainer.style.display = 'flex';
+            jumpContainer.style.alignItems = 'center';
+            jumpContainer.style.gap = '6px';
+
+            const jumpLabel = document.createElement('span');
+            jumpLabel.className = 'pagination-jump-label';
+            jumpLabel.textContent = 'Skocz do:';
+            jumpContainer.appendChild(jumpLabel);
+
+            const jumpInput = document.createElement('input');
+            jumpInput.type = 'number';
+            jumpInput.min = 1;
+            jumpInput.max = totalPages;
+            jumpInput.className = 'pagination-jump-input';
+            jumpInput.id = 'pagination-jump-input';
+            jumpInput.style.width = '60px';
+            jumpInput.placeholder = 'Nr str.';
+            jumpInput.title = `Wpisz numer strony (1-${totalPages})\n🔥 Skróty klawiszowe:\n• Enter - przejdź do strony\n• Ctrl + ← - poprzednia strona\n• Ctrl + → - następna strona\n• Ctrl + Home - pierwsza strona\n• Ctrl + End - ostatnia strona`;
+            jumpContainer.appendChild(jumpInput);
+
+            const jumpBtn = document.createElement('button');
+            jumpBtn.type = 'button';
+            jumpBtn.textContent = '🚀 PRZEJDŹ';
+            jumpBtn.className = 'pagination-jump-btn';
+            jumpBtn.style.fontSize = '0.9rem';
+            jumpBtn.style.fontWeight = 'bold';
+            jumpBtn.onclick = function() {
+                let val = parseInt(jumpInput.value, 10);
+                if (isNaN(val) || val < 1) {
+                    val = 1;
+                    jumpInput.value = 1;
+                }
+                if (val > totalPages) {
+                    val = totalPages;
+                    jumpInput.value = totalPages;
+                }
+                if (val !== currentPage) {
+                    currentPage = val;
+                    displayOffers();
+                }
+            };
+            jumpContainer.appendChild(jumpBtn);
+            advancedNav.appendChild(jumpContainer);
+
+            // Skróty klawiszowe
+            jumpInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    jumpBtn.click();
+                }
+                if (e.ctrlKey) {
+                    if (e.key === 'ArrowLeft' && currentPage > 1) {
+                        e.preventDefault();
+                        currentPage--;
+                        displayOffers();
+                    } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                        e.preventDefault();
+                        currentPage++;
+                        displayOffers();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        currentPage = 1;
+                        displayOffers();
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        currentPage = totalPages;
+                        displayOffers();
+                    }
+                }
+            });
+
+            bar.appendChild(advancedNav);
+        }
         // Apply for job
         function applyForJob(jobTitle, company) {
-            alert(`🎯 Aplikujesz na stanowisko "${jobTitle}" w firmie "${company}"!\n\n📧 Zostaniesz przekierowany do formularza aplikacji.`);
-            console.log('📧 Aplikacja na:', jobTitle, 'w', company);
+            // Otwórz modal aplikacyjny i ustaw dane stanowiska/firmy
+            var modal = document.getElementById('applyJobModal');
+            var info = document.getElementById('applyJobModalOfferInfo');
+            if (modal && info) {
+                info.innerHTML = `Stanowisko: <b>${jobTitle}</b><br>Firma: <b>${company}</b>`;
+                modal.style.display = 'flex';
+            }
+            // Resetuj formularz i komunikat
+            var form = document.getElementById('applyJobForm');
+            var msg = document.getElementById('applyJobMsg');
+            if (form) form.reset();
+            if (msg) msg.textContent = '';
         }
+
+        // Obsługa zamykania modala aplikacyjnego
+        document.addEventListener('DOMContentLoaded', function() {
+            var closeBtn = document.getElementById('closeApplyJobModalBtn');
+            var modal = document.getElementById('applyJobModal');
+            if (closeBtn && modal) {
+                closeBtn.onclick = function(e) {
+                    e.stopPropagation();
+                    modal.style.display = 'none';
+                };
+            }
+            // Zamknij modal po kliknięciu poza formularz
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) modal.style.display = 'none';
+                });
+            }
+        });
+
+        // Walidacja i obsługa wysyłki formularza aplikacyjnego
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('applyJobForm');
+            if (form) {
+                // Obsługa widoczności pola okres wypowiedzenia
+                var radioZaraz = document.getElementById('appDostepnoscZaraz');
+                var radioWypowiedzenie = document.getElementById('appDostepnoscWypowiedzenie');
+                var okresInput = document.getElementById('appOkresWypowiedzenia');
+                var okresLabel = document.getElementById('okresWypowiedzeniaLabel');
+                function updateOkresWypowiedzenia() {
+                  if (radioWypowiedzenie.checked) {
+                    okresInput.style.display = '';
+                    okresLabel.style.display = '';
+                    okresInput.required = true;
+                  } else {
+                    okresInput.style.display = 'none';
+                    okresLabel.style.display = 'none';
+                    okresInput.required = false;
+                    okresInput.value = '';
+                  }
+                }
+                radioZaraz.addEventListener('change', updateOkresWypowiedzenia);
+                radioWypowiedzenie.addEventListener('change', updateOkresWypowiedzenia);
+                updateOkresWypowiedzenia();
+
+                form.onsubmit = function(e) {
+                    e.preventDefault();
+                    var imie = document.getElementById('appImie').value.trim();
+                    var nazwisko = document.getElementById('appNazwisko').value.trim();
+                    var email = document.getElementById('appEmail').value.trim();
+                    var telefon = document.getElementById('appTelefon').value.trim();
+                    var cv = document.getElementById('appCV').files[0];
+                    var rodo = document.getElementById('appRODO').checked;
+                    var dostepnosc = document.querySelector('input[name="dostepnosc"]:checked');
+                    var okresWyp = document.getElementById('appOkresWypowiedzenia').value;
+                    var msg = document.getElementById('applyJobMsg');
+                    // Prosta walidacja
+                    if (!imie || !nazwisko || !email || !telefon || !cv || !rodo || !dostepnosc) {
+                        msg.textContent = '❌ Uzupełnij wszystkie wymagane pola (w tym dostępność) i wyraź zgodę RODO.';
+                        document.getElementById('appImie').focus();
+                        return;
+                    }
+                    if (dostepnosc.value === 'wypowiedzenie' && (!okresWyp || isNaN(okresWyp) || okresWyp < 1)) {
+                        msg.textContent = '❌ Podaj poprawny okres wypowiedzenia (liczba tygodni).';
+                        document.getElementById('appOkresWypowiedzenia').focus();
+                        return;
+                    }
+                    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+                        msg.textContent = '❌ Podaj poprawny adres e-mail.';
+                        document.getElementById('appEmail').focus();
+                        return;
+                    }
+                    if (cv && cv.type !== 'application/pdf') {
+                        msg.textContent = '❌ CV musi być w formacie PDF.';
+                        document.getElementById('appCV').focus();
+                        return;
+                    }
+                    if (cv && cv.size > 5 * 1024 * 1024) {
+                        msg.textContent = '❌ CV nie może przekraczać 5MB.';
+                        document.getElementById('appCV').focus();
+                        return;
+                    }
+                    msg.textContent = '✅ Aplikacja została wysłana! Dziękujemy.';
+                    setTimeout(function() {
+                        document.getElementById('applyJobModal').style.display = 'none';
+                        msg.textContent = '';
+                        form.reset();
+                        updateOkresWypowiedzenia();
+                    }, 1800);
+                };
+                // Ustaw focus na pierwszym polu po otwarciu modala
+                document.getElementById('applyJobModal').addEventListener('transitionend', function() {
+                    if (this.style.display === 'flex') {
+                        document.getElementById('appImie').focus();
+                    }
+                });
+            }
+        });
 
         // Show job details
         function showJobDetails(jobTitle, company) {

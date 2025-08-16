@@ -3,39 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PapaParse do CSV -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <meta name="description" content="Usługi - eCVjob.pl. Znajdź lub dodaj usługę z naszej bazy.">
     <meta name="keywords" content="usługi, praca, oferty usług, eCVjob">
     <title>Usługi - eCVjob.pl</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <link rel="preload" href="./images/tlo.jpg" as="image">
     <style>
+        /* --- Paginacja: identyczny styl jak oferty-pracy.html --- */
+        .pagination-bar {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          margin: 30px 0;
+          padding: 20px;
+          background: rgba(0,0,0,0.8);
+          border-radius: 15px;
+          border: 2px solid #00ff00;
+          box-shadow: 0 4px 20px rgba(0,255,0,0.3);
+        }
+        .pagination-btn {
+          position: relative;
+          overflow: hidden;
+          padding: 12px 18px;
+          border: 2px solid #00ff00;
+          background: rgba(0,0,0,0.8);
+          color: #00ff00;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          min-width: 45px;
+          text-align: center;
+        }
+        .pagination-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0,255,0,0.3), transparent);
+          transition: left 0.5s;
+          z-index: 1;
+        }
+        .pagination-btn:hover::before {
+          left: 100%;
+        }
+        .pagination-btn:active {
+          transform: scale(0.95);
+        }
+        .pagination-btn .ripple {
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(0,255,0,0.6);
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          z-index: 1;
+        }
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+        .pagination-btn:hover:not(:disabled) {
+          background: rgba(0,255,0,0.2);
+          box-shadow: 0 0 15px rgba(0,255,0,0.5);
+          transform: translateY(-2px);
+        }
+        .pagination-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          transform: none;
+        }
+        .pagination-btn.active {
+          background: #00ff00;
+          color: #111;
+          box-shadow: 0 0 20px rgba(0,255,0,0.8);
+          transform: scale(1.1);
+        }
+        .pagination-jump-input {
+          padding: 8px 12px;
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #00ff00;
+          color: #00ff00;
+          border-radius: 6px;
+          font-size: 14px;
+          text-align: center;
+          outline: none;
+          transition: all 0.3s ease;
+          position: relative;
+          z-index: 1;
+        }
+        .pagination-jump-input:focus {
+          background: rgba(0,255,0,0.1);
+          box-shadow: 0 0 10px rgba(0,255,0,0.5);
+        }
+        .pagination-jump-btn {
+          padding: 8px 16px;
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #ff2222;
+          color: #ff2222;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          font-size: 14px;
+          position: relative;
+          overflow: hidden;
+          z-index: 1;
+        }
+        .pagination-jump-btn:hover:not(:disabled) {
+          background: #ff2222;
+          color: #111;
+          border-color: #ff2222;
+          box-shadow: 0 0 18px #ff2222, 0 0 36px #ff2222;
+        }
+        .pagination-advanced-nav {
+          background: rgba(0,255,0,0.1);
+          border: 1px solid #00ff00;
+          border-radius: 10px;
+          padding: 8px 15px;
+          margin-left: 20px;
+        }
+        .pagination-position-info {
+          color: #00ff00;
+          font-size: 0.9rem;
+          font-weight: bold;
+          text-shadow: 0 0 5px #00ff00;
+        }
+        .pagination-quick-select {
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #00ff00;
+          color: #00ff00;
+          border-radius: 6px;
+          padding: 4px 8px;
+          font-size: 0.9rem;
+          min-width: 80px;
+          outline: none;
+          transition: all 0.3s ease;
+        }
+        .pagination-quick-select:hover {
+          background: rgba(0,255,0,0.1);
+          box-shadow: 0 0 10px #00ff00;
+        }
+        .pagination-quick-select:focus {
+          background: rgba(0,255,0,0.15);
+          box-shadow: 0 0 15px #00ff00;
+        }
+        .pagination-navigation-btn {
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #FFD700;
+          color: #FFD700;
+          border-radius: 6px;
+          padding: 6px 10px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-shadow: 0 0 5px #FFD700;
+        }
+        .pagination-navigation-btn:hover:not(:disabled) {
+          background: rgba(255,215,0,0.2);
+          box-shadow: 0 0 15px #FFD700;
+          transform: scale(1.05);
+        }
+        .pagination-navigation-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          box-shadow: none;
+        }
+        .pagination-separator {
+          color: #00ff00;
+          margin: 0 8px;
+          font-weight: bold;
+          text-shadow: 0 0 5px #00ff00;
+        }
+        .pagination-jump-label {
+          color: #00ff00;
+          font-size: 0.9rem;
+          font-weight: bold;
+          text-shadow: 0 0 5px #00ff00;
+        }
+        /* Karta premium - złota ramka, animacja, nakładka */
+        .premium-card {
+            border: 3px solid gold !important;
+            box-shadow: 0 0 40px gold, 0 0 32px 8px #FFD70099 !important;
+            background: rgba(30,30,0,0.18) !important;
+            position: relative;
+            animation: premium-glow 2s infinite alternate;
+            overflow: hidden;
+        }
+        /* Odstęp pod etykietą PREMIUM, by tytuł nie nachodził na label */
+        .premium-card .job-title {
+            padding-top: 32px;
+        }
+        /* Półprzezroczysta czarna nakładka na kartę premium */
+        .premium-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1;
+            pointer-events: none;
+            /* Usunięto opacity, zostaje tylko złota poświata */
+            box-shadow: 0 0 32px 8px #FFD70099, 0 0 12px 2px #FFD70055;
+        }
+
+        /* Styl napisu PREMIUM */
+        .premium-label {
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            background: linear-gradient(90deg, #FFD700 60%, #FFB300 100%);
+            color: #111;
+            font-weight: bold;
+            padding: 10px 32px;
+            border-radius: 22px 0 22px 0;
+            font-size: 1.45rem;
+            z-index: 2;
+            box-shadow: 0 0 32px 8px #FFD700cc, 0 0 18px #fff, 0 2px 8px #FFD70099;
+            letter-spacing: 2.5px;
+            text-shadow: 0 2px 12px #fff, 0 0 8px #FFD700, 0 1px 0 #fff;
+            border: 2.5px solid #fff6;
+            filter: drop-shadow(0 2px 8px #FFD700cc);
+            transition: transform 0.2s;
+        }
+        .premium-label:hover {
+            transform: scale(1.04) rotate(-2deg);
+            box-shadow: 0 0 40px 12px #FFD700ee, 0 0 24px #fff, 0 2px 12px #FFD700cc;
+        }
+        @keyframes premium-glow {
+            0% { box-shadow: 0 0 40px gold, 0 0 0px #FFD700; }
+            100% { box-shadow: 0 0 60px #FFD700, 0 0 20px gold; }
+        }
         body {
             font-family: Arial, sans-serif;
-            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background: url("images/tlo.jpg") no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             min-height: 100vh;
             line-height: 1.6;
         }
-        .header {
-            /* background: rgba(0,0,0,0.9); */
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,255,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        .main-nav {
+            width: 100%;
+            background: rgba(0,0,0,0.92);
+            border-bottom: 2.5px solid #00ff00;
+            box-shadow: 0 2px 20px #00ff00, 0 0 40px rgba(0,255,0,0.15);
+            /* position: sticky; */
+            /* top: 0; */
+            /* z-index: 1000; */
         }
-        /* RESPONSYWNY NAVBAR - menu zawsze widoczne, stylizowane przyciski */
         .nav-container {
-            flex-wrap: wrap;
-            /* background: #111; */
-            box-shadow: 0 2px 20px rgba(0,255,0,0.15);
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 0 20px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-decoration: none;
         }
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 1.2rem;
+            gap: 2rem;
             margin: 0;
             padding: 0;
         }
@@ -44,23 +285,27 @@
             align-items: center;
         }
         .nav-menu a {
-            display: inline-block;
             color: #fff;
-            background: #222;
-            border: 2px solid #00ff00;
-            border-radius: 8px;
-            padding: 0.5rem 1.2rem;
-            font-weight: 600;
-            font-size: 1.08rem;
             text-decoration: none;
+            font-weight: 600;
+            padding: 0.7rem 1.5rem;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            font-size: 1.08rem;
             letter-spacing: 0.5px;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
             box-shadow: 0 2px 12px rgba(0,255,0,0.08);
         }
         .nav-menu a:hover, .nav-menu a:focus {
             background: #00ff00;
             color: #111;
+            border: 2px solid #00ff00;
             box-shadow: 0 4px 18px #00ff0033;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
         @media (max-width: 900px) {
             .nav-menu {
@@ -94,30 +339,46 @@
                 padding: 0.7rem 1rem;
             }
         }
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        /* .main-container i .logo są już poniżej, usuwamy powielenie */
         }
         .add-service-btn {
-            background: linear-gradient(90deg, #00ff00 0%, #00cc00 100%);
-            color: #111;
-            font-size: 2rem;
+            background: linear-gradient(100deg, #00ff00 0%, #FFD700 40%, #FF9100 100%);
+            color: #fff;
+            font-size: 2.7rem;
             font-weight: bold;
-            padding: 22px 60px;
+            padding: 32px 100px;
             border: none;
-            border-radius: 18px;
-            box-shadow: 0 6px 32px rgba(0,255,0,0.25);
+            border-radius: 48px;
+            box-shadow: 0 12px 48px 0 #FFD700cc, 0 4px 24px 0 #00ff0033, 0 0 0 16px #FFD70033;
             cursor: pointer;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-            letter-spacing: 1px;
+            margin-bottom: 32px;
+            transition: background 0.22s, box-shadow 0.22s, transform 0.18s, color 0.18s;
+            letter-spacing: 2.5px;
             position: relative;
             z-index: 2;
+            outline: 4px solid #FFD70077;
+            text-shadow: 0 4px 24px #FFD700cc, 0 0 16px #fff;
+            display: inline-block;
+            user-select: none;
         }
-        .add-service-btn:hover {
-            background: linear-gradient(90deg, #00cc00 0%, #00ff00 100%);
-            color: #ccc;
+        .add-service-btn:hover, .add-service-btn:focus {
+            background: linear-gradient(100deg, #FFD700 0%, #00ff00 60%, #00e676 100%);
+            color: #111;
+            box-shadow: 0 24px 80px 0 #FFD700ee, 0 2px 22px 0 #00ff0033, 0 0 0 18px #FFD70044;
+            outline: 5px solid #FFD700;
+            transform: scale(1.06) translateY(-4px);
+            text-shadow: 0 8px 28px #FFD700ee, 0 0 18px #fff;
+        }
+        .add-service-btn:active {
+            transform: scale(0.97) translateY(2px);
+            box-shadow: 0 2px 8px #FFD70077;
+        }
+        @media (max-width: 700px) {
+            .add-service-btn {
+                font-size: 1.2rem;
+                padding: 16px 18px;
+                border-radius: 18px;
+            }
         }
         .stats-section {
             display: grid;
@@ -208,11 +469,102 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .service-cards-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+            margin-bottom: 30px;
+        }
+
+        /* Usunięto powielone definicje premium-card i premium-glow */
+        .job-card {
+            background: rgba(0,0,0,0.7);
+            border: 2px solid #333;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .job-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,255,0,0.2);
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .job-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .job-company {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .job-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .job-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-contact {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #111;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,0,0.4);
+        }
+        .btn-details {
+            background: transparent;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-details:hover {
+            background: #00ff00;
+            color: #111;
+        }
+        .services-count {
+            background: #00ff00;
+            color: #111;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-left: 10px;
+            box-shadow: 0 2px 12px #00ff0033;
+            display: inline-block;
+            min-width: 60px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav-container">
+    <!-- Dekoracyjne logo po prawej stronie, pod wszystkimi sekcjami -->
+    <img src="images/logo.png" alt="Logo" style="position:fixed; top:80px; right:0; width:180px; opacity:0.13; z-index:0; pointer-events:none; user-select:none;" />
+    <nav class="main-nav">
+        <div class="nav-container">
             <a href="index.html" class="logo">eCVjob.pl</a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html">Strona główna</a></li>
@@ -222,11 +574,30 @@
                 <li><a href="index.html#kreator-cv">Kreator CV</a></li>
                 <li><a href="marketplace.html">💰 Marketplace</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
     <main class="main-container">
         <div style="text-align:center; margin-bottom: 30px;">
-            <button id="addServiceBtn" class="add-service-btn" type="button">➕ Dodaj usługę</button>
+            <button id="addServiceBtn" class="add-service-btn" type="button"
+                style="
+                    background: linear-gradient(100deg, #00ff00 0%, #FFD700 40%, #FF9100 100%);
+                    color: #fff;
+                    font-size: 2.7rem;
+                    font-weight: bold;
+                    padding: 32px 100px;
+                    border: none;
+                    border-radius: 48px;
+                    box-shadow: 0 12px 48px 0 #FFD700cc, 0 4px 24px 0 #00ff0033, 0 0 0 16px #FFD70033;
+                    cursor: pointer;
+                    margin-bottom: 32px;
+                    letter-spacing: 2.5px;
+                    outline: 4px solid #FFD70077;
+                    text-shadow: 0 4px 24px #FFD700cc, 0 0 16px #fff;
+                    display: inline-block;
+                    user-select: none;
+                    transition: background 0.22s, box-shadow 0.22s, transform 0.18s, color 0.18s;
+                "
+            >Dodaj usługę</button>
             <div id="addServiceModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
               <div style="background:#222; padding:40px 30px; border-radius:20px; max-width:500px; width:90%; box-shadow:0 8px 40px #00ff0033; color:#fff; position:relative; max-height:90vh; overflow-y:auto; display:flex; flex-direction:column;">
                 <button id="closeAddServiceModalBtn" type="button" style="position:absolute; top:18px; right:18px; background:none; border:none; color:#00ff00; font-size:2rem; cursor:pointer;">&times;</button>
@@ -281,46 +652,6 @@
                 <h2 class="section-title">Najnowsze usługi</h2>
                 <span class="services-count" id="servicesCount">Ładowanie...</span>
             </div>
-            <!-- Sekcja Kreator CV -->
-            <section class="cv-creator-section" style="margin-bottom:40px; background:rgba(0,0,0,0.7); border-radius:18px; box-shadow:0 4px 24px #00ff0033; padding:32px 18px;">
-                <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;">
-                    <div style="text-align:center;">
-                        <span style="font-size:3rem;display:inline-block;color:#00ff00;background:#222;border-radius:50%;padding:18px;box-shadow:0 2px 18px #00ff0033;">
-                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#00ff00" stroke-width="4"/><path d="M16 32V20H32V32" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/><rect x="20" y="24" width="8" height="8" fill="#FFD700"/></svg>
-                        </span>
-                        <div style="font-weight:bold;color:#FFD700;margin-top:8px;">Szybki kreator CV</div>
-                    </div>
-                    <div style="text-align:center;">
-                        <span style="font-size:3rem;display:inline-block;color:#00ccff;background:#222;border-radius:50%;padding:18px;box-shadow:0 2px 18px #00ccff33;">
-                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#00ccff" stroke-width="4"/><path d="M24 16V32" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/><path d="M16 24H32" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/></svg>
-                        </span>
-                        <div style="font-weight:bold;color:#FFD700;margin-top:8px;">Wiele szablonów</div>
-                    </div>
-                    <div style="text-align:center;">
-                        <span style="font-size:3rem;display:inline-block;color:#ff00cc;background:#222;border-radius:50%;padding:18px;box-shadow:0 2px 18px #ff00cc33;">
-                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#ff00cc" stroke-width="4"/><path d="M18 30L24 18L30 30" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/></svg>
-                        </span>
-                        <div style="font-weight:bold;color:#FFD700;margin-top:8px;">Eksport PDF</div>
-                    </div>
-                </div>
-                <div style="margin-top:24px;text-align:center;color:#fff;font-size:1.1rem;">
-                    <span style="color:#FFD700;font-weight:bold;">Kreator CV</span> pozwala w kilka minut stworzyć profesjonalne CV. Wybierz szablon, wypełnij dane i pobierz gotowy plik PDF.
-                </div>
-                <div style="margin-top:24px;display:flex;justify-content:center;gap:40px;flex-wrap:wrap;">
-                    <div style="background:#222;padding:18px 32px;border-radius:12px;color:#00ff00;font-weight:bold;box-shadow:0 2px 12px #00ff0033;min-width:120px;">
-                        <div style="font-size:2.2rem;">98%</div>
-                        <div style="color:#FFD700;font-size:1rem;">Zadowolonych użytkowników</div>
-                    </div>
-                    <div style="background:#222;padding:18px 32px;border-radius:12px;color:#00ccff;font-weight:bold;box-shadow:0 2px 12px #00ccff33;min-width:120px;">
-                        <div style="font-size:2.2rem;">1200+</div>
-                        <div style="color:#FFD700;font-size:1rem;">Stworzonych CV</div>
-                    </div>
-                    <div style="background:#222;padding:18px 32px;border-radius:12px;color:#ff00cc;font-weight:bold;box-shadow:0 2px 12px #ff00cc33;min-width:120px;">
-                        <div style="font-size:2.2rem;">5 min</div>
-                        <div style="color:#FFD700;font-size:1rem;">Średni czas utworzenia</div>
-                    </div>
-                </div>
-            </section>
             <!-- Pasek wyszukiwania usług -->
             <form id="serviceSearchForm" style="text-align:center; margin-bottom:24px;">
                 <input type="text" id="serviceSearchInput" placeholder="🔍 Wyszukaj usługę, wykonawcę, kategorię..." style="width:40%; max-width:300px; padding:12px; border-radius:10px; border:2px solid #00ff00; font-size:1.1rem; background:#111; color:#fff;">
@@ -345,11 +676,303 @@
             <div class="pagination-bar" id="pagination-bar" style="display: none;"></div>
         </section>
     </main>
+    <!-- Modal formularza kontaktowego -->
+    <div id="contactModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:99999; justify-content:center; align-items:center;">
+      <div style="background:#222; padding:36px 28px; border-radius:18px; max-width:420px; width:92%; box-shadow:0 8px 40px #FFD70055; color:#fff; position:relative; max-height:90vh; overflow-y:auto; display:flex; flex-direction:column;">
+        <button id="closeContactModalBtn" type="button" style="position:absolute; top:14px; right:14px; background:none; border:none; color:#FFD700; font-size:2rem; cursor:pointer;">&times;</button>
+        <h2 style="color:#FFD700; margin-bottom:12px; text-align:center;">Formularz kontaktowy</h2>
+        <div id="contactServiceInfo" style="margin-bottom:12px; text-align:center;"></div>
+        <form id="contactForm">
+          <input type="hidden" id="contactEmail" name="email">
+          <div style="margin-bottom:14px;">
+            <label for="contactMessage" style="color:#FFD700; font-weight:bold;">Wiadomość*</label>
+            <textarea id="contactMessage" name="message" required rows="4" style="width:100%; padding:10px; border-radius:8px; border:2px solid #FFD700; background:#111; color:#fff;"></textarea>
+          </div>
+          <button type="submit" style="width:100%; background:linear-gradient(90deg,#FFD700,#FFB300); color:#111; font-size:1.1rem; font-weight:bold; padding:12px 0; border:none; border-radius:10px; box-shadow:0 4px 14px #FFD70055; cursor:pointer; margin-bottom:8px;">Wyślij</button>
+        </form>
+        <div id="contactFormMsg" style="margin-top:10px; text-align:center; color:#FFD700; font-weight:bold;"></div>
+      </div>
+    </div>
     <script>
+        // Diagnostyka ładowania tła
+        window.addEventListener('DOMContentLoaded', function() {
+          var img = new window.Image();
+          img.onload = function() {
+            // Obrazek się ładuje, nic nie rób
+          };
+          img.onerror = function() {
+            var warn = document.createElement('div');
+            warn.style.position = 'fixed';
+            warn.style.top = '0';
+            warn.style.left = '0';
+            warn.style.width = '100vw';
+            warn.style.height = '100vh';
+            warn.style.background = 'rgba(255,0,0,0.85)';
+            warn.style.color = '#fff';
+            warn.style.fontSize = '2.2rem';
+            warn.style.display = 'flex';
+            warn.style.justifyContent = 'center';
+            warn.style.alignItems = 'center';
+            warn.style.zIndex = '99999';
+            warn.innerText = "Nie można załadować obrazu: images/tlo.jpg!\nSprawdź ścieżkę, nazwę pliku i folderu (wielkość liter, rozszerzenie, lokalizację).";
+            document.body.appendChild(warn);
+          };
+          img.src = 'images/tlo.jpg';
+        });
         let allServices = [];
         let filteredServices = [];
-        // Obsługa wyszukiwarki usług
+        // Pagination variables (required for displayServices)
+        let currentPage = 1;
+        const servicesPerPage = 8;
+        // Tymczasowa funkcja, by nie było błędu JS
+        // Zaawansowana paginacja (identyczna jak oferty-pracy.html)
+        function updatePaginationInfo() {
+            const infoPanel = document.getElementById('pagination-info');
+            const rangeSpan = document.getElementById('pagination-current-range');
+            if (!filteredServices.length) {
+                infoPanel.style.display = 'none';
+                return;
+            }
+            const total = filteredServices.length;
+            const start = (currentPage - 1) * servicesPerPage + 1;
+            const end = Math.min(currentPage * servicesPerPage, total);
+            rangeSpan.textContent = `Wyświetlono ${start} - ${end} z ${total} usług`;
+            infoPanel.style.display = 'block';
+        }
+
+        function renderPaginationBar() {
+            const bar = document.getElementById('pagination-bar');
+            if (!filteredServices.length) {
+                bar.style.display = 'none';
+                bar.innerHTML = '';
+                return;
+            }
+            const total = filteredServices.length;
+            const totalPages = Math.ceil(total / servicesPerPage);
+            if (totalPages <= 1) {
+                bar.style.display = 'none';
+                bar.innerHTML = '';
+                return;
+            }
+            bar.style.display = 'flex';
+            bar.innerHTML = '';
+
+            // Przycisk poprzednia strona
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn pagination-navigation-btn';
+            prevBtn.innerHTML = '⏮️';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.setAttribute('aria-label', 'Poprzednia strona');
+            prevBtn.onclick = function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayServices();
+                    window.scrollTo({ top: bar.offsetTop - 120, behavior: 'smooth' });
+                }
+            };
+            addRippleEffect(prevBtn);
+            bar.appendChild(prevBtn);
+
+            // Szybka nawigacja: pierwsza strona
+            if (currentPage > 3) {
+                const firstBtn = document.createElement('button');
+                firstBtn.className = 'pagination-btn';
+                firstBtn.textContent = '1';
+                firstBtn.setAttribute('data-page', '1');
+                firstBtn.onclick = function() {
+                    currentPage = 1;
+                    displayServices();
+                    window.scrollTo({ top: bar.offsetTop - 120, behavior: 'smooth' });
+                };
+                addRippleEffect(firstBtn);
+                bar.appendChild(firstBtn);
+                if (currentPage > 4) {
+                    const sep = document.createElement('span');
+                    sep.className = 'pagination-separator';
+                    sep.textContent = '...';
+                    bar.appendChild(sep);
+                }
+            }
+
+            // Główne numery stron
+            for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn' + (i === currentPage ? ' active' : '');
+                pageBtn.textContent = i;
+                pageBtn.setAttribute('data-page', i);
+                pageBtn.onclick = function() {
+                    if (i !== currentPage) {
+                        currentPage = i;
+                        displayServices();
+                        window.scrollTo({ top: bar.offsetTop - 120, behavior: 'smooth' });
+                    }
+                };
+                addRippleEffect(pageBtn);
+                bar.appendChild(pageBtn);
+            }
+
+            // Szybka nawigacja: ostatnia strona
+            if (currentPage < totalPages - 2) {
+                if (currentPage < totalPages - 3) {
+                    const sep = document.createElement('span');
+                    sep.className = 'pagination-separator';
+                    sep.textContent = '...';
+                    bar.appendChild(sep);
+                }
+                const lastBtn = document.createElement('button');
+                lastBtn.className = 'pagination-btn';
+                lastBtn.textContent = totalPages;
+                lastBtn.setAttribute('data-page', totalPages);
+                lastBtn.onclick = function() {
+                    currentPage = totalPages;
+                    displayServices();
+                    window.scrollTo({ top: bar.offsetTop - 120, behavior: 'smooth' });
+                };
+                addRippleEffect(lastBtn);
+                bar.appendChild(lastBtn);
+            }
+
+            // Przycisk następna strona
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn pagination-navigation-btn';
+            nextBtn.innerHTML = '⏭️';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.setAttribute('aria-label', 'Następna strona');
+            nextBtn.onclick = function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayServices();
+                    window.scrollTo({ top: bar.offsetTop - 120, behavior: 'smooth' });
+                }
+            };
+            addRippleEffect(nextBtn);
+            bar.appendChild(nextBtn);
+
+            // Zaawansowana nawigacja
+            const advancedNav = document.createElement('div');
+            advancedNav.className = 'pagination-advanced-nav';
+            advancedNav.style.display = 'flex';
+            advancedNav.style.alignItems = 'center';
+            advancedNav.style.gap = '12px';
+
+            // Info o pozycji
+            const positionInfo = document.createElement('span');
+            positionInfo.className = 'pagination-position-info';
+            positionInfo.textContent = `Strona ${currentPage} z ${totalPages}`;
+            advancedNav.appendChild(positionInfo);
+
+            // Separator
+            const separator1 = document.createElement('span');
+            separator1.textContent = '|';
+            separator1.className = 'pagination-separator';
+            advancedNav.appendChild(separator1);
+
+            // Skok do strony
+            const jumpContainer = document.createElement('span');
+            jumpContainer.style.display = 'flex';
+            jumpContainer.style.alignItems = 'center';
+            jumpContainer.style.gap = '6px';
+
+            const jumpLabel = document.createElement('span');
+            jumpLabel.className = 'pagination-jump-label';
+            jumpLabel.textContent = 'Skocz do:';
+            jumpContainer.appendChild(jumpLabel);
+
+            const jumpInput = document.createElement('input');
+            jumpInput.type = 'number';
+            jumpInput.min = 1;
+            jumpInput.max = totalPages;
+            jumpInput.className = 'pagination-jump-input';
+            jumpInput.id = 'pagination-jump-input';
+            jumpInput.style.width = '60px';
+            jumpInput.placeholder = 'Nr str.';
+            jumpInput.title = `Wpisz numer strony (1-${totalPages})\n🔥 Skróty klawiszowe:\n• Enter - przejdź do strony\n• Ctrl + ← - poprzednia strona\n• Ctrl + → - następna strona\n• Ctrl + Home - pierwsza strona\n• Ctrl + End - ostatnia strona`;
+            jumpContainer.appendChild(jumpInput);
+
+            const jumpBtn = document.createElement('button');
+            jumpBtn.type = 'button';
+            jumpBtn.textContent = '🚀 PRZEJDŹ';
+            jumpBtn.className = 'pagination-jump-btn';
+            jumpBtn.style.fontSize = '0.9rem';
+            jumpBtn.style.fontWeight = 'bold';
+            jumpBtn.onclick = function() {
+                let val = parseInt(jumpInput.value, 10);
+                if (isNaN(val) || val < 1) {
+                    jumpInput.style.background = 'rgba(255,0,0,0.15)';
+                    setTimeout(() => jumpInput.style.background = '', 800);
+                    return;
+                }
+                if (val > totalPages) {
+                    jumpInput.style.background = 'rgba(255,0,0,0.15)';
+                    setTimeout(() => jumpInput.style.background = '', 800);
+                    return;
+                }
+                if (val !== currentPage) {
+                    currentPage = val;
+                    displayServices();
+                    window.scrollTo({ top: bar.offsetTop - 120, behavior: 'smooth' });
+                }
+            };
+            jumpContainer.appendChild(jumpBtn);
+            advancedNav.appendChild(jumpContainer);
+
+            // Skróty klawiszowe
+            jumpInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') jumpBtn.click();
+                if (e.ctrlKey) {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        if (currentPage > 1) {
+                            currentPage--;
+                            displayServices();
+                        }
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        if (currentPage < totalPages) {
+                            currentPage++;
+                            displayServices();
+                        }
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        if (currentPage !== 1) {
+                            currentPage = 1;
+                            displayServices();
+                        }
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        if (currentPage !== totalPages) {
+                            currentPage = totalPages;
+                            displayServices();
+                        }
+                    }
+                }
+            });
+
+            bar.appendChild(advancedNav);
+        }
+
+        // Efekt ripple na przyciskach paginacji
+        function addRippleEffect(btn) {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.left = (e.offsetX - 10) + 'px';
+                ripple.style.top = (e.offsetY - 10) + 'px';
+                ripple.style.width = ripple.style.height = '20px';
+                btn.appendChild(ripple);
+                setTimeout(() => {
+                    ripple.remove();
+                }, 500);
+            });
+        }
+        function closeAddServiceModal() {
+          document.getElementById('addServiceModal').style.display = 'none';
+          document.getElementById('addServiceMsg').textContent = '';
+          document.getElementById('addServiceForm').reset();
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+          // Obsługa wyszukiwarki usług
           const searchForm = document.getElementById('serviceSearchForm');
           const searchInput = document.getElementById('serviceSearchInput');
           const locationInput = document.getElementById('serviceLocationInput');
@@ -364,9 +987,17 @@
                   (s['Opis'] && s['Opis'].toLowerCase().includes(query)) ||
                   (s['Wykonawca'] && s['Wykonawca'].toLowerCase().includes(query)) ||
                   (s['Kategoria'] && s['Kategoria'].toLowerCase().includes(query))
-    <!-- Usunięto JS hamburgera, menu zawsze widoczne -->
+                );
+                const matchesLocation = !location || (s['Lokalizacja'] && s['Lokalizacja'].toLowerCase().includes(location));
+                return matchesQuery && matchesLocation;
+              });
+              currentPage = 1;
+              displayServices();
+              updateServicesCount();
+              updatePaginationInfo();
             };
           }
+          // Obsługa zamykania modala
           var closeBtn = document.getElementById('closeAddServiceModalBtn');
           if (closeBtn) {
             closeBtn.addEventListener('click', function(e) {
@@ -374,13 +1005,7 @@
               closeAddServiceModal();
             });
           }
-        });
-        function closeAddServiceModal() {
-          document.getElementById('addServiceModal').style.display = 'none';
-          document.getElementById('addServiceMsg').textContent = '';
-          document.getElementById('addServiceForm').reset();
-        }
-        document.addEventListener('DOMContentLoaded', function() {
+          // Obsługa formularza dodawania usługi
           const form = document.getElementById('addServiceForm');
           if (form) {
             form.onsubmit = function(e) {
@@ -405,131 +1030,9 @@
               setTimeout(closeAddServiceModal, 1800);
             };
           }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
+          // Automatyczne ładowanie usług po załadowaniu strony
           loadServices();
         });
-
-        // PAGINATION LOGIC
-        let currentPage = 1;
-        let servicesPerPage = 6;
-        let totalPages = 1;
-
-        function updatePaginationInfo() {
-          const paginationInfo = document.getElementById('pagination-info');
-          const rangeElement = document.getElementById('pagination-current-range');
-          if (paginationInfo && rangeElement) {
-            if (filteredServices.length === 0) {
-              paginationInfo.style.display = 'none';
-              return;
-            }
-            const start = (currentPage - 1) * servicesPerPage + 1;
-            const end = Math.min(currentPage * servicesPerPage, filteredServices.length);
-            rangeElement.textContent = `Wyświetlane usługi ${start}-${end} z ${filteredServices.length} (strona ${currentPage} z ${totalPages})`;
-            paginationInfo.style.display = 'block';
-          }
-        }
-
-        function renderPaginationBar() {
-          const bar = document.getElementById('pagination-bar');
-          if (!bar) return;
-          bar.innerHTML = '';
-          totalPages = Math.max(1, Math.ceil(filteredServices.length / servicesPerPage));
-          if (totalPages <= 1) {
-            bar.style.display = 'none';
-            return;
-          }
-          bar.style.display = 'flex';
-          // Previous button
-          const prevBtn = document.createElement('button');
-          prevBtn.textContent = '←';
-          prevBtn.className = 'pagination-btn';
-          prevBtn.disabled = currentPage === 1;
-          prevBtn.onclick = function() {
-            if (currentPage > 1) {
-              currentPage--;
-              displayServices();
-            }
-          };
-          bar.appendChild(prevBtn);
-          // Page number buttons logic
-          let maxPagesToShow = 7;
-          let startPage = Math.max(1, currentPage - 3);
-          let endPage = Math.min(totalPages, currentPage + 3);
-          if (totalPages > maxPagesToShow) {
-            if (currentPage <= 4) {
-              startPage = 1;
-              endPage = maxPagesToShow;
-            } else if (currentPage >= totalPages - 3) {
-              startPage = totalPages - maxPagesToShow + 1;
-              endPage = totalPages;
-            } else {
-              startPage = currentPage - 3;
-              endPage = currentPage + 3;
-            }
-          } else {
-            startPage = 1;
-            endPage = totalPages;
-          }
-          // First page button
-          if (startPage > 1) {
-            const firstBtn = document.createElement('button');
-            firstBtn.textContent = '1';
-            firstBtn.className = 'pagination-btn';
-            firstBtn.onclick = function() {
-              currentPage = 1;
-              displayServices();
-            };
-            bar.appendChild(firstBtn);
-            if (startPage > 2) {
-              const dots = document.createElement('span');
-              dots.textContent = '...';
-              dots.style = 'color:#00ff00;font-weight:bold;padding:0 6px;';
-              bar.appendChild(dots);
-            }
-          }
-          // Page number buttons
-          for (let i = startPage; i <= endPage; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = i;
-            btn.className = 'pagination-btn' + (i === currentPage ? ' active' : '');
-            btn.disabled = i === currentPage;
-            btn.onclick = function() {
-              currentPage = i;
-              displayServices();
-            };
-            bar.appendChild(btn);
-          }
-          // Last page button
-          if (endPage < totalPages) {
-            if (endPage < totalPages - 1) {
-              const dots = document.createElement('span');
-              dots.textContent = '...';
-              dots.style = 'color:#00ff00;font-weight:bold;padding:0 6px;';
-              bar.appendChild(dots);
-            }
-            const lastBtn = document.createElement('button');
-            lastBtn.textContent = totalPages;
-            lastBtn.className = 'pagination-btn';
-            lastBtn.onclick = function() {
-              currentPage = totalPages;
-              displayServices();
-            };
-            bar.appendChild(lastBtn);
-          }
-          // Next button
-          const nextBtn = document.createElement('button');
-          nextBtn.textContent = '→';
-          nextBtn.className = 'pagination-btn';
-          nextBtn.disabled = currentPage === totalPages;
-          nextBtn.onclick = function() {
-            if (currentPage < totalPages) {
-              currentPage++;
-              displayServices();
-            }
-          };
-          bar.appendChild(nextBtn);
-        }
         function loadServices() {
             // Ładowanie usług z pliku CSV
             fetch('uslugi.csv')
@@ -546,10 +1049,10 @@
                                 Object.keys(service).forEach(key => {
                                     let val = service[key];
                                     if (typeof val === 'string') {
-                                        val = val.replace(/^\s*"?|"?\s*$/g, '').trim();
+                                        val = val.replace(/^'*"?|"?'*$/g, '').trim();
                                     }
                                     obj[key.trim()] = val;
-                                });
+        });
                                 return obj;
                             });
                             // Zamiana kluczy na spójne z resztą kodu
@@ -564,7 +1067,6 @@
                                 'WWW': s['WWW'] || ''
                             })).filter(s => s['Nazwa'] && s['Kategoria']);
                             filteredServices = [...allServices];
-                            console.log('Wczytano usług:', allServices.length);
                             if (allServices.length === 0) {
                                 document.getElementById('serviceCardsContainer').innerHTML = `<div style='color:#FFD700;text-align:center;padding:20px;'>Nie wczytano żadnych usług z pliku uslugi.csv</div>`;
                             } else {
@@ -573,12 +1075,12 @@
                             }
                         },
                         error: function(error) {
-                            document.getElementById('serviceCardsContainer').innerHTML = `<div style="text-align: center; color: #ff2222; padding: 40px;"><h3>❌ Błąd ładowania usług</h3><p>Nie udało się załadować usług. Spróbuj odświeżyć stronę.</p></div>`;
+                            document.getElementById('serviceCardsContainer').innerHTML = `<div style=\"text-align: center; color: #ff2222; padding: 40px;\"><h3>❌ Błąd ładowania usług</h3><p>Nie udało się załadować usług. Spróbuj odświeżyć stronę lub sprawdź czy plik uslugi.csv jest dostępny i nie blokuje go CORS.</p></div>`;
                         }
                     });
                 })
                 .catch(error => {
-                    document.getElementById('serviceCardsContainer').innerHTML = `<div style="text-align: center; color: #ff2222; padding: 40px;"><h3>❌ Błąd połączenia z plikiem usług</h3><p>${error.message || 'Nie można połączyć się z plikiem uslugi.csv.'}</p></div>`;
+                    document.getElementById('serviceCardsContainer').innerHTML = `<div style=\"text-align: center; color: #ff2222; padding: 40px;\"><h3>❌ Błąd połączenia z plikiem usług</h3><p>${error.message || 'Nie można połączyć się z plikiem uslugi.csv.'}<br>Upewnij się, że plik uslugi.csv jest w tym samym katalogu i nie blokuje go CORS.</p></div>`;
                 });
         }
 
@@ -587,7 +1089,20 @@
             document.getElementById('newServicesToday').textContent = Math.floor(allServices.length * 0.1);
             const providers = new Set(allServices.map(s => (s['Wykonawca'] || s['Kontakt'] || '').trim()));
             document.getElementById('providersCount').textContent = providers.size;
-            document.getElementById('servicesCount').textContent = `${filteredServices.length} usług`;
+            updateServicesCount();
+        }
+
+        // Aktualizuje licznik wyświetlanych usług (dynamicznie po wyszukiwaniu)
+        function updateServicesCount() {
+            const countSpan = document.getElementById('servicesCount');
+            if (!countSpan) return;
+            if (filteredServices.length === allServices.length) {
+                countSpan.textContent = `${filteredServices.length} usług`;
+            } else if (filteredServices.length === 0) {
+                countSpan.textContent = `0 usług`;
+            } else {
+                countSpan.textContent = `${filteredServices.length} z ${allServices.length} usług`;
+            }
         }
 
         function displayServices() {
@@ -595,77 +1110,64 @@
             const start = (currentPage - 1) * servicesPerPage;
             const end = start + servicesPerPage;
             const servicesToShow = filteredServices.slice(start, end);
+            // Komunikat gdy nie ma żadnych usług w ogóle (np. błąd ładowania CSV)
+            if (allServices.length === 0) {
+                container.innerHTML = `<div style="text-align: center; color: #FFD700; padding: 40px;"><h3>⚠️ Brak danych usług</h3><p>Nie wczytano żadnych usług z pliku <b>uslugi.csv</b>.<br>Sprawdź czy plik istnieje, ma poprawne nagłówki i nie jest pusty.</p></div>`;
+                updatePaginationInfo();
+                renderPaginationBar();
+                return;
+            }
+            // Komunikat gdy nie znaleziono wyników wyszukiwania
             if (servicesToShow.length === 0) {
-                container.innerHTML = `<div style="text-align: center; color: #ccc; padding: 40px;"><h3>🔍 Brak usług</h3><p>Nie znaleziono usług spełniających kryteria.</p></div>`;
+                container.innerHTML = `<div style="text-align: center; color: #ff2222; padding: 40px;"><h3>🔍 Brak wyników wyszukiwania</h3><p>Nie znaleziono usług spełniających podane kryteria.<br>Spróbuj zmienić frazę lub lokalizację.</p></div>`;
+                updatePaginationInfo();
+                renderPaginationBar();
                 return;
             }
             let servicesHTML = '';
-            servicesToShow.forEach(service => {
+            servicesToShow.forEach((service, idx) => {
                 const wykonawca = service['Wykonawca'] || service['Kontakt'] || '';
-                const lokalizacja = service['Lokalizacja'] ? `<div style='color:#FFD700;font-size:0.95rem;'>📍 ${service['Lokalizacja']}</div>` : '';
-                if (service['Nazwa'] === 'Tworzenie profesjonalnych stron internetowych') {
+                const lokalizacjaPremium = service['Lokalizacja'] ? `<span class=\"job-company premium-location\">${service['Lokalizacja']}</span>` : '';
+                const lokalizacja = service['Lokalizacja'] ? `<span class="job-company">${service['Lokalizacja']}</span>` : '';
+                const email = service['Kontakt'] ? encodeURIComponent(service['Kontakt']) : '';
+                const btnId = `contact-btn-${start + idx}`;
+                // Jeśli usługa jest premium (pole Premium == '1' lub 'tak' lub inne kryterium)
+                const isPremium = service['Premium'] && (service['Premium'] === '1' || service['Premium'].toLowerCase() === 'tak');
+                if (isPremium) {
+                    // Lokalizacja nad overlay, z jaśniejszym stylem
                     servicesHTML += `
-                    <div class="service-card" style="border:3px solid gold; box-shadow:0 0 30px gold; position:relative;">
-                        <div style="position:absolute;top:-18px;left:-18px;background:gold;color:#111;font-weight:bold;padding:8px 22px;border-radius:18px 0 18px 0;font-size:1.2rem;z-index:2;box-shadow:0 0 12px gold;">PREMIUM</div>
-                        <div class="service-header">
-                            <div>
-                                <div class="service-title" style="color:gold;">${service['Nazwa']}</div>
-                                <div class="service-provider">${wykonawca}</div>
-                                ${lokalizacja}
-                            </div>
-                        </div>
-                        <div class="service-description" style="font-size:1.15rem;color:#FFD700;">${service['Opis']}</div>
-                        <div class="service-actions">
-                            <button class="btn-contact" onclick="window.location.href='mailto:${service['Kontakt']}'">📧 Kontakt</button>
-                            ${service['WWW'] ? `<button class='btn-details' onclick=\"window.open('${service['WWW']}', '_blank')\">🌐 Strona</button>` : ''}
-                        </div>
-                    </div>
-                    `;
+                    <div class=\"job-card premium-card\">\n                        <div class=\"job-header\">\n                            <div>\n                                <div class=\"job-title\" style=\"color:#fff; font-size:2rem; text-shadow:0 2px 24px #FFD700, 0 0 12px #fff; z-index:2; position:relative;\">${service['Nazwa']}</div>\n                                <!-- wykonawca/email ukryty w premium -->\n                            </div>\n                            ${lokalizacjaPremium}\n                        </div>\n                        <div class=\"premium-overlay\"></div>\n                        <div class=\"premium-label\">PREMIUM</div>\n                        <div class=\"job-description\" style=\"color:#fff; font-size:1.15rem; text-shadow:0 0 16px #FFD700, 0 0 8px #fff; z-index:2; position:relative;\">${service['Opis']}</div>\n                        <div class=\"job-actions\" style=\"z-index:2; position:relative;\">\n                            <button class=\"btn-contact\" id=\"${btnId}\" data-email=\"${email}\" data-nazwa=\"${encodeURIComponent(service['Nazwa'] || '')}\" data-wykonawca=\"${encodeURIComponent(wykonawca)}\" style=\"background:linear-gradient(90deg,#FFD700,#FFB300);color:#111;box-shadow:0 0 10px #FFD700;\">📧 Kontakt</button>\n                            ${service['WWW'] ? `<button class='btn-details' style=\"border-color:#FFD700;color:#FFD700;\" onclick=\\"window.open('${service['WWW']}', '_blank')\\">🌐 Strona</button>` : ''}\n                        </div>\n                    </div>\n                    `;
                 } else {
                     servicesHTML += `
-                    <div class="service-card">
-                        <div class="service-header">
-                            <div>
-                                <div class="service-title">${service['Nazwa']}</div>
-                                <div class="service-provider">${wykonawca}</div>
-                                ${lokalizacja}
-                            </div>
-                        </div>
-                        <div class="service-description">${service['Opis']}</div>
-                        <div class="service-actions">
-                            <button class="btn-contact" onclick="window.location.href='mailto:${service['Kontakt']}'">📧 Kontakt</button>
-                            ${service['WWW'] ? `<button class='btn-details' onclick=\"window.open('${service['WWW']}', '_blank')\">🌐 Strona</button>` : ''}
-                        </div>
-                    </div>
-                    `;
+                    <div class=\"job-card\">\n                        <div class=\"job-header\">\n                            <div>\n                                <div class=\"job-title\">${service['Nazwa']}</div>\n                                ${wykonawca ? '' : ''}\n                            </div>\n                            ${lokalizacja}\n                        </div>\n                        <div class=\"job-description\">${service['Opis']}</div>\n                        <div class=\"job-actions\">\n                            <button class=\"btn-contact\" id=\"${btnId}\" data-email=\"${email}\" data-nazwa=\"${encodeURIComponent(service['Nazwa'] || '')}\" data-wykonawca=\"${encodeURIComponent(wykonawca)}\">📧 Kontakt</button>\n                            ${service['WWW'] ? `<button class='btn-details' onclick=\"window.open('${service['WWW']}', '_blank')\">🌐 Strona</button>` : ''}\n                        </div>\n                    </div>\n                    `;
                 }
             });
-            container.innerHTML = `<div class="service-cards-grid">${servicesHTML}</div>`;
+            container.innerHTML = `<div class="service-cards-grid job-offers-grid">${servicesHTML}</div>`;
+            // Dodaj obsługę kliknięcia do wszystkich przycisków Kontakt
+            servicesToShow.forEach((service, idx) => {
+                const btnId = `contact-btn-${start + idx}`;
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.onclick = function(e) {
+                        e.preventDefault();
+                        // Pobierz dane do modala
+                        const email = btn.getAttribute('data-email');
+                        const nazwa = decodeURIComponent(btn.getAttribute('data-nazwa') || '');
+                        const wykonawca = decodeURIComponent(btn.getAttribute('data-wykonawca') || '');
+                        document.getElementById('contactEmail').value = email;
+                        document.getElementById('contactServiceInfo').innerHTML = `<b style='color:#FFD700;'>${nazwa}</b><br><span style='color:#fff;'>${wykonawca}</span>`;
+                        document.getElementById('contactMessage').value = '';
+                        document.getElementById('contactFormMsg').textContent = '';
+                        document.getElementById('contactModal').style.display = 'flex';
+                    };
+                }
+            });
             updatePaginationInfo();
             renderPaginationBar();
+            updateServicesCount();
         }
-    // RESPONSYWNY NAVBAR - menu przesuwane z boku
-    document.addEventListener('DOMContentLoaded', function() {
-        const navToggle = document.getElementById('navToggle');
-        const navMenu = document.getElementById('navMenu');
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('open');
-        });
-        // Zamknij menu po kliknięciu w link na małych ekranach
-        navMenu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                if(window.innerWidth <= 700) navMenu.classList.remove('open');
-            });
-        });
-        // Zamknij menu po kliknięciu poza menu
-        document.addEventListener('click', function(e) {
-            if(window.innerWidth > 700) return;
-            if(navMenu.classList.contains('open')) {
-                if(!navMenu.contains(e.target) && e.target !== navToggle) {
-                    navMenu.classList.remove('open');
-                }
-            }
-        });
-    });
+
+
+    </script>
 </body>
 </html>

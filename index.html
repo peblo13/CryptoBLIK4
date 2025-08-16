@@ -1,4 +1,4 @@
-y<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -6,17 +6,18 @@ y<!DOCTYPE html>
     <meta name="description" content="eCVjob.pl - Profesjonalne CV, baza kandydatów, oferty pracy. Znajdź pracę lub idealnego kandydata.">
     <meta name="keywords" content="CV, praca, rekrutacja, oferty pracy, kandydaci, kariera">
     <meta name="author" content="eCVjob.pl">
-    
+    <!-- PapaParse do CSV -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <!-- Preload critical resources -->
     <link rel="preload" href="./css/optimized-styles.css" as="style">
     <link rel="preload" href="./js/optimized-app.js" as="script">
-    <link rel="preload" href="./images/tlo.jpg" as="image">
+    <link rel="preload" href="images/tlo.jpg" as="image">
     
 
 
     <style>
       body {
-        background: url('./images/tlo.jpg') no-repeat center center fixed;
+        background: url('/moj_projek/eCVjob.pl/src/images/tlo.jpg') no-repeat center center fixed;
         background-size: cover;
         min-height: 100vh;
         font-family: 'Montserrat', Arial, sans-serif;
@@ -868,6 +869,79 @@ y<!DOCTYPE html>
 </head>
 
 <body>
+<!-- Przycisk Czat AI przypięty po lewej stronie, pod logiem -->
+<a href="#" onclick="openRegistrationModal('Bezpłatny'); return false;" id="ai-chat-btn" class="ai-chat-btn">
+  <span class="ai-chat-icon">💬</span>
+  <span class="ai-chat-label">AI</span>
+</a>
+<style>
+  .ai-chat-btn {
+    position: fixed;
+    left: 0;
+    top: 180px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(0,0,0,0.85);
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    padding: 18px 38px 18px 22px;
+    border-radius: 0 36px 36px 0;
+    font-weight: bold;
+    font-size: 1.35rem;
+    text-decoration: none;
+    box-shadow: 0 4px 24px rgba(0,255,0,0.18);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    z-index: 9999;
+    min-width: 120px;
+    max-width: 90vw;
+  }
+  .ai-chat-icon {
+    font-size: 2.3em;
+    line-height: 1;
+    filter: drop-shadow(0 0 16px #00ffb0) drop-shadow(0 0 32px #00ffb0);
+    text-shadow: 0 0 18px #00ffb0, 0 0 32px #00ffb0, 0 0 48px #00ffb0;
+  }
+  .ai-chat-label {
+    font-size: 1.35em;
+    font-weight: 900;
+    color: #fff;
+    background: linear-gradient(90deg,#00ffb0 40%,#00ff00 100%);
+    padding: 2px 18px 2px 12px;
+    border-radius: 18px;
+    margin-left: 6px;
+    box-shadow: 0 0 16px #00ffb0, 0 0 32px #00ffb0;
+    letter-spacing: 2px;
+  }
+  @media (max-width: 600px) {
+    .ai-chat-btn {
+      top: 110px;
+      padding: 7px 16px 7px 10px;
+      border-radius: 0 18px 18px 0;
+      font-size: 0.95rem;
+      min-width: 54px;
+      gap: 6px;
+    }
+    .ai-chat-icon {
+      font-size: 1.3em;
+      text-shadow: 0 0 8px #00ffb0, 0 0 16px #00ffb0;
+    }
+    .ai-chat-label {
+      font-size: 0.95em;
+      padding: 1px 8px 1px 6px;
+      border-radius: 10px;
+      margin-left: 2px;
+      box-shadow: 0 0 6px #00ffb0, 0 0 12px #00ffb0;
+      letter-spacing: 1px;
+    }
+  }
+</style>
+<script>
+// Po odświeżeniu strony przewiń na samą górę
+window.addEventListener('beforeunload', function() {
+    window.scrollTo(0, 0);
+});
+</script>
 
 <!-- Dekoracyjne logo po prawej stronie, pod wszystkimi sekcjami -->
 <img src="images/logo.png" alt="Logo" style="position:fixed; top:80px; right:0; width:180px; opacity:0.13; z-index:0; pointer-events:none; user-select:none;" />
@@ -1142,12 +1216,12 @@ console.log('✅ Modal functions loaded');
       <li><a href="#baza-cv" onclick="window.setCVIntent();">Baza CV</a></li>
       <li><a href="oferty-pracy.html">Oferty pracy</a></li>
       <li><a href="uslugi.html">Usługi</a></li>
-      <li><a href="#kreator-cv">Kreator CV</a></li>
+  <li><a href="kreator-cv-new.html">Kreator CV</a></li>
       <li><a href="marketplace.html">💰 Marketplace</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#" onclick="openRegistrationModal('Bezpłatny'); return false;">📞 Kontakt</a></li>
-      <li><a href="#" onclick="console.log('Login clicked'); handleLogin(); return false;">Logowanie</a></li>
-      <li><a href="#" onclick="console.log('Registration clicked'); handleRegistration(); return false;">Rejestracja</a></li>
+      <li><a href="rejestracja_new.html">📞 Kontakt</a></li>
+      <li><a href="logowanie.html">Logowanie</a></li>
+      <li><a href="rejestracja_new.html">Rejestracja</a></li>
     </ul>
   </nav>
 </nav>
@@ -1228,7 +1302,7 @@ console.log('✅ Modal functions loaded');
         >
           📖 Dowiedz się więcej
         </button>
-        <button onclick="window.location.href='rejestracja.html'" style="
+        <button onclick="window.location.href='rejestracja_new.html'" style="
           background: linear-gradient(135deg, #FFD700, #FFA500);
           color: #111;
           border: none;
@@ -1343,7 +1417,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="text-align: center;">
                     <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
                         <button onclick="openCVDatabase()" style="background: linear-gradient(135deg, #00ff00, #39ff14); color: #111; border: none; border-radius: 30px; font-size: 1.3rem; font-weight: bold; padding: 18px 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(0,255,0,0.4); text-transform: uppercase; letter-spacing: 1px;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px #00ff00';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 6px 20px rgba(0,255,0,0.4)';">👀 Przeglądaj CV</button>
-                        <button onclick="window.location.href='rejestracja.html'" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: none; border-radius: 30px; font-size: 1.3rem; font-weight: bold; padding: 18px 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(255,215,0,0.4); text-transform: uppercase; letter-spacing: 1px;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px #FFD700';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 6px 20px rgba(255,215,0,0.4)';">📝 Dodaj swoje CV</button>
+                        <button onclick="window.location.href='rejestracja_new.html'" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: none; border-radius: 30px; font-size: 1.3rem; font-weight: bold; padding: 18px 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(255,215,0,0.4); text-transform: uppercase; letter-spacing: 1px;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px #FFD700';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 6px 20px rgba(255,215,0,0.4)';">📝 Dodaj swoje CV</button>
                     </div>
                 </div>
                 <!-- Separator between sections -->
@@ -1812,29 +1886,52 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       </div>
       <script>
-      // Licznik usług pobierany z uslugi.html
+      // Licznik usług pobierany bezpośrednio z uslugi.csv (identycznie jak w uslugi.html)
       document.addEventListener('DOMContentLoaded', function() {
-        function updateUslugiCounterFromUslugiPage() {
-          fetch('uslugi.html')
-            .then(response => response.text())
-            .then(html => {
-              // Utwórz tymczasowy DOM do parsowania
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(html, 'text/html');
-              const countSpan = doc.getElementById('servicesCount');
-              if (countSpan) {
-                // Wyciągnij liczbę z tekstu, np. "12 usług"
-                const match = countSpan.textContent.match(/(\d+)/);
-                document.getElementById('uslugi-counter-value').textContent = match ? match[1] : '0';
-              } else {
-                document.getElementById('uslugi-counter-value').textContent = '0';
-              }
+        function updateUslugiCounterFromCSV() {
+          fetch('uslugi.csv')
+            .then(response => {
+              if (!response.ok) throw new Error('Plik uslugi.csv nie jest dostępny na serwerze.');
+              Papa.parse('uslugi.csv', {
+                download: true,
+                header: true,
+                delimiter: ';',
+                skipEmptyLines: true,
+                complete: function(results) {
+                  const cleaned = results.data.map(service => {
+                    const obj = {};
+                    Object.keys(service).forEach(key => {
+                      let val = service[key];
+                      if (typeof val === 'string') {
+                        val = val.replace(/^'*"?|"?'*$/g, '').trim();
+                      }
+                      obj[key.trim()] = val;
+                    });
+                    return obj;
+                  });
+                  // Zamiana kluczy na spójne z resztą kodu
+                  const allServices = cleaned.map(s => ({
+                    'Nazwa': s['Nazwa usługi'] || s['Nazwa'] || '',
+                    'Opis': s['Opis'] || '',
+                    'Kategoria': s['Kategoria'] || '',
+                    'Lokalizacja': s['Lokalizacja'] || '',
+                    'Wykonawca': s['Wykonawca'] || s['Kontakt'] || '',
+                    'Kontakt': s['Kontakt'] || '',
+                    'Premium': s['Premium'] || '',
+                    'WWW': s['WWW'] || ''
+                  })).filter(s => s['Nazwa'] && s['Kategoria']);
+                  document.getElementById('uslugi-counter-value').textContent = allServices.length.toLocaleString();
+                },
+                error: function() {
+                  document.getElementById('uslugi-counter-value').textContent = '0';
+                }
+              });
             })
             .catch(() => {
               document.getElementById('uslugi-counter-value').textContent = '0';
             });
         }
-        updateUslugiCounterFromUslugiPage();
+        updateUslugiCounterFromCSV();
 
         // Dodaj przekierowania do uslugi.html dla przycisków
         var searchBtn = document.getElementById('uslugi-search-btn');
@@ -3305,7 +3402,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <img src="images/szablon1.jpg" alt="Aktualny szablon" style="width: 100%; height: 180px; object-fit: cover; border-radius: 12px; box-shadow:0 2px 16px #00ff00a0;">
                 <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #00fff7; text-shadow:0 2px 8px #000;">Klasyczny</h3>
                 <p style="color: #00ff00; margin-bottom: 1rem; font-size: 1rem; text-shadow:0 2px 8px #000;">Tradycyjny, elegancki design odpowiedni dla korporacji i firm konserwatywnych.</p>
-                <a href="kreator-formularz.html?template=1" class="template-button-main" style="display: block; width: 100%; background: linear-gradient(90deg,#00ff00 60%,#00fff7 100%); color: #181818; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px;">Wybierz szablon</a>
+                <a href="kreator-cv-new.html" class="template-button-main" style="display: block; width: 100%; background: linear-gradient(90deg,#00ff00 60%,#00fff7 100%); color: #181818; border: none; padding: 0.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 8px;">Wybierz szablon</a>
               </div>
               <div id="cv-carousel-next" style="flex: 0 0 120px; opacity: 0.5; transform: scale(0.85); transition: opacity 0.3s, transform 0.3s;">
                 <img src="images/szablon2.jpg" alt="Następny szablon" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; box-shadow:0 2px 8px #00ff00a0;">
@@ -3429,6 +3526,10 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </div>
 
+      </div>
+      <!-- Przycisk Zobacz więcej -->
+      <div style="text-align:center; margin-top: 20px;">
+        <a href="cv-tips.html" style="display:inline-block; background:#00ff00; color:#111; font-weight:bold; padding:14px 38px; border-radius:12px; text-decoration:none; font-size:1.25rem; box-shadow:0 2px 18px #00ff0033; transition:background 0.2s, color 0.2s;">Zobacz więcej porad</a>
       </div>
     </div>
   </section>
@@ -4061,98 +4162,10 @@ button:hover {
             <section id="plany-cenowe" class="glow-green" style="background: rgba(0, 0, 0, 0.6); border: 2px solid #00ff00; border-radius: 10px; padding: 40px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); margin: 40px auto 30px auto;">
                 <h2 style="text-align: center; color: #00ff00; font-size: 3rem; margin-bottom: 20px; text-shadow: 0 0 10px #00ff00;">💎 Plany cenowe</h2>
                 <p style="text-align: center; color: #fff; font-size: 1.2rem; margin-bottom: 40px;">Wybierz plan odpowiedni dla Ciebie i odkryj wszystkie funkcje eCVjob.pl</p>
-                
-                <!-- Funkcje grupowane - sidebar pokazujący co każdy plan odblokowuje -->
-                <div style="display: flex; gap: 30px; max-width: 1400px; margin: 0 auto; flex-wrap: wrap;">
-                    
-                    <!-- Lewa kolumna - Funkcje planów -->
-                    <div style="flex: 0 0 300px; min-width: 280px;">
-                        <h3 style="color: #00ff00; font-size: 1.8rem; margin-bottom: 25px; text-align: center;">🔓 Odblokowywane funkcje</h3>
-                        
-                        <!-- Plan Bezpłatny -->
-                        <div style="background: rgba(0,255,0,0.1); border: 2px solid #00ff00; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-                            <h4 style="color: #00ff00; margin-bottom: 15px; font-size: 1.3rem;">🆓 Plan Bezpłatny</h4>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">✅ 5 podstawowych szablonów CV</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">✅ Eksport PDF</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">✅ Kreator CV podstawowy</li>
-                                <li style="color: #FFD700; padding: 5px 0; font-size: 0.9rem;">💰 Marketplace (sprzedaż szablonów)</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Plan Starter - Nowe funkcje -->
-                        <div style="background: rgba(138,43,226,0.1); border: 2px solid #8a2be2; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-                            <h4 style="color: #8a2be2; margin-bottom: 15px; font-size: 1.3rem;">🚀 Plan Starter +</h4>
-                            <div style="background: rgba(138,43,226,0.2); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                                <small style="color: #8a2be2; font-weight: bold;">NOWE FUNKCJE:</small>
-                            </div>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">⬆️ 15 szablonów CV (zamiast 5)</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Eksport Word + PDF</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 3 ogłoszenia pracy/miesiąc</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 WebResume podstawowe</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Kreator list motywacyjnych</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Plan Premium - Nowe funkcje -->
-                        <div style="background: rgba(255,215,0,0.1); border: 2px solid #FFD700; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(255,215,0,0.3);">
-                            <h4 style="color: #FFD700; margin-bottom: 15px; font-size: 1.3rem;">⭐ Plan Premium +</h4>
-                            <div style="background: rgba(255,215,0,0.2); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                                <small style="color: #FFD700; font-weight: bold;">NOWE FUNKCJE:</small>
-                            </div>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">⬆️ 50+ szablonów CV (zamiast 15)</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">⬆️ 10 ogłoszeń/miesiąc (zamiast 3)</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 WebResume z własną domeną</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Wsparcie 24/7</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Optymalizacja ATS</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Video CV i portfolio</li>
-                            </ul>
-                            </ul>
-                        </div>
-                        
-                        <!-- Plan Business - Nowe funkcje -->
-                        <div style="background: rgba(0,255,247,0.1); border: 2px solid #00fff7; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-                            <h4 style="color: #00fff7; margin-bottom: 15px; font-size: 1.3rem;">🏢 Plan Business +</h4>
-                            <div style="background: rgba(0,255,247,0.2); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                                <small style="color: #00fff7; font-weight: bold;">NOWE FUNKCJE:</small>
-                            </div>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="color: #00fff7; padding: 5px 0; font-size: 0.9rem; font-weight: bold; background: rgba(0,255,247,0.2); border-radius: 4px; margin-bottom: 5px; text-align: center;">🔓 DOSTĘP DO BAZY CV (100)</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">⬆️ Nieograniczone ogłoszenia</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Zaawansowane wyszukiwanie AI</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Analytics i raporty</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Dedykowany manager</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Branding firmowy</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Automatyzacja rekrutacji</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Plan Enterprise - Nowe funkcje -->
-                        <div style="background: rgba(220,20,60,0.1); border: 2px solid #dc143c; border-radius: 12px; padding: 20px;">
-                            <h4 style="color: #dc143c; margin-bottom: 15px; font-size: 1.3rem;">🏆 Plan Enterprise +</h4>
-                            <div style="background: rgba(220,20,60,0.2); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                                <small style="color: #dc143c; font-weight: bold;">NOWE FUNKCJE:</small>
-                            </div>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="color: #dc143c; padding: 5px 0; font-size: 0.9rem; font-weight: bold; background: rgba(220,20,60,0.2); border-radius: 4px; margin-bottom: 5px; text-align: center;">🔓 NIEOGRANICZONA BAZA CV</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 AI-powered matching</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 White-label rozwiązania</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Własne subdomena</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 Integracje SSO</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 SLA 99.9% uptime</li>
-                                <li style="color: #fff; padding: 5px 0; font-size: 0.9rem;">🆕 On-premise deployment</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- Prawa kolumna - Karty planów -->
-                    <div style="flex: 1; min-width: 600px;">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px;">
+                <div class="pricing-cards-grid">
                             
                             <!-- Plan Bezpłatny - 0 zł -->
-                            <div class="pricing-card" style="background: rgba(0,255,0,0.1); border: 3px solid #00ff00; border-radius: 15px; padding: 30px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative; box-shadow: 0 0 30px rgba(255,215,0,0.3), 0 0 60px rgba(255,215,0,0.1); animation: earningGlow 3s ease-in-out infinite alternate;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 40px rgba(255,215,0,0.5), 0 0 80px rgba(255,215,0,0.2)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 30px rgba(255,215,0,0.3), 0 0 60px rgba(255,215,0,0.1)';">
+                            <div class="pricing-card" style="background: rgba(0,255,0,0.1); border: 3px solid #00ff00; border-radius: 15px; padding: 30px 24px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative; box-shadow: 0 0 30px rgba(255,215,0,0.3), 0 0 60px rgba(255,215,0,0.1); animation: earningGlow 3s ease-in-out infinite alternate; min-width: 0;"
                                 <!-- Badge zarabiania -->
                                 <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; padding: 8px 20px; border-radius: 25px; font-weight: bold; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(255,215,0,0.5); animation: pulse 2s infinite;">
                                     💰 ZARABIAJ PIENIĄDZE!
@@ -4167,17 +4180,19 @@ button:hover {
                                     <div style="font-size: 0.9rem; margin-top: 5px;">💵 Zarabiaj do 1,500 zł miesięcznie</div>
                                 </div>
                                 
-                                <!-- Skrócona lista funkcji z odniesieniem do lewej kolumny -->
+                                <!-- Rozszerzona lista funkcji -->
                                 <div style="background: rgba(0,255,0,0.1); padding: 15px; border-radius: 10px; margin: 20px 0;">
                                     <div style="color: #00ff00; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">✨ Kluczowe funkcje:</div>
                                     <ul style="list-style: none; padding: 0; margin: 0; text-align: left; font-size: 0.9rem;">
-                                        <li style="color: #fff; padding: 3px 0;">• 5 podstawowych szablonów</li>
-                                        <li style="color: #fff; padding: 3px 0;">• Kreator CV</li>
+                                        <li style="color: #fff; padding: 3px 0;">• 5 podstawowych szablonów CV</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Kreator CV (podstawowy)</li>
                                         <li style="color: #fff; padding: 3px 0;">• Eksport PDF</li>
                                         <li style="color: #FFD700; padding: 3px 0; font-weight: bold;">• Marketplace zarabiania</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Podstawowe wsparcie techniczne</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Dostęp do poradników CV</li>
                                     </ul>
                                     <div style="text-align: center; margin-top: 10px;">
-                                        <small style="color: #00ff00;">👈 Zobacz pełną listę funkcji</small>
+                                        <small style="color: #00ff00;">👈 Wszystko co potrzebne na start</small>
                                     </div>
                                 </div>
                                 
@@ -4185,7 +4200,7 @@ button:hover {
                             </div>
 
                             <!-- Plan Starter - 14.99 zł -->
-                            <div class="pricing-card" style="background: rgba(138,43,226,0.1); border: 3px solid #8a2be2; border-radius: 15px; padding: 30px; text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                            <div class="pricing-card" style="background: rgba(138,43,226,0.1); border: 3px solid #8a2be2; border-radius: 15px; padding: 30px 24px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; min-width: 0;">
                                 <h3 style="color: #8a2be2; font-size: 2rem; margin-bottom: 20px;">🚀 Starter</h3>
                                 <div style="color: #8a2be2; font-size: 3rem; font-weight: bold; margin-bottom: 20px;">14.99 <span style="font-size: 1.5rem;">zł/mies</span></div>
                                 
@@ -4196,16 +4211,18 @@ button:hover {
                                 </div>
                                 
                                 <div style="background: rgba(138,43,226,0.1); padding: 15px; border-radius: 10px; margin: 20px 0;">
-                                    <div style="color: #8a2be2; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🎯 Nowe funkcje:</div>
+                                    <div style="color: #8a2be2; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🎯 Wszystko z planu Bezpłatnego oraz:</div>
                                     <ul style="list-style: none; padding: 0; margin: 0; text-align: left; font-size: 0.9rem;">
-                                        <li style="color: #fff; padding: 3px 0;">• 15 szablonów (zamiast 5)</li>
+                                        <li style="color: #fff; padding: 3px 0;">• 15 szablonów CV (zamiast 5)</li>
                                         <li style="color: #fff; padding: 3px 0;">• Eksport Word + PDF</li>
-                                        <li style="color: #fff; padding: 3px 0;">• 3 ogłoszenia/miesiąc</li>
+                                        <li style="color: #fff; padding: 3px 0;">• 3 ogłoszenia pracy/miesiąc</li>
                                         <li style="color: #fff; padding: 3px 0;">• WebResume podstawowe</li>
                                         <li style="color: #fff; padding: 3px 0;">• Kreator list motywacyjnych</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Rozszerzone wsparcie techniczne</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Dostęp do webinarów i szkoleń</li>
                                     </ul>
                                     <div style="text-align: center; margin-top: 10px;">
-                                        <small style="color: #8a2be2;">👈 Zobacz pełną listę funkcji</small>
+                                        <small style="color: #8a2be2;">👈 Odblokuj więcej możliwości</small>
                                     </div>
                                 </div>
                                 
@@ -4213,7 +4230,7 @@ button:hover {
                             </div>
 
                             <!-- Plan Premium - 29.99 zł -->
-                            <div class="pricing-card" style="background: rgba(255,215,0,0.1); border: 3px solid #FFD700; border-radius: 15px; padding: 30px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative; transform: scale(1.05); box-shadow: 0 0 25px rgba(255,215,0,0.4);">
+                            <div class="pricing-card" style="background: rgba(255,215,0,0.1); border: 3px solid #FFD700; border-radius: 15px; padding: 30px 24px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative; transform: scale(1.05); box-shadow: 0 0 25px rgba(255,215,0,0.4); min-width: 0;">
                                 <!-- Badge "Najlepszy" -->
                                 <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">🏆 NAJLEPSZY</div>
                                 
@@ -4223,20 +4240,23 @@ button:hover {
                                 <!-- Upgrade notification -->
                                 <div style="background: rgba(255,215,0,0.2); padding: 12px; border-radius: 10px; margin: 20px 0; border: 1px solid #FFD700;">
                                     <div style="color: #FFD700; font-weight: bold; font-size: 1rem; margin-bottom: 5px;">⬆️ UPGRADE z Starter</div>
-                                    <div style="color: #000; font-size: 0.9rem;">Wszystko z planów Bezpłatny + Starter +</div>
+                                    <div style="color: #fff; font-size: 0.9rem;">Wszystko z planów Bezpłatny + Starter +</div>
                                 </div>
                                 
                                 <div style="background: rgba(255,215,0,0.1); padding: 15px; border-radius: 10px; margin: 20px 0;">
-                                    <div style="color: #FFD700; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🚀 Kluczowe nowe funkcje:</div>
+                                    <div style="color: #FFD700; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🚀 Wszystko z planów Starter i Bezpłatny oraz:</div>
                                     <ul style="list-style: none; padding: 0; margin: 0; text-align: left; font-size: 0.9rem;">
-                                        <li style="color: #000; padding: 3px 0; font-weight: bold;">• 50+ szablonów CV (zamiast 15)</li>
-                                        <li style="color: #000; padding: 3px 0; font-weight: bold;">• 10 ogłoszeń/miesiąc (zamiast 3)</li>
-                                        <li style="color: #000; padding: 3px 0; font-weight: bold;">• WebResume z własną domeną</li>
-                                        <li style="color: #000; padding: 3px 0; font-weight: bold;">• Video CV i portfolio</li>
-                                        <li style="color: #000; padding: 3px 0; font-weight: bold;">• Wsparcie 24/7</li>
+                                        <li style="color: #fff; padding: 3px 0; font-weight: bold;">• 50+ szablonów CV (zamiast 15)</li>
+                                        <li style="color: #fff; padding: 3px 0; font-weight: bold;">• 10 ogłoszeń/miesiąc (zamiast 3)</li>
+                                        <li style="color: #fff; padding: 3px 0; font-weight: bold;">• WebResume z własną domeną</li>
+                                        <li style="color: #fff; padding: 3px 0; font-weight: bold;">• Video CV i portfolio</li>
+                                        <li style="color: #fff; padding: 3px 0; font-weight: bold;">• Wsparcie 24/7</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Optymalizacja ATS</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Zaawansowane statystyki profilu</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Priorytetowa obsługa klienta</li>
                                     </ul>
                                     <div style="text-align: center; margin-top: 10px;">
-                                        <small style="color: #FFD700;">👈 Zobacz pełną listę funkcji</small>
+                                        <small style="color: #FFD700;">👈 Pełen pakiet premium</small>
                                     </div>
                                 </div>
                                 
@@ -4244,7 +4264,7 @@ button:hover {
                             </div>
 
                             <!-- Plan Business - 99.99 zł -->
-                            <div class="pricing-card" style="background: rgba(0,255,247,0.1); border: 3px solid #00fff7; border-radius: 15px; padding: 30px; text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                            <div class="pricing-card" style="background: rgba(0,255,247,0.1); border: 3px solid #00fff7; border-radius: 15px; padding: 30px 24px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; min-width: 0;">
                                 <h3 style="color: #00fff7; font-size: 2rem; margin-bottom: 20px;">🏢 Business</h3>
                                 <div style="color: #00fff7; font-size: 3rem; font-weight: bold; margin-bottom: 20px;">99.99 <span style="font-size: 1.5rem;">zł/mies</span></div>
                                 
@@ -4255,16 +4275,19 @@ button:hover {
                                 </div>
                                 
                                 <div style="background: rgba(0,255,247,0.1); padding: 15px; border-radius: 10px; margin: 20px 0;">
-                                    <div style="color: #00fff7; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🚀 Funkcje dla firm:</div>
+                                    <div style="color: #00fff7; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🚀 Wszystko z planów Premium, Starter i Bezpłatny oraz:</div>
                                     <ul style="list-style: none; padding: 0; margin: 0; text-align: left; font-size: 0.9rem;">
                                         <li style="color: #00fff7; padding: 3px 0; font-weight: bold; background: rgba(0,255,247,0.2); border-radius: 4px; margin-bottom: 5px; text-align: center;">🔓 DOSTĘP DO BAZY CV (100)</li>
                                         <li style="color: #fff; padding: 3px 0;">• Nieograniczone ogłoszenia</li>
                                         <li style="color: #fff; padding: 3px 0;">• Wyszukiwanie AI</li>
                                         <li style="color: #fff; padding: 3px 0;">• Analytics i raporty</li>
                                         <li style="color: #fff; padding: 3px 0;">• Dedykowany manager</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Branding firmowy</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Automatyzacja rekrutacji</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Integracje z systemami HR</li>
                                     </ul>
                                     <div style="text-align: center; margin-top: 10px;">
-                                        <small style="color: #00fff7;">👈 Zobacz pełną listę funkcji</small>
+                                        <small style="color: #00fff7;">👈 Rozwiązania dla firm</small>
                                     </div>
                                 </div>
                                 
@@ -4272,7 +4295,7 @@ button:hover {
                             </div>
 
                             <!-- Plan Enterprise - 299.99 zł -->
-                            <div class="pricing-card" style="background: rgba(220,20,60,0.1); border: 3px solid #dc143c; border-radius: 15px; padding: 30px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative;">
+                            <div class="pricing-card" style="background: rgba(220,20,60,0.1); border: 3px solid #dc143c; border-radius: 15px; padding: 30px 24px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; position: relative; min-width: 0;">
                                 <!-- Badge "Najbardziej zaawansowany" -->
                                 <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(45deg, #dc143c, #b91c1c); color: #fff; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;">⚡ ENTERPRISE</div>
                                 
@@ -4286,18 +4309,38 @@ button:hover {
                                 </div>
                                 
                                 <div style="background: rgba(220,20,60,0.1); padding: 15px; border-radius: 10px; margin: 20px 0;">
-                                    <div style="color: #dc143c; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🏢 Funkcje Enterprise:</div>
+                                    <div style="color: #dc143c; font-weight: bold; font-size: 1rem; margin-bottom: 10px;">🏢 Wszystko z planów Business, Premium, Starter i Bezpłatny oraz:</div>
                                     <ul style="list-style: none; padding: 0; margin: 0; text-align: left; font-size: 0.9rem;">
                                         <li style="color: #dc143c; padding: 3px 0; font-weight: bold; background: rgba(220,20,60,0.2); border-radius: 4px; margin-bottom: 5px; text-align: center;">🔓 NIEOGRANICZONA BAZA CV</li>
                                         <li style="color: #fff; padding: 3px 0;">• AI-powered matching</li>
                                         <li style="color: #fff; padding: 3px 0;">• White-label rozwiązania</li>
                                         <li style="color: #fff; padding: 3px 0;">• Własne subdomena</li>
                                         <li style="color: #fff; padding: 3px 0;">• SLA 99.9% uptime</li>
+                                        <li style="color: #fff; padding: 3px 0;">• On-premise deployment</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Integracje SSO</li>
+                                        <li style="color: #fff; padding: 3px 0;">• Dedykowany opiekun Enterprise</li>
                                     </ul>
                                     <div style="text-align: center; margin-top: 10px;">
-                                        <small style="color: #dc143c;">👈 Zobacz pełną listę funkcji</small>
+                                        <small style="color: #dc143c;">👈 Najwyższy poziom usług</small>
                                     </div>
                                 </div>
+<style>
+  .pricing-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+  @media (max-width: 1024px) {
+    .pricing-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .pricing-cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
                                 
                                 <button onclick="choosePremiumPlan('Enterprise')" style="background: linear-gradient(45deg, #dc143c, #b91c1c); color: #fff; border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem;">🏆 Wybierz Enterprise → Nieograniczona Baza CV</button>
                             </div>
@@ -4367,31 +4410,110 @@ button:hover {
             <!-- Sekcja Opinii Klientów -->
             <section id="opinie" class="glow-green" style="background: rgba(0, 0, 0, 0.6); border: 2px solid #00ff00; border-radius: 10px; padding: 40px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); margin: 40px auto 30px auto;">
                 <h2 style="text-align: center; color: #00ff00; font-size: 3rem; margin-bottom: 40px; text-shadow: 0 0 10px #00ff00;">⭐ Opinie naszych klientów</h2>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
-                    
-                    <div class="testimonial-card" style="background: rgba(255,255,255,0.05); border: 2px solid #00ff00; border-radius: 15px; padding: 25px; text-align: center;">
-                        <div style="color: #FFD700; font-size: 1.5rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
-                        <p style="color: #fff; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"Dzięki eCVjob.pl znalazłem pracę swoich marzeń w IT! Kreator CV jest genialny, a baza ofert bardzo aktualna."</p>
-                        <div style="color: #00ff00; font-weight: bold;">Michał K.</div>
-                        <div style="color: #ccc; font-size: 0.9rem;">Programista</div>
+                <!-- Formularz dodawania opinii -->
+                <form id="add-opinion-form" style="max-width: 500px; margin: 0 auto 32px auto; background: rgba(0,255,0,0.07); border: 1.5px solid #00ff00; border-radius: 10px; padding: 24px 18px; display: flex; flex-direction: column; gap: 14px;">
+                  <label style="color: #00ff00; font-weight: bold; font-size: 1.1rem;">Dodaj swoją opinię:</label>
+                  <input type="text" id="opinion-name" placeholder="Imię" maxlength="32" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #00ff00; background: #111; color: #fff; font-size: 1rem;" required>
+                  <textarea id="opinion-text" placeholder="Twoja opinia..." rows="3" maxlength="300" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #00ff00; background: #111; color: #fff; font-size: 1rem; resize: vertical;" required></textarea>
+                  <div style="display: flex; align-items: center; gap: 10px; margin: 6px 0 0 0;">
+                    <span style="color: #FFD700; font-weight: bold;">Twoja ocena:</span>
+                    <div id="opinion-stars" style="display: flex; gap: 2px; cursor: pointer;">
+                      <span class="star" data-value="1" style="font-size: 1.6rem; color: #888; transition: color 0.2s;">★</span>
+                      <span class="star" data-value="2" style="font-size: 1.6rem; color: #888; transition: color 0.2s;">★</span>
+                      <span class="star" data-value="3" style="font-size: 1.6rem; color: #888; transition: color 0.2s;">★</span>
+                      <span class="star" data-value="4" style="font-size: 1.6rem; color: #888; transition: color 0.2s;">★</span>
+                      <span class="star" data-value="5" style="font-size: 1.6rem; color: #888; transition: color 0.2s;">★</span>
                     </div>
-
-                    <div class="testimonial-card" style="background: rgba(255,255,255,0.05); border: 2px solid #00ff00; border-radius: 15px; padding: 25px; text-align: center;">
-                        <div style="color: #FFD700; font-size: 1.5rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
-                        <p style="color: #fff; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"Jako HR Manager używam bazy CV eCVjob.pl do rekrutacji. Świetne narzędzie z najlepszymi kandydatami!"</p>
-                        <div style="color: #00ff00; font-weight: bold;">Anna S.</div>
-                        <div style="color: #ccc; font-size: 0.9rem;">HR Manager</div>
-                    </div>
-
-                    <div class="testimonial-card" style="background: rgba(255,255,255,0.05); border: 2px solid #00ff00; border-radius: 15px; padding: 25px; text-align: center;">
-                        <div style="color: #FFD700; font-size: 1.5rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
-                        <p style="color: #fff; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"WebResume to rewolucja! Moje interaktywne CV przyciągnęło uwagę rekruterów z największych firm."</p>
-                        <div style="color: #00ff00; font-weight: bold;">Tomasz L.</div>
-                        <div style="color: #ccc; font-size: 0.9rem;">Marketing Specialist</div>
-                    </div>
+                  </div>
+                  <input type="hidden" id="opinion-rating" value="5">
+                  <button type="submit" style="background: linear-gradient(45deg, #00ff00, #00cc00); color: #222; border: none; border-radius: 6px; padding: 10px 0; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 6px;">Dodaj opinię</button>
+                </form>
+                <!-- Lista opinii -->
+                <div id="opinie-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+                  <!-- Istniejące opinie -->
+                  <div class="testimonial-card" style="background: rgba(255,255,255,0.05); border: 2px solid #00ff00; border-radius: 15px; padding: 25px; text-align: center;">
+                      <div style="color: #FFD700; font-size: 1.5rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+                      <p style="color: #fff; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"Dzięki eCVjob.pl znalazłem pracę swoich marzeń w IT! Kreator CV jest genialny, a baza ofert bardzo aktualna."</p>
+                      <div style="color: #00ff00; font-weight: bold;">Michał K.</div>
+                      <div style="color: #ccc; font-size: 0.9rem;">Programista</div>
+                  </div>
+                  <div class="testimonial-card" style="background: rgba(255,255,255,0.05); border: 2px solid #00ff00; border-radius: 15px; padding: 25px; text-align: center;">
+                      <div style="color: #FFD700; font-size: 1.5rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+                      <p style="color: #fff; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"Jako HR Manager używam bazy CV eCVjob.pl do rekrutacji. Świetne narzędzie z najlepszymi kandydatami!"</p>
+                      <div style="color: #00ff00; font-weight: bold;">Anna S.</div>
+                      <div style="color: #ccc; font-size: 0.9rem;">HR Manager</div>
+                  </div>
+                  <div class="testimonial-card" style="background: rgba(255,255,255,0.05); border: 2px solid #00ff00; border-radius: 15px; padding: 25px; text-align: center;">
+                      <div style="color: #FFD700; font-size: 1.5rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+                      <p style="color: #fff; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"WebResume to rewolucja! Moje interaktywne CV przyciągnęło uwagę rekruterów z największych firm."</p>
+                      <div style="color: #00ff00; font-weight: bold;">Tomasz L.</div>
+                      <div style="color: #ccc; font-size: 0.9rem;">Marketing Specialist</div>
+                  </div>
                 </div>
             </section>
+<script>
+// Prosty system dodawania opinii klientów (tylko frontend, nie zapisuje na serwerze)
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('add-opinion-form');
+  const opinieList = document.getElementById('opinie-list');
+  const stars = document.querySelectorAll('#opinion-stars .star');
+  const ratingInput = document.getElementById('opinion-rating');
+  let currentRating = 5;
+  // Obsługa gwiazdek
+  if (stars && ratingInput) {
+    stars.forEach(star => {
+      star.addEventListener('mouseenter', function() {
+        const val = parseInt(this.getAttribute('data-value'));
+        stars.forEach((s, i) => {
+          s.style.color = i < val ? '#FFD700' : '#888';
+        });
+      });
+      star.addEventListener('mouseleave', function() {
+        stars.forEach((s, i) => {
+          s.style.color = i < currentRating ? '#FFD700' : '#888';
+        });
+      });
+      star.addEventListener('click', function() {
+        currentRating = parseInt(this.getAttribute('data-value'));
+        ratingInput.value = currentRating;
+        stars.forEach((s, i) => {
+          s.style.color = i < currentRating ? '#FFD700' : '#888';
+        });
+      });
+    });
+    // Ustaw domyślnie 5 gwiazdek
+    stars.forEach((s, i) => { s.style.color = i < 5 ? '#FFD700' : '#888'; });
+  }
+  if (form && opinieList) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('opinion-name').value.trim() || 'Anonim';
+      const text = document.getElementById('opinion-text').value.trim();
+      const rating = parseInt(document.getElementById('opinion-rating').value) || 5;
+      if (!text) return;
+      // Tworzenie karty opinii
+      const card = document.createElement('div');
+      card.className = 'testimonial-card';
+      card.style.background = 'rgba(255,255,255,0.05)';
+      card.style.border = '2px solid #00ff00';
+      card.style.borderRadius = '15px';
+      card.style.padding = '25px';
+      card.style.textAlign = 'center';
+      // Generowanie gwiazdek
+      let starsHtml = '';
+      for (let i = 0; i < rating; i++) starsHtml += '<span style="color:#FFD700;font-size:1.5rem;">★</span>';
+      for (let i = rating; i < 5; i++) starsHtml += '<span style="color:#888;font-size:1.5rem;">★</span>';
+      card.innerHTML = `<div style=\"margin-bottom:15px;\">${starsHtml}</div><p style=\"color:#fff;font-style:italic;margin-bottom:20px;line-height:1.6;\">"${text}"</p><div style=\"color:#00ff00;font-weight:bold;\">${name}</div>`;
+      opinieList.prepend(card);
+      form.reset();
+      // Reset gwiazdek do 5
+      currentRating = 5;
+      ratingInput.value = 5;
+      stars.forEach((s, i) => { s.style.color = i < 5 ? '#FFD700' : '#888'; });
+    });
+  }
+});
+</script>
 
             <!-- Sekcja Statystyk -->
             <section id="statystyki" class="glow-green" style="background: rgba(0, 0, 0, 0.6); border: 2px solid #00ff00; border-radius: 10px; padding: 40px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); margin: 40px auto 30px auto;">
@@ -4445,15 +4567,91 @@ button:hover {
       <span style="color:#00ff00;font-weight:bold;font-size:1.1rem;">eCVjob.pl</span>
     </div>
     <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
-      <a href="polityka-prywatnosci.html" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">Polityka prywatności</a>
-      <a href="regulamin.html" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">Regulamin</a>
-      <a href="#" onclick="openRegistrationModal('Bezpłatny'); return false;" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">📞 Kontakt</a>
-      <a href="o-nas.html" style="color:#fff;text-decoration:none;font-size:1rem;opacity:0.85;transition:color 0.2s;">O nas</a>
+      <a href="polityka-prywatnosci.html" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.7); border: 2px solid #00ff00; color: #00ff00; padding: 10px 22px; border-radius: 30px; font-weight: bold; font-size: 1.05rem; text-decoration: none; box-shadow: 0 2px 12px rgba(0,255,0,0.13); transition: background 0.2s, color 0.2s, box-shadow 0.2s; position: relative; z-index: 20; margin-left: 8px;">
+        <img src="images/logo.png" alt="logo" style="width: 26px; height: 26px; opacity: 0.9; z-index: 21;"> Polityka prywatności
+      </a>
+      <a href="regulamin.html" style="display:inline-flex;align-items:center;gap:10px;background:rgba(0,0,0,0.7);border:2px solid #00ff00;color:#00ff00;padding:10px 22px;border-radius:30px;font-weight:bold;font-size:1.05rem;text-decoration:none;box-shadow:0 2px 12px rgba(0,255,0,0.13);transition:background 0.2s,color 0.2s,box-shadow 0.2s;position:relative;z-index:20;margin-left:8px;">
+        <span style="font-size:1.2em;">📄</span> Regulamin
+      </a>
+  <span style="color:#00fff7;font-size:1rem;margin-left:10px;">Użytkowników: <span id="footer-user-counter" style="font-weight:bold; color:#FFD700; font-size:1.2rem;">0</span></span>
+  <span style="color:#00fff7;font-size:1rem;margin-left:18px;">Online: <span id="footer-user-online" style="font-weight:bold; color:#00ff00; font-size:1.2rem;">0</span></span>
+
+<!-- Przycisk Czat AI przypięty po lewej stronie ekranu -->
+      <a href="o-nas.html" style="display:inline-flex;align-items:center;gap:12px;background:rgba(0,0,0,0.7);border:2px solid #00ff00;color:#00ff00;padding:13px 32px;border-radius:36px;font-weight:bold;font-size:1.25rem;text-decoration:none;box-shadow:0 2px 16px rgba(0,255,0,0.18);transition:background 0.2s,color 0.2s,box-shadow 0.2s;position:relative;z-index:20;">
+        <span style="font-size:1.4em;line-height:1;">ℹ️</span> O nas
+      </a>
     </div>
   </div>
   <div style="text-align:center;color:#00ff00;font-size:1.05rem;font-weight:bold;margin-top:18px;">&copy; 2024 eCVjob.pl i Paweł Ślwiński, Wszelkie prawa zastrzeżone.</div>
   
 </footer>
+<script>
+// Animowany licznik użytkowników w stopce (jak w baza_cv_new.html)
+function animateFooterUserCounter() {
+  const counter = document.getElementById('footer-user-counter');
+  if (!counter) return;
+  let count = 0;
+  const target = 15847;
+  const increment = target / 100;
+  const timer = setInterval(() => {
+    count += increment;
+    counter.textContent = Math.floor(count).toLocaleString('pl-PL');
+    if (count >= target) {
+      counter.textContent = target.toLocaleString('pl-PL');
+      clearInterval(timer);
+    }
+  }, 20);
+}
+document.addEventListener('DOMContentLoaded', animateFooterUserCounter);
+
+// Animowany licznik wykonanych CV w stopce (jak w baza_cv_new.html)
+function animateFooterCVCounter() {
+  const counter = document.getElementById('footer-cv-counter');
+  if (!counter) return;
+  let count = 0;
+  const target = 15847;
+  const increment = target / 100;
+  const timer = setInterval(() => {
+    count += increment;
+    counter.textContent = Math.floor(count).toLocaleString('pl-PL');
+    if (count >= target) {
+      counter.textContent = target.toLocaleString('pl-PL');
+      clearInterval(timer);
+    }
+  }, 20);
+}
+document.addEventListener('DOMContentLoaded', animateFooterCVCounter);
+
+// Licznik użytkowników online (prosty, na podstawie localStorage)
+function updateOnlineUsersFooter() {
+  const onlineCounter = document.getElementById('footer-user-online');
+  if (!onlineCounter) return;
+  const key = 'ecvjob_online_ping';
+  const now = Date.now();
+  // Zapisz swój ping
+  localStorage.setItem(key + '_' + Math.random(), now);
+  // Usuń stare wpisy (starsze niż 60s)
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith(key)) {
+      const t = parseInt(localStorage.getItem(k));
+      if (isNaN(t) || now - t > 60000) localStorage.removeItem(k);
+    }
+  }
+  // Policz aktualne wpisy
+  let online = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith(key)) {
+      const t = parseInt(localStorage.getItem(k));
+      if (!isNaN(t) && now - t <= 60000) online++;
+    }
+  }
+  onlineCounter.textContent = online;
+}
+setInterval(updateOnlineUsersFooter, 5000);
+document.addEventListener('DOMContentLoaded', updateOnlineUsersFooter);
+</script>
         <script>
         // Animacje WebResume (feature-card, benefit-item, cta-button)
         (function() {
@@ -4773,6 +4971,12 @@ button:hover {
                     <a href="cv-form.html" 
                        style="display: inline-block; background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; padding: 15px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; margin: 0 10px; transition: all 0.3s ease;"
                        onmouseover="this.style.transform='scale(1.05)'"
+            <!-- Przycisk Polityka Prywatności -->
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="polityka-prywatnosci.html" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.7); border: 2px solid #00ff00; color: #00ff00; padding: 13px 28px; border-radius: 30px; font-weight: bold; font-size: 1.08rem; text-decoration: none; box-shadow: 0 2px 12px rgba(0,255,0,0.13); transition: background 0.2s, color 0.2s, box-shadow 0.2s; margin-top: 10px; position: relative; z-index: 20;">
+                    <img src="logo.png" alt="logo" style="width: 32px; height: 32px; opacity: 0.9; z-index: 21;"> Polityka prywatności
+                </a>
+            </div>
                        onmouseout="this.style.transform='scale(1)'">
                         🚀 Stwórz swoje Premium CV
                     </a>
@@ -4820,6 +5024,53 @@ button:hover {
     }
     /* Usuwamy czarną nakładkę na opis oferty */
     .job-desc-overlay { background: none !important; box-shadow: none !important; }
+    </style>
+    <style>
+    /* Poprawa szerokości i responsywności sekcji planów cenowych */
+    .pricing-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 48px 36px;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .pricing-card {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+    }
+    @media (max-width: 1100px) {
+        .pricing-cards-grid {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 800px;
+            gap: 40px 24px;
+        }
+    }
+    @media (max-width: 700px) {
+        .pricing-cards-grid {
+            grid-template-columns: 1fr;
+            max-width: 420px;
+            gap: 28px;
+            padding: 0 8px;
+        }
+        .pricing-card {
+            padding: 22px 8px !important;
+        }
+    }
+    @media (max-width: 480px) {
+        .pricing-cards-grid {
+            max-width: 100vw;
+            padding: 0 2vw;
+            gap: 20px;
+        }
+        .pricing-card {
+            padding: 14px 2vw !important;
+            font-size: 0.97rem;
+        }
+    }
     </style>
     <script src="js/logo.js"></script>
     <!-- <script src="uslugi-carousel.js"></script> -->
@@ -5543,7 +5794,7 @@ function initNewSectionEffects() {
     
     // Preload kluczowych stron
     document.addEventListener('DOMContentLoaded', function() {
-        const prefetchPages = ['baza_cv_new.html', 'logowanie.html', 'rejestracja.html', 'marketplace.html'];
+        const prefetchPages = ['baza_cv_new.html', 'logowanie.html', 'rejestracja_new.html', 'marketplace.html'];
         prefetchPages.forEach(page => {
             const link = document.createElement('link');
             link.rel = 'prefetch';
@@ -5583,25 +5834,7 @@ function initNewSectionEffects() {
         if (document.readyState !== 'complete') {
             console.log('DOM not ready, waiting...');
             setTimeout(window.handleLogin, 100);
-            return;
-        }
-        
-        try {
-            if (typeof window.openLoginModal === 'function') {
-                window.openLoginModal();
-            } else {
-                console.error('openLoginModal function not found');
-                console.log('Funkcja logowania nie jest jeszcze załadowana. Odśwież stronę i spróbuj ponownie.');
-            }
-        } catch (error) {
-            console.error('Error opening login modal:', error);
-            console.log('Wystąpił błąd podczas otwierania okna logowania.');
-        }
-    };
-    
-    window.handleRegistration = function() {
-        // Sprawdź czy DOM jest w pełni załadowany
-        if (document.readyState !== 'complete') {
+    window.location.href = 'rejestracja_new.html';
             console.log('DOM not ready, waiting...');
             setTimeout(window.handleRegistration, 100);
             return;

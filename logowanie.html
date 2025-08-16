@@ -279,9 +279,9 @@
             <li><a href="index.html#blog">Blog</a></li>
             <li><a href="index.html#europass">Europass</a></li>
             <li><a href="index.html#faq">FAQ</a></li>
-            <li><a href="rejestracja.html">📞 Kontakt</a></li>
+            <li><a href="rejestracja_new.html">📞 Kontakt</a></li>
             <li><a href="logowanie.html" class="active">Logowanie</a></li>
-            <li><a href="rejestracja.html">Rejestracja</a></li>
+            <li><a href="rejestracja_new.html">Rejestracja</a></li>
         </ul>
     </nav>
 
@@ -310,19 +310,23 @@
 
             <div class="login-links">
                 <a href="#">Zapomniałeś hasła?</a> |
-                <a href="rejestracja.html">Nie masz konta? Zarejestruj się</a>
+                <a href="rejestracja_new.html">Nie masz konta? Zarejestruj się</a>
             </div>
 
             <div class="social-login">
                 <h3>Lub zaloguj się przez:</h3>
-                <a href="#" class="social-btn google-btn">🔴 Google</a>
-                <a href="#" class="social-btn facebook-btn">📘 Facebook</a>
-                <a href="#" class="social-btn linkedin-btn">💼 LinkedIn</a>
+                <a href="/auth/google" class="social-btn google-btn" id="google-login">🔴 Google</a>
+                <a href="/auth/facebook" class="social-btn facebook-btn" id="facebook-login">📘 Facebook</a>
+                <a href="/auth/linkedin" class="social-btn linkedin-btn" id="linkedin-login">💼 LinkedIn</a>
             </div>
         </div>
     </div>
 
     <script>
+        // Po odświeżeniu strony przewiń na samą górę
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
         // Obsługa formularza logowania
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -364,15 +368,15 @@
             }, 2000);
         });
 
-        // Obsługa social login
-        document.querySelectorAll('.social-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const platform = this.textContent.includes('Google') ? 'Google' : 
-                               this.textContent.includes('Facebook') ? 'Facebook' : 'LinkedIn';
-                
-                alert(`Logowanie przez ${platform} będzie dostępne wkrótce!`);
-            });
+        // Obsługa social login - przekierowanie do prawdziwych endpointów OAuth
+        document.getElementById('google-login').addEventListener('click', function(e) {
+            // Pozwól na domyślne przekierowanie do /auth/google
+        });
+        document.getElementById('facebook-login').addEventListener('click', function(e) {
+            // Pozwól na domyślne przekierowanie do /auth/facebook
+        });
+        document.getElementById('linkedin-login').addEventListener('click', function(e) {
+            // Pozwól na domyślne przekierowanie do /auth/linkedin
         });
 
         // Efekt focus dla inputów
@@ -387,70 +391,5 @@
             });
         });
     </script>
-</body>
-</html>
-            max-width: 500px;
-            width: 80%;
-        }
-        
-        .loading {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #00ff00;
-            font-weight: bold;
-        }
-        
-        .spinner {
-            border: 4px solid rgba(0, 255, 0, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid #00ff00;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        p {
-            color: #00ff00;
-            margin-top: 20px;
-        }
-        
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        a:hover {
-            text-decoration: underline;
-            color: #ffffff;
-        }
-    </style>
-    <script>
-    </script>
-</head>
-<body>
-    
-    <!-- DODATKOWE OPTYMALIZACJE -->
-    <script defer src="js/optimized-app.js"></script>
-    <script>
-        // Enhanced performance dla logowania
-        document.addEventListener('DOMContentLoaded', function() {
-            // Preload stron powiązanych z logowaniem
-            const prefetchPages = ['rejestracja.html', 'index.html', 'baza_cv.html'];
-            prefetchPages.forEach(page => {
-                const link = document.createElement('link');
-                link.rel = 'prefetch';
-                link.href = page;
-                document.head.appendChild(link);
-            });
-        });
-    </script>
-    <script src="js/logo.js"></script>
 </body>
 </html>

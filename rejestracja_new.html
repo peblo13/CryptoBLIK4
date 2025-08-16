@@ -1,17 +1,13 @@
-git remote set-url origin https://github.com/peblo13/09082025.git<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejestracja - eCVjob.pl</title>
-    
-    <!-- OPTYMALIZACJE SEO I WYDAJNOŚĆ -->
-    <meta name="description" content="Załóż darmowe konto w eCVjob.pl - dostęp do kreatorów CV, bazy ofert pracy i profesjonalnych narzędzi">
-    <meta name="keywords" content="rejestracja, darmowe konto, eCVjob, założ konto, CV">
-    <link rel="preload" href="css/optimized-styles.css" as="style">
+    <meta name="description" content="Załóż konto w eCVjob.pl - wybierz plan i rejestruj się błyskawicznie!">
+    <meta name="keywords" content="rejestracja, konto, eCVjob, plany cenowe, social media">
     <link rel="stylesheet" href="css/optimized-styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    
     <style>
         body {
             background: url('images/tlo.jpg') no-repeat center center fixed;
@@ -22,8 +18,6 @@ git remote set-url origin https://github.com/peblo13/09082025.git<!DOCTYPE html>
             display: flex;
             flex-direction: column;
         }
-
-        /* MENU Z INDEX.HTML */
         .main-nav {
             width: 100vw;
             background: rgba(0,0,0,0.85);
@@ -66,16 +60,141 @@ git remote set-url origin https://github.com/peblo13/09082025.git<!DOCTYPE html>
             background: #00ff00;
             color: #111;
         }
-        
         @media (max-width: 768px) {
             .main-nav { flex-direction: column; padding: 10px; }
             .nav-logo { margin: 0 0 10px 0; }
             .nav-list { justify-content: center; }
         }
+        .register-container {
+            background: rgba(0,0,0,0.85);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 40px 24px;
+            max-width: 500px;
+            width: 100%;
+            margin: 40px auto;
+            box-shadow: 0 0 30px rgba(0,255,0,0.3);
+        }
+        .plan-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .plan-option {
+            background: linear-gradient(90deg,#FFD700 60%,#FFA500 100%);
+            color: #222;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 2px solid #FFD700;
+            font-size: 1.05rem;
+            font-weight: bold;
+            transition: box-shadow 0.2s;
+        }
+        .plan-option input[type="radio"] {
+            margin-right: 16px;
+            transform: scale(1.3);
+        }
+        .plan-desc {
+            margin-left: 18px;
+            font-size: 0.95rem;
+            color: #444;
+            font-weight: normal;
+        }
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .register-form label {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .register-form input[type="email"],
+        .register-form input[type="password"],
+        .register-form input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .register-form input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .register-form .checkbox-label {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .register-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            border: none;
+            padding: 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .register-btn:hover {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            transform: translateY(-2px);
+        }
+        .social-register {
+            text-align: center;
+            margin: 32px 0 0 0;
+        }
+        .social-register-title {
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #fff;
+            color: #222;
+            border: 2px solid #4285f4;
+            border-radius: 20px;
+            padding: 10px 32px;
+            margin: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #4285f455;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .social-btn.facebook {
+            background: #1877f3;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px #1877f355;
+        }
+        .social-btn.linkedin {
+            background: #0077b5;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px #0077b555;
+        }
+        .social-btn img {
+            height: 22px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
-    <!-- Menu nawigacyjne -->
     <nav class="main-nav">
         <div class="nav-logo">eCVjob.pl</div>
         <ul class="nav-list">
@@ -83,175 +202,92 @@ git remote set-url origin https://github.com/peblo13/09082025.git<!DOCTYPE html>
             <li><a href="baza_cv.html">Baza CV</a></li>
             <li><a href="marketplace.html">💰 Marketplace</a></li>
             <li><a href="logowanie.html">Logowanie</a></li>
-            <li><a href="rejestracja.html" class="active">Rejestracja</a></li>
+            <li><a href="rejestracja_new.html" class="active">Rejestracja</a></li>
         </ul>
     </nav>
-
-    <!-- Główny kontener rejestracji -->
-    <div style="display: flex; justify-content: center; align-items: center; min-height: 80vh; padding: 20px;">
-        <div style="background: rgba(0,0,0,0.8); border: 2px solid #00ff00; border-radius: 15px; padding: 40px; max-width: 500px; width: 100%; box-shadow: 0 0 30px rgba(0,255,0,0.3);">
-            <h1 style="color: #00ff00; text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-shadow: 0 0 10px #00ff00;">
-                🚀 Rejestracja
-            </h1>
-            
-            <!-- Informacja o wybranym planie -->
-            <div id="selected-plan-info" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; padding: 15px; border-radius: 10px; margin-bottom: 25px; text-align: center; font-weight: bold;">
-                <div style="font-size: 1.2rem; margin-bottom: 5px;">🎯 Wybrany plan:</div>
-                <div id="plan-name" style="font-size: 1.4rem;">Bezpłatny</div>
-                <div style="font-size: 0.9rem; margin-top: 5px;" id="plan-desc">💰 Możliwość zarabiania do 1,500 zł/mies!</div>
-                <div style="margin-top: 15px;">
-                  <label for="plan-select" style="font-weight: bold; color: #00ff00; margin-right: 8px;">Wybierz plan:</label>
-                  <select id="plan-select" style="padding: 8px 16px; border-radius: 8px; border: 2px solid #00ff00; font-size: 1rem;">
-                    <option value="free">Bezpłatny</option>
-                    <option value="premium">Premium (29.99 zł/mies)</option>
-                    <option value="business">Business (99.99 zł/mies)</option>
-                  </select>
-                  <!-- Dodano atrybut name do selecta -->
-                  <script>
-                    document.getElementById('plan-select').setAttribute('name', 'plan');
-                  </script>
-                  </select>
+    <div class="register-container">
+        <h1 style="color: #00ff00; text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-shadow: 0 0 10px #00ff00;">🚀 Rejestracja</h1>
+        <form id="registration-form" class="register-form">
+            <div style="margin-bottom: 10px;">
+                <div style="font-weight:bold; color:#00ff00; margin-bottom:8px; text-align:center;">Wybierz plan cenowy:</div>
+                <div class="plan-list">
+                    <label class="plan-option"><input type="radio" name="plan" value="Bezpłatny" checked>🆓 Bezpłatny <span class="plan-desc">0 zł/mies. – 5 podstawowych szablonów, kreator CV, eksport PDF, <b>Marketplace zarabiania</b> (do 1 500 zł/mies.).</span></label>
+                    <label class="plan-option"><input type="radio" name="plan" value="Starter">🚀 Starter <span class="plan-desc">14.99 zł/mies. – 15 szablonów, eksport Word+PDF, 3 ogłoszenia/mies., WebResume podstawowe, kreator listów motywacyjnych.</span></label>
+                    <label class="plan-option"><input type="radio" name="plan" value="Premium">⭐ Premium <span class="plan-desc">29.99 zł/mies. – 50+ szablonów, 10 ogłoszeń/mies., WebResume z własną domeną, Video CV, wsparcie 24/7, optymalizacja ATS.</span></label>
+                    <label class="plan-option"><input type="radio" name="plan" value="Business">🏢 Business <span class="plan-desc">99.99 zł/mies. – Dostęp do bazy CV (100), nieograniczone ogłoszenia, wyszukiwanie AI, analytics, dedykowany manager.</span></label>
+                    <label class="plan-option"><input type="radio" name="plan" value="Enterprise">🏆 Enterprise <span class="plan-desc">299.99 zł/mies. – Nieograniczona baza CV, AI-powered matching, white-label, własna subdomena, SLA 99.9%, on-premise.</span></label>
                 </div>
             </div>
-
-            <!-- Formularz rejestracji -->
-            <form id="registration-form" style="display: flex; flex-direction: column; gap: 20px;">
-                <div>
-                    <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">📧 Email:</label>
-                    <input type="email" id="email" required style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="twoj@email.com">
-                    <!-- Dodano walidację HTML -->
-                    <input type="email" id="email" name="email" required autocomplete="email" style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="twoj@email.com">
-                </div>
-                
-                <div>
-                    <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🔒 Hasło:</label>
-                    <input type="password" id="password" required style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="Minimum 8 znaków">
-                    <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password" style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="Minimum 8 znaków">
-                </div>
-                
-                <div>
-                    <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">🔒 Powtórz hasło:</label>
-                    <input type="password" id="confirm-password" required style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="Powtórz hasło">
-                    <input type="password" id="confirm-password" name="confirm-password" required minlength="8" autocomplete="new-password" style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="Powtórz hasło">
-                </div>
-                
-                <div>
-                    <label style="color: #00ff00; font-weight: bold; display: block; margin-bottom: 5px;">👤 Imię i nazwisko:</label>
-                    <input type="text" id="fullname" required style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="Jan Kowalski">
-                    <input type="text" id="fullname" name="fullname" required style="width: 100%; padding: 12px; border: 2px solid #00ff00; border-radius: 8px; background: rgba(0,0,0,0.7); color: #fff; font-size: 1rem; box-sizing: border-box;" placeholder="Jan Kowalski">
-                </div>
-                
-                <div style="margin: 15px 0;">
-                    <label style="color: #fff; display: flex; align-items: center; cursor: pointer;">
-                        <input type="checkbox" id="terms" required style="margin-right: 10px; transform: scale(1.2);">
-                        <input type="checkbox" id="terms" name="terms" required style="margin-right: 10px; transform: scale(1.2);">
-                        Akceptuję <a href="#" style="color: #00ff00; text-decoration: none; margin: 0 5px;">regulamin</a> i <a href="#" style="color: #00ff00; text-decoration: none; margin: 0 5px;">politykę prywatności</a>
-                    </label>
-                </div>
-                
-                <div style="margin: 10px 0;">
-                    <label style="color: #fff; display: flex; align-items: center; cursor: pointer;">
-                        <input type="checkbox" id="newsletter" style="margin-right: 10px; transform: scale(1.2);">
-                        <input type="checkbox" id="newsletter" name="newsletter" style="margin-right: 10px; transform: scale(1.2);">
-                        Chcę otrzymywać newsletter z ofertami pracy i nowościami
-                    </label>
-                </div>
-                
-                <button type="submit" style="background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; border: none; padding: 15px; border-radius: 25px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='linear-gradient(45deg, #FFA500, #FF8C00)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='linear-gradient(45deg, #FFD700, #FFA500)'; this.style.transform='translateY(0)'">
-                    💰 Załóż konto i zacznij zarabiać!
-                </button>
-                <button type="button" id="fill-test-data" style="background: linear-gradient(90deg,#00ff00 60%,#FFD700 100%); color: #222; font-weight: bold; font-size: 1rem; padding: 10px 24px; border-radius: 20px; margin-top: 10px; box-shadow: 0 2px 8px rgba(0,255,0,0.2); border: 2px solid #FFD700; cursor: pointer; transition: all 0.2s;">🔄 Wypełnij testowe dane</button>
-            </form>
-            
-            <div style="text-align: center; margin-top: 20px; color: #fff;">
-                Masz już konto? <a href="logowanie.html" style="color: #00ff00; text-decoration: none; font-weight: bold;">Zaloguj się</a>
+            <div>
+                <label for="email">📧 Email:</label>
+                <input type="email" id="email" name="email" required autocomplete="email" placeholder="twoj@email.com">
             </div>
-            <!-- Najbardziej widoczny przycisk do bazy CV -->
-            <div style="text-align: center; margin-top: 32px;">
-                <a href="baza_cv_new.html" style="display: inline-block; background: linear-gradient(90deg,#00ff00 60%,#FFD700 100%); color: #222; font-weight: bold; font-size: 1.3rem; padding: 18px 40px; border-radius: 30px; box-shadow: 0 6px 20px rgba(0,255,0,0.4); text-decoration: none; letter-spacing: 1px; border: 2px solid #FFD700; transition: all 0.3s;">🚀 Przejdź do bazy CV</a>
+            <div>
+                <label for="password">🔒 Hasło:</label>
+                <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Minimum 8 znaków">
             </div>
+            <div>
+                <label for="confirm-password">🔒 Powtórz hasło:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required minlength="8" autocomplete="new-password" placeholder="Powtórz hasło">
+            </div>
+            <div>
+                <label for="fullname">👤 Imię i nazwisko:</label>
+                <input type="text" id="fullname" name="fullname" required placeholder="Jan Kowalski">
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="terms" name="terms" required>
+                Akceptuję <a href="#" style="color: #00ff00; text-decoration: none; margin: 0 5px;">regulamin</a> i <a href="#" style="color: #00ff00; text-decoration: none; margin: 0 5px;">politykę prywatności</a>
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                Chcę otrzymywać newsletter z ofertami pracy i nowościami
+            </div>
+            <button type="submit" class="register-btn">💰 Załóż konto i zacznij zarabiać!</button>
+        </form>
+        <div class="social-register">
+            <div class="social-register-title">lub zarejestruj się przez:</div>
+            <a href="/auth/facebook" class="social-btn facebook"><img src="images/facebook.svg" alt="">Facebook</a>
+            <a href="/auth/google" class="social-btn" style="border-color:#4285f4;"><img src="images/google.svg" alt="">Google</a>
+            <a href="/auth/linkedin" class="social-btn linkedin"><img src="images/linkedin.svg" alt="">LinkedIn</a>
+        </div>
+        <div style="text-align: center; margin-top: 20px; color: #fff;">
+            Masz już konto? <a href="logowanie.html" style="color: #00ff00; text-decoration: none; font-weight: bold;">Zaloguj się</a>
+        </div>
+        <div style="text-align: center; margin-top: 32px;">
+            <a href="baza_cv_new.html" style="display: inline-block; background: linear-gradient(90deg,#00ff00 60%,#FFD700 100%); color: #222; font-weight: bold; font-size: 1.3rem; padding: 18px 40px; border-radius: 30px; box-shadow: 0 6px 20px rgba(0,255,0,0.4); text-decoration: none; letter-spacing: 1px; border: 2px solid #FFD700; transition: all 0.3s;">🚀 Przejdź do bazy CV</a>
         </div>
     </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Definicje planów
-            const planNames = {
-                'free': 'Bezpłatny',
-                'premium': 'Premium (29.99 zł/mies)',
-                'business': 'Business (99.99 zł/mies)'
-            };
-            const planDescs = {
-                'free': '💰 Możliwość zarabiania do 1,500 zł/mies!',
-                'premium': '⭐ Pełny dostęp do kreatora CV, szablonów premium i bazy kandydatów!',
-                'business': '🏆 Wszystkie funkcje + dedykowane wsparcie i narzędzia dla firm!'
-            };
-            // Obsługa wyboru planu
-            const planSelect = document.getElementById('plan-select');
-            const planNameDiv = document.getElementById('plan-name');
-            const planDescDiv = document.getElementById('plan-desc');
-            planSelect.addEventListener('change', function() {
-                const selected = planSelect.value;
-                planNameDiv.textContent = planNames[selected];
-                planDescDiv.textContent = planDescs[selected];
-            });
-            // Ustaw domyślny plan na podstawie URL (jeśli jest)
-            const urlParams = new URLSearchParams(window.location.search);
-            const plan = urlParams.get('plan');
-            if (plan && planNames[plan]) {
-                planSelect.value = plan;
-                planNameDiv.textContent = planNames[plan];
-                planDescDiv.textContent = planDescs[plan];
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const fullname = document.getElementById('fullname').value;
+            const terms = document.getElementById('terms').checked;
+            const plan = document.querySelector('input[name="plan"]:checked').value;
+            if (password !== confirmPassword) {
+                alert('Hasła nie są identyczne!');
+                return;
             }
-            // Obsługa formularza rejestracji
-            document.getElementById('registration-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirm-password').value;
-                const fullname = document.getElementById('fullname').value;
-                const terms = document.getElementById('terms').checked;
-                const selectedPlan = planSelect.value;
-                // Walidacja
-                if (password !== confirmPassword) {
-                    alert('Hasła nie są identyczne!');
-                    return;
-                }
-                if (password.length < 8) {
-                    alert('Hasło musi mieć minimum 8 znaków!');
-                    return;
-                }
-                if (!terms) {
-                    alert('Musisz zaakceptować regulamin!');
-                    return;
-                }
-                // Symulacja rejestracji z wybranym planem
-                const userData = {
-                    email: email,
-                    fullname: fullname,
-                    plan: selectedPlan,
-                    registered: true
-                };
-                sessionStorage.setItem('currentUser', JSON.stringify(userData));
-                localStorage.setItem('isLoggedIn', 'true');
-                alert(`🎉 Rejestracja pomyślna!\n\nWitaj ${fullname}!\nPlan: ${planNames[selectedPlan] || 'Bezpłatny'}\n\nMożesz teraz zacząć tworzyć CV i zarabiać na swoich szablonach!`);
-                // Przekieruj do strony głównej z sukcesem
-                window.location.href = 'index.html?registered=success&plan=' + selectedPlan;
-            });
-
-            // Automatyczne wypełnianie testowych danych
-            document.getElementById('fill-test-data').addEventListener('click', function() {
-                document.getElementById('email').value = 'testuser' + Math.floor(Math.random()*1000) + '@example.com';
-                document.getElementById('password').value = 'TestHaslo123';
-                document.getElementById('confirm-password').value = 'TestHaslo123';
-                document.getElementById('fullname').value = 'Jan Testowy';
-                document.getElementById('terms').checked = true;
-                document.getElementById('newsletter').checked = true;
-                planSelect.value = 'premium';
-                planNameDiv.textContent = planNames['premium'];
-                planDescDiv.textContent = planDescs['premium'];
-            });
+            if (password.length < 8) {
+                alert('Hasło musi mieć minimum 8 znaków!');
+                return;
+            }
+            if (!terms) {
+                alert('Musisz zaakceptować regulamin!');
+                return;
+            }
+            // Symulacja rejestracji
+            const userData = {
+                email: email,
+                fullname: fullname,
+                plan: plan,
+                registered: true
+            };
+            sessionStorage.setItem('currentUser', JSON.stringify(userData));
+            localStorage.setItem('isLoggedIn', 'true');
+            alert(`🎉 Rejestracja pomyślna!\n\nWitaj ${fullname}!\nPlan: ${plan}\n\nMożesz teraz zacząć tworzyć CV i zarabiać na swoich szablonach!`);
+            window.location.href = 'index.html?registered=success&plan=' + plan;
         });
     </script>
-</body>
-</html>
