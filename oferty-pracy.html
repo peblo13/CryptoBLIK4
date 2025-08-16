@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oferty pracy - eCVjob.pl. Znajdź idealną pracę z naszej bazy tysięcy ofert.">
+    <meta name="keywords" content="oferty pracy, praca, rekrutacja, CV, kariera, zatrudnienie">
+    <title>Oferty Pracy - eCVjob.pl</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="preload" href="./images/tlo.jpg" as="image">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        /* Modal parent for proper scrolling and centering (do not force display) */
+        #addJobModal {
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .header {
+            background: rgba(0,0,0,0.9);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,255,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            background: #00ff00;
+            color: #111;
+        }
+        
+        /* Main Content */
+
+        /* Dodaj ofertę pracy - duży wyróżniony przycisk */
+        .add-job-btn {
+            background: linear-gradient(90deg, #00ff00 0%, #00cc00 100%);
+            color: #111;
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 22px 60px;
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 6px 32px rgba(0,255,0,0.25);
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+        .add-job-btn:hover {
+            background: linear-gradient(90deg, #00cc00 0%, #00ff00 100%);
+            color: #fff;
+            box-shadow: 0 12px 48px rgba(0,255,0,0.35);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .add-job-btn:active {
+            background: #00ff00;
+            color: #111;
+            transform: scale(0.98);
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3rem;
+            color: #00ff00;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .page-title p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+        
+        /* Search Bar */
+        .search-section {
+            background: rgba(0,0,0,0.7);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,255,0,0.1);
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            color: #00ff00;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0,255,0,0.3);
+        }
+        
+        .search-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #111;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,0,0.4);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(0,0,0,0.7);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #333;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,255,0,0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+        
+        /* Offers Section */
+        .offers-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .offers-count {
+            background: #00ff00;
+            color: #111;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        /* Job Cards */
+        .job-offers-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .job-card {
+            background: rgba(0,0,0,0.7);
+            border: 2px solid #333;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .job-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,255,0,0.2);
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .job-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .job-company {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .job-salary {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #111;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .job-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .job-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .job-detail-icon {
+            color: #00ff00;
+            font-size: 1.1rem;
+        }
+        
+        .job-detail-text {
+            color: #ccc;
+        }
+        
+        .job-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .job-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-apply {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #111;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,0,0.4);
+        }
+        
+        .btn-details {
+            background: transparent;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-details:hover {
+            background: #00ff00;
+            color: #111;
+        }
+        
+        /* Zaawansowana Paginacja */
+        .pagination-bar {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          margin: 30px 0;
+          padding: 20px;
+          background: rgba(0,0,0,0.8);
+          border-radius: 15px;
+          border: 2px solid #00ff00;
+          box-shadow: 0 4px 20px rgba(0,255,0,0.3);
+        }
+        
+        .pagination-btn {
+          position: relative;
+          overflow: hidden;
+          padding: 12px 18px;
+          border: 2px solid #00ff00;
+          background: rgba(0,0,0,0.8);
+          color: #00ff00;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          min-width: 45px;
+          text-align: center;
+        }
+        
+        .pagination-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0,255,0,0.3), transparent);
+          transition: left 0.5s;
+          z-index: 1;
+        }
+        
+        .pagination-btn:hover::before {
+          left: 100%;
+        }
+        
+        .pagination-btn:active {
+          transform: scale(0.95);
+        }
+        
+        .pagination-btn .ripple {
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(0,255,0,0.6);
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          z-index: 1;
+        }
+        
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+          background: rgba(0,255,0,0.2);
+          box-shadow: 0 0 15px rgba(0,255,0,0.5);
+          transform: translateY(-2px);
+        }
+        
+        .pagination-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          transform: none;
+        }
+        
+        .pagination-btn.active {
+          background: #00ff00;
+          color: #111;
+          box-shadow: 0 0 20px rgba(0,255,0,0.8);
+          transform: scale(1.1);
+        }
+        
+        .pagination-jump-input {
+          padding: 8px 12px;
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #00ff00;
+          color: #00ff00;
+          border-radius: 6px;
+          font-size: 14px;
+          text-align: center;
+          outline: none;
+          transition: all 0.3s ease;
+          position: relative;
+          z-index: 1;
+        }
+        
+        .pagination-jump-input:focus {
+          background: rgba(0,255,0,0.1);
+          box-shadow: 0 0 10px rgba(0,255,0,0.5);
+        }
+        
+        .pagination-jump-btn {
+          padding: 8px 16px;
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #ff2222;
+          color: #ff2222;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          font-size: 14px;
+          position: relative;
+          overflow: hidden;
+          z-index: 1;
+        }
+        
+        .pagination-jump-btn:hover:not(:disabled) {
+          background: #ff2222;
+          color: #111;
+          border-color: #ff2222;
+          box-shadow: 0 0 18px #ff2222, 0 0 36px #ff2222;
+        }
+        
+        /* Zaawansowana paginacja - dodatkowe elementy */
+        .pagination-advanced-nav {
+          background: rgba(0,255,0,0.1);
+          border: 1px solid #00ff00;
+          border-radius: 10px;
+          padding: 8px 15px;
+          margin-left: 20px;
+        }
+        
+        .pagination-position-info {
+          color: #00ff00;
+          font-size: 0.9rem;
+          font-weight: bold;
+          text-shadow: 0 0 5px #00ff00;
+        }
+        
+        .pagination-quick-select {
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #00ff00;
+          color: #00ff00;
+          border-radius: 6px;
+          padding: 4px 8px;
+          font-size: 0.9rem;
+          min-width: 80px;
+          outline: none;
+          transition: all 0.3s ease;
+        }
+        
+        .pagination-quick-select:hover {
+          background: rgba(0,255,0,0.1);
+          box-shadow: 0 0 10px #00ff00;
+        }
+        
+        .pagination-quick-select:focus {
+          background: rgba(0,255,0,0.15);
+          box-shadow: 0 0 15px #00ff00;
+        }
+        
+        .pagination-navigation-btn {
+          background: rgba(0,0,0,0.8);
+          border: 2px solid #FFD700;
+          color: #FFD700;
+          border-radius: 6px;
+          padding: 6px 10px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-shadow: 0 0 5px #FFD700;
+        }
+        
+        .pagination-navigation-btn:hover:not(:disabled) {
+          background: rgba(255,215,0,0.2);
+          box-shadow: 0 0 15px #FFD700;
+          transform: scale(1.05);
+        }
+        
+        .pagination-navigation-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          box-shadow: none;
+        }
+        
+        .pagination-separator {
+          color: #00ff00;
+          margin: 0 8px;
+          font-weight: bold;
+          text-shadow: 0 0 5px #00ff00;
+        }
+        
+        .pagination-jump-label {
+          color: #00ff00;
+          font-size: 0.9rem;
+          font-weight: bold;
+          text-shadow: 0 0 5px #00ff00;
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #00ff00;
+            font-size: 1.2rem;
+        }
+        
+        .spinner {
+            border: 4px solid #333;
+            border-top: 4px solid #00ff00;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            
+            .job-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .job-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">eCVjob.pl</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Strona główna</a></li>
+                <li><a href="index.html#baza-cv">Baza CV</a></li>
+                <li><a href="oferty-pracy.html">Oferty pracy</a></li>
+                <li><a href="uslugi.html">Usługi</a></li>
+                <li><a href="index.html#kreator-cv">Kreator CV</a></li>
+                <li><a href="marketplace.html">💰 Marketplace</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Dodaj ofertę pracy - duży guzik na górze -->
+        <div style="text-align:center; margin-bottom: 30px;">
+            <button id="addJobBtn" class="add-job-btn" type="button">➕ Dodaj ofertę pracy</button>
+            <!-- Modal for advanced job offer form (hidden by default) -->
+            <div id="addJobModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+              <div style="background:#222; padding:40px 30px; border-radius:20px; max-width:500px; width:90%; box-shadow:0 8px 40px #00ff0033; color:#fff; position:relative; max-height:90vh; overflow-y:auto; display:flex; flex-direction:column;">
+                <button id="closeAddJobModalBtn" type="button" style="position:absolute; top:18px; right:18px; background:none; border:none; color:#00ff00; font-size:2rem; cursor:pointer;">&times;</button>
+                <h2 style="color:#00ff00; margin-bottom:18px; text-align:center;">Dodaj ofertę pracy</h2>
+                <form id="addJobForm">
+                  <div style="margin-bottom:16px;">
+                    <label for="modalStanowisko" style="color:#00ff00; font-weight:bold;">Stanowisko*</label>
+                    <input type="text" id="modalStanowisko" name="stanowisko" required style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalMiejsce" style="color:#00ff00; font-weight:bold;">Miejsce pracy*</label>
+                    <input type="text" id="modalMiejsce" name="miejsce" required style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalUmowa" style="color:#00ff00; font-weight:bold;">Rodzaj umowy*</label>
+                    <select id="modalUmowa" name="umowa" required style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                      <option value="pełny etat">Pełny etat</option>
+                      <option value="umowa zlecenie">Umowa zlecenie</option>
+                      <option value="umowa o dzieło">Umowa o dzieło</option>
+                      <option value="praktyki">Praktyki</option>
+                      <option value="staż">Staż</option>
+                    </select>
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalPracodawca" style="color:#00ff00; font-weight:bold;">Pracodawca*</label>
+                    <input type="text" id="modalPracodawca" name="pracodawca" required style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalData" style="color:#00ff00; font-weight:bold;">Dostępna od*</label>
+                    <input type="date" id="modalData" name="data" required style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalOpis" style="color:#00ff00; font-weight:bold;">Opis stanowiska*</label>
+                    <textarea id="modalOpis" name="opis" required rows="4" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;"></textarea>
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalWymagania" style="color:#00ff00; font-weight:bold;">Wymagania</label>
+                    <textarea id="modalWymagania" name="wymagania" rows="3" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;" placeholder="np. wykształcenie, doświadczenie, umiejętności"></textarea>
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalObowiazki" style="color:#00ff00; font-weight:bold;">Obowiązki</label>
+                    <textarea id="modalObowiazki" name="obowiazki" rows="3" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;" placeholder="np. zakres obowiązków"></textarea>
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalWynagrodzenie" style="color:#00ff00; font-weight:bold;">Wynagrodzenie</label>
+                    <input type="text" id="modalWynagrodzenie" name="wynagrodzenie" style="width:100%; padding:10px; border-radius:8px; border:2px solid #FFD700; background:#111; color:#FFD700;" placeholder="np. 5000-7000 PLN brutto">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalKontakt" style="color:#00ff00; font-weight:bold;">Kontakt do rekrutacji*</label>
+                    <input type="text" id="modalKontakt" name="kontakt" required style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;" placeholder="np. email, telefon">
+                  </div>
+                  <div style="margin-bottom:16px;">
+                    <label for="modalWWW" style="color:#00ff00; font-weight:bold;">Strona www firmy</label>
+                    <input type="url" id="modalWWW" name="www" style="width:100%; padding:10px; border-radius:8px; border:2px solid #00ff00; background:#111; color:#fff;" placeholder="np. https://firma.pl">
+                  </div>
+                  <div style="margin-bottom:22px; display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="modalWyroznij" name="wyroznij" style="accent-color:#00ff00; width:22px; height:22px;">
+                    <label for="modalWyroznij" style="color:#FFD700; font-weight:bold; font-size:1.1rem;">Wyróżnij ofertę <span style="color:#fff; font-size:0.95rem;">(+49 PLN)</span></label>
+                  </div>
+                  <button type="submit" style="width:100%; background:linear-gradient(90deg,#FFD700,#FFB300); color:#111; font-size:1.3rem; font-weight:bold; padding:16px 0; border:none; border-radius:12px; box-shadow:0 4px 18px #FFD70055; cursor:pointer; margin-bottom:8px;">💾 Dodaj ofertę</button>
+                </form>
+                <div id="addJobMsg" style="margin-top:10px; text-align:center; color:#FFD700; font-weight:bold;"></div>
+              </div>
+            </div>
+        </div>
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>🔍 Oferty Pracy</h1>
+            <p>Znajdź idealną pracę z naszej bazy tysięcy ofert</p>
+        </div>
+
+        <!-- Search Section -->
+        <section class="search-section">
+          <form class="search-form" id="jobSearchForm" autocomplete="off" onsubmit="event.preventDefault(); performSearch();">
+            <div class="form-group">
+              <label for="jobTitle">Stanowisko</label>
+              <input type="text" id="jobTitle" name="jobTitle" placeholder="np. Programista, Sprzedawca">
+            </div>
+            <div class="form-group">
+              <label for="jobLocation">Lokalizacja</label>
+              <input type="text" id="jobLocation" name="jobLocation" placeholder="np. Warszawa, zdalnie">
+            </div>
+            <div class="form-group">
+              <label for="jobType">Rodzaj umowy</label>
+              <select id="jobType" name="jobType">
+                <option value="">Dowolna</option>
+                <option value="pełny etat">Pełny etat</option>
+                <option value="umowa zlecenie">Umowa zlecenie</option>
+                <option value="umowa o dzieło">Umowa o dzieło</option>
+                <option value="praktyki">Praktyki</option>
+                <option value="staż">Staż</option>
+              </select>
+            </div>
+            <button class="search-btn" type="submit">🔍 Szukaj pracy</button>
+          </form>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number" id="totalOffers">-</div>
+                <div class="stat-label">Aktywnych ofert</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="newToday">-</div>
+                <div class="stat-label">Nowych dzisiaj</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="companiesCount">-</div>
+                <div class="stat-label">Firm rekrutujących</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="remoteOffers">-</div>
+                <div class="stat-label">Pracy zdalnej</div>
+            </div>
+        </section>
+
+        <!-- Offers Section -->
+        <section class="offers-section">
+            <div class="section-header">
+                <h2 class="section-title">Najnowsze oferty pracy</h2>
+                <span class="offers-count" id="offersCount">Ładowanie...</span>
+            </div>
+            
+            <div id="jobOffersContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Ładowanie ofert pracy...
+                </div>
+            </div>
+            
+            <!-- Panel informacyjny paginacji -->
+            <div id="pagination-info" style="display: none; text-align: center; margin: 20px 0; padding: 15px; background: rgba(0,255,0,0.1); border: 1px solid #00ff00; border-radius: 10px; color: #00ff00; font-weight: bold;">
+                <div style="font-size: 1.1rem; margin-bottom: 5px;">
+                  📊 <span id="pagination-current-range"></span>
+                </div>
+                <div style="font-size: 0.9rem; color: #FFD700;">
+                  💡 Wskazówka: Użyj Ctrl + strzałki do szybkiej nawigacji
+                </div>
+            </div>
+            
+            <!-- Zaawansowana Paginacja -->
+            <div class="pagination-bar" id="pagination-bar" style="display: none;"></div>
+        </section>
+    </main>
+
+    <!-- PapaParse for CSV handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <script>
+        // Global variables
+        let allOffers = [];
+        let filteredOffers = [];
+        let currentPage = 1;
+        let offersPerPage = 10;
+        let totalPages = 1;
+
+        // Modal logic
+        document.addEventListener('DOMContentLoaded', function() {
+          // Show modal only when 'Dodaj ofertę pracy' button is clicked
+          var addJobBtn = document.getElementById('addJobBtn');
+          if (addJobBtn) {
+            addJobBtn.onclick = function(e) {
+              e.stopPropagation();
+              document.getElementById('addJobModal').style.display = 'flex';
+            };
+          }
+          // Ensure close (X) button works reliably
+          var closeBtn = document.getElementById('closeAddJobModalBtn');
+          if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              closeAddJobModal();
+            });
+          }
+          // Redirect search and add service buttons to uslugi.html
+          var searchServicesBtn = document.getElementById('searchServicesBtn');
+          if (searchServicesBtn) {
+            searchServicesBtn.onclick = function() {
+              window.location.href = 'uslugi.html';
+            };
+          }
+          var addServiceBtn = document.getElementById('addServiceBtn');
+          if (addServiceBtn) {
+            addServiceBtn.onclick = function() {
+              window.location.href = 'uslugi.html';
+            };
+          }
+        });
+        function closeAddJobModal() {
+          document.getElementById('addJobModal').style.display = 'none';
+          document.getElementById('addJobMsg').textContent = '';
+          document.getElementById('addJobForm').reset();
+        }
+
+        // Handle form submission
+        document.addEventListener('DOMContentLoaded', function() {
+          const form = document.getElementById('addJobForm');
+          if (form) {
+            form.onsubmit = function(e) {
+              e.preventDefault();
+              // Gather form data
+              const stanowisko = document.getElementById('modalStanowisko').value.trim();
+              const miejsce = document.getElementById('modalMiejsce').value.trim();
+              const umowa = document.getElementById('modalUmowa').value.trim();
+              const pracodawca = document.getElementById('modalPracodawca').value.trim();
+              const data = document.getElementById('modalData').value.trim();
+              const opis = document.getElementById('modalOpis').value.trim();
+              const wymagania = document.getElementById('modalWymagania').value.trim();
+              const obowiazki = document.getElementById('modalObowiazki').value.trim();
+              const wynagrodzenie = document.getElementById('modalWynagrodzenie').value.trim();
+              const kontakt = document.getElementById('modalKontakt').value.trim();
+              const www = document.getElementById('modalWWW').value.trim();
+              const wyroznij = document.getElementById('modalWyroznij').checked;
+
+              // Simulate paid highlight
+              let msg = '✅ Oferta została dodana!';
+              if (wyroznij) {
+                msg += ' Oferta będzie wyróżniona po opłaceniu 49 PLN.';
+              }
+              document.getElementById('addJobMsg').textContent = msg;
+
+              // Simulate adding to offers (local only)
+              allOffers.unshift({
+                'Stanowisko': stanowisko,
+                'Miejsce pracy': miejsce,
+                'Rodzaj umowy': umowa,
+                'Pracodawca': pracodawca,
+                'Dostępna od': data,
+                'Opis': opis,
+                'Wymagania': wymagania,
+                'Obowiązki': obowiazki,
+                'Wynagrodzenie': wynagrodzenie,
+                'Kontakt': kontakt,
+                'WWW': www,
+                'Wyróżniona': wyroznij ? 'TAK' : ''
+              });
+              filteredOffers = [...allOffers];
+              updateStats();
+              displayOffers();
+
+              setTimeout(closeAddJobModal, 1800);
+            };
+          }
+        });
+
+        // Load job offers on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadJobOffers();
+            setupSearch();
+        });
+
+        // Prosta obsługa formularza wyszukiwania
+        function setupSearch() {
+            // Usuwamy całą obsługę JS dla formularza wyszukiwania, aby działał jak zwykły submit
+            // Jeśli chcesz przekierować na inną podstronę, ustaw action="oferty-pracy.html" w <form>
+        }
+
+        // Load CSV data
+        function loadJobOffers() {
+            console.log('🔄 Ładowanie ofert pracy...');
+            
+            // Najpierw sprawdź, czy plik jest dostępny przez fetch
+            fetch('praca_baza.csv')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Plik praca_baza.csv nie jest dostępny na serwerze.');
+                    }
+                    // Jeśli plik jest dostępny, parsuj przez PapaParse
+                    Papa.parse('praca_baza.csv', {
+                        download: true,
+                        header: true,
+                        delimiter: ';',
+                        skipEmptyLines: true,
+                        complete: function(results) {
+                            console.log('✅ Dane CSV załadowane:', results.data.length, 'rekordów');
+                            // Usuń spacje z kluczy nagłówków i wyczyść wartości
+                            const cleaned = results.data.map(offer => {
+                                const obj = {};
+                                Object.keys(offer).forEach(key => {
+                                    let val = offer[key];
+                                    if (typeof val === 'string') {
+                                        val = val.replace(/^\s*"?|"?\s*$/g, '').trim(); // usuń cudzysłowy i spacje
+                                    }
+                                    obj[key.trim()] = val;
+                                });
+                                return obj;
+                            });
+                            // Filter valid offers (wystarczy stanowisko i miejsce)
+                            const validOffers = cleaned.filter(offer => {
+                                const stanowisko = (offer['Stanowisko'] || '').replace(/^\s*"?|"?\s*$/g, '').trim();
+                                const miejsce = (offer['Miejsce pracy'] || '').replace(/^\s*"?|"?\s*$/g, '').trim();
+                                return stanowisko && miejsce;
+                            });
+                            console.log('✅ Prawidłowe oferty:', validOffers.length);
+                            allOffers = validOffers;
+                            filteredOffers = [...allOffers];
+                            updateStats();
+                            displayOffers();
+                        },
+                        error: function(error) {
+                            console.error('❌ Błąd ładowania CSV:', error);
+                            document.getElementById('jobOffersContainer').innerHTML = `
+                                <div style="text-align: center; color: #ff2222; padding: 40px;">
+                                    <h3>❌ Błąd ładowania ofert</h3>
+                                    <p>Nie udało się załadować ofert pracy. Spróbuj odświeżyć stronę.</p>
+                                </div>
+                            `;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('❌ Błąd połączenia z plikiem CSV:', error);
+                    document.getElementById('jobOffersContainer').innerHTML = `
+                        <div style="text-align: center; color: #ff2222; padding: 40px;">
+                            <h3>❌ Błąd połączenia z plikiem ofert</h3>
+                            <p>${error.message || 'Nie można połączyć się z plikiem praca_baza.csv.'}</p>
+                        </div>
+                    `;
+                });
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalOffers').textContent = allOffers.length.toLocaleString();
+            document.getElementById('newToday').textContent = Math.floor(allOffers.length * 0.1); // Symulacja
+            // Count unique companies
+            const companies = new Set(allOffers.map(offer => (offer['Pracodawca'] || '').trim()));
+            document.getElementById('companiesCount').textContent = companies.size;
+            // Count remote offers (simulation)
+            document.getElementById('remoteOffers').textContent = Math.floor(allOffers.length * 0.15);
+            document.getElementById('offersCount').textContent = `${filteredOffers.length} ofert`;
+        }
+
+        // Display job offers
+        function displayOffers() {
+            const container = document.getElementById('jobOffersContainer');
+            const start = (currentPage - 1) * offersPerPage;
+            const end = start + offersPerPage;
+            const offersToShow = filteredOffers.slice(start, end);
+            
+            if (offersToShow.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: #ccc; padding: 40px;">
+                        <h3>🔍 Brak ofert</h3>
+                        <p>Nie znaleziono ofert spełniających kryteria wyszukiwania.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const offersHTML = offersToShow.map(offer => createJobCard(offer)).join('');
+            container.innerHTML = `<div class="job-offers-grid">${offersHTML}</div>`;
+            
+            updatePaginationInfo();
+            renderPaginationBar();
+        }
+
+        // Create job card HTML
+        function createJobCard(offer) {
+            const stanowisko = (offer['Stanowisko'] || '').replace(/"/g, '').trim();
+            const miejsce = (offer['Miejsce pracy'] || '').replace(/"/g, '').trim();
+            const umowa = (offer['Rodzaj umowy'] || '').replace(/"/g, '').trim();
+            const pracodawca = (offer['Pracodawca'] || '').replace(/"/g, '').trim();
+            const data = (offer['Dostępna od'] || '').replace(/"/g, '').trim();
+            
+            // Generate random salary for display
+            const salaryMin = Math.floor(Math.random() * 3000) + 3000;
+            const salaryMax = salaryMin + Math.floor(Math.random() * 4000) + 1000;
+            
+            return `
+                <div class="job-card" onclick="showJobDetails('${stanowisko}', '${pracodawca}')">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">${stanowisko}</div>
+                            <div class="job-company">${pracodawca}</div>
+                        </div>
+                        <div class="job-salary">${salaryMin} - ${salaryMax} PLN</div>
+                    </div>
+                    
+                    <div class="job-details">
+                        <div class="job-detail">
+                            <span class="job-detail-icon">📍</span>
+                            <span class="job-detail-text">${miejsce}</span>
+                        </div>
+                        <div class="job-detail">
+                            <span class="job-detail-icon">📄</span>
+                            <span class="job-detail-text">${umowa}</span>
+                        </div>
+                        <div class="job-detail">
+                            <span class="job-detail-icon">📅</span>
+                            <span class="job-detail-text">Od: ${data}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="job-description">
+                        Dołącz do naszego zespołu jako ${stanowisko}. Szukamy osoby z doświadczeniem, która będzie odpowiedzialna za realizację projektów zgodnie z najwyższymi standardami.
+                    </div>
+                    
+                    <div class="job-actions">
+                        <button class="btn-apply" onclick="event.stopPropagation(); applyForJob('${stanowisko}', '${pracodawca}')">
+                            📧 Aplikuj teraz
+                        </button>
+                        <button class="btn-details" onclick="event.stopPropagation(); showJobDetails('${stanowisko}', '${pracodawca}')">
+                            📋 Szczegóły
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Update pagination
+        function updatePagination() {
+            totalPages = Math.ceil(filteredOffers.length / offersPerPage);
+            const paginationElement = document.getElementById('pagination');
+            const pageInfo = document.getElementById('pageInfo');
+            
+            if (totalPages > 1) {
+                paginationElement.style.display = 'flex';
+                pageInfo.textContent = `Strona ${currentPage} z ${totalPages}`;
+            }
+        }
+
+        // Perform search
+        function performSearch() {
+            const jobTitle = document.getElementById('jobTitle').value.toLowerCase().trim();
+            const jobLocation = document.getElementById('jobLocation').value.toLowerCase().trim();
+            const jobType = document.getElementById('jobType').value.toLowerCase().trim();
+            
+            filteredOffers = allOffers.filter(offer => {
+                // Ujednolicone klucze bez spacji
+                const stanowisko = (offer['Stanowisko'] || '').toLowerCase();
+                const miejsce = (offer['Miejsce pracy'] || '').toLowerCase();
+                const umowa = (offer['Rodzaj umowy'] || '').toLowerCase();
+
+                const matchesTitle = !jobTitle || stanowisko.includes(jobTitle);
+                const matchesLocation = !jobLocation || miejsce.includes(jobLocation);
+                const matchesType = !jobType || umowa.includes(jobType);
+
+                return matchesTitle && matchesLocation && matchesType;
+            });
+            
+            currentPage = 1;
+            updateStats();
+            displayOffers();
+            
+            console.log(`🔍 Wyszukiwanie: "${jobTitle}" w "${jobLocation}" (${jobType})`);
+            console.log(`📊 Znaleziono ${filteredOffers.length} ofert`);
+        }
+
+        // Update pagination info panel
+        function updatePaginationInfo() {
+          const paginationInfo = document.getElementById('pagination-info');
+          const rangeElement = document.getElementById('pagination-current-range');
+          
+          if (paginationInfo && rangeElement) {
+            if (filteredOffers.length === 0) {
+              paginationInfo.style.display = 'none';
+              return;
+            }
+            
+            const start = (currentPage - 1) * offersPerPage + 1;
+            const end = Math.min(currentPage * offersPerPage, filteredOffers.length);
+            
+            rangeElement.textContent = `Wyświetlane oferty ${start}-${end} z ${filteredOffers.length} (strona ${currentPage} z ${totalPages})`;
+            paginationInfo.style.display = 'block';
+          }
+        }
+
+        // Render advanced pagination bar
+        function renderPaginationBar() {
+          const bar = document.getElementById('pagination-bar');
+          if (!bar) return;
+          bar.innerHTML = '';
+          totalPages = Math.max(1, Math.ceil(filteredOffers.length / offersPerPage));
+          
+          if (totalPages <= 1) {
+            bar.style.display = 'none';
+            return;
+          }
+          
+          bar.style.display = 'flex';
+          
+          // Previous button
+          const prevBtn = document.createElement('button');
+          prevBtn.textContent = '←';
+          prevBtn.className = 'pagination-btn';
+          prevBtn.disabled = currentPage === 1;
+          prevBtn.onclick = function() {
+            if (currentPage > 1) {
+              currentPage--;
+              displayOffers();
+            }
+          };
+          addRippleEffect(prevBtn);
+          bar.appendChild(prevBtn);
+          
+          // Page number buttons logic
+          let maxPagesToShow = 7;
+          let startPage = Math.max(1, currentPage - 3);
+          let endPage = Math.min(totalPages, currentPage + 3);
+          
+          if (totalPages > maxPagesToShow) {
+            if (currentPage <= 4) {
+              startPage = 1;
+              endPage = maxPagesToShow;
+            } else if (currentPage >= totalPages - 3) {
+              startPage = totalPages - maxPagesToShow + 1;
+              endPage = totalPages;
+            } else {
+              startPage = currentPage - 3;
+              endPage = currentPage + 3;
+            }
+          } else {
+            startPage = 1;
+            endPage = totalPages;
+          }
+          
+          // First page button
+          if (startPage > 1) {
+            const firstBtn = document.createElement('button');
+            firstBtn.textContent = '1';
+            firstBtn.className = 'pagination-btn';
+            firstBtn.onclick = function() {
+              currentPage = 1;
+              displayOffers();
+            };
+            addRippleEffect(firstBtn);
+            bar.appendChild(firstBtn);
+            
+            if (startPage > 2) {
+              const dots = document.createElement('span');
+              dots.textContent = '...';
+              dots.style = 'color:#00ff00;font-weight:bold;padding:0 6px;';
+              bar.appendChild(dots);
+            }
+          }
+          
+          // Page number buttons
+          for (let i = startPage; i <= endPage; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.className = 'pagination-btn' + (i === currentPage ? ' active' : '');
+            btn.disabled = i === currentPage;
+            btn.onclick = function() {
+              currentPage = i;
+              displayOffers();
+            };
+            addRippleEffect(btn);
+            bar.appendChild(btn);
+          }
+          
+          // Last page button
+          if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+              const dots = document.createElement('span');
+              dots.textContent = '...';
+              dots.style = 'color:#00ff00;font-weight:bold;padding:0 6px;';
+              bar.appendChild(dots);
+            }
+            
+            const lastBtn = document.createElement('button');
+            lastBtn.textContent = totalPages;
+            lastBtn.className = 'pagination-btn';
+            lastBtn.onclick = function() {
+              currentPage = totalPages;
+              displayOffers();
+            };
+            addRippleEffect(lastBtn);
+            bar.appendChild(lastBtn);
+          }
+          
+          // Next button
+          const nextBtn = document.createElement('button');
+          nextBtn.textContent = '→';
+          nextBtn.className = 'pagination-btn';
+          nextBtn.disabled = currentPage === totalPages;
+          nextBtn.onclick = function() {
+            if (currentPage < totalPages) {
+              currentPage++;
+              displayOffers();
+            }
+          };
+          addRippleEffect(nextBtn);
+          bar.appendChild(nextBtn);
+          
+          // Advanced navigation section
+          const advancedNav = document.createElement('div');
+          advancedNav.className = 'pagination-advanced-nav';
+          advancedNav.style.display = 'flex';
+          advancedNav.style.alignItems = 'center';
+          advancedNav.style.gap = '12px';
+          
+          // Position info
+          const positionInfo = document.createElement('span');
+          positionInfo.className = 'pagination-position-info';
+          positionInfo.textContent = `Strona ${currentPage} z ${totalPages}`;
+          advancedNav.appendChild(positionInfo);
+          
+          // Separator
+          const separator1 = document.createElement('span');
+          separator1.textContent = '|';
+          separator1.className = 'pagination-separator';
+          advancedNav.appendChild(separator1);
+          
+          // First page button
+          const firstPageBtn = document.createElement('button');
+          firstPageBtn.textContent = '⏮️';
+          firstPageBtn.className = 'pagination-navigation-btn';
+          firstPageBtn.title = 'Pierwsza strona';
+          firstPageBtn.disabled = currentPage === 1;
+          firstPageBtn.onclick = function() {
+            currentPage = 1;
+            displayOffers();
+          };
+          advancedNav.appendChild(firstPageBtn);
+          
+          // Last page button
+          const lastPageBtn = document.createElement('button');
+          lastPageBtn.textContent = '⏭️';
+          lastPageBtn.className = 'pagination-navigation-btn';
+          lastPageBtn.title = 'Ostatnia strona';
+          lastPageBtn.disabled = currentPage === totalPages;
+          lastPageBtn.onclick = function() {
+            currentPage = totalPages;
+            displayOffers();
+          };
+          advancedNav.appendChild(lastPageBtn);
+          
+          // Separator
+          const separator2 = document.createElement('span');
+          separator2.textContent = '|';
+          separator2.className = 'pagination-separator';
+          advancedNav.appendChild(separator2);
+          
+          // Quick jump dropdown
+          const quickJumpSelect = document.createElement('select');
+          quickJumpSelect.className = 'pagination-quick-select';
+          quickJumpSelect.title = 'Szybki dostęp do strony';
+          
+          const quickPages = [1, 10, 25, 50, 100, 250, 500, 1000];
+          quickPages.forEach(pageNum => {
+            if (pageNum <= totalPages) {
+              const option = document.createElement('option');
+              option.value = pageNum;
+              option.textContent = `Strona ${pageNum}`;
+              if (pageNum === currentPage) option.selected = true;
+              quickJumpSelect.appendChild(option);
+            }
+          });
+          
+          // Add last page if not in list
+          if (!quickPages.includes(totalPages) && totalPages > 1) {
+            const option = document.createElement('option');
+            option.value = totalPages;
+            option.textContent = `Strona ${totalPages} (ostatnia)`;
+            if (totalPages === currentPage) option.selected = true;
+            quickJumpSelect.appendChild(option);
+          }
+          
+          quickJumpSelect.onchange = function() {
+            const selectedPage = parseInt(this.value, 10);
+            if (selectedPage && selectedPage !== currentPage) {
+              currentPage = selectedPage;
+              displayOffers();
+            }
+          };
+          advancedNav.appendChild(quickJumpSelect);
+          
+          // Separator
+          const separator3 = document.createElement('span');
+          separator3.textContent = '|';
+          separator3.className = 'pagination-separator';
+          advancedNav.appendChild(separator3);
+          
+          // Jump to page input
+          const jumpContainer = document.createElement('span');
+          jumpContainer.style.display = 'flex';
+          jumpContainer.style.alignItems = 'center';
+          jumpContainer.style.gap = '6px';
+          
+          const jumpLabel = document.createElement('span');
+          jumpLabel.textContent = 'Idź do:';
+          jumpLabel.className = 'pagination-jump-label';
+          jumpContainer.appendChild(jumpLabel);
+          
+          const jumpInput = document.createElement('input');
+          jumpInput.type = 'number';
+          jumpInput.min = 1;
+          jumpInput.max = totalPages;
+          jumpInput.value = currentPage;
+          jumpInput.className = 'pagination-jump-input';
+          jumpInput.style.width = '70px';
+          jumpInput.style.fontSize = '1rem';
+          jumpInput.title = `Wpisz numer strony (1-${totalPages})
+🔥 Skróty klawiszowe:
+• Enter - przejdź do strony
+• Ctrl + ← - poprzednia strona  
+• Ctrl + → - następna strona
+• Ctrl + Home - pierwsza strona
+• Ctrl + End - ostatnia strona`;
+          jumpInput.placeholder = 'Nr str.';
+          
+          const jumpBtn = document.createElement('button');
+          jumpBtn.type = 'button';
+          jumpBtn.textContent = '🚀 PRZEJDŹ';
+          jumpBtn.className = 'pagination-jump-btn';
+          jumpBtn.style.fontSize = '0.9rem';
+          jumpBtn.style.fontWeight = 'bold';
+          jumpBtn.onclick = function() {
+            let val = parseInt(jumpInput.value, 10);
+            if (isNaN(val) || val < 1) {
+              val = 1;
+              jumpInput.value = 1;
+            }
+            if (val > totalPages) {
+              val = totalPages;
+              jumpInput.value = totalPages;
+            }
+            if (val !== currentPage) {
+              currentPage = val;
+              displayOffers();
+            }
+          };
+          
+          jumpInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+              jumpBtn.click();
+            }
+            // Ctrl + arrows for quick navigation
+            if (e.ctrlKey) {
+              if (e.key === 'ArrowLeft' && currentPage > 1) {
+                e.preventDefault();
+                currentPage--;
+                displayOffers();
+              } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                e.preventDefault();
+                currentPage++;
+                displayOffers();
+              } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentPage = 1;
+                displayOffers();
+              } else if (e.key === 'End') {
+                e.preventDefault();
+                currentPage = totalPages;
+                displayOffers();
+              }
+            }
+          });
+          
+          jumpContainer.appendChild(jumpInput);
+          jumpContainer.appendChild(jumpBtn);
+          advancedNav.appendChild(jumpContainer);
+          
+          bar.appendChild(advancedNav);
+        }
+        
+        // Add ripple effect to buttons
+        function addRippleEffect(btn) {
+          btn.addEventListener('click', function(e) {
+            const rect = btn.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+            ripple.style.left = (e.clientX - rect.left - rect.width/2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - rect.height/2) + 'px';
+            btn.appendChild(ripple);
+            setTimeout(() => {
+              ripple.remove();
+            }, 500);
+          });
+        }
+
+        // Apply for job
+        function applyForJob(jobTitle, company) {
+            alert(`🎯 Aplikujesz na stanowisko "${jobTitle}" w firmie "${company}"!\n\n📧 Zostaniesz przekierowany do formularza aplikacji.`);
+            console.log('📧 Aplikacja na:', jobTitle, 'w', company);
+        }
+
+        // Show job details
+        function showJobDetails(jobTitle, company) {
+            alert(`📋 Szczegóły oferty:\n\n🏢 Stanowisko: ${jobTitle}\n🏭 Firma: ${company}\n\n💡 Pełne szczegóły będą dostępne w nowej wersji portalu!`);
+            console.log('📋 Szczegóły:', jobTitle, 'w', company);
+        }
+    </script>
+</body>
+</html>

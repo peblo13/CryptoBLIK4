@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Główne strony
+Allow: /index.html
+Allow: /baza_cv.html
+Allow: /kontakt.html
+Allow: /logowanie.html
+Allow: /rejestracja.html
+
+# Zasoby statyczne
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Zablokuj niepotrzebne pliki
+Disallow: /*.backup
+Disallow: /*.tmp
+Disallow: /*.log
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://ecvjob.pl/sitemap.xml
+
+# Crawl-delay dla lepszej wydajności
+Crawl-delay: 1

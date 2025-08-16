@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace Szablonów CV - eCVjob.pl</title>
+    <link rel="stylesheet" href="css/optimized-styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .marketplace-hero {
+            background: linear-gradient(135deg, #00ff00 0%, #33ff33 100%);
+            color: #000;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 50px;
+        }
+        
+        .marketplace-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .marketplace-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .template-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,255,0,0.3);
+            border-color: #00ff00;
+        }
+        
+        .template-preview {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+            background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                              linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                              linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                              linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        
+        .template-info h3 {
+            color: #00ff00;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .template-author {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .template-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin: 15px 0;
+        }
+        
+        .template-downloads {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .template-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-buy, .btn-preview {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-buy {
+            background: linear-gradient(45deg, #00ff00, #33ff33);
+            color: #000;
+        }
+        
+        .btn-buy:hover {
+            background: linear-gradient(45deg, #33ff33, #66ff66);
+            transform: scale(1.05);
+        }
+        
+        .btn-preview {
+            background: transparent;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+        }
+        
+        .btn-preview:hover {
+            background: #00ff00;
+            color: #000;
+        }
+        
+        .creator-section {
+            background: rgba(0,255,0,0.1);
+            margin: 50px 20px;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid #00ff00;
+        }
+        
+        .creator-section h2 {
+            color: #00ff00;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .earning-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .earning-item {
+            text-align: center;
+        }
+        
+        .earning-item .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            display: block;
+        }
+        
+        .btn-start-selling {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-start-selling:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.5);
+        }
+        
+        .bestseller-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #FFD700;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .new-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #00ff00;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="marketplace-hero">
+        <h1>💰 Marketplace Szablonów CV</h1>
+        <p style="font-size: 1.3rem; margin-bottom: 30px;">Kupuj i sprzedawaj profesjonalne szablony CV</p>
+        
+        <div class="marketplace-stats">
+            <div class="stat-item">
+                <div class="stat-number">2,847</div>
+                <div>Dostępnych szablonów</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">156,392</div>
+                <div>Pobrań</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1,234</div>
+                <div>Aktywnych twórców</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="templates-grid">
+        <!-- Szablon 1 -->
+        <div class="template-card">
+            <div class="bestseller-badge">🏆 Bestseller</div>
+            <div class="template-preview">
+                <div>Podgląd szablonu "Executive Pro"</div>
+            </div>
+            <div class="template-info">
+                <h3>Executive Pro - Szablon dla menedżerów</h3>
+                <div class="template-author">👤 Autor: Anna Kowalska</div>
+                <div class="template-price">29.99 zł</div>
+                <div class="template-downloads">📥 1,247 pobrań • ⭐ 4.9/5</div>
+                <div class="template-actions">
+                    <button class="btn-preview">👁️ Podgląd</button>
+                    <button class="btn-buy">💳 Kup teraz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Szablon 2 -->
+        <div class="template-card">
+            <div class="new-badge">🆕 Nowy</div>
+            <div class="template-preview">
+                <div>Podgląd szablonu "Creative Designer"</div>
+            </div>
+            <div class="template-info">
+                <h3>Creative Designer - Dla branży kreatywnej</h3>
+                <div class="template-author">👤 Autor: Piotr Nowak</div>
+                <div class="template-price">19.99 zł</div>
+                <div class="template-downloads">📥 89 pobrań • ⭐ 5.0/5</div>
+                <div class="template-actions">
+                    <button class="btn-preview">👁️ Podgląd</button>
+                    <button class="btn-buy">💳 Kup teraz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Szablon 3 -->
+        <div class="template-card">
+            <div class="template-preview">
+                <div>Podgląd szablonu "Tech Minimalist"</div>
+            </div>
+            <div class="template-info">
+                <h3>Tech Minimalist - IT & Programiści</h3>
+                <div class="template-author">👤 Autor: Michał Developer</div>
+                <div class="template-price">24.99 zł</div>
+                <div class="template-downloads">📥 892 pobrań • ⭐ 4.8/5</div>
+                <div class="template-actions">
+                    <button class="btn-preview">👁️ Podgląd</button>
+                    <button class="btn-buy">💳 Kup teraz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Szablon 4 -->
+        <div class="template-card">
+            <div class="template-preview">
+                <div>Podgląd szablonu "Fresh Graduate"</div>
+            </div>
+            <div class="template-info">
+                <h3>Fresh Graduate - Dla absolwentów</h3>
+                <div class="template-author">👤 Autor: Student Pro</div>
+                <div class="template-price">14.99 zł</div>
+                <div class="template-downloads">📥 567 pobrań • ⭐ 4.7/5</div>
+                <div class="template-actions">
+                    <button class="btn-preview">👁️ Podgląd</button>
+                    <button class="btn-buy">💳 Kup teraz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Szablon 5 -->
+        <div class="template-card">
+            <div class="template-preview">
+                <div>Podgląd szablonu "Sales Master"</div>
+            </div>
+            <div class="template-info">
+                <h3>Sales Master - Sprzedaż & Marketing</h3>
+                <div class="template-author">👤 Autor: Marketing Guru</div>
+                <div class="template-price">22.99 zł</div>
+                <div class="template-downloads">📥 743 pobrań • ⭐ 4.6/5</div>
+                <div class="template-actions">
+                    <button class="btn-preview">👁️ Podgląd</button>
+                    <button class="btn-buy">💳 Kup teraz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Szablon 6 -->
+        <div class="template-card">
+            <div class="template-preview">
+                <div>Podgląd szablonu "Healthcare Pro"</div>
+            </div>
+            <div class="template-info">
+                <h3>Healthcare Pro - Służba zdrowia</h3>
+                <div class="template-author">👤 Autor: Dr Medical</div>
+                <div class="template-price">26.99 zł</div>
+                <div class="template-downloads">📥 434 pobrań • ⭐ 4.9/5</div>
+                <div class="template-actions">
+                    <button class="btn-preview">👁️ Podgląd</button>
+                    <button class="btn-buy">💳 Kup teraz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sekcja dla twórców -->
+    <div class="creator-section">
+        <h2>🎨 Zostań twórcą szablonów!</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">
+            Zarabiaj na swoich umiejętnościach designerskich. Twórz szablony CV i sprzedawaj je w naszym marketplace.
+        </p>
+        
+        <div class="earning-stats">
+            <div class="earning-item">
+                <span class="number">70%</span>
+                <span>Twoja prowizja</span>
+            </div>
+            <div class="earning-item">
+                <span class="number">~1,500 zł</span>
+                <span>Średni miesięczny zarobek</span>
+            </div>
+            <div class="earning-item">
+                <span class="number">∞</span>
+                <span>Bez limitu szablonów</span>
+            </div>
+        </div>
+        
+        <div style="margin: 30px 0; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px;">
+            <h3 style="color: #FFD700; margin-bottom: 15px;">💡 Jak to działa?</h3>
+            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <p>✅ Stwórz profesjonalny szablon CV</p>
+                <p>✅ Prześlij go do weryfikacji</p>
+                <p>✅ Po akceptacji - szablon trafia do sprzedaży</p>
+                <p>✅ Za każdą sprzedaż otrzymujesz 70% ceny</p>
+                <p>✅ Wypłaty co tydzień na Twoje konto</p>
+            </div>
+        </div>
+        
+        <button class="btn-start-selling" onclick="alert('Formularz twórcy będzie dostępny wkrótce!')">
+            🚀 Zacznij sprzedawać
+        </button>
+    </div>
+
+    <script>
+        // Dodaj animacje i interakcje
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animacja liczników w hero
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(el => {
+                const target = parseInt(el.textContent.replace(/,/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = new Intl.NumberFormat('pl-PL').format(Math.floor(current));
+                }, 20);
+            });
+
+            // Obsługa przycisków
+            document.querySelectorAll('.btn-preview').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const templateCard = this.closest('.template-card');
+                    const templateTitle = templateCard.querySelector('h3').textContent;
+                    openTemplatePreview(templateTitle);
+                });
+            });
+
+            // Funkcja otwierająca podgląd szablonu
+            function openTemplatePreview(templateTitle) {
+                // Mapowanie tytułów szablonów na pliki
+                const templateMap = {
+                    'Executive Pro - Szablon dla menedżerów': 'cv-template.html',
+                    'Creative Designer - Dla branży kreatywnej': 'cv2.html',
+                    'Tech Minimalist - IT & Programiści': 'cv1.html',
+                    'Fresh Graduate - Dla absolwentów': 'cv3.html',
+                    'Sales Master - Sprzedaż & Marketing': 'cv4.html',
+                    'Healthcare Pro - Służba zdrowia': 'cv-template.html'
+                };
+                
+                // Znajdź plik szablonu
+                const templateFile = templateMap[templateTitle] || 'cv1.html';
+                
+                console.log('Opening template:', templateTitle, '-> File:', templateFile);
+                
+                // Otwórz podgląd w nowym oknie
+                const previewWindow = window.open(
+                    templateFile, 
+                    'templatePreview',
+                    'width=900,height=700,scrollbars=yes,resizable=yes,menubar=no,toolbar=no'
+                );
+                
+                if (previewWindow) {
+                    previewWindow.focus();
+                } else {
+                    // Fallback jeśli popup jest zablokowany
+                    window.open(templateFile, '_blank');
+                }
+            }
+
+            document.querySelectorAll('.btn-buy').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const templateName = this.closest('.template-card').querySelector('h3').textContent;
+                    const price = this.closest('.template-card').querySelector('.template-price').textContent;
+                    alert(`Kupujesz szablon: ${templateName}\nCena: ${price}\n\nPrzekierowanie do płatności...`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

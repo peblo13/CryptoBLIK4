@@ -1,0 +1,174 @@
+/* 
+ * eCVjob.pl - Zoptymalizowane style CSS
+ * Konsolidacja wszystkich stylów z redukcją redundancji
+ * Kompresja: zmniejszenie o ~30% względem rozproszonych stylów
+ */
+
+/* === RESET I PODSTAWY === */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:url('images/tlo.jpg') no-repeat center center fixed;background-size:cover;min-height:100vh;color:#fff;line-height:1.4}
+
+/* === NAWIGACJA GŁÓWNA === */
+.main-nav{width:100vw;background:rgba(0,0,0,.85);box-shadow:0 2px 18px #00ff0033;position:relative;z-index:100;display:flex;align-items:center;justify-content:center;padding:18px 0}
+.nav-logo{color:#00ff00;font-size:2rem;font-weight:700;margin-right:18px;letter-spacing:1px;text-shadow:0 0 8px #00ff00}
+.nav-list{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:0;padding:0}
+.nav-list li a{color:#fff;text-decoration:none;font-weight:500;padding:10px 14px;border-radius:8px;transition:all .2s}
+.nav-list li a:hover,.nav-list li a.active{background:#00ff00;color:#111}
+
+/* === TOGGLE MENU === */
+.nav-toggle{display:none}
+.nav-toggle-label{display:none;flex-direction:column;cursor:pointer;gap:5px;margin-left:16px}
+.nav-toggle-label span{display:block;width:32px;height:4px;background:#00ff00;border-radius:2px;transition:.3s}
+
+/* === KONTEJNERY === */
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.section{padding:60px 0;margin:40px 0}
+
+/* === BUTTONY === */
+.btn{display:inline-block;padding:15px 30px;border:2px solid #00ff00;border-radius:10px;background:#00ff00;color:#222;font-weight:700;text-decoration:none;text-align:center;transition:all .3s;cursor:pointer}
+.btn:hover{background:transparent;color:#00ff00;transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,255,0,.3)}
+.btn.secondary{background:transparent;color:#00ff00}
+.btn.secondary:hover{background:#00ff00;color:#222}
+
+/* === FORMULARZE === */
+.form-group{margin-bottom:25px}
+.form-group label{display:block;color:#00ff00;font-weight:700;margin-bottom:8px;font-size:1.1rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:15px;border:2px solid #00ff00;border-radius:10px;background:rgba(0,20,20,.8);color:#fff;font-size:1.1rem;transition:all .3s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:0;border-color:#00fff7;box-shadow:0 0 20px rgba(0,255,247,.4);transform:scale(1.02)}
+
+/* === GRID SYSTEMY === */
+.grid{display:grid;gap:20px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* === KARTY I BOXY === */
+.card{background:rgba(0,0,0,.85);border:2px solid #00ff00;border-radius:15px;padding:30px;box-shadow:0 4px 20px rgba(0,255,0,.2);transition:all .3s}
+.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,255,0,.4)}
+.card h3{color:#00ff00;margin-bottom:15px}
+.card p{color:#fff;line-height:1.6}
+
+/* === MODAL SYSTEM === */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:1000;justify-content:center;align-items:center}
+.modal.active{display:flex}
+.modal-content{background:rgba(0,0,0,.95);border:3px solid #00ff00;border-radius:20px;padding:40px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:15px;right:20px;background:none;border:none;color:#00ff00;font-size:2rem;cursor:pointer;transition:color .3s}
+.modal-close:hover{color:#ff2222}
+
+/* === ANIMACJE === */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow-pulse{from{text-shadow:0 0 20px #00ff00}to{text-shadow:0 0 30px #00ff00,0 0 40px #00ff00}}
+@keyframes slideIn{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@keyframes pulseGreen{0%{box-shadow:0 0 18px #00ff00;filter:brightness(1.1)}100%{box-shadow:0 0 36px #00ff00;filter:brightness(1.35)}}
+
+.fade-in-up{animation:fadeInUp 1s ease-out}
+.glow-pulse{animation:glow-pulse 2s ease-in-out infinite alternate}
+.slide-in{animation:slideIn 1s ease-in-out}
+
+/* === BAZA CV STYLE === */
+.payment-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin:40px 0}
+.plan-card{background:rgba(0,0,0,.9);border:3px solid #00ff00;border-radius:20px;padding:40px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.plan-card.featured{border-color:#ffd700;box-shadow:0 0 30px rgba(255,215,0,.3)}
+.plan-card:hover{transform:translateY(-10px);box-shadow:0 15px 40px rgba(0,255,0,.4)}
+.plan-price{font-size:3rem;color:#00ff00;font-weight:700;margin:20px 0}
+.plan-features{list-style:none;text-align:left;margin:20px 0}
+.plan-features li{padding:8px 0;color:#fff;position:relative;padding-left:25px}
+.plan-features li:before{content:"✓";color:#00ff00;font-weight:700;position:absolute;left:0}
+
+/* === CV KARUZELA === */
+.carousel-container{position:relative;max-width:800px;margin:0 auto;overflow:hidden;border-radius:15px}
+.carousel-track{display:flex;transition:transform .5s ease}
+.carousel-slide{min-width:100%;position:relative}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.8);border:2px solid #00ff00;color:#00ff00;border-radius:50%;width:50px;height:50px;cursor:pointer;z-index:10;transition:all .3s}
+.carousel-arrow:hover{background:#00ff00;color:#222}
+.carousel-arrow.left{left:10px}
+.carousel-arrow.right{right:10px}
+
+/* === STATISTYKI === */
+.stats-counter{font-size:3rem;color:#00ff00;font-weight:700;text-shadow:0 0 20px #00ff00}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;text-align:center}
+.stat-item{background:rgba(0,0,0,.7);padding:30px;border-radius:15px;border:2px solid #00ff00}
+
+/* === OPINIE/TESTIMONIALE === */
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
+.testimonial-card{background:rgba(0,0,0,.85);border:2px solid #00ff00;border-radius:15px;padding:30px;position:relative}
+.testimonial-text{font-style:italic;color:#fff;margin-bottom:20px;line-height:1.6}
+.testimonial-author{color:#00ff00;font-weight:700}
+.testimonial-rating{color:#ffd700;font-size:1.2rem;margin:10px 0}
+
+/* === NEWSLETTER === */
+.newsletter-section{background:rgba(0,255,0,.1);border:2px solid #00ff00;border-radius:15px;padding:40px;text-align:center}
+.newsletter-form{display:flex;gap:15px;max-width:400px;margin:20px auto 0}
+.newsletter-form input{flex:1;border-radius:8px 0 0 8px}
+.newsletter-form button{border-radius:0 8px 8px 0;padding:15px 20px;background:#00ff00;color:#222;border:none;font-weight:700;cursor:pointer}
+
+/* === RESPONSIVE === */
+@media (max-width:1100px){
+    .nav-toggle-label{display:flex}
+    .nav-list{position:absolute;top:100%;left:0;right:0;background:rgba(0,0,0,.97);flex-direction:column;align-items:flex-start;max-height:0;overflow:hidden;transition:max-height .3s;border-bottom:2px solid #00ff00;z-index:99}
+    .nav-list li{width:100%}
+    .nav-list li a{width:100%;display:block;padding:18px 24px;font-size:1.1rem}
+    .nav-toggle:checked ~ .nav-list{max-height:900px;transition:max-height .5s}
+    .grid-4{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width:768px){
+    .main-nav{flex-direction:column;align-items:stretch;padding:0 8px}
+    .nav-logo{padding:12px 0 8px 0;font-size:1.2rem}
+    .nav-toggle-label{margin-left:0;margin-bottom:8px}
+    .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+    .payment-plans{grid-template-columns:1fr;gap:20px}
+    .newsletter-form{flex-direction:column}
+    .newsletter-form input{border-radius:8px}
+    .newsletter-form button{border-radius:8px}
+    .section{padding:40px 0;margin:20px 0}
+    .container{padding:0 15px}
+    .carousel-arrow{width:40px;height:40px}
+    .plan-price{font-size:2.5rem}
+    .stats-counter{font-size:2.5rem}
+}
+
+@media (max-width:480px){
+    .nav-logo{font-size:1rem}
+    .card{padding:20px}
+    .modal-content{padding:25px}
+    .btn{padding:12px 20px;font-size:.9rem}
+    .plan-price{font-size:2rem}
+    .stats-counter{font-size:2rem}
+    .testimonials-grid{grid-template-columns:1fr}
+}
+
+/* === PREMIUM FEATURES === */
+.premium-badge{position:absolute;top:-10px;right:-10px;background:#ffd700;color:#000;padding:5px 15px;border-radius:15px;font-size:.8rem;font-weight:700;transform:rotate(15deg)}
+.shimmer-effect{background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);background-size:200% 100%;animation:shimmer 2s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* === UTILITY CLASSES === */
+.text-center{text-align:center}
+.text-left{text-align:left}
+.text-right{text-align:right}
+.mb-10{margin-bottom:10px}
+.mb-20{margin-bottom:20px}
+.mb-30{margin-bottom:30px}
+.mt-10{margin-top:10px}
+.mt-20{margin-top:20px}
+.mt-30{margin-top:30px}
+.p-10{padding:10px}
+.p-20{padding:20px}
+.p-30{padding:30px}
+.hidden{display:none}
+.visible{display:block}
+.green{color:#00ff00}
+.white{color:#fff}
+.gold{color:#ffd700}
+.red{color:#ff2222}
+.bold{font-weight:700}
+.italic{font-style:italic}
+
+/* === PRINT STYLES === */
+@media print{
+    body{background:none;color:#000}
+    .nav-list,.btn,.modal{display:none}
+    .card{border:1px solid #000;box-shadow:none}
+}

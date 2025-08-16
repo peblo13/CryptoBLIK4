@@ -595,97 +595,54 @@
     <script>
         // Check user permissions on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 BAZA CV - Starting initialization...');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const currentUser = sessionStorage.getItem('currentUser');
             
-            // Force setup Enterprise test account first
-            console.log('� FORCE SETUP: Setting up Enterprise test account...');
-            userData = {
-                name: 'test@ecvjob.pl',
-                email: 'test@ecvjob.pl',
-                plan: 'Enterprise',
-                planIcon: '🏛️',
-                userId: 'test-enterprise-user'
-            };
+            if (!isLoggedIn || isLoggedIn !== 'true') {
+                alert('⚠️ Musisz być zalogowany, aby uzyskać dostęp do bazy CV!');
+                window.location.href = 'index.html';
+                return;
+            }
             
-            // Clear any existing data and set fresh Enterprise data
-            sessionStorage.clear();
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('isLoggedIn');
+            if (!currentUser) {
+                alert('⚠️ Nie można zweryfikować Twojego planu. Zaloguj się ponownie.');
+                window.location.href = 'index.html';
+                return;
+            }
             
-            sessionStorage.setItem('currentUser', JSON.stringify(userData));
-            sessionStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('currentUser', JSON.stringify(userData));
-            localStorage.setItem('isLoggedIn', 'true');
-            
-            console.log('✅ FORCE SETUP: Enterprise test account set up:', userData);
-            
-            // Verify the data was set correctly
-            const verifyUser = sessionStorage.getItem('currentUser');
-            const verifyLogin = sessionStorage.getItem('isLoggedIn');
-            console.log('🔍 VERIFY: currentUser in sessionStorage:', verifyUser);
-            console.log('🔍 VERIFY: isLoggedIn in sessionStorage:', verifyLogin);
-            
-            if (verifyUser) {
-                try {
-                    const parsedUser = JSON.parse(verifyUser);
-                    console.log('✅ VERIFY: Successfully parsed user data:', parsedUser);
-                } catch (e) {
-                    console.error('❌ VERIFY: Error parsing user data:', e);
-                }
+            let userData;
+            try {
+                userData = JSON.parse(currentUser);
+            } catch (e) {
+                alert('⚠️ Błąd danych użytkownika. Zaloguj się ponownie.');
+                window.location.href = 'index.html';
+                return;
             }
             
             // Check if user has access to CV database
             const allowedPlans = ['Premium', 'Business', 'Enterprise'];
-            console.log('🔍 ACCESS CHECK: User plan:', userData.plan);
-            console.log('🔍 ACCESS CHECK: Plan type:', typeof userData.plan);
-            console.log('🔍 ACCESS CHECK: Allowed plans:', allowedPlans);
-            console.log('🔍 ACCESS CHECK: Plan included?', allowedPlans.includes(userData.plan));
-            
-            // Since we FORCE set Enterprise above, this should always pass
             if (!userData.plan || !allowedPlans.includes(userData.plan)) {
-                console.error('❌ ACCESS DENIED: This should NOT happen with forced Enterprise setup!');
-                console.error('❌ User plan:', userData.plan);
-                console.error('❌ Type of plan:', typeof userData.plan);
-                console.error('❌ Plan exists:', !!userData.plan);
-                console.error('❌ Plan in allowed list:', allowedPlans.includes(userData.plan));
-                
-                // Try to fix the issue by re-setting Enterprise
-                console.log('🔧 EMERGENCY FIX: Re-setting Enterprise plan...');
-                userData.plan = 'Enterprise';
-                userData.planIcon = '🏛️';
-                sessionStorage.setItem('currentUser', JSON.stringify(userData));
-                localStorage.setItem('currentUser', JSON.stringify(userData));
-                
-                // Check again
-                if (!allowedPlans.includes(userData.plan)) {
-                    alert('🚫 Krytyczny błąd dostępu! Skontaktuj się z administratorem.');
-                    return;
-                }
-            }
-            
-            console.log('✅ ACCESS GRANTED: User has valid plan:', userData.plan);
-            
-            // Show welcome message for Enterprise users
-            if (userData.plan === 'Enterprise') {
-                console.log('🏛️ Welcome Enterprise user!');
-                setTimeout(() => {
-                    if (userData.name && userData.name.includes('test@ecvjob.pl')) {
-                        alert('🏛️ ENTERPRISE PLAN ACTIVE!\n\nKonto: ' + userData.name + '\nPlan: Enterprise\n\nMasz pełny dostęp do bazy CV kandydatów. ✅');
-                    }
-                }, 1500);
+                alert('🚫 Dostęp do bazy CV wymaga planu Premium, Business lub Enterprise!\n\nTwój obecny plan: ' + (userData.plan || 'Brak planu') + '\n\nPrzejdź na wyższy plan aby uzyskać dostęp.');
+                window.location.href = 'index.html';
+                return;
             }
             
             // Show user info and initialize page
-            console.log('🔍 INIT: Starting initialization with ultimatePlanSync');
-            console.log('🔍 INIT: User data:', userData);
+            const userInfo = document.getElementById('userWelcome');
+            const userPlan = document.getElementById('userPlan');
             
-            // Start DOM monitoring
-            monitorUserElements();
+            if (userInfo) {
+                userInfo.innerHTML = `<span style="color: #00ff00;">👋 Witaj, ${userData.name || userData.email}!</span>`;
+            }
             
-            // Use the ultimate sync function for initialization too
-            ultimatePlanSync();
+            if (userPlan) {
+                const planIcon = userData.plan === 'Enterprise' ? '💎' : 
+                                userData.plan === 'Business' ? '🏢' : 
+                                userData.plan === 'Premium' ? '⭐' : '🆓';
+                userPlan.innerHTML = `<span style="color: #00fff7;">📋 ${planIcon} ${userData.plan || 'FREE'}</span>`;
+            }
             
-            console.log('✅ User plan displayed via ultimatePlanSync');
+            console.log('✅ User plan displayed:', userData.plan);
             
             // Initialize CV counter animation
             animateCounter();
@@ -695,24 +652,8 @@
             
             // Set up periodic plan refresh (every 2 seconds)
             setInterval(() => {
-                ultimatePlanSync();
+                updateUserPlanDisplay();
             }, 2000);
-            
-            // Additional frequent checks for plan synchronization (every 500ms)
-            setInterval(() => {
-                const userData = sessionStorage.getItem('currentUser');
-                if (userData) {
-                    const user = JSON.parse(userData);
-                    const userPlanEl = document.getElementById('userPlan');
-                    const userWelcomeEl = document.getElementById('userWelcome');
-                    
-                    // Check if elements need updating
-                    if (userPlanEl && !userPlanEl.innerHTML.includes(user.plan)) {
-                        console.log('🔄 Plan mismatch detected, forcing ultimatePlanSync');
-                        ultimatePlanSync();
-                    }
-                }
-            }, 500);
         });
         
         // Counter animation
@@ -735,125 +676,41 @@
             }, 20);
         }
         
-        // ULTIMATE PLAN SYNCHRONIZATION FUNCTION
-        function ultimatePlanSync() {
-            console.log('🎯 !!!! ULTIMATE SYNC CALLED !!!!');
-            console.log('🎯 Call stack:', new Error().stack);
-            
-            // Get fresh data from sessionStorage
+        // Function to update user plan display
+        function updateUserPlanDisplay() {
             const userData = sessionStorage.getItem('currentUser');
-            console.log('🎯 ULTIMATE SYNC: Raw sessionStorage data:', userData);
-            
-            if (!userData) {
-                console.log('❌ ULTIMATE SYNC: No user data found');
-                // Clear both elements
-                const userInfo = document.getElementById('userWelcome');
-                const userPlan = document.getElementById('userPlan');
-                if (userInfo) userInfo.innerHTML = '';
-                if (userPlan) userPlan.innerHTML = '';
-                return;
-            }
+            if (!userData) return;
             
             let user;
             try {
                 user = JSON.parse(userData);
             } catch (e) {
-                console.error('❌ ULTIMATE SYNC: Error parsing user data:', e);
+                console.error('Error parsing user data:', e);
                 return;
             }
             
-            console.log('🎯 ULTIMATE SYNC: Fresh user data:', user);
-            console.log('🎯 ULTIMATE SYNC: Current plan from data:', user.plan);
-            
-            // Find ALL elements that might show user info
             const userInfo = document.getElementById('userWelcome');
             const userPlan = document.getElementById('userPlan');
             
-            console.log('🎯 ULTIMATE SYNC: Found elements:', {
-                userInfo: userInfo ? 'FOUND' : 'NOT FOUND',
-                userPlan: userPlan ? 'FOUND' : 'NOT FOUND'
-            });
-            
-            // Force clear and rebuild both elements
             if (userInfo) {
-                console.log('🎯 ULTIMATE SYNC: Before clearing userWelcome:', userInfo.innerHTML);
-                userInfo.innerHTML = ''; // Clear first
-                const welcomeText = `<span style="color: #00ff00;">👋 Witaj, ${user.name || user.email}!</span>`;
-                userInfo.innerHTML = welcomeText;
-                console.log('✅ ULTIMATE SYNC: Set userWelcome to:', welcomeText);
-                console.log('🎯 ULTIMATE SYNC: After setting userWelcome:', userInfo.innerHTML);
-            } else {
-                console.warn('⚠️ ULTIMATE SYNC: userWelcome element not found');
+                userInfo.innerHTML = `<span style="color: #00ff00;">👋 Witaj, ${user.name || user.email}!</span>`;
             }
             
             if (userPlan) {
-                console.log('🎯 ULTIMATE SYNC: Before clearing userPlan:', userPlan.innerHTML);
-                userPlan.innerHTML = ''; // Clear first
-                const planIcon = user.plan === 'Enterprise' ? '🏛️' : 
+                const planIcon = user.plan === 'Enterprise' ? '💎' : 
                                 user.plan === 'Business' ? '🏢' : 
-                                user.plan === 'Premium' ? '💎' : '🆓';
-                const planText = `<span style="color: #00fff7;">📋 ${planIcon} ${user.plan || 'FREE'}</span>`;
-                userPlan.innerHTML = planText;
-                console.log('✅ ULTIMATE SYNC: Set userPlan to:', planText);
-                console.log('🎯 ULTIMATE SYNC: After setting userPlan:', userPlan.innerHTML);
-            } else {
-                console.warn('⚠️ ULTIMATE SYNC: userPlan element not found');
+                                user.plan === 'Premium' ? '⭐' : '🆓';
+                userPlan.innerHTML = `<span style="color: #00fff7;">📋 ${planIcon} ${user.plan || 'FREE'}</span>`;
             }
             
-            // Force DOM update
-            if (userInfo) userInfo.style.display = 'none'; 
-            if (userPlan) userPlan.style.display = 'none';
-            setTimeout(() => {
-                if (userInfo) userInfo.style.display = '';
-                if (userPlan) userPlan.style.display = '';
-                console.log('🎯 ULTIMATE SYNC: DOM refresh completed');
-            }, 10);
-            
-            console.log('🎉 ULTIMATE SYNC: Synchronization complete for plan:', user.plan);
-        }
-        
-        // Monitor DOM changes in user elements
-        function monitorUserElements() {
-            const userInfo = document.getElementById('userWelcome');
-            const userPlan = document.getElementById('userPlan');
-            
-            if (userInfo) {
-                const observer = new MutationObserver((mutations) => {
-                    mutations.forEach((mutation) => {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            console.log('🔄 DOM CHANGE: userWelcome changed to:', userInfo.innerHTML);
-                        }
-                    });
-                });
-                observer.observe(userInfo, { childList: true, subtree: true, characterData: true });
-            }
-            
-            if (userPlan) {
-                const observer = new MutationObserver((mutations) => {
-                    mutations.forEach((mutation) => {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            console.log('🔄 DOM CHANGE: userPlan changed to:', userPlan.innerHTML);
-                        }
-                    });
-                });
-                observer.observe(userPlan, { childList: true, subtree: true, characterData: true });
-            }
-        }
-        
-        // Function to update user plan display
-        function updateUserPlanDisplay() {
-            console.log('🔄 updateUserPlanDisplay() called - delegating to ultimatePlanSync');
-            ultimatePlanSync();
+            console.log('✅ User plan updated in display:', user.plan);
         }
         
         // Monitor storage changes to update plan display
         window.addEventListener('storage', function(e) {
             if (e.key === 'currentUser') {
-                console.log('🔄 Storage event detected, using ultimatePlanSync');
-                setTimeout(ultimatePlanSync, 10);
-                setTimeout(ultimatePlanSync, 100);
-                setTimeout(ultimatePlanSync, 300);
-                setTimeout(ultimatePlanSync, 1000);
+                console.log('🔄 User data changed, updating plan display');
+                setTimeout(updateUserPlanDisplay, 100);
             }
         });
         
@@ -862,14 +719,8 @@
         sessionStorage.setItem = function(key, value) {
             originalSetItem.apply(this, arguments);
             if (key === 'currentUser') {
-                console.log('🔄 !!!! sessionStorage.setItem detected !!!!');
-                console.log('🔄 Key:', key);
-                console.log('🔄 New value:', value);
-                console.log('🔄 Call stack:', new Error().stack);
-                setTimeout(ultimatePlanSync, 10);
-                setTimeout(ultimatePlanSync, 100);
-                setTimeout(ultimatePlanSync, 300);
-                setTimeout(ultimatePlanSync, 1000);
+                console.log('🔄 currentUser updated, refreshing plan display');
+                setTimeout(updateUserPlanDisplay, 100);
             }
         };
     </script>
@@ -898,19 +749,6 @@
             <p class="subtitle">
                 Przeglądaj profesjonalne CV kandydatów i znajdź idealnych pracowników dla swojej firmy
             </p>
-            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 255, 247, 0.1); border-radius: 10px; border: 1px solid #00fff7;">
-                <p style="color: #00fff7; margin-bottom: 0.5rem; font-weight: bold;">
-                    🔐 Dostęp dla planów Premium, Business i Enterprise
-                </p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; font-size: 0.9rem;">
-                    <span style="color: #ffd700;">💎 Premium</span>
-                    <span style="color: #00ff00;">🏢 Business</span>
-                    <span style="color: #ff6600;">🏛️ Enterprise</span>
-                </div>
-                <p style="color: #ffffff; margin-top: 0.5rem; font-size: 0.8rem; text-align: center;">
-                    Konto testowe: test@ecvjob.pl ma dostęp Enterprise ✅
-                </p>
-            </div>
             <div style="margin-top: 2rem;">
                 <span style="color: #00fff7; font-size: 1.5rem;">Dostępnych CV:</span>
                 <span class="counter">0</span>
@@ -1416,176 +1254,15 @@
             const userData = sessionStorage.getItem('currentUser');
             if (userData) {
                 const user = JSON.parse(userData);
-                console.log('🧪 TEST: Changing plan from', user.plan, 'to', newPlan);
                 user.plan = newPlan;
                 sessionStorage.setItem('currentUser', JSON.stringify(user));
-                console.log('🧪 TEST: Plan changed, calling ultimatePlanSync');
-                ultimatePlanSync();
-            } else {
-                console.log('🧪 TEST: No user data found');
+                console.log('🧪 Test: Plan changed to', newPlan);
+                updateUserPlanDisplay();
             }
         };
         
-        // Force synchronization function
-        window.forcePlanSync = function() {
-            console.log('🔄 FORCE SYNC: Starting forced ultimatePlanSync...');
-            ultimatePlanSync();
-        };
-        
-        // Debug function to show current state
-        window.debugUserState = function() {
-            const userData = sessionStorage.getItem('currentUser');
-            const userInfo = document.getElementById('userWelcome');
-            const userPlan = document.getElementById('userPlan');
-            
-            console.log('=== DEBUG USER STATE ===');
-            console.log('SessionStorage currentUser:', userData);
-            if (userData) {
-                const user = JSON.parse(userData);
-                console.log('Parsed user data:', user);
-                console.log('User plan from data:', user.plan);
-            }
-            console.log('userWelcome element:', userInfo);
-            console.log('userWelcome content:', userInfo?.innerHTML);
-            console.log('userPlan element:', userPlan);
-            console.log('userPlan content:', userPlan?.innerHTML);
-            
-            // Check for plan mismatch
-            if (userData) {
-                const user = JSON.parse(userData);
-                const currentPlanDisplay = userPlan?.innerHTML || '';
-                if (!currentPlanDisplay.includes(user.plan)) {
-                    console.warn('⚠️ PLAN MISMATCH DETECTED!');
-                    console.warn('Data says:', user.plan);
-                    console.warn('Display shows:', currentPlanDisplay);
-                    console.warn('Forcing ultimatePlanSync...');
-                    ultimatePlanSync();
-                }
-            }
-            console.log('========================');
-            
-            return {
-                userData: userData ? JSON.parse(userData) : null,
-                userWelcomeContent: userInfo?.innerHTML,
-                userPlanContent: userPlan?.innerHTML
-            };
-        };
-        
-        // === TEST FUNCTIONS FOR DEBUGGING ===
-        function testEnterprisePlan() {
-            console.log('🏛️ Testing Enterprise plan...');
-            const testData = {
-                name: 'test@ecvjob.pl',
-                email: 'test@ecvjob.pl',
-                plan: 'Enterprise',
-                planIcon: '🏛️'
-            };
-            sessionStorage.setItem('currentUser', JSON.stringify(testData));
-            localStorage.setItem('currentUser', JSON.stringify(testData));
-            sessionStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('isLoggedIn', 'true');
-            ultimatePlanSync();
-            console.log('✅ Enterprise plan test completed');
-            location.reload(); // Reload page to apply changes
-        }
-
-        function setupTestEnterpriseAccount() {
-            console.log('🔧 Setting up test Enterprise account for test@ecvjob.pl...');
-            const testData = {
-                name: 'test@ecvjob.pl',
-                email: 'test@ecvjob.pl',
-                plan: 'Enterprise',
-                planIcon: '🏛️'
-            };
-            sessionStorage.setItem('currentUser', JSON.stringify(testData));
-            localStorage.setItem('currentUser', JSON.stringify(testData));
-            sessionStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('isLoggedIn', 'true');
-            console.log('✅ Test Enterprise account set up:', testData);
-            return testData;
-        }
-
-        function testBusinessPlan() {
-            console.log('🏢 Testing Business plan...');
-            const testData = {
-                name: 'Business User',
-                plan: 'Business',
-                planIcon: '🏢'
-            };
-            sessionStorage.setItem('currentUser', JSON.stringify(testData));
-            localStorage.setItem('currentUser', JSON.stringify(testData));
-            ultimatePlanSync();
-            console.log('✅ Business plan test completed');
-        }
-
-        function testPremiumPlan() {
-            console.log('💎 Testing Premium plan...');
-            const testData = {
-                name: 'Premium User',
-                plan: 'Premium',
-                planIcon: '💎'
-            };
-            sessionStorage.setItem('currentUser', JSON.stringify(testData));
-            localStorage.setItem('currentUser', JSON.stringify(testData));
-            ultimatePlanSync();
-            console.log('✅ Premium plan test completed');
-        }
-
-        function showAllowedPlans() {
-            const allowedPlans = ['Premium', 'Business', 'Enterprise'];
-            console.log('🔐 Allowed plans for CV Database access:', allowedPlans);
-            return allowedPlans;
-        }
-        
-        // Expose functions globally for external access
+        // Expose function globally for external access
         window.updateUserPlanDisplay = updateUserPlanDisplay;
-        window.ultimatePlanSync = ultimatePlanSync;
-        window.testEnterprisePlan = testEnterprisePlan;
-        window.testBusinessPlan = testBusinessPlan;
-        window.testPremiumPlan = testPremiumPlan;
-        window.setupTestEnterpriseAccount = setupTestEnterpriseAccount;
-        window.showAllowedPlans = showAllowedPlans;
-
-        console.log('🔧 CV Database loaded. Test functions available:');
-        console.log('- setupTestEnterpriseAccount() - Set up test@ecvjob.pl with Enterprise');
-        console.log('- testEnterprisePlan() - Test Enterprise plan access');
-        console.log('- testBusinessPlan() - Test Business plan access');
-        console.log('- testPremiumPlan() - Test Premium plan access');
-        console.log('- showAllowedPlans() - Show which plans have access');
-        console.log('- ultimatePlanSync() - Force plan refresh');
-        
-        // Auto-setup Enterprise account if this is the first load
-        if (!sessionStorage.getItem('currentUser')) {
-            console.log('🔧 Auto-setting up Enterprise test account...');
-            setupTestEnterpriseAccount();
-        } else {
-            // Always force Enterprise for test account
-            console.log('🔧 Ensuring Enterprise setup for existing user...');
-            const existingUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
-            if (existingUser.name === 'test@ecvjob.pl' || !existingUser.plan || existingUser.plan !== 'Enterprise') {
-                console.log('🔧 Forcing Enterprise setup...');
-                setupTestEnterpriseAccount();
-            }
-        }
-        
-        // Additional immediate Enterprise setup
-        console.log('🚨 FINAL ENTERPRISE SETUP - This runs immediately!');
-        const finalTestData = {
-            name: 'test@ecvjob.pl',
-            email: 'test@ecvjob.pl',
-            plan: 'Enterprise',
-            planIcon: '🏛️',
-            userId: 'test-enterprise-user',
-            setupTime: new Date().toISOString()
-        };
-        
-        sessionStorage.setItem('currentUser', JSON.stringify(finalTestData));
-        sessionStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('currentUser', JSON.stringify(finalTestData));
-        localStorage.setItem('isLoggedIn', 'true');
-        
-        console.log('✅ FINAL SETUP COMPLETED - Enterprise account ready:', finalTestData);
-        console.log('✅ Page should now work with Enterprise access!');
     </script>
 </body>
 </html>

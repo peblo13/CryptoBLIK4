@@ -1,0 +1,2850 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mój Profil - eCVjob.pl</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(0,0,0,0.95);
+            border: 3px solid #00ff00;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 0 40px rgba(0,255,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0,255,0,0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .profile-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .profile-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .profile-card {
+            background: rgba(0,0,0,0.9);
+            border: 2px solid #00ff00;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0,255,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 50px rgba(0,255,0,0.4);
+        }
+        
+        .user-avatar {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 4px solid #00ff00;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            border-color: #FFD700;
+            box-shadow: 0 0 30px rgba(255,215,0,0.5);
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .user-avatar:hover .avatar-overlay {
+            opacity: 1;
+        }
+        
+        .section-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0,255,0,0.1), rgba(0,255,255,0.1));
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            background: linear-gradient(135deg, rgba(0,255,0,0.2), rgba(0,255,255,0.2));
+            transform: scale(1.05);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700;
+        }
+        
+        .stat-label {
+            color: #00ff00;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            color: #00ff00;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 15px rgba(255,215,0,0.3);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00ff00, #00ffaa);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #00ffaa, #00ff00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,255,0,0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #FFA500, #FFD700);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+            color: #fff;
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(45deg, #ff6666, #ff4444);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,68,68,0.4);
+        }
+        
+        .tabs {
+            display: flex;
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 2px solid #00ff00;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .tab.active {
+            background: linear-gradient(45deg, #00ff00, #00ffaa);
+            color: #000;
+        }
+        
+        .tab:hover:not(.active) {
+            background: rgba(0,255,0,0.2);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .activity-item {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .activity-item:hover {
+            background: rgba(0,255,0,0.1);
+            transform: translateX(10px);
+        }
+        
+        .activity-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-time {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .settings-section {
+            margin-bottom: 30px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #333;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #00ff00;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+        
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-upload-label {
+            background: linear-gradient(45deg, #00ff00, #00ffaa);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload:hover .file-upload-label {
+            background: linear-gradient(45deg, #00ffaa, #00ff00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,255,0,0.4);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #00ff00, #00ffaa);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            border: 3px solid #00ff00;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: #ff4444;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #ff6666;
+        }
+        
+        .cv-template {
+            background: rgba(0,0,0,0.6);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .cv-template:hover {
+            background: rgba(0,255,0,0.1);
+            transform: scale(1.02);
+        }
+        
+        .earnings-card {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.2));
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .earnings-amount {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 20px #FFD700;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
+
+        /* Styles dla Analytics Dashboard */
+        .analytics-section {
+            margin-top: 40px;
+            background: rgba(0,0,0,0.95);
+            border: 3px solid #00ff00;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(0,255,0,0.4);
+        }
+
+        /* Styles dla sekcji Oferty Pracy - KOMPAKTOWA WERSJA */
+        .job-offers-section-compact {
+            margin-top: 40px;
+            background: rgba(0,0,0,0.95);
+            border: 3px solid #00ff00;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 0 40px rgba(0,255,0,0.4);
+        }
+
+        .job-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .job-quick-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+        }
+
+        .quick-stat {
+            color: #ccc;
+        }
+
+        .quick-stat strong {
+            color: #00ff00;
+            font-size: 1.2rem;
+        }
+
+        .job-search-compact {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr auto;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .job-search-compact input {
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .job-search-compact input:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0,255,0,0.3);
+        }
+
+        .search-btn-compact {
+            padding: 10px 15px;
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .search-btn-compact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,0,0.4);
+        }
+
+        .job-offers-preview {
+            margin-bottom: 20px;
+        }
+
+        .loading-jobs-compact {
+            text-align: center;
+            color: #00ff00;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        .job-card-compact {
+            background: rgba(0,20,0,0.8);
+            border: 2px solid #00aa00;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .job-card-compact:hover {
+            border-color: #00ff00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,255,0,0.2);
+        }
+
+        .job-header-compact {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .job-title-compact {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+
+        .job-company-compact {
+            color: #00ff00;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .job-salary-compact {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .job-details-compact {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+
+        .job-detail-compact {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .job-actions-compact {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-all-offers, .btn-job-alerts {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-all-offers {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+        }
+
+        .btn-all-offers:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,0,0.4);
+        }
+
+        .btn-job-alerts {
+            background: transparent;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+        }
+
+        .btn-job-alerts:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .job-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .job-search-compact {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .job-actions-compact {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .analytics-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-card {
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(0,255,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0,255,0,0.4);
+        }
+
+        .chart-title {
+            color: #00ff00;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            text-align: center;
+        }
+
+        .chart-legend {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .live-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .live-stat-item {
+            background: rgba(0,255,0,0.1);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .live-stat-item:hover {
+            background: rgba(0,255,0,0.2);
+            transform: scale(1.05);
+        }
+
+        .live-stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin-bottom: 5px;
+        }
+
+        .live-stat-label {
+            font-size: 0.9rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .live-stat-change {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .live-stat-change.positive {
+            color: #00ff00;
+        }
+
+        .live-stat-change.negative {
+            color: #ff4444;
+        }
+
+        .live-stat-change.neutral {
+            color: #FFD700;
+        }
+
+        .mini-chart {
+            background: rgba(0,0,0,0.6);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .goals-section {
+            margin-top: 30px;
+        }
+
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .goal-card {
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .goal-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 25px rgba(0,255,0,0.3);
+        }
+
+        .goal-icon {
+            font-size: 3rem;
+            width: 80px;
+            text-align: center;
+        }
+
+        .goal-content {
+            flex: 1;
+        }
+
+        .goal-content h4 {
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        /* Nowa sekcja kariery - Style */
+        .career-section {
+            margin-top: 40px;
+            background: rgba(0,0,0,0.95);
+            border: 3px solid #00fff7;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(0,255,247,0.4);
+        }
+
+        .career-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .career-card {
+            background: rgba(0,20,20,0.8);
+            border: 2px solid #00aa99;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .career-card:hover {
+            border-color: #00fff7;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,255,247,0.2);
+        }
+
+        .career-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .career-card-header h3 {
+            color: #00fff7;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .btn-mini {
+            padding: 5px 10px;
+            background: linear-gradient(45deg, #00fff7, #00ccaa);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-mini:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(0,255,247,0.4);
+        }
+
+        /* Cele zawodowe */
+        .career-goals-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .career-goal {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(0,40,40,0.6);
+            border-radius: 10px;
+            border-left: 4px solid #00fff7;
+        }
+
+        .goal-progress {
+            width: 100%;
+        }
+
+        .goal-title {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00fff7, #00aa99);
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .goal-status {
+            color: #00fff7;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        /* Umiejętności */
+        .skills-grid {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(0,40,40,0.6);
+            border-radius: 8px;
+            border-left: 3px solid #00fff7;
+        }
+
+        .skill-name {
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .skill-level {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #333;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .star.filled {
+            color: #FFD700;
+        }
+
+        .skill-percentage {
+            color: #00fff7;
+            font-size: 0.85rem;
+            font-weight: bold;
+            min-width: 35px;
+        }
+
+        /* Certyfikaty */
+        .certificates-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .certificate-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: rgba(0,40,40,0.6);
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .cert-icon {
+            font-size: 2rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .cert-details {
+            flex: 1;
+        }
+
+        .cert-name {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .cert-date {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+
+        .cert-status {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .cert-status.valid {
+            color: #00ff00;
+        }
+
+        .cert-status.expiring {
+            color: #FFD700;
+        }
+
+        /* Plan rozwoju - Timeline */
+        .learning-timeline {
+            max-height: 250px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 25px;
+            bottom: -20px;
+            width: 2px;
+            background: #333;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-dot {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #333;
+            border: 3px solid #00fff7;
+            margin-top: 5px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .timeline-item.active .timeline-dot {
+            background: #00fff7;
+            box-shadow: 0 0 15px rgba(0,255,247,0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(0,40,40,0.6);
+            border-radius: 8px;
+            border-left: 3px solid #00fff7;
+        }
+
+        .timeline-title {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .timeline-date {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .timeline-item.active .timeline-content {
+            background: rgba(0,60,60,0.8);
+            border-left-color: #00fff7;
+        }
+
+        /* Akcje szybkie */
+        .career-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        .career-action-btn {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, rgba(0,255,247,0.1), rgba(0,170,153,0.1));
+            color: #00fff7;
+            border: 2px solid #00fff7;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .career-action-btn:hover {
+            background: linear-gradient(45deg, rgba(0,255,247,0.2), rgba(0,170,153,0.2));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,255,247,0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 15px rgba(0,255,247,0.5);
+            }
+            50% { 
+                transform: scale(1.1); 
+                box-shadow: 0 0 25px rgba(0,255,247,0.8);
+            }
+        }
+
+        /* Responsywność dla sekcji kariery */
+        @media (max-width: 768px) {
+            .career-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .career-actions {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .skill-level {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 5px;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .goal-stats {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .live-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .goal-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Nagłówek -->
+        <div class="header">
+            <h1 style="color: #00ff00; font-size: 3rem; margin-bottom: 10px; position: relative; z-index: 1;">
+                👤 Mój Profil
+            </h1>
+            <p style="color: #fff; font-size: 1.2rem; position: relative; z-index: 1;">
+                Zarządzaj swoim kontem i ustawieniami
+            </p>
+        </div>
+
+        <!-- Layout główny -->
+        <div class="profile-layout">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <!-- Karta użytkownika -->
+                <div class="profile-card">
+                    <div class="user-avatar" onclick="openAvatarModal()">
+                        <img id="user-avatar-img" src="images/pawela1.jpg" alt="Zdjęcie profilowe">
+                        <div class="avatar-overlay">
+                            <span style="color: #fff; font-size: 0.9rem;">📷 Zmień zdjęcie</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h3 id="user-name" style="color: #00ff00; font-size: 1.5rem; margin-bottom: 5px;">
+                            Jan Kowalski
+                        </h3>
+                        <p id="user-email" style="color: #888; margin-bottom: 15px;">
+                            test@ecvjob.pl
+                        </p>
+                        <p id="user-plan" style="color: #FFD700; font-weight: bold; margin-bottom: 20px;">
+                            ⭐ Plan Bezpłatny
+                        </p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <button class="btn btn-primary" onclick="openEditProfileModal()">
+                                ✏️ Edytuj profil
+                            </button>
+                            <button class="btn btn-secondary" onclick="openUpgradeModal()">
+                                🚀 Ulepsz plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zarobki -->
+                <div class="profile-card earnings-card">
+                    <h3 class="section-title">💰 Twoje zarobki</h3>
+                    <div class="earnings-amount" id="total-earnings">247.50 zł</div>
+                    <p style="color: #FFD700;">Ten miesiąc</p>
+                    <button class="btn btn-secondary" onclick="openEarningsModal()" style="margin-top: 15px; width: 100%;">
+                        📊 Szczegóły zarobków
+                    </button>
+                </div>
+            </div>
+
+            <!-- Główna zawartość -->
+            <div class="profile-main">
+                <!-- Statystyki -->
+                <div class="profile-card">
+                    <h3 class="section-title">📊 Statystyki</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="cv-downloads">127</div>
+                            <div class="stat-label">Pobrania CV</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="profile-views">89</div>
+                            <div class="stat-label">Wyświetlenia profilu</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="templates-created">15</div>
+                            <div class="stat-label">Utworzone szablony</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="earnings-count">8</div>
+                            <div class="stat-label">Sprzedane szablony</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zakładki -->
+                <div class="profile-card">
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab('activity')">📋 Aktywność</button>
+                        <button class="tab" onclick="switchTab('cv-manager')">📄 Moje CV</button>
+                        <button class="tab" onclick="switchTab('settings')">⚙️ Ustawienia</button>
+                        <button class="tab" onclick="switchTab('security')">🔒 Bezpieczeństwo</button>
+                    </div>
+
+                    <!-- Zawartość zakładek -->
+                    <div id="activity-tab" class="tab-content active">
+                        <h3 class="section-title">📋 Ostatnia aktywność</h3>
+                        <div id="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">🎉</div>
+                                <div class="activity-content">
+                                    <div>Pomyślnie zalogowano do systemu</div>
+                                    <div class="activity-time">2 minuty temu</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">📄</div>
+                                <div class="activity-content">
+                                    <div>Pobrano szablon CV "Profesjonalny"</div>
+                                    <div class="activity-time">1 godzina temu</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">💰</div>
+                                <div class="activity-content">
+                                    <div>Sprzedano szablon za 15.99 zł</div>
+                                    <div class="activity-time">3 godziny temu</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="cv-manager-tab" class="tab-content">
+                        <h3 class="section-title">📄 Zarządzanie CV</h3>
+                        <button class="btn btn-primary" onclick="openCreateCVModal()" style="margin-bottom: 20px;">
+                            ➕ Utwórz nowe CV
+                        </button>
+                        
+                        <div id="cv-list">
+                            <div class="cv-template">
+                                <h4 style="color: #00ff00; margin-bottom: 10px;">🎯 CV Profesjonalne</h4>
+                                <p style="color: #888; margin-bottom: 15px;">Utworzone: 2024-08-01</p>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn btn-primary" onclick="editCV(1)">✏️ Edytuj</button>
+                                    <button class="btn btn-secondary" onclick="downloadCV(1)">⬇️ Pobierz</button>
+                                    <button class="btn btn-danger" onclick="deleteCV(1)">🗑️ Usuń</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settings-tab" class="tab-content">
+                        <h3 class="section-title">⚙️ Ustawienia</h3>
+                        
+                        <div class="settings-section">
+                            <h4 style="color: #00ff00; margin-bottom: 15px;">📧 Powiadomienia</h4>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <span>Powiadomienia email</span>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <span>Powiadomienia push</span>
+                                <div class="toggle-switch" onclick="toggleSetting(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4 style="color: #00ff00; margin-bottom: 15px;">🌐 Język i region</h4>
+                            <div class="form-group">
+                                <label>Język interfejsu</label>
+                                <select id="language-select">
+                                    <option value="pl">Polski</option>
+                                    <option value="en">English</option>
+                                    <option value="de">Deutsch</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="security-tab" class="tab-content">
+                        <h3 class="section-title">🔒 Bezpieczeństwo</h3>
+                        
+                        <div class="settings-section">
+                            <h4 style="color: #00ff00; margin-bottom: 15px;">🔑 Zmiana hasła</h4>
+                            <div class="form-group">
+                                <label>Obecne hasło</label>
+                                <input type="password" id="current-password" placeholder="Wprowadź obecne hasło">
+                            </div>
+                            <div class="form-group">
+                                <label>Nowe hasło</label>
+                                <input type="password" id="new-password" placeholder="Wprowadź nowe hasło">
+                            </div>
+                            <div class="form-group">
+                                <label>Potwierdź nowe hasło</label>
+                                <input type="password" id="confirm-password" placeholder="Potwierdź nowe hasło">
+                            </div>
+                            <button class="btn btn-primary" onclick="changePassword()">
+                                🔒 Zmień hasło
+                            </button>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4 style="color: #00ff00; margin-bottom: 15px;">🛡️ Dwuskładnikowe uwierzytelnianie</h4>
+                            <p style="color: #888; margin-bottom: 15px;">
+                                Zwiększ bezpieczeństwo swojego konta włączając uwierzytelnianie dwuskładnikowe.
+                            </p>
+                            <button class="btn btn-secondary" onclick="setup2FA()">
+                                🔐 Skonfiguruj 2FA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nowa Sekcja: Moja Kariera -->
+    <div class="container">
+        <div class="career-section">
+            <div class="career-header">
+                <h2 class="section-title">🚀 Moja Kariera</h2>
+                <p style="color: #00fff7; margin-bottom: 30px;">Zarządzaj swoją ścieżką zawodową i osiągaj cele kariery</p>
+            </div>
+
+            <div class="career-grid">
+                <!-- Panel celów zawodowych -->
+                <div class="career-card">
+                    <div class="career-card-header">
+                        <h3>🎯 Cele zawodowe</h3>
+                        <button class="btn-mini" onclick="addCareerGoal()">+ Dodaj cel</button>
+                    </div>
+                    <div class="career-goals-list" id="careerGoalsList">
+                        <div class="career-goal">
+                            <div class="goal-progress">
+                                <div class="goal-title">Zdobyć certyfikat AWS</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%;"></div>
+                                </div>
+                                <div class="goal-status">75% ukończone</div>
+                            </div>
+                        </div>
+                        <div class="career-goal">
+                            <div class="goal-progress">
+                                <div class="goal-title">Nauczyć się React Native</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%;"></div>
+                                </div>
+                                <div class="goal-status">40% ukończone</div>
+                            </div>
+                        </div>
+                        <div class="career-goal">
+                            <div class="goal-progress">
+                                <div class="goal-title">Uzyskać awans na Senior</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%;"></div>
+                                </div>
+                                <div class="goal-status">60% ukończone</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel umiejętności -->
+                <div class="career-card">
+                    <div class="career-card-header">
+                        <h3>💪 Umiejętności</h3>
+                        <button class="btn-mini" onclick="addSkill()">+ Dodaj umiejętność</button>
+                    </div>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-name">JavaScript</div>
+                            <div class="skill-level">
+                                <div class="skill-stars">
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">React</div>
+                            <div class="skill-level">
+                                <div class="skill-stars">
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Node.js</div>
+                            <div class="skill-level">
+                                <div class="skill-stars">
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="skill-percentage">70%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Python</div>
+                            <div class="skill-level">
+                                <div class="skill-stars">
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="skill-percentage">65%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel certyfikatów -->
+                <div class="career-card">
+                    <div class="career-card-header">
+                        <h3>🏆 Certyfikaty</h3>
+                        <button class="btn-mini" onclick="addCertificate()">+ Dodaj certyfikat</button>
+                    </div>
+                    <div class="certificates-list">
+                        <div class="certificate-item">
+                            <div class="cert-icon">🌟</div>
+                            <div class="cert-details">
+                                <div class="cert-name">Google Analytics Certified</div>
+                                <div class="cert-date">Uzyskano: 15.07.2024</div>
+                                <div class="cert-status valid">✅ Ważny</div>
+                            </div>
+                        </div>
+                        <div class="certificate-item">
+                            <div class="cert-icon">⚡</div>
+                            <div class="cert-details">
+                                <div class="cert-name">Microsoft Azure Fundamentals</div>
+                                <div class="cert-date">Uzyskano: 22.06.2024</div>
+                                <div class="cert-status valid">✅ Ważny</div>
+                            </div>
+                        </div>
+                        <div class="certificate-item">
+                            <div class="cert-icon">🔧</div>
+                            <div class="cert-details">
+                                <div class="cert-name">Docker Certified Associate</div>
+                                <div class="cert-date">Uzyskano: 03.05.2024</div>
+                                <div class="cert-status expiring">⚠️ Wygasa wkrótce</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel rozwoju -->
+                <div class="career-card">
+                    <div class="career-card-header">
+                        <h3>📚 Plan rozwoju</h3>
+                        <button class="btn-mini" onclick="createLearningPlan()">+ Utwórz plan</button>
+                    </div>
+                    <div class="learning-timeline">
+                        <div class="timeline-item active">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Kurs React Advanced</div>
+                                <div class="timeline-date">W trakcie - 45% ukończone</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Certyfikat AWS Solutions Architect</div>
+                                <div class="timeline-date">Planowane na Wrzesień 2024</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Szkolenie z Leadership</div>
+                                <div class="timeline-date">Planowane na Październik 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Akcje szybkie -->
+            <div class="career-actions">
+                <button class="career-action-btn" onclick="generateCareerReport()">
+                    📊 Wygeneruj raport kariery
+                </button>
+                <button class="career-action-btn" onclick="findMentor()">
+                    👥 Znajdź mentora
+                </button>
+                <button class="career-action-btn" onclick="scheduleCareerConsultation()">
+                    💼 Umów konsultację
+                </button>
+                <button class="career-action-btn" onclick="exportCareerPlan()">
+                    📋 Eksportuj plan kariery
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sekcja Oferty Pracy - KOMPAKTOWA WERSJA -->
+    <div class="container">
+        <div class="job-offers-section-compact">
+            <div class="job-section-header">
+                <h2 class="section-title">💼 Oferty dla Ciebie</h2>
+                <div class="job-quick-stats">
+                    <span class="quick-stat"><strong id="matchingJobsCount">12</strong> dopasowanych</span>
+                    <span class="quick-stat"><strong id="newJobsCount">3</strong> nowych</span>
+                </div>
+            </div>
+
+            <!-- Kompaktowa wyszukiwarka -->
+            <div class="job-search-compact">
+                <input type="text" id="jobSearchInput" placeholder="🔍 Szukaj stanowiska..." />
+                <input type="text" id="locationSearchInput" placeholder="📍 Lokalizacja..." />
+                <button class="search-btn-compact" onclick="searchJobs()">Szukaj</button>
+            </div>
+
+            <!-- Top 3 oferty -->
+            <div class="job-offers-preview" id="jobOffersContainer">
+                <div class="loading-jobs-compact">⏳ Ładowanie...</div>
+            </div>
+
+            <!-- Akcje -->
+            <div class="job-actions-compact">
+                <button class="btn-all-offers" onclick="window.open('oferty-pracy.html', '_blank')">
+                    � Zobacz wszystkie oferty
+                </button>
+                <button class="btn-job-alerts" onclick="setupJobAlerts()">
+                    🔔 Powiadomienia
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sekcja Analytics z wykresami -->
+    <div class="container">
+        <div class="analytics-section">
+            <div class="analytics-header">
+                <h2 class="section-title">📊 Analytics Dashboard</h2>
+                <p style="color: #00fff7; margin-bottom: 30px;">Szczegółowa analiza Twojej aktywności na platformie</p>
+            </div>
+
+            <div class="analytics-grid">
+                <!-- Wykres kołowy zarobków -->
+                <div class="chart-card">
+                    <h3 class="chart-title">💰 Podział zarobków według kategorii</h3>
+                    <div class="chart-container">
+                        <canvas id="earningsChart" width="300" height="300"></canvas>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #FFD700;"></div>
+                                <span>Szablony Premium (65%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #00ff00;"></div>
+                                <span>Szablony Basic (25%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #00fff7;"></div>
+                                <span>Konsultacje (10%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wykres słupkowy aktywności -->
+                <div class="chart-card">
+                    <h3 class="chart-title">📈 Aktywność w ostatnim tygodniu</h3>
+                    <div class="chart-container">
+                        <canvas id="activityChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+
+                <!-- Wykres linowy zarobków w czasie -->
+                <div class="chart-card">
+                    <h3 class="chart-title">💹 Trend zarobków (6 miesięcy)</h3>
+                    <div class="chart-container">
+                        <canvas id="trendsChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+
+                <!-- Statystyki w czasie rzeczywistym -->
+                <div class="chart-card">
+                    <h3 class="chart-title">⚡ Statystyki na żywo</h3>
+                    <div class="live-stats">
+                        <div class="live-stat-item">
+                            <div class="live-stat-value" id="live-views">156</div>
+                            <div class="live-stat-label">👁️ Wyświetlenia dzisiaj</div>
+                            <div class="live-stat-change positive">+12%</div>
+                        </div>
+                        <div class="live-stat-item">
+                            <div class="live-stat-value" id="live-downloads">23</div>
+                            <div class="live-stat-label">⬇️ Pobrania dzisiaj</div>
+                            <div class="live-stat-change positive">+8%</div>
+                        </div>
+                        <div class="live-stat-item">
+                            <div class="live-stat-value" id="live-earnings">47.99</div>
+                            <div class="live-stat-label">💰 Zarobki dzisiaj (zł)</div>
+                            <div class="live-stat-change positive">+15%</div>
+                        </div>
+                        <div class="live-stat-item">
+                            <div class="live-stat-value" id="live-rating">4.8</div>
+                            <div class="live-stat-label">⭐ Średnia ocena</div>
+                            <div class="live-stat-change neutral">+0.1</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mini wykres aktywności -->
+                    <div class="mini-chart">
+                        <h4 style="color: #00ff00; margin-bottom: 10px;">📊 Aktywność ostatnie 24h</h4>
+                        <canvas id="miniActivityChart" width="300" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sekcja celów i osiągnięć -->
+            <div class="goals-section">
+                <h3 class="section-title">🎯 Cele i osiągnięcia</h3>
+                <div class="goals-grid">
+                    <div class="goal-card">
+                        <div class="goal-icon">💎</div>
+                        <div class="goal-content">
+                            <h4>Miesięczny cel zarobków</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 62%; background: linear-gradient(90deg, #FFD700, #FFA500);"></div>
+                            </div>
+                            <div class="goal-stats">247.50 zł / 400 zł (62%)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-card">
+                        <div class="goal-icon">📄</div>
+                        <div class="goal-content">
+                            <h4>Utworzone szablony</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%; background: linear-gradient(90deg, #00ff00, #33ff33);"></div>
+                            </div>
+                            <div class="goal-stats">15 / 20 szablonów (75%)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-card">
+                        <div class="goal-icon">⭐</div>
+                        <div class="goal-content">
+                            <h4>Poziom popularności</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%; background: linear-gradient(90deg, #00fff7, #33ccff);"></div>
+                            </div>
+                            <div class="goal-stats">4.8 / 5.0 gwiazdek (80%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal zmiany zdjęcia -->
+    <div id="avatar-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #00ff00;">📷 Zmień zdjęcie profilowe</h3>
+                <button class="close-modal" onclick="closeModal('avatar-modal')">&times;</button>
+            </div>
+            
+            <div class="file-upload">
+                <input type="file" id="avatar-file" accept="image/*" onchange="previewAvatar(this)">
+                <div class="file-upload-label">📁 Wybierz zdjęcie</div>
+            </div>
+            
+            <div id="avatar-preview" style="margin-top: 20px; text-align: center; display: none;">
+                <img id="preview-img" style="max-width: 200px; max-height: 200px; border-radius: 10px;">
+                <div class="progress-bar" style="margin-top: 15px;">
+                    <div class="progress-fill" id="upload-progress"></div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="uploadAvatar()" id="upload-btn" disabled>
+                    📤 Prześlij
+                </button>
+                <button class="btn btn-secondary" onclick="closeModal('avatar-modal')">
+                    ❌ Anuluj
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal edycji profilu -->
+    <div id="edit-profile-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #00ff00;">✏️ Edytuj profil</h3>
+                <button class="close-modal" onclick="closeModal('edit-profile-modal')">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Imię i nazwisko</label>
+                <input type="text" id="edit-name" value="Jan Kowalski">
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="edit-email" value="test@ecvjob.pl">
+            </div>
+            
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" id="edit-phone" placeholder="+48 123 456 789">
+            </div>
+            
+            <div class="form-group">
+                <label>Miasto</label>
+                <input type="text" id="edit-city" placeholder="Warszawa">
+            </div>
+            
+            <div class="form-group">
+                <label>O mnie</label>
+                <textarea id="edit-bio" rows="4" placeholder="Opowiedz coś o sobie..."></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="saveProfile()">
+                    💾 Zapisz zmiany
+                </button>
+                <button class="btn btn-secondary" onclick="closeModal('edit-profile-modal')">
+                    ❌ Anuluj
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pozostałe modale... -->
+    <div id="earnings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #00ff00;">📊 Szczegóły zarobków</h3>
+                <button class="close-modal" onclick="closeModal('earnings-modal')">&times;</button>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div class="earnings-amount" style="font-size: 2rem;">247.50 zł</div>
+                <p style="color: #FFD700;">Całkowite zarobki tego miesiąca</p>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.6); border-radius: 10px; padding: 15px; margin-bottom: 15px;">
+                <h4 style="color: #00ff00; margin-bottom: 10px;">💳 Ostatnie transakcje</h4>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>Szablon "Profesjonalny"</span>
+                    <span style="color: #FFD700;">+15.99 zł</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>Szablon "Kreatywny"</span>
+                    <span style="color: #FFD700;">+24.99 zł</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Szablon "Business"</span>
+                    <span style="color: #FFD700;">+19.99 zł</span>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="requestPayout()">
+                💰 Wypłać środki
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Zarządzanie zakładkami
+        function switchTab(tabName) {
+            // Ukryj wszystkie zakładki
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Usuń aktywną klasę z przycisków
+            document.querySelectorAll('.tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Pokaż wybraną zakładkę
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Zarządzanie modalami
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function openAvatarModal() {
+            openModal('avatar-modal');
+        }
+
+        function openEditProfileModal() {
+            openModal('edit-profile-modal');
+        }
+
+        function openEarningsModal() {
+            openModal('earnings-modal');
+        }
+
+        // Podgląd zdjęcia
+        function previewAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview-img').src = e.target.result;
+                    document.getElementById('avatar-preview').style.display = 'block';
+                    document.getElementById('upload-btn').disabled = false;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Upload zdjęcia z animacją progress
+        function uploadAvatar() {
+            const progressBar = document.getElementById('upload-progress');
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        // Zmień zdjęcie w profilu
+                        document.getElementById('user-avatar-img').src = document.getElementById('preview-img').src;
+                        closeModal('avatar-modal');
+                        alert('✅ Zdjęcie zostało zaktualizowane!');
+                        
+                        // Reset formularza
+                        document.getElementById('avatar-file').value = '';
+                        document.getElementById('avatar-preview').style.display = 'none';
+                        document.getElementById('upload-btn').disabled = true;
+                        progressBar.style.width = '0%';
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        // Zapisz profil
+        function saveProfile() {
+            const name = document.getElementById('edit-name').value;
+            const email = document.getElementById('edit-email').value;
+            
+            if (!name || !email) {
+                alert('❌ Wypełnij wszystkie wymagane pola!');
+                return;
+            }
+            
+            // Symulacja zapisywania
+            setTimeout(() => {
+                document.getElementById('user-name').textContent = name;
+                document.getElementById('user-email').textContent = email;
+                
+                // Zaktualizuj dane w sessionStorage
+                const userData = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+                userData.name = name;
+                userData.email = email;
+                sessionStorage.setItem('currentUser', JSON.stringify(userData));
+                
+                closeModal('edit-profile-modal');
+                alert('✅ Profil został zaktualizowany!');
+            }, 1000);
+        }
+
+        // Toggle ustawień
+        function toggleSetting(element) {
+            element.classList.toggle('active');
+        }
+
+        // Zmiana hasła
+        function changePassword() {
+            const current = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const confirm = document.getElementById('confirm-password').value;
+            
+            if (!current || !newPass || !confirm) {
+                alert('❌ Wypełnij wszystkie pola!');
+                return;
+            }
+            
+            if (newPass !== confirm) {
+                alert('❌ Nowe hasła nie są identyczne!');
+                return;
+            }
+            
+            if (newPass.length < 8) {
+                alert('❌ Hasło musi mieć minimum 8 znaków!');
+                return;
+            }
+            
+            // Symulacja zmiany hasła
+            setTimeout(() => {
+                alert('✅ Hasło zostało zmienione pomyślnie!');
+                document.getElementById('current-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-password').value = '';
+            }, 1500);
+        }
+
+        // 2FA Setup
+        function setup2FA() {
+            alert('🔐 Konfiguracja uwierzytelniania dwuskładnikowego\n\nFunkcja będzie dostępna wkrótce. Będzie zawierać:\n• Generowanie kodów QR\n• Weryfikację aplikacji\n• Kody zapasowe');
+        }
+
+        // Zarządzanie CV
+        function openCreateCVModal() {
+            alert('📄 Kreator CV\n\nPrzekierowujemy do kreatora CV...');
+            window.location.href = 'kreator-cv.html';
+        }
+
+        function editCV(id) {
+            alert('✏️ Edytowanie CV #' + id);
+        }
+
+        function downloadCV(id) {
+            alert('⬇️ Pobieranie CV #' + id);
+        }
+
+        function deleteCV(id) {
+            if (confirm('❓ Czy na pewno chcesz usunąć to CV?')) {
+                alert('🗑️ CV zostało usunięte');
+            }
+        }
+
+        // Wypłata środków
+        function requestPayout() {
+            if (confirm('💰 Czy chcesz wypłacić środki?\n\nKwota: 247.50 zł\nSposób: Przelew bankowy')) {
+                alert('✅ Wniosek o wypłatę został złożony!\n\nŚrodki zostaną przelane w ciągu 3-5 dni roboczych.');
+            }
+        }
+
+        // Upgrade planu
+        function openUpgradeModal() {
+            if (confirm('🚀 Przejść do wyboru planu premium?\n\nZostajesz przekierowany do strony z planami.')) {
+                window.location.href = 'index.html#plany-cenowe';
+            }
+        }
+
+        // Inicjalizacja przy ładowaniu strony
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM załadowany, inicjalizacja profilu...');
+            
+            // Sprawdź czy użytkownik jest zalogowany
+            const userData = sessionStorage.getItem('currentUser');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            // TYMCZASOWE OBEJŚCIE dla debugowania
+            if (!userData || !isLoggedIn) {
+                console.log('⚠️ Brak danych użytkownika, tworzę tymczasowe...');
+                const tempUser = {
+                    name: 'Test User',
+                    email: 'test@ecvjob.pl',
+                    plan: 'Plan Bezpłatny'
+                };
+                sessionStorage.setItem('currentUser', JSON.stringify(tempUser));
+                localStorage.setItem('isLoggedIn', 'true');
+            }
+            
+            // Załaduj dane użytkownika
+            const user = JSON.parse(sessionStorage.getItem('currentUser'));
+            document.getElementById('user-name').textContent = user.name || 'Użytkownik';
+            document.getElementById('user-email').textContent = user.email || 'brak@email.com';
+            document.getElementById('user-plan').textContent = '⭐ ' + (user.plan || 'Plan Bezpłatny');
+            
+            // Animacja liczników
+            setTimeout(() => {
+                animateCounters();
+            }, 500);
+            
+            // Załaduj oferty pracy
+            setTimeout(() => {
+                console.log('🔄 Uruchamianie ładowania ofert pracy...');
+                loadJobOffers();
+            }, 1000);
+        });
+
+        // Animacja liczników statystyk
+        function animateCounters() {
+            const counters = [
+                { id: 'cv-downloads', target: 127 },
+                { id: 'profile-views', target: 89 },
+                { id: 'templates-created', target: 15 },
+                { id: 'earnings-count', target: 8 }
+            ];
+            
+            counters.forEach(counter => {
+                let current = 0;
+                const increment = counter.target / 50;
+                const element = document.getElementById(counter.id);
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= counter.target) {
+                        element.textContent = counter.target;
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 30);
+            });
+        }
+
+        // Zamknij modal po kliknięciu w tło
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // === FUNKCJE WYKRESÓW I ANALYTICS ===
+        
+        // Inicjalizacja wykresów po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            startLiveStats();
+        });
+
+        function initializeCharts() {
+            drawEarningsChart();
+            drawActivityChart();
+            drawTrendsChart();
+            drawMiniActivityChart();
+        }
+
+        // Wykres kołowy zarobków
+        function drawEarningsChart() {
+            const canvas = document.getElementById('earningsChart');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 100;
+
+            // Dane dla wykresu
+            const data = [
+                { label: 'Premium', value: 65, color: '#FFD700' },
+                { label: 'Basic', value: 25, color: '#00ff00' },
+                { label: 'Konsultacje', value: 10, color: '#00fff7' }
+            ];
+
+            let currentAngle = -Math.PI / 2; // Start od góry
+
+            data.forEach(segment => {
+                const sliceAngle = (segment.value / 100) * 2 * Math.PI;
+                
+                // Rysuj segment
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+                ctx.fillStyle = segment.color;
+                ctx.fill();
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Dodaj etykiety
+                const labelAngle = currentAngle + sliceAngle / 2;
+                const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
+                const labelY = centerY + Math.sin(labelAngle) * (radius * 0.7);
+                
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(segment.value + '%', labelX, labelY);
+
+                currentAngle += sliceAngle;
+            });
+
+            // Środkowy krąg
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
+            ctx.fillStyle = '#000';
+            ctx.fill();
+            ctx.strokeStyle = '#00ff00';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+
+        // Wykres słupkowy aktywności
+        function drawActivityChart() {
+            const canvas = document.getElementById('activityChart');
+            const ctx = canvas.getContext('2d');
+            const data = [12, 19, 8, 15, 22, 7, 14]; // Dane dla ostatnich 7 dni
+            const days = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Nie'];
+            
+            const barWidth = 40;
+            const maxHeight = 200;
+            const spacing = 10;
+            const startX = 50;
+            const startY = canvas.height - 50;
+
+            // Tło wykresu
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Rysuj słupki
+            data.forEach((value, index) => {
+                const barHeight = (value / Math.max(...data)) * maxHeight;
+                const x = startX + index * (barWidth + spacing);
+                const y = startY - barHeight;
+
+                // Gradient dla słupków
+                const gradient = ctx.createLinearGradient(0, y, 0, startY);
+                gradient.addColorStop(0, '#00ff00');
+                gradient.addColorStop(1, '#008800');
+
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x, y, barWidth, barHeight);
+
+                // Ramka
+                ctx.strokeStyle = '#00ff00';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, y, barWidth, barHeight);
+
+                // Wartości na górze słupków
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(value, x + barWidth/2, y - 5);
+
+                // Etykiety dni
+                ctx.fillText(days[index], x + barWidth/2, startY + 20);
+            });
+        }
+
+        // Wykres liniowy trendów
+        function drawTrendsChart() {
+            const canvas = document.getElementById('trendsChart');
+            const ctx = canvas.getContext('2d');
+            const data = [120, 180, 240, 190, 280, 247]; // Zarobki w ostatnich 6 miesiącach
+            const months = ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze'];
+            
+            const padding = 50;
+            const chartWidth = canvas.width - 2 * padding;
+            const chartHeight = canvas.height - 2 * padding;
+
+            // Tło wykresu
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Linie siatki
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+            }
+
+            // Rysuj linię trendu
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            data.forEach((value, index) => {
+                const x = padding + (chartWidth / (data.length - 1)) * index;
+                const y = padding + chartHeight - (value / Math.max(...data)) * chartHeight;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+
+                // Punkty na linii
+                ctx.fillStyle = '#FFD700';
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+
+                // Wartości
+                ctx.fillStyle = '#fff';
+                ctx.font = '10px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(value + 'zł', x, y - 10);
+                ctx.fillText(months[index], x, canvas.height - 20);
+            });
+
+            ctx.stroke();
+        }
+
+        // Mini wykres aktywności 24h
+        function drawMiniActivityChart() {
+            const canvas = document.getElementById('miniActivityChart');
+            const ctx = canvas.getContext('2d');
+            const data = Array.from({length: 24}, () => Math.floor(Math.random() * 20) + 1);
+            
+            const barWidth = 8;
+            const maxHeight = 60;
+            const spacing = 2;
+
+            data.forEach((value, index) => {
+                const barHeight = (value / Math.max(...data)) * maxHeight;
+                const x = index * (barWidth + spacing);
+                const y = canvas.height - barHeight;
+
+                const intensity = value / Math.max(...data);
+                const green = Math.floor(255 * intensity);
+                ctx.fillStyle = `rgb(0, ${green}, 0)`;
+                ctx.fillRect(x, y, barWidth, barHeight);
+            });
+        }
+
+        // Aktualizacja statystyk na żywo
+        function startLiveStats() {
+            setInterval(updateLiveStats, 5000); // Aktualizuj co 5 sekund
+        }
+
+        function updateLiveStats() {
+            // Symulacja zmian w statystykach
+            const elements = {
+                'live-views': { min: 150, max: 200, current: parseInt(document.getElementById('live-views').textContent) },
+                'live-downloads': { min: 20, max: 30, current: parseInt(document.getElementById('live-downloads').textContent) },
+                'live-earnings': { min: 40, max: 60, current: parseFloat(document.getElementById('live-earnings').textContent) },
+                'live-rating': { min: 4.5, max: 5.0, current: parseFloat(document.getElementById('live-rating').textContent) }
+            };
+
+            Object.keys(elements).forEach(id => {
+                const element = document.getElementById(id);
+                const data = elements[id];
+                const change = (Math.random() - 0.5) * 2; // Losowa zmiana
+                let newValue = data.current + change;
+                
+                // Ograniczenia wartości
+                newValue = Math.max(data.min, Math.min(data.max, newValue));
+                
+                if (id === 'live-earnings' || id === 'live-rating') {
+                    element.textContent = newValue.toFixed(2);
+                } else {
+                    element.textContent = Math.floor(newValue);
+                }
+            });
+
+            // Aktualizuj mini wykres
+            drawMiniActivityChart();
+        }
+
+        // Animacje dla celów
+        function animateGoals() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 500);
+            });
+        }
+
+        // Uruchom animacje celów po załadowaniu
+        setTimeout(animateGoals, 1000);
+
+        // ===== FUNKCJONALNOŚĆ OFERT PRACY =====
+        let allJobs = [];
+        let filteredJobs = [];
+        let currentJobPage = 1;
+        let jobsPerPage = 5;
+        let totalJobPages = 1;
+
+        // Funkcja ładowania ofert pracy - statyczne dane
+        function loadJobOffers() {
+            console.log('🔄 Ładowanie ofert pracy dla profilu...');
+            
+            // Statyczne dane ofert pracy dopasowane do profilu
+            allJobs = [
+                {
+                    'Stanowisko': 'Senior Frontend Developer',
+                    ' Miejsce pracy': 'Warszawa, mazowieckie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas nieokreślony',
+                    ' Pracodawca': 'TechCorp Solutions',
+                    ' Dostępna od': '2025-08-05'
+                },
+                {
+                    'Stanowisko': 'UX/UI Designer',
+                    ' Miejsce pracy': 'Kraków, małopolskie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas określony',
+                    ' Pracodawca': 'DesignStudio Plus',
+                    ' Dostępna od': '2025-08-10'
+                },
+                {
+                    'Stanowisko': 'Full Stack Developer',
+                    ' Miejsce pracy': 'Praca zdalna',
+                    ' Rodzaj umowy': 'Umowa zlecenie',
+                    ' Pracodawca': 'StartupLab',
+                    ' Dostępna od': '2025-08-03'
+                },
+                {
+                    'Stanowisko': 'Product Manager',
+                    ' Miejsce pracy': 'Gdańsk, pomorskie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas nieokreślony',
+                    ' Pracodawca': 'InnovaTech',
+                    ' Dostępna od': '2025-08-12'
+                },
+                {
+                    'Stanowisko': 'DevOps Engineer',
+                    ' Miejsce pracy': 'Wrocław, dolnośląskie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas określony',
+                    ' Pracodawca': 'CloudMasters',
+                    ' Dostępna od': '2025-08-08'
+                },
+                {
+                    'Stanowisko': 'Data Scientist',
+                    ' Miejsce pracy': 'Poznań, wielkopolskie',
+                    ' Rodzaj umowy': 'Umowa zlecenie',
+                    ' Pracodawca': 'DataFlow Analytics',
+                    ' Dostępna od': '2025-08-15'
+                },
+                {
+                    'Stanowisko': 'Mobile App Developer',
+                    ' Miejsce pracy': 'Łódź, łódzkie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas nieokreślony',
+                    ' Pracodawca': 'MobileFirst',
+                    ' Dostępna od': '2025-08-20'
+                },
+                {
+                    'Stanowisko': 'Backend Developer',
+                    ' Miejsce pracy': 'Praca zdalna',
+                    ' Rodzaj umowy': 'Umowa zlecenie',
+                    ' Pracodawca': 'ServerLogic',
+                    ' Dostępna od': '2025-08-06'
+                },
+                {
+                    'Stanowisko': 'QA Engineer',
+                    ' Miejsce pracy': 'Katowice, śląskie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas określony',
+                    ' Pracodawca': 'QualityFirst',
+                    ' Dostępna od': '2025-08-18'
+                },
+                {
+                    'Stanowisko': 'System Administrator',
+                    ' Miejsce pracy': 'Lublin, lubelskie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas nieokreślony',
+                    ' Pracodawca': 'SysAdmin Pro',
+                    ' Dostępna od': '2025-08-25'
+                },
+                {
+                    'Stanowisko': 'JavaScript Developer',
+                    ' Miejsce pracy': 'Praca zdalna',
+                    ' Rodzaj umowy': 'Umowa zlecenie',
+                    ' Pracodawca': 'WebCraft Studio',
+                    ' Dostępna od': '2025-08-09'
+                },
+                {
+                    'Stanowisko': 'Scrum Master',
+                    ' Miejsce pracy': 'Warszawa, mazowieckie',
+                    ' Rodzaj umowy': 'Umowa o pracę na czas określony',
+                    ' Pracodawca': 'AgileTeam',
+                    ' Dostępna od': '2025-08-14'
+                }
+            ];
+            
+            filteredJobs = [...allJobs];
+            
+            console.log('✅ Załadowano', allJobs.length, 'ofert pracy dla profilu');
+            console.log('📊 Przykładowe oferty:', allJobs.slice(0, 2));
+            
+            updateJobStats();
+            displayJobOffers();
+        }
+
+        // Aktualizuj statystyki
+        function updateJobStats() {
+            const matchingElement = document.getElementById('matchingJobsCount');
+            const newJobsElement = document.getElementById('newJobsCount');
+            
+            if (matchingElement) {
+                matchingElement.textContent = allJobs.length;
+            }
+            if (newJobsElement) {
+                newJobsElement.textContent = Math.floor(allJobs.length * 0.3);
+            }
+        }
+
+        // Wyświetl oferty pracy - KOMPAKTOWA WERSJA (tylko top 3)
+        function displayJobOffers() {
+            console.log('🎯 Rozpoczęcie wyświetlania ofert...');
+            const container = document.getElementById('jobOffersContainer');
+            
+            if (!container) {
+                console.error('❌ Nie znaleziono kontenera jobOffersContainer');
+                return;
+            }
+            
+            console.log('✅ Kontener znaleziony, filteredJobs:', filteredJobs.length);
+            const jobsToShow = filteredJobs.slice(0, 3); // Tylko top 3 oferty
+            
+            if (jobsToShow.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: #ccc; padding: 20px; font-size: 0.9rem;">
+                        🔍 Brak pasujących ofert
+                    </div>
+                `;
+                console.log('⚠️ Brak ofert do wyświetlenia');
+                return;
+            }
+            
+            const jobsHTML = jobsToShow.map(job => createJobCardCompact(job)).join('');
+            container.innerHTML = jobsHTML;
+        }
+
+        // Utwórz kartę oferty pracy - KOMPAKTOWA WERSJA
+        function createJobCardCompact(job) {
+            const stanowisko = (job['Stanowisko'] || '').replace(/"/g, '').trim();
+            const miejsce = (job[' Miejsce pracy'] || '').replace(/"/g, '').trim();
+            const umowa = (job[' Rodzaj umowy'] || '').replace(/"/g, '').trim();
+            const pracodawca = (job[' Pracodawca'] || '').replace(/"/g, '').trim();
+            
+            // Generuj losową pensję dla wyświetlenia
+            const salaryMin = Math.floor(Math.random() * 3000) + 4000;
+            const salaryMax = salaryMin + Math.floor(Math.random() * 3000) + 1000;
+            
+            return `
+                <div class="job-card-compact" onclick="viewJobDetails('${stanowisko}', '${pracodawca}')">
+                    <div class="job-header-compact">
+                        <div>
+                            <div class="job-title-compact">${stanowisko}</div>
+                            <div class="job-company-compact">${pracodawca}</div>
+                        </div>
+                        <div class="job-salary-compact">${salaryMin}-${salaryMax} PLN</div>
+                    </div>
+                    
+                    <div class="job-details-compact">
+                        <div class="job-detail-compact">
+                            <span>📍</span>
+                            <span>${miejsce}</span>
+                        </div>
+                        <div class="job-detail-compact">
+                            <span>�</span>
+                            <span>${umowa.split(' ').slice(0,2).join(' ')}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Wyszukaj oferty - KOMPAKTOWA WERSJA
+        function searchJobs() {
+            const jobSearch = document.getElementById('jobSearchInput').value.toLowerCase().trim();
+            const locationSearch = document.getElementById('locationSearchInput').value.toLowerCase().trim();
+            
+            filteredJobs = allJobs.filter(job => {
+                const stanowisko = (job['Stanowisko'] || '').toLowerCase();
+                const miejsce = (job[' Miejsce pracy'] || '').toLowerCase();
+                
+                const matchesJob = !jobSearch || stanowisko.includes(jobSearch);
+                const matchesLocation = !locationSearch || miejsce.includes(locationSearch);
+                
+                return matchesJob && matchesLocation;
+            });
+            
+            updateJobStats();
+            displayJobOffers();
+            
+            console.log(`🔍 Wyszukiwanie: "${jobSearch}" w "${locationSearch}"`);
+            console.log(`📊 Znaleziono ${filteredJobs.length} ofert (pokazuje top 3)`);
+        }
+
+        // Aplikuj na ofertę
+        function applyForJob(jobTitle, company) {
+            alert(`🎯 Aplikujesz na stanowisko "${jobTitle}" w firmie "${company}"!\n\n📧 Funkcja aplikacji zostanie wkrótce uruchomiona.`);
+            
+            // Zaktualizuj licznik aplikacji
+            const appliedCount = document.getElementById('appliedJobsCount');
+            const current = parseInt(appliedCount.textContent) || 0;
+            appliedCount.textContent = current + 1;
+            
+            console.log('📧 Aplikacja na:', jobTitle, 'w', company);
+        }
+
+        // Zobacz szczegóły oferty
+        function viewJobDetails(jobTitle, company) {
+            alert(`📋 Szczegóły oferty:\n\n🏢 Stanowisko: ${jobTitle}\n🏭 Firma: ${company}\n\n💡 Pełne szczegóły będą dostępne w rozszerzonej wersji!`);
+            console.log('📋 Szczegóły:', jobTitle, 'w', company);
+        }
+
+        // Skonfiguruj powiadomienia o ofertach
+        function setupJobAlerts() {
+            alert('🔔 Konfiguracja powiadomień o nowych ofertach pracy!\n\nFunkcja zostanie wkrótce uruchomiona.');
+        }
+
+        // Zobacz historię aplikacji
+        function viewApplicationHistory() {
+            alert('📋 Historia Twoich aplikacji:\n\n✅ Senior Frontend Developer - TechCorp\n⏳ UX/UI Designer - DesignStudio\n📧 Full Stack Developer - StartupLab\n\nPełna historia będzie dostępna wkrótce!');
+        }
+
+        // Event listenery dla wyszukiwania
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wyszukiwanie na Enter
+            const searchInputs = ['jobSearchInput', 'locationSearchInput'];
+            searchInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            searchJobs();
+                        }
+                    });
+                }
+            });
+        });
+
+        // ===== FUNKCJE SEKCJI KARIERY =====
+
+        // Dodaj nowy cel zawodowy
+        function addCareerGoal() {
+            const goalTitle = prompt('🎯 Wprowadź nowy cel zawodowy:', '');
+            if (goalTitle && goalTitle.trim()) {
+                const goalsList = document.getElementById('careerGoalsList');
+                const newGoal = document.createElement('div');
+                newGoal.className = 'career-goal';
+                newGoal.innerHTML = `
+                    <div class="goal-progress">
+                        <div class="goal-title">${goalTitle.trim()}</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="goal-status">0% ukończone</div>
+                    </div>
+                `;
+                goalsList.appendChild(newGoal);
+                
+                alert('✅ Cel zawodowy został dodany!\n\n🎯 Cel: ' + goalTitle.trim() + '\n📊 Postęp: 0%');
+                console.log('🎯 Dodano nowy cel zawodowy:', goalTitle.trim());
+            }
+        }
+
+        // Dodaj nową umiejętność
+        function addSkill() {
+            const skillName = prompt('💪 Wprowadź nazwę umiejętności:', '');
+            if (skillName && skillName.trim()) {
+                const skillLevel = prompt('⭐ Oceń swój poziom (1-5 gwiazdek):', '3');
+                const level = Math.max(1, Math.min(5, parseInt(skillLevel) || 3));
+                const percentage = level * 20;
+                
+                const skillsGrid = document.querySelector('.skills-grid');
+                const newSkill = document.createElement('div');
+                newSkill.className = 'skill-item';
+                
+                let starsHTML = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHTML += `<span class="star ${i <= level ? 'filled' : ''}">★</span>`;
+                }
+                
+                newSkill.innerHTML = `
+                    <div class="skill-name">${skillName.trim()}</div>
+                    <div class="skill-level">
+                        <div class="skill-stars">${starsHTML}</div>
+                        <span class="skill-percentage">${percentage}%</span>
+                    </div>
+                `;
+                skillsGrid.appendChild(newSkill);
+                
+                alert(`✅ Umiejętność została dodana!\n\n💪 Umiejętność: ${skillName.trim()}\n⭐ Poziom: ${level}/5 gwiazdek (${percentage}%)`);
+                console.log('💪 Dodano nową umiejętność:', skillName.trim(), '- Poziom:', level);
+            }
+        }
+
+        // Dodaj nowy certyfikat
+        function addCertificate() {
+            const certName = prompt('🏆 Wprowadź nazwę certyfikatu:', '');
+            if (certName && certName.trim()) {
+                const certDate = prompt('📅 Data uzyskania (DD.MM.YYYY):', new Date().toLocaleDateString('pl-PL'));
+                
+                const certsList = document.querySelector('.certificates-list');
+                const newCert = document.createElement('div');
+                newCert.className = 'certificate-item';
+                
+                // Losowy wybór ikony
+                const icons = ['🌟', '⚡', '🔧', '🎓', '💎', '🚀', '⭐', '🏅'];
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                
+                newCert.innerHTML = `
+                    <div class="cert-icon">${randomIcon}</div>
+                    <div class="cert-details">
+                        <div class="cert-name">${certName.trim()}</div>
+                        <div class="cert-date">Uzyskano: ${certDate}</div>
+                        <div class="cert-status valid">✅ Ważny</div>
+                    </div>
+                `;
+                certsList.appendChild(newCert);
+                
+                alert(`✅ Certyfikat został dodany!\n\n🏆 Certyfikat: ${certName.trim()}\n📅 Data: ${certDate}\n✅ Status: Ważny`);
+                console.log('🏆 Dodano nowy certyfikat:', certName.trim(), '- Data:', certDate);
+            }
+        }
+
+        // Utwórz plan nauki
+        function createLearningPlan() {
+            const planTitle = prompt('📚 Wprowadź tytuł planu nauki:', '');
+            if (planTitle && planTitle.trim()) {
+                const planDate = prompt('📅 Planowana data rozpoczęcia (DD.MM.YYYY):', new Date().toLocaleDateString('pl-PL'));
+                
+                const timeline = document.querySelector('.learning-timeline');
+                const newPlan = document.createElement('div');
+                newPlan.className = 'timeline-item';
+                
+                newPlan.innerHTML = `
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">${planTitle.trim()}</div>
+                        <div class="timeline-date">Planowane na ${planDate}</div>
+                    </div>
+                `;
+                timeline.appendChild(newPlan);
+                
+                alert(`✅ Plan nauki został utworzony!\n\n📚 Plan: ${planTitle.trim()}\n📅 Start: ${planDate}\n🎯 Status: Zaplanowane`);
+                console.log('📚 Utworzono nowy plan nauki:', planTitle.trim(), '- Start:', planDate);
+            }
+        }
+
+        // Wygeneruj raport kariery
+        function generateCareerReport() {
+            alert(`📊 RAPORT KARIERY - ${new Date().toLocaleDateString('pl-PL')}\n\n` +
+                  `🎯 Cele zawodowe: 3 aktywne\n` +
+                  `💪 Umiejętności: 4 ocenione\n` +
+                  `🏆 Certyfikaty: 3 ważne\n` +
+                  `📚 Plany nauki: 3 zaplanowane\n\n` +
+                  `📈 Postęp ogólny: 67%\n` +
+                  `⭐ Ocena profilu: 4.2/5\n\n` +
+                  `💡 Rekomendacja: Skoncentruj się na ukończeniu kursu React Advanced`);
+            console.log('📊 Wygenerowano raport kariery');
+        }
+
+        // Znajdź mentora
+        function findMentor() {
+            alert(`👥 ZNAJDŹ MENTORA\n\n` +
+                  `🔍 Dostępni mentorzy w Twojej dziedzinie:\n\n` +
+                  `👨‍💻 Jan Kowalski - Senior React Developer\n` +
+                  `⭐ 4.9/5 (127 opinii)\n` +
+                  `💰 150 zł/h\n\n` +
+                  `👩‍💻 Anna Nowak - UX/UI Expert\n` +
+                  `⭐ 4.8/5 (89 opinii)\n` +
+                  `💰 120 zł/h\n\n` +
+                  `🎯 Funkcja mentoringu zostanie wkrótce uruchomiona!`);
+            console.log('👥 Wyszukiwanie mentorów');
+        }
+
+        // Umów konsultację
+        function scheduleCareerConsultation() {
+            alert(`💼 KONSULTACJA KARIERY\n\n` +
+                  `📅 Dostępne terminy:\n` +
+                  `• Poniedziałek 14:00-15:00\n` +
+                  `• Środa 10:00-11:00\n` +
+                  `• Piątek 16:00-17:00\n\n` +
+                  `💰 Koszt: 99 zł/sesja\n` +
+                  `⏱️ Czas: 60 minut\n` +
+                  `🎯 Typ: Online/Video call\n\n` +
+                  `📧 System rezerwacji zostanie wkrótce uruchomiony!`);
+            console.log('💼 Planowanie konsultacji kariery');
+        }
+
+        // Eksportuj plan kariery
+        function exportCareerPlan() {
+            const careerData = {
+                exportDate: new Date().toLocaleDateString('pl-PL'),
+                goals: [
+                    'Zdobyć certyfikat AWS (75% ukończone)',
+                    'Nauczyć się React Native (40% ukończone)',
+                    'Uzyskać awans na Senior (60% ukończone)'
+                ],
+                skills: [
+                    'JavaScript (85%)',
+                    'React (80%)',
+                    'Node.js (70%)',
+                    'Python (65%)'
+                ],
+                certificates: [
+                    'Google Analytics Certified (ważny)',
+                    'Microsoft Azure Fundamentals (ważny)',
+                    'Docker Certified Associate (wygasa wkrótce)'
+                ],
+                learningPlans: [
+                    'Kurs React Advanced (w trakcie - 45%)',
+                    'Certyfikat AWS Solutions Architect (planowane)',
+                    'Szkolenie z Leadership (planowane)'
+                ]
+            };
+            
+            // Symulacja eksportu
+            const exportText = `PLAN KARIERY - EKSPORT\nData: ${careerData.exportDate}\n\n` +
+                             `🎯 CELE:\n${careerData.goals.map(g => `• ${g}`).join('\n')}\n\n` +
+                             `💪 UMIEJĘTNOŚCI:\n${careerData.skills.map(s => `• ${s}`).join('\n')}\n\n` +
+                             `🏆 CERTYFIKATY:\n${careerData.certificates.map(c => `• ${c}`).join('\n')}\n\n` +
+                             `📚 PLANY NAUKI:\n${careerData.learningPlans.map(p => `• ${p}`).join('\n')}`;
+            
+            // Utworz "plik" do pobrania (symulacja)
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `plan_kariery_${new Date().getTime()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert(`📋 Plan kariery został wyeksportowany!\n\n📄 Plik: plan_kariery_${new Date().getTime()}.txt\n📊 Zawiera wszystkie Twoje dane kariery\n💾 Zapisano w folderze Downloads`);
+            console.log('📋 Wyeksportowano plan kariery');
+        }
+    </script>
+</body>
+</html>

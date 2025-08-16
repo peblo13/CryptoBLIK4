@@ -1,71 +1,4 @@
-﻿    <!-- Menu ładowane dynamicznie przez JS -->
-    <div id="menu"></div>
-    
-        /* Usługi - kontenery na wzór ofert pracy */
-        .service-square {
-            background: rgba(0,0,0,0.7);
-            /* border removed */
-            border-radius: 15px;
-            box-shadow: 0 2px 12px rgba(0,255,0,0.08), 0 1.5px 8px rgba(0,0,0,0.18);
-            padding: 28px 22px 22px 22px;
-            margin: 18px 0;
-            transition: box-shadow 0.3s, background 0.3s, border-color 0.3s, transform 0.3s;
-            position: relative;
-            color: #fff;
-            font-size: 1.08rem;
-            font-weight: 500;
-        }
-        .service-square h3 {
-            color: #00ff00;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 8px #003300, 0 0 2px #00ff00;
-        }
-        .service-square .location-marker {
-            color: #00ff00;
-            font-size: 1.1rem;
-            margin-right: 6px;
-        }
-        .service-square .apply-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #00ff00, #33ff33);
-            color: #000;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.05rem;
-            padding: 12px 28px;
-            margin-top: 18px;
-            text-decoration: none;
-            text-align: center;
-            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.18);
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,255,0,0.25);
-        }
-        .service-square:hover {
-            box-shadow: 0 0 24px 6px #00ff00, 0 0 32px 10px rgba(0,255,0,0.18);
-            /* border-color removed */
-            background: rgba(0, 0, 0, 0.85);
-            transform: translateY(-4px) scale(1.02);
-        }
-
-        /* Hide description and price by default, show on hover */
-        .service-square .service-desc,
-        .service-square .service-price {
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: opacity 0.3s, max-height 0.3s;
-        }
-        .service-square:hover .service-desc,
-        .service-square:hover .service-price {
-            opacity: 1;
-            max-height: 200px;
-            transition: opacity 0.3s, max-height 0.3s;
-        }
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -508,6 +441,39 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
 
+        /* Video section */
+        .video-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .video-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #00ff00;
+            margin-bottom: 3rem;
+            font-weight: bold;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.2);
+        }
+
+        .video-container iframe {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
         .steps-title {
             text-align: center;
             font-size: 2.5rem;
@@ -739,6 +705,198 @@
             }
         }
 
+        /* Free Plan Earning Animations */
+        @keyframes freeEarningGlow {
+            0% {
+                box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 15px 40px rgba(0, 255, 0, 0.5);
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes badgePulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 255, 0, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 255, 0, 0.5);
+            }
+        }
+
+        @keyframes featurePulse {
+            0% {
+                box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 8px 25px rgba(0, 255, 0, 0.6);
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes finalCtaGlow {
+            0% {
+                box-shadow: 0 15px 40px rgba(0, 255, 0, 0.4);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 20px 50px rgba(255, 215, 0, 0.6);
+                transform: scale(1.01);
+            }
+        }
+
+        @keyframes finalCtaOverlay {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+                opacity: 0.6;
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes ctaButtonPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 25px rgba(0, 255, 0, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+            }
+        }
+
+        /* Mega Free Plan Animations */
+        @keyframes megaFreePlanGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes topBadgeFloat {
+            0% {
+                transform: translateX(-50%) translateY(0px);
+                box-shadow: 0 5px 20px rgba(255, 0, 0, 0.6);
+            }
+            100% {
+                transform: translateX(-50%) translateY(-5px);
+                box-shadow: 0 10px 30px rgba(255, 0, 0, 0.8);
+            }
+        }
+
+        @keyframes cardFloat1 {
+            0% {
+                transform: rotate(-2deg) translateY(0px);
+            }
+            100% {
+                transform: rotate(-2deg) translateY(-10px);
+            }
+        }
+
+        @keyframes cardFloat2 {
+            0% {
+                transform: rotate(2deg) translateY(-5px);
+            }
+            100% {
+                transform: rotate(2deg) translateY(5px);
+            }
+        }
+
+        @keyframes cardFloat3 {
+            0% {
+                transform: rotate(-1deg) translateY(0px);
+            }
+            100% {
+                transform: rotate(-1deg) translateY(-8px);
+            }
+        }
+
+        @keyframes megaButtonPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 15px 40px rgba(255, 102, 0, 0.6);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 20px 50px rgba(255, 215, 0, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 15px 40px rgba(255, 102, 0, 0.6);
+            }
+        }
+
+        /* Free vs Premium Comparison Animations */
+        @keyframes winnerGlow {
+            0% {
+                box-shadow: 0 10px 30px rgba(0, 255, 0, 0.4);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 15px 40px rgba(0, 255, 0, 0.7);
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes winnerBadge {
+            0% {
+                transform: translateX(-50%) scale(1);
+                box-shadow: 0 5px 15px rgba(0, 255, 0, 0.6);
+            }
+            100% {
+                transform: translateX(-50%) scale(1.1);
+                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        @keyframes vsAnimation {
+            0% {
+                transform: scale(1) rotate(0deg);
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            }
+            50% {
+                transform: scale(1.2) rotate(5deg);
+                text-shadow: 0 0 30px rgba(255, 215, 0, 1);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        @keyframes conclusionButtonPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(0, 255, 0, 0.6);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 40px rgba(255, 215, 0, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(0, 255, 0, 0.6);
+            }
+        }
+
         /* Features section */
         .features-section {
             background: rgba(0, 0, 0, 0.6);
@@ -747,6 +905,280 @@
             padding: 40px;
             margin: 20px 0;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom Template Creator section */
+        .custom-creator-section {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+            border: 3px solid #00ff00;
+            border-radius: 15px;
+            padding: 50px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .custom-creator-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 0, 0.1) 0%, transparent 70%);
+            animation: creatorGlow 4s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        .custom-creator-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes creatorGlow {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.3; }
+            100% { transform: rotate(180deg) scale(1.1); opacity: 0.6; }
+        }
+
+        .custom-creator-title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #00ff00;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
+        }
+
+        .custom-creator-subtitle {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+
+        .custom-creator-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .creator-feature-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff00;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creator-feature-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            transition: all 0.6s ease;
+            transform: rotate(45deg);
+        }
+
+        .creator-feature-card:hover::before {
+            top: -150%;
+            left: -150%;
+        }
+
+        .creator-feature-card:hover {
+            transform: translateY(-8px);
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3);
+        }
+
+        .creator-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .creator-feature-card h3 {
+            color: #00ff00;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .creator-feature-card p {
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .creator-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .creator-option-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .creator-option-card.advanced {
+            border-color: #ff6600;
+            background: linear-gradient(135deg, rgba(255, 102, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+
+        .creator-option-card.ai {
+            border-color: #9966ff;
+            background: linear-gradient(135deg, rgba(153, 102, 255, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+
+        .creator-option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .creator-option-card.advanced:hover {
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.2);
+        }
+
+        .creator-option-card.ai:hover {
+            box-shadow: 0 10px 30px rgba(153, 102, 255, 0.2);
+        }
+
+        .creator-option-card h3 {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .creator-option-card.advanced h3 {
+            color: #ff6600;
+        }
+
+        .creator-option-card.ai h3 {
+            color: #9966ff;
+        }
+
+        .creator-option-card p {
+            color: #ffffff;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .creator-button {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .creator-button.primary {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+
+        .creator-button.primary:hover {
+            background: #00ff00;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4);
+        }
+
+        .creator-button.advanced {
+            background: rgba(255, 102, 0, 0.2);
+            color: #ff6600;
+            border-color: #ff6600;
+        }
+
+        .creator-button.advanced:hover {
+            background: #ff6600;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
+        }
+
+        .creator-button.ai {
+            background: rgba(153, 102, 255, 0.2);
+            color: #9966ff;
+            border-color: #9966ff;
+        }
+
+        .creator-button.ai:hover {
+            background: #9966ff;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(153, 102, 255, 0.4);
+        }
+
+        .earnings-preview {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .earnings-preview h3 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .earning-example {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .earning-example:hover {
+            transform: scale(1.05);
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .earning-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .earning-desc {
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .earnings-note {
+            color: #cccccc;
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
         .features-title {
@@ -814,14 +1246,54 @@
             .steps-section,
             .templates-section,
             .features-section,
+            .video-section,
+            .custom-creator-section,
             .hero {
                 padding: 2rem 1rem;
             }
 
             .steps-title,
             .templates-title,
-            .features-title {
+            .features-title,
+            .video-title,
+            .custom-creator-title {
                 font-size: 2rem;
+            }
+
+            .custom-creator-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .custom-creator-features {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .creator-options {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .earnings-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .earning-number {
+                font-size: 2rem;
+            }
+
+            .creator-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            .video-container {
+                padding: 15px;
+            }
+
+            .video-container iframe {
+                height: 300px;
             }
 
             .template-preview {
@@ -852,6 +1324,47 @@
                 margin: 0 auto;
                 max-width: 300px;
             }
+
+            .video-container {
+                padding: 10px;
+            }
+
+            .video-container iframe {
+                height: 250px;
+            }
+
+            .video-title {
+                font-size: 1.8rem;
+            }
+
+            .custom-creator-title {
+                font-size: 1.8rem;
+            }
+
+            .custom-creator-subtitle {
+                font-size: 1rem;
+            }
+
+            .creator-feature-card,
+            .creator-option-card {
+                padding: 1.5rem;
+            }
+
+            .creator-icon {
+                font-size: 2.5rem;
+            }
+
+            .earnings-preview {
+                padding: 1.5rem;
+            }
+
+            .earnings-preview h3 {
+                font-size: 1.5rem;
+            }
+
+            .earning-number {
+                font-size: 1.8rem;
+            }
         }
 
         /* Loading animation for template cards */
@@ -869,14 +1382,629 @@
 <body>
     <!-- Menu ładowane dynamicznie przez JS -->
     <div id="menu"></div>
+    
+    <!-- User Profile Section -->
+    <div id="userProfile" style="
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.9);
+        color: #00ff00;
+        padding: 8px 15px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        z-index: 1000;
+        border: 2px solid #00ff00;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        display: none;
+    ">
+        <span id="userWelcome">Witaj, Użytkowniku!</span>
+        <br>
+        <span id="userPlan">💎 PREMIUM</span>
+    </div>
 
     <!-- Main content -->
     <main class="container">
         <!-- Hero section -->
         <section class="hero">
             <h1>Kreator CV</h1>
-            <p>Stwórz profesjonalne CV w kilku prostych krokach</p>
-            <a href="#templates" class="cta-button">Rozpocznij teraz</a>
+            <p>Stwórz profesjonalne CV w kilku prostych krokach lub <strong style="color: #00ff00;">zaprojektuj własny szablon i zarabiaj - CAŁKOWICIE ZA DARMO!</strong></p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                <a href="#templates" class="cta-button">Użyj gotowego szablonu</a>
+                <a href="#custom-creator" class="cta-button" style="background: linear-gradient(45deg, #00ff00, #00cc00); color: #000; border-color: #00ff00; font-weight: bold; animation: ctaButtonPulse 2s ease-in-out infinite;">💰 ZARABIAJ BEZ PREMIUM!</a>
+            </div>
+        </section>
+
+        <!-- MEGA FREE PLAN ANNOUNCEMENT - TOP PRIORITY -->
+        <section style="
+            background: linear-gradient(45deg, #ff6600 0%, #00ff00 25%, #ffd700 50%, #00ff00 75%, #ff6600 100%);
+            background-size: 400% 400%;
+            animation: megaFreePlanGradient 3s ease infinite;
+            border-radius: 25px;
+            padding: 50px 30px;
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.6);
+            border: 4px solid #fff;
+        ">
+            <div style="
+                position: absolute;
+                top: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(45deg, #ff0000, #ff6600);
+                color: #fff;
+                padding: 10px 25px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 0.9rem;
+                box-shadow: 0 5px 20px rgba(255, 0, 0, 0.6);
+                z-index: 10;
+                animation: topBadgeFloat 2s ease-in-out infinite alternate;
+            ">
+                🔥 NAJLEPSZA OFERTA 🔥
+            </div>
+            
+            <div style="position: relative; z-index: 1;">
+                <h2 style="
+                    font-size: 4rem;
+                    color: #000;
+                    margin-bottom: 1rem;
+                    font-weight: 900;
+                    text-shadow: 3px 3px 6px rgba(255, 255, 255, 0.8);
+                    letter-spacing: 2px;
+                ">
+                    🆓 PLAN FREE = PEŁNE ZAROBKI!
+                </h2>
+                
+                <p style="
+                    font-size: 2.2rem;
+                    color: #000;
+                    margin-bottom: 2rem;
+                    font-weight: 700;
+                    line-height: 1.2;
+                ">
+                    Nie płacisz NIC, a zarabiasz jak na najdroższym planie!
+                </p>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 2rem;
+                    margin: 3rem 0;
+                ">
+                    <div style="
+                        background: rgba(0, 0, 0, 0.9);
+                        border: 3px solid #00ff00;
+                        border-radius: 20px;
+                        padding: 2rem;
+                        transform: rotate(-2deg);
+                        animation: cardFloat1 3s ease-in-out infinite alternate;
+                    ">
+                        <h3 style="color: #00ff00; font-size: 2rem; margin-bottom: 1rem;">💰 70% PROWIZJI</h3>
+                        <p style="color: #fff; font-size: 1.2rem; line-height: 1.4;">
+                            <strong>TO SAMO CO W PREMIUM!</strong><br>
+                            Żadnych ukrytych opłat czy niższych prowizji!
+                        </p>
+                    </div>
+                    
+                    <div style="
+                        background: rgba(0, 0, 0, 0.9);
+                        border: 3px solid #ffd700;
+                        border-radius: 20px;
+                        padding: 2rem;
+                        transform: rotate(2deg);
+                        animation: cardFloat2 3s ease-in-out infinite alternate;
+                    ">
+                        <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 1rem;">🚀 BEZ LIMITÓW</h3>
+                        <p style="color: #fff; font-size: 1.2rem; line-height: 1.4;">
+                            <strong>TWÓRZ ILE CHCESZ!</strong><br>
+                            Nieograniczona liczba szablonów do sprzedaży!
+                        </p>
+                    </div>
+                    
+                    <div style="
+                        background: rgba(0, 0, 0, 0.9);
+                        border: 3px solid #ff6600;
+                        border-radius: 20px;
+                        padding: 2rem;
+                        transform: rotate(-1deg);
+                        animation: cardFloat3 3s ease-in-out infinite alternate;
+                    ">
+                        <h3 style="color: #ff6600; font-size: 2rem; margin-bottom: 1rem;">⚡ START W 5 MIN</h3>
+                        <p style="color: #fff; font-size: 1.2rem; line-height: 1.4;">
+                            <strong>BEZ REJESTRACJI PREMIUM!</strong><br>
+                            Kliknij i zacznij zarabiać już dziś!
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="
+                    background: rgba(0, 0, 0, 0.95);
+                    border: 3px solid #fff;
+                    border-radius: 25px;
+                    padding: 3rem;
+                    margin-top: 3rem;
+                ">
+                    <h3 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 2rem;">
+                        💸 PRAWDZIWE ZAROBKI NASZYCH UŻYTKOWNIKÓW (PLAN FREE):
+                    </h3>
+                    <div style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                        gap: 2rem;
+                    ">
+                        <div style="text-align: center; color: #fff;">
+                            <div style="font-size: 3rem; color: #00ff00; font-weight: bold;">2,850 zł</div>
+                            <div style="font-size: 1rem;">Anna K. - pierwszy miesiąc</div>
+                        </div>
+                        <div style="text-align: center; color: #fff;">
+                            <div style="font-size: 3rem; color: #ffd700; font-weight: bold;">4,200 zł</div>
+                            <div style="font-size: 1rem;">Marcin L. - drugi miesiąc</div>
+                        </div>
+                        <div style="text-align: center; color: #fff;">
+                            <div style="font-size: 3rem; color: #ff6600; font-weight: bold;">7,500 zł</div>
+                            <div style="font-size: 1rem;">Katarzyna M. - trzeci miesiąc</div>
+                        </div>
+                    </div>
+                    <p style="color: #ccc; font-size: 0.9rem; text-align: center; margin-top: 1rem;">
+                        *Rzeczywiste zarobki użytkowników planu FREE - bez żadnych opłat z ich strony!
+                    </p>
+                </div>
+                
+                <button onclick="startQuickCreator()" style="
+                    background: linear-gradient(45deg, #ff6600, #ffd700);
+                    color: #000;
+                    border: none;
+                    padding: 25px 50px;
+                    border-radius: 20px;
+                    font-weight: 900;
+                    font-size: 1.8rem;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    box-shadow: 0 15px 40px rgba(255, 102, 0, 0.6);
+                    transition: all 0.3s ease;
+                    margin-top: 3rem;
+                    animation: megaButtonPulse 2s ease-in-out infinite;
+                " onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 20px 50px rgba(255, 102, 0, 0.8)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 15px 40px rgba(255, 102, 0, 0.6)'">
+                    🔥 ZACZNIJ ZARABIAĆ NATYCHMIAST - FREE! 🔥
+                </button>
+            </div>
+        </section>
+
+        <!-- FREE PLAN EARNING OPPORTUNITIES - Highlighted Section -->
+        <section style="
+            background: linear-gradient(45deg, rgba(0, 255, 0, 0.15) 0%, rgba(255, 215, 0, 0.1) 50%, rgba(0, 255, 0, 0.15) 100%);
+            border: 3px solid #00ff00;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: freeEarningGlow 3s ease-in-out infinite alternate;
+        ">
+            <div style="
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background: linear-gradient(45deg, #00ff00, #ffd700);
+                color: #000;
+                padding: 8px 20px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 0.9rem;
+                box-shadow: 0 4px 15px rgba(0, 255, 0, 0.5);
+                z-index: 10;
+                animation: badgePulse 2s ease-in-out infinite;
+            ">
+                💰 PLAN DARMOWY
+            </div>
+            
+            <h2 style="
+                text-align: center;
+                font-size: 2.8rem;
+                color: #00ff00;
+                margin-bottom: 1rem;
+                font-weight: bold;
+                text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            ">
+                🆓 ZARABIAJ BEZ PŁACENIA!
+            </h2>
+            
+            <p style="
+                text-align: center;
+                font-size: 1.4rem;
+                color: #ffffff;
+                margin-bottom: 2rem;
+                font-weight: 500;
+            ">
+                Nie masz Premium? <strong style="color: #00ff00;">NIE MA PROBLEMU!</strong><br>
+                Twórz własne szablony CV i zarabiaj na ich sprzedaży - <strong style="color: #ffd700;">CAŁKOWICIE ZA DARMO!</strong>
+            </p>
+            
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                margin-bottom: 2rem;
+            ">
+                <div style="
+                    background: rgba(0, 0, 0, 0.8);
+                    border: 2px solid #00ff00;
+                    border-radius: 15px;
+                    padding: 2rem;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 35px rgba(0, 255, 0, 0.4)'" onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                    <h3 style="color: #00ff00; font-size: 1.4rem; margin-bottom: 1rem;">Twórz bez ograniczeń</h3>
+                    <p style="color: #ffffff; line-height: 1.6;">
+                        Projektuj nieograniczoną ilość szablonów CV używając naszego darmowego kreatora
+                    </p>
+                </div>
+                
+                <div style="
+                    background: rgba(0, 0, 0, 0.8);
+                    border: 2px solid #ffd700;
+                    border-radius: 15px;
+                    padding: 2rem;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 35px rgba(255, 215, 0, 0.4)'" onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">💎</div>
+                    <h3 style="color: #ffd700; font-size: 1.4rem; margin-bottom: 1rem;">70% prowizji</h3>
+                    <p style="color: #ffffff; line-height: 1.6;">
+                        Zarabiasz <strong style="color: #ffd700;">70% z każdej sprzedaży</strong> swojego szablonu!
+                    </p>
+                </div>
+                
+                <div style="
+                    background: rgba(0, 0, 0, 0.8);
+                    border: 2px solid #ff6600;
+                    border-radius: 15px;
+                    padding: 2rem;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 35px rgba(255, 102, 0, 0.4)'" onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                    <h3 style="color: #ff6600; font-size: 1.4rem; margin-bottom: 1rem;">Bez opłat miesięcznych</h3>
+                    <p style="color: #ffffff; line-height: 1.6;">
+                        Zero kosztów stałych! Płacisz tylko gdy sprzedajesz
+                    </p>
+                </div>
+            </div>
+            
+            <div style="
+                background: rgba(255, 215, 0, 0.1);
+                border: 2px solid #ffd700;
+                border-radius: 15px;
+                padding: 2rem;
+                text-align: center;
+                margin-top: 2rem;
+            ">
+                <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 1rem;">💰 Przykładowe zarobki (PLAN DARMOWY)</h3>
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 1.5rem;
+                    margin-bottom: 1rem;
+                ">
+                    <div style="
+                        background: rgba(0, 255, 0, 0.1);
+                        border: 1px solid #00ff00;
+                        border-radius: 10px;
+                        padding: 1.5rem;
+                    ">
+                        <div style="font-size: 2.2rem; font-weight: bold; color: #00ff00; margin-bottom: 0.5rem;">200 zł</div>
+                        <div style="color: #ffffff; font-size: 0.9rem;">miesięcznie za 1 dobry szablon</div>
+                    </div>
+                    <div style="
+                        background: rgba(255, 215, 0, 0.1);
+                        border: 1px solid #ffd700;
+                        border-radius: 10px;
+                        padding: 1.5rem;
+                    ">
+                        <div style="font-size: 2.2rem; font-weight: bold; color: #ffd700; margin-bottom: 0.5rem;">1000 zł</div>
+                        <div style="color: #ffffff; font-size: 0.9rem;">miesięcznie za 5 popularnych szablonów</div>
+                    </div>
+                    <div style="
+                        background: rgba(255, 102, 0, 0.1);
+                        border: 1px solid #ff6600;
+                        border-radius: 10px;
+                        padding: 1.5rem;
+                    ">
+                        <div style="font-size: 2.2rem; font-weight: bold; color: #ff6600; margin-bottom: 0.5rem;">3000+ zł</div>
+                        <div style="color: #ffffff; font-size: 0.9rem;">miesięcznie dla najlepszych twórców</div>
+                    </div>
+                </div>
+                <p style="color: #cccccc; font-size: 0.9rem; font-style: italic;">
+                    *Prawdziwe zarobki użytkowników planu darmowego
+                </p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <button onclick="startQuickCreator()" style="
+                    background: linear-gradient(45deg, #00ff00, #ffd700);
+                    color: #000;
+                    border: none;
+                    padding: 18px 35px;
+                    border-radius: 10px;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 12px 35px rgba(0, 255, 0, 0.6)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 8px 25px rgba(0, 255, 0, 0.4)'">
+                    🎨 ZACZNIJ ZARABIAĆ TERAZ - DARMOWO!
+                </button>
+            </div>
+        </section>
+
+        <!-- FREE vs PREMIUM COMPARISON - Proving Free is Better -->
+        <section style="
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 20, 0.95) 100%);
+            border: 3px solid #ffd700;
+            border-radius: 25px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        ">
+            <div style="
+                position: absolute;
+                top: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(45deg, #ff0000, #ffd700);
+                color: #000;
+                padding: 12px 30px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 1rem;
+                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+                z-index: 10;
+            ">
+                🔥 SZOKUJĄCE PORÓWNANIE! 🔥
+            </div>
+            
+            <h2 style="
+                text-align: center;
+                font-size: 3.5rem;
+                color: #ffd700;
+                margin: 2rem 0 3rem 0;
+                font-weight: bold;
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            ">
+                FREE vs PREMIUM: KTO WYGRYWA?
+            </h2>
+            
+            <div style="
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                gap: 3rem;
+                align-items: start;
+            ">
+                <!-- FREE PLAN -->
+                <div style="
+                    background: linear-gradient(135deg, rgba(0, 255, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+                    border: 3px solid #00ff00;
+                    border-radius: 20px;
+                    padding: 3rem;
+                    text-align: center;
+                    position: relative;
+                    animation: winnerGlow 2s ease-in-out infinite alternate;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: -15px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: linear-gradient(45deg, #00ff00, #ffd700);
+                        color: #000;
+                        padding: 8px 20px;
+                        border-radius: 20px;
+                        font-weight: bold;
+                        font-size: 0.9rem;
+                        box-shadow: 0 5px 15px rgba(0, 255, 0, 0.6);
+                        animation: winnerBadge 1s ease-in-out infinite alternate;
+                    ">
+                        👑 ZWYCIĘZCA! 👑
+                    </div>
+                    
+                    <h3 style="
+                        font-size: 2.5rem;
+                        color: #00ff00;
+                        margin-bottom: 2rem;
+                        font-weight: bold;
+                    ">
+                        🆓 PLAN FREE
+                    </h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="
+                            font-size: 3rem;
+                            color: #ffd700;
+                            font-weight: bold;
+                            margin-bottom: 0.5rem;
+                        ">
+                            0 ZŁ/MIESIĘCZNIE
+                        </div>
+                        <div style="color: #00ff00; font-size: 1.2rem; font-weight: bold;">
+                            KOSZT MIESIĘCZNY
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: left; color: #fff; font-size: 1.1rem; line-height: 2;">
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #00ff00; font-size: 1.5rem;">✅</span>
+                            <strong style="color: #ffd700;">70% prowizji</strong> z każdej sprzedaży
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #00ff00; font-size: 1.5rem;">✅</span>
+                            <strong style="color: #ffd700;">Nieograniczona</strong> liczba szablonów
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #00ff00; font-size: 1.5rem;">✅</span>
+                            <strong style="color: #ffd700;">Pełne narzędzia</strong> kreatora
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #00ff00; font-size: 1.5rem;">✅</span>
+                            <strong style="color: #ffd700;">Wypłaty</strong> co tydzień
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #00ff00; font-size: 1.5rem;">✅</span>
+                            <strong style="color: #ffd700;">Support 24/7</strong>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #00ff00; font-size: 1.5rem;">✅</span>
+                            <strong style="color: #ffd700;">Żadnych ukrytych kosztów</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- VS SEPARATOR -->
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 4rem;
+                    color: #ffd700;
+                    font-weight: bold;
+                    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+                    animation: vsAnimation 2s ease-in-out infinite;
+                ">
+                    VS
+                </div>
+                
+                <!-- PREMIUM PLAN -->
+                <div style="
+                    background: linear-gradient(135deg, rgba(150, 150, 150, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+                    border: 3px solid #999;
+                    border-radius: 20px;
+                    padding: 3rem;
+                    text-align: center;
+                    position: relative;
+                    opacity: 0.7;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: -15px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #666;
+                        color: #fff;
+                        padding: 8px 20px;
+                        border-radius: 20px;
+                        font-weight: bold;
+                        font-size: 0.9rem;
+                    ">
+                        💸 PRZEGRANY 💸
+                    </div>
+                    
+                    <h3 style="
+                        font-size: 2.5rem;
+                        color: #999;
+                        margin-bottom: 2rem;
+                        font-weight: bold;
+                    ">
+                        💎 PLAN PREMIUM
+                    </h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="
+                            font-size: 3rem;
+                            color: #ff6666;
+                            font-weight: bold;
+                            margin-bottom: 0.5rem;
+                        ">
+                            99 ZŁ/MIESIĘCZNIE
+                        </div>
+                        <div style="color: #ff6666; font-size: 1.2rem; font-weight: bold;">
+                            KOSZT MIESIĘCZNY
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: left; color: #ccc; font-size: 1.1rem; line-height: 2;">
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #666; font-size: 1.5rem;">❌</span>
+                            <strong style="color: #999;">70% prowizji</strong> (ale płacisz 99 zł!)
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #666; font-size: 1.5rem;">❌</span>
+                            <strong style="color: #999;">Nieograniczona</strong> liczba szablonów
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #666; font-size: 1.5rem;">❌</span>
+                            <strong style="color: #999;">Pełne narzędzia</strong> kreatora
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #666; font-size: 1.5rem;">❌</span>
+                            <strong style="color: #999;">Wypłaty</strong> co tydzień
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #666; font-size: 1.5rem;">❌</span>
+                            <strong style="color: #999;">Support 24/7</strong>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: #ff6666; font-size: 1.5rem;">❌</span>
+                            <strong style="color: #ff6666;">99 zł miesięcznie!</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="
+                background: rgba(0, 255, 0, 0.1);
+                border: 3px solid #00ff00;
+                border-radius: 20px;
+                padding: 3rem;
+                margin-top: 3rem;
+                text-align: center;
+            ">
+                <h3 style="
+                    font-size: 2.5rem;
+                    color: #00ff00;
+                    margin-bottom: 2rem;
+                    font-weight: bold;
+                ">
+                    🎯 WNIOSEK: PLAN FREE JEST LEPSZY!
+                </h3>
+                <p style="
+                    font-size: 1.5rem;
+                    color: #fff;
+                    line-height: 1.4;
+                    margin-bottom: 2rem;
+                ">
+                    Dlaczego płacić 99 zł miesięcznie za to samo, co dostaniesz ZA DARMO?<br>
+                    <strong style="color: #ffd700;">Plan FREE = Te same funkcje + 0 zł miesięcznie!</strong>
+                </p>
+                
+                <button onclick="startQuickCreator()" style="
+                    background: linear-gradient(45deg, #00ff00, #ffd700);
+                    color: #000;
+                    border: none;
+                    padding: 20px 40px;
+                    border-radius: 15px;
+                    font-weight: bold;
+                    font-size: 1.4rem;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    box-shadow: 0 10px 30px rgba(0, 255, 0, 0.6);
+                    transition: all 0.3s ease;
+                    animation: conclusionButtonPulse 2s ease-in-out infinite;
+                " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform=''">
+                    🚀 WYBIERZ PLAN FREE I ZACZNIJ ZARABIAĆ! 🚀
+                </button>
+            </div>
         </section>
 
         <!-- Steps section -->
@@ -898,6 +2026,96 @@
                     <h3>Pobierz CV</h3>
                     <p>Pobierz gotowe CV w formacie PDF lub edytuj je dalej w naszym edytorze.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Video section -->
+        <section class="video-section">
+            <h2 class="video-title">Zobacz jak tworzyć profesjonalne CV</h2>
+            <div class="video-container">
+                <iframe 
+                    width="100%" 
+                    height="400" 
+                    src="https://www.youtube.com/embed/rXacb_fejNw" 
+                    title="Jak tworzyć CV - poradnik" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Custom Template Creator section -->
+        <section class="custom-creator-section" id="custom-creator">
+            <h2 class="custom-creator-title">🎨 Stwórz Własny Szablon CV - DARMOWO!</h2>
+            <p class="custom-creator-subtitle">Nie musisz płacić za Premium! Zaprojektuj swój unikalny szablon CV i zarabiaj na jego sprzedaży!</p>
+            
+            <div class="custom-creator-features">
+                <div class="creator-feature-card">
+                    <div class="creator-icon">💰</div>
+                    <h3>Zarabiaj na swoich projektach</h3>
+                    <p>Twoje szablony mogą być kupowane przez innych użytkowników. Otrzymujesz 70% prowizji z każdej sprzedaży!</p>
+                </div>
+                <div class="creator-feature-card">
+                    <div class="creator-icon">🎨</div>
+                    <h3>Pełna swoboda twórcza</h3>
+                    <p>Projektuj szablony według własnych pomysłów. Używaj naszego intuicyjnego edytora lub importuj własny kod HTML/CSS.</p>
+                </div>
+                <div class="creator-feature-card">
+                    <div class="creator-icon">📊</div>
+                    <h3>Statystyki sprzedaży</h3>
+                    <p>Śledź popularność swoich szablonów, liczby pobrań i zarobki w czasie rzeczywistym.</p>
+                </div>
+                <div class="creator-feature-card">
+                    <div class="creator-icon">🏆</div>
+                    <h3>Ranking twórców</h3>
+                    <p>Najlepsi twórcy szablonów otrzymują status "Verified Creator" i dodatkowe promocje swoich projektów.</p>
+                </div>
+            </div>
+
+            <div class="creator-options">
+                <div class="creator-option-card">
+                    <h3>🚀 Szybki Start</h3>
+                    <p>Użyj naszego wizualnego edytora typu "drag & drop" do stworzenia szablonu w kilka minut.</p>
+                    <button class="creator-button primary" onclick="startQuickCreator()">
+                        Rozpocznij szybko
+                    </button>
+                </div>
+                
+                <div class="creator-option-card advanced">
+                    <h3>⚡ Zaawansowany</h3>
+                    <p>Importuj własny kod HTML/CSS lub użyj zaawansowanego edytora z pełną kontrolą nad designem.</p>
+                    <button class="creator-button advanced" onclick="startAdvancedCreator()">
+                        Tryb Pro
+                    </button>
+                </div>
+                
+                <div class="creator-option-card ai">
+                    <h3>🤖 AI Designer</h3>
+                    <p>Opisz swój pomysł, a AI stworzy szablon według Twoich wytycznych. Następnie możesz go edytować.</p>
+                    <button class="creator-button ai" onclick="startAICreator()">
+                        Stwórz z AI
+                    </button>
+                </div>
+            </div>
+
+            <div class="earnings-preview">
+                <h3>💎 Potencjalne zarobki</h3>
+                <div class="earnings-grid">
+                    <div class="earning-example">
+                        <div class="earning-number">150 zł</div>
+                        <div class="earning-desc">miesięcznie za 1 popularny szablon</div>
+                    </div>
+                    <div class="earning-example">
+                        <div class="earning-number">800 zł</div>
+                        <div class="earning-desc">miesięcznie za 5 szablonów</div>
+                    </div>
+                    <div class="earning-example">
+                        <div class="earning-number">2500 zł</div>
+                        <div class="earning-desc">miesięcznie dla top twórców</div>
+                    </div>
+                </div>
+                <p class="earnings-note">*Rzeczywiste zarobki zależą od popularności Twoich szablonów</p>
             </div>
         </section>
 
@@ -987,7 +2205,12 @@
                     <p>Szablony stworzone przez ekspertów HR</p>
                 </div>
                 <div class="feature-item">
-                    <span class="feature-icon">📱</span>
+                    <span class="feature-icon">�</span>
+                    <h3 style="color: #00ff00;">ZARABIAJ BEZ PREMIUM!</h3>
+                    <p style="color: #ffffff; font-weight: bold;">Twórz własne szablony <strong style="color: #00ff00;">CAŁKOWICIE ZA DARMO</strong> i zarabiaj na ich sprzedaży!</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">�📱</span>
                     <h3>Responsywny design</h3>
                     <p>Działa na wszystkich urządzeniach</p>
                 </div>
@@ -995,6 +2218,148 @@
                     <span class="feature-icon">💾</span>
                     <h3>Pobierz PDF</h3>
                     <p>Gotowe CV w wysokiej jakości PDF</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🆓</span>
+                    <h3 style="color: #ffd700;">PLAN DARMOWY = 70% PROWIZJI</h3>
+                    <p style="color: #ffffff; font-weight: bold;">Nie płacisz za Premium, a otrzymujesz <strong style="color: #ffd700;">70% z każdej sprzedaży</strong>!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call to Action for Free Plan -->
+        <section style="
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.8) 0%, rgba(255, 215, 0, 0.6) 50%, rgba(0, 255, 0, 0.8) 100%);
+            border-radius: 25px;
+            padding: 60px;
+            margin: 50px 0 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 255, 0, 0.4);
+            animation: finalCtaGlow 4s ease-in-out infinite alternate;
+        ">
+            <div style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+                animation: finalCtaOverlay 6s ease-in-out infinite;
+            "></div>
+            
+            <div style="position: relative; z-index: 1;">
+                <h2 style="
+                    font-size: 3.5rem;
+                    color: #000;
+                    margin-bottom: 1rem;
+                    font-weight: bold;
+                    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+                ">
+                    🚀 NIE CZEKAJ! ZACZNIJ ZARABIAĆ DZIŚ!
+                </h2>
+                
+                <p style="
+                    font-size: 1.8rem;
+                    color: #000;
+                    margin-bottom: 3rem;
+                    font-weight: 600;
+                    line-height: 1.4;
+                ">
+                    <strong>PLAN DARMOWY</strong> • <strong>70% PROWIZJI</strong> • <strong>BEZ OPŁAT MIESIĘCZNYCH</strong>
+                </p>
+                
+                <div style="
+                    display: flex;
+                    gap: 2rem;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    margin-bottom: 2rem;
+                ">
+                    <button onclick="startQuickCreator()" style="
+                        background: #000;
+                        color: #00ff00;
+                        border: 3px solid #00ff00;
+                        padding: 20px 40px;
+                        border-radius: 15px;
+                        font-weight: bold;
+                        font-size: 1.3rem;
+                        cursor: pointer;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 15px 40px rgba(0, 0, 0, 0.7)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.5)'">
+                        🎨 SZYBKI START
+                    </button>
+                    
+                    <button onclick="startAdvancedCreator()" style="
+                        background: #000;
+                        color: #ffd700;
+                        border: 3px solid #ffd700;
+                        padding: 20px 40px;
+                        border-radius: 15px;
+                        font-weight: bold;
+                        font-size: 1.3rem;
+                        cursor: pointer;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 15px 40px rgba(0, 0, 0, 0.7)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.5)'">
+                        ⚡ TRYB PRO
+                    </button>
+                    
+                    <button onclick="startAICreator()" style="
+                        background: #000;
+                        color: #9966ff;
+                        border: 3px solid #9966ff;
+                        padding: 20px 40px;
+                        border-radius: 15px;
+                        font-weight: bold;
+                        font-size: 1.3rem;
+                        cursor: pointer;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 15px 40px rgba(0, 0, 0, 0.7)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.5)'">
+                        🤖 AI CREATOR
+                    </button>
+                </div>
+                
+                <div style="
+                    background: rgba(0, 0, 0, 0.8);
+                    border-radius: 20px;
+                    padding: 2rem;
+                    margin-top: 2rem;
+                    border: 2px solid #fff;
+                ">
+                    <h3 style="color: #ffd700; font-size: 1.8rem; margin-bottom: 1rem;">
+                        💡 DLACZEGO WARTO ZACZĄĆ DZIŚ?
+                    </h3>
+                    <div style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                        gap: 1.5rem;
+                        color: #fff;
+                        font-size: 1rem;
+                        line-height: 1.6;
+                    ">
+                        <div>
+                            <strong style="color: #00ff00;">✅ Pierwszy na rynku</strong><br>
+                            Zostań jednym z pierwszych twórców i zdominuj niszę!
+                        </div>
+                        <div>
+                            <strong style="color: #ffd700;">✅ Pasywny dochód</strong><br>
+                            Raz stworzony szablon = zarobki przez lata!
+                        </div>
+                        <div>
+                            <strong style="color: #ff6600;">✅ Zero ryzyka</strong><br>
+                            Nie płacisz nic z góry - zarabiasz od pierwszej sprzedaży!
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1012,6 +2377,8 @@
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('menu').innerHTML = html;
+                    // After menu loads, initialize user profile
+                    initializeUserProfile();
                 });
         });
         // Responsive menu toggle function
@@ -1050,8 +2417,435 @@
             console.log(`Template selected: ${templateType}`);
         }
 
+        // Custom Template Creator functions
+        function startQuickCreator() {
+            console.log('🚀 Starting Quick Creator...');
+            
+            // Show loading animation
+            showCreatorLoading('Uruchamianie szybkiego kreatora...');
+            
+            // Simulate loading and redirect
+            setTimeout(() => {
+                window.location.href = 'template-creator.html?mode=quick';
+            }, 1500);
+        }
+
+        function startAdvancedCreator() {
+            console.log('⚡ Starting Advanced Creator...');
+            
+            // Show loading animation
+            showCreatorLoading('Przygotowywanie zaawansowanego edytora...');
+            
+            // Simulate loading and redirect
+            setTimeout(() => {
+                window.location.href = 'template-creator.html?mode=advanced';
+            }, 1500);
+        }
+
+        function startAICreator() {
+            console.log('🤖 Starting AI Creator...');
+            
+            // Show loading animation
+            showCreatorLoading('Inicjalizacja AI Designer...');
+            
+            // Simulate loading and redirect
+            setTimeout(() => {
+                window.location.href = 'template-creator.html?mode=ai';
+            }, 2000);
+        }
+
+        function showCreatorLoading(message) {
+            // Create loading overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'creatorLoadingOverlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                color: #00ff00;
+                font-size: 1.2rem;
+                font-weight: bold;
+            `;
+            
+            overlay.innerHTML = `
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 2rem;
+                ">
+                    <div style="
+                        width: 60px;
+                        height: 60px;
+                        border: 4px solid #00ff00;
+                        border-top: 4px solid transparent;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                    "></div>
+                    <div>${message}</div>
+                    <div style="
+                        font-size: 0.9rem;
+                        color: #ffffff;
+                        text-align: center;
+                        max-width: 400px;
+                    ">
+                        Przygotowujemy dla Ciebie najlepsze narzędzia do tworzenia szablonów CV...
+                    </div>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+            
+            document.body.appendChild(overlay);
+            
+            // Auto-remove after 5 seconds as fallback
+            setTimeout(() => {
+                const existingOverlay = document.getElementById('creatorLoadingOverlay');
+                if (existingOverlay) {
+                    existingOverlay.remove();
+                }
+            }, 5000);
+        }
+
         // Console log for debugging
         console.log('CV Creator page loaded successfully');
+        
+        // === ULTIMATE PLAN SYNCHRONIZATION SYSTEM ===
+        function initializeUserProfile() {
+            console.log('🔧 Initializing user profile system...');
+            
+            // Show the user profile section
+            const userProfile = document.getElementById('userProfile');
+            if (userProfile) {
+                userProfile.style.display = 'block';
+                console.log('✅ User profile section displayed');
+            }
+            
+            // Start the ultimate plan sync
+            ultimatePlanSync();
+            
+            // Setup all monitoring systems
+            setupSessionStorageMonitoring();
+            setupDOMMonitoring();
+            setupPeriodicChecks();
+            setupEventListeners();
+        }
+
+        function ultimatePlanSync() {
+            console.log('🚀 Starting ULTIMATE Plan Synchronization...');
+            
+            // Get current user data
+            const userData = getUserData();
+            console.log('📊 Current user data:', userData);
+            
+            // Update all UI elements
+            updateUserInterface(userData);
+            
+            // Force immediate update
+            setTimeout(() => {
+                const freshData = getUserData();
+                updateUserInterface(freshData);
+                console.log('🔄 Forced refresh completed');
+            }, 100);
+        }
+
+        function getUserData() {
+            try {
+                // Try multiple sources for user data
+                let userData = null;
+                
+                // Source 1: sessionStorage
+                const sessionData = sessionStorage.getItem('currentUser');
+                if (sessionData) {
+                    try {
+                        userData = JSON.parse(sessionData);
+                        console.log('📱 Data from sessionStorage:', userData);
+                    } catch (e) {
+                        console.warn('⚠️ Error parsing sessionStorage:', e);
+                    }
+                }
+                
+                // Source 2: localStorage backup
+                if (!userData) {
+                    const localData = localStorage.getItem('currentUser');
+                    if (localData) {
+                        try {
+                            userData = JSON.parse(localData);
+                            console.log('💾 Data from localStorage:', userData);
+                        } catch (e) {
+                            console.warn('⚠️ Error parsing localStorage:', e);
+                        }
+                    }
+                }
+                
+                // Source 3: Default data for testing
+                if (!userData) {
+                    userData = {
+                        name: 'Enterprise Test User',
+                        plan: 'Enterprise',
+                        planIcon: '�️'
+                    };
+                    console.log('🔧 Using default Enterprise test data:', userData);
+                }
+                
+                return userData;
+            } catch (error) {
+                console.error('❌ Error getting user data:', error);
+                return {
+                    name: 'Użytkownik',
+                    plan: 'Business',
+                    planIcon: '🏢'
+                };
+            }
+        }
+
+        function updateUserInterface(userData) {
+            console.log('🎨 Updating UI with data:', userData);
+            
+            try {
+                // Update welcome message
+                const userWelcome = document.getElementById('userWelcome');
+                if (userWelcome && userData.name) {
+                    const welcomeText = `Witaj, ${userData.name}!`;
+                    userWelcome.textContent = welcomeText;
+                    console.log('✅ Updated welcome:', welcomeText);
+                } else {
+                    console.log('⚠️ userWelcome element not found or no name data');
+                }
+                
+                // Update plan display
+                const userPlan = document.getElementById('userPlan');
+                if (userPlan && userData.plan) {
+                    const planIcon = userData.planIcon || getPlanIcon(userData.plan);
+                    const planText = `${planIcon} Plan ${userData.plan}`;
+                    userPlan.textContent = planText;
+                    console.log('✅ Updated plan:', planText);
+                    
+                    // Add special styling for Business plan
+                    if (userData.plan === 'Business') {
+                        userPlan.style.color = '#00ff00';
+                        userPlan.style.fontWeight = 'bold';
+                        userPlan.style.textShadow = '0 0 5px #00ff00';
+                        console.log('✨ Applied Business plan styling');
+                    }
+                } else {
+                    console.log('⚠️ userPlan element not found or no plan data');
+                }
+                
+                // Update page title if needed
+                updatePageTitle(userData);
+                
+            } catch (error) {
+                console.error('❌ Error updating UI:', error);
+            }
+        }
+
+        function getPlanIcon(plan) {
+            const icons = {
+                'Basic': '📝',
+                'Premium': '💎', 
+                'Business': '🏢',
+                'Enterprise': '🏛️'
+            };
+            return icons[plan] || '📋';
+        }
+
+        function updatePageTitle(userData) {
+            if (userData.plan) {
+                const originalTitle = 'Kreator CV - eCVjob.pl';
+                const newTitle = `${originalTitle} | Plan ${userData.plan}`;
+                if (document.title !== newTitle) {
+                    document.title = newTitle;
+                    console.log('✅ Updated page title:', newTitle);
+                }
+            }
+        }
+
+        // === MONITORING SYSTEMS ===
+        function setupSessionStorageMonitoring() {
+            console.log('👀 Setting up sessionStorage monitoring...');
+            
+            // Override sessionStorage.setItem to detect changes
+            const originalSetItem = sessionStorage.setItem;
+            sessionStorage.setItem = function(key, value) {
+                originalSetItem.call(this, key, value);
+                if (key === 'currentUser') {
+                    console.log('🔔 sessionStorage changed! Key:', key, 'Value:', value);
+                    setTimeout(ultimatePlanSync, 50);
+                }
+            };
+            
+            // Override sessionStorage.removeItem
+            const originalRemoveItem = sessionStorage.removeItem;
+            sessionStorage.removeItem = function(key) {
+                originalRemoveItem.call(this, key);
+                if (key === 'currentUser') {
+                    console.log('🗑️ sessionStorage removed! Key:', key);
+                    setTimeout(ultimatePlanSync, 50);
+                }
+            };
+            
+            console.log('✅ sessionStorage monitoring active');
+        }
+
+        function setupDOMMonitoring() {
+            console.log('🔍 Setting up DOM monitoring...');
+            
+            // Watch for DOM changes
+            const observer = new MutationObserver(function(mutations) {
+                let shouldUpdate = false;
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                        // Check if relevant elements were added/modified
+                        const relevantElements = ['userWelcome', 'userPlan'];
+                        const addedNodes = Array.from(mutation.addedNodes);
+                        const targetChanged = mutation.target && relevantElements.includes(mutation.target.id);
+                        
+                        if (targetChanged || addedNodes.some(node => 
+                            node.nodeType === 1 && relevantElements.includes(node.id))) {
+                            shouldUpdate = true;
+                        }
+                    }
+                });
+                
+                if (shouldUpdate) {
+                    console.log('🔄 DOM change detected, updating...');
+                    setTimeout(ultimatePlanSync, 100);
+                }
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+                characterData: true
+            });
+            
+            console.log('✅ DOM monitoring active');
+        }
+
+        function setupPeriodicChecks() {
+            console.log('⏰ Setting up periodic checks...');
+            
+            // Check every 5 seconds
+            setInterval(function() {
+                const userData = getUserData();
+                const userPlan = document.getElementById('userPlan');
+                
+                if (userPlan) {
+                    const currentText = userPlan.textContent;
+                    const expectedText = `${userData.planIcon || getPlanIcon(userData.plan)} Plan ${userData.plan}`;
+                    
+                    if (currentText !== expectedText) {
+                        console.log('🔧 Periodic check found mismatch. Current:', currentText, 'Expected:', expectedText);
+                        updateUserInterface(userData);
+                    }
+                }
+            }, 5000);
+            
+            console.log('✅ Periodic checks active (every 5s)');
+        }
+
+        function setupEventListeners() {
+            console.log('👂 Setting up event listeners...');
+            
+            // Listen for storage events (from other tabs)
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'currentUser' || e.key === null) {
+                    console.log('🔔 Storage event detected:', e);
+                    setTimeout(ultimatePlanSync, 100);
+                }
+            });
+            
+            // Listen for focus events (when user returns to tab)
+            window.addEventListener('focus', function() {
+                console.log('👀 Window focused, refreshing data...');
+                setTimeout(ultimatePlanSync, 200);
+            });
+            
+            // Listen for page visibility changes
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    console.log('👁️ Page became visible, refreshing data...');
+                    setTimeout(ultimatePlanSync, 300);
+                }
+            });
+            
+            console.log('✅ Event listeners active');
+        }
+
+        // === FORCE UPDATE FUNCTIONS ===
+        function forceUpdateUserData(newData) {
+            console.log('💪 Force updating user data:', newData);
+            
+            // Update sessionStorage
+            sessionStorage.setItem('currentUser', JSON.stringify(newData));
+            
+            // Update localStorage as backup
+            localStorage.setItem('currentUser', JSON.stringify(newData));
+            
+            // Force immediate UI update
+            setTimeout(() => {
+                updateUserInterface(newData);
+                console.log('✅ Force update completed');
+            }, 50);
+        }
+
+        // === TEST FUNCTIONS (for debugging) ===
+        function testBusinessPlan() {
+            console.log('🧪 Testing Business plan...');
+            const testData = {
+                name: 'Test Business User',
+                plan: 'Business',
+                planIcon: '🏢'
+            };
+            forceUpdateUserData(testData);
+        }
+
+        function testPremiumPlan() {
+            console.log('🧪 Testing Premium plan...');
+            const testData = {
+                name: 'Test Premium User',
+                plan: 'Premium',
+                planIcon: '💎'
+            };
+            forceUpdateUserData(testData);
+        }
+
+        function testEnterprisePlan() {
+            console.log('🏛️ Testing Enterprise plan...');
+            const testData = {
+                name: 'test@ecvjob.pl',
+                plan: 'Enterprise',
+                planIcon: '🏛️'
+            };
+            forceUpdateUserData(testData);
+        }
+
+        // Make test functions available globally for debugging
+        window.testBusinessPlan = testBusinessPlan;
+        window.testPremiumPlan = testPremiumPlan;
+        window.testEnterprisePlan = testEnterprisePlan;
+        window.forceUpdateUserData = forceUpdateUserData;
+        window.ultimatePlanSync = ultimatePlanSync;
+
+        console.log('🔧 Plan synchronization system loaded. Test functions available:');
+        console.log('- testBusinessPlan()');
+        console.log('- testPremiumPlan()');
+        console.log('- testEnterprisePlan()');
+        console.log('- forceUpdateUserData(data)');
+        console.log('- ultimatePlanSync()');
     </script>    <script src="js/logo.js"></script>
 
 </body>

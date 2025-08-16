@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Final Check - Synchronizacja Planów</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .status {
+            background: #2a2a2a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #00ff00;
+        }
+        .error {
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+        .warning {
+            border-color: #ffaa00;
+            color: #ffaa00;
+        }
+        .success {
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #00cc00;
+        }
+        pre {
+            background: #0a0a0a;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Final Check - Synchronizacja Planów</h1>
+    
+    <div class="status">
+        <h3>📊 Status w czasie rzeczywistym:</h3>
+        <div id="realTimeStatus">Ładowanie...</div>
+    </div>
+    
+    <div class="status">
+        <h3>🎯 Test elementów DOM:</h3>
+        <div id="domTest">Sprawdzanie...</div>
+    </div>
+    
+    <div class="status">
+        <h3>💾 Test sessionStorage:</h3>
+        <div id="storageTest">Sprawdzanie...</div>
+    </div>
+    
+    <div class="status">
+        <h3>⚠️ Wykrywanie problemów:</h3>
+        <div id="problemDetection">Analizowanie...</div>
+    </div>
+    
+    <div>
+        <button onclick="simulatePremium()">Ustaw Premium</button>
+        <button onclick="simulateEnterprise()">Ustaw Enterprise</button>
+        <button onclick="simulateBusiness()">Ustaw Business</button>
+        <button onclick="clearStorage()">Wyczyść Storage</button>
+        <button onclick="runFullTest()">Pełny Test</button>
+    </div>
+    
+    <div class="status">
+        <h3>📋 Logi:</h3>
+        <pre id="logs"></pre>
+    </div>
+
+    <script>
+        let logBuffer = [];
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            logBuffer.push(logEntry);
+            if (logBuffer.length > 50) logBuffer.shift();
+            
+            document.getElementById('logs').textContent = logBuffer.join('\n');
+            console.log(logEntry);
+        }
+        
+        function checkDOMElements() {
+            // Sprawdź czy w ogóle istnieją elementy userWelcome i userPlan
+            const userWelcome = document.getElementById('userWelcome');
+            const userPlan = document.getElementById('userPlan');
+            
+            let domStatus = '';
+            
+            if (!userWelcome && !userPlan) {
+                domStatus = '❌ BRAK elementów userWelcome i userPlan na tej stronie (to jest normalne dla strony testowej)';
+            } else {
+                domStatus = '✅ Elementy DOM znalezione:\n';
+                if (userWelcome) {
+                    domStatus += `- userWelcome: "${userWelcome.innerHTML}"\n`;
+                }
+                if (userPlan) {
+                    domStatus += `- userPlan: "${userPlan.innerHTML}"\n`;
+                }
+            }
+            
+            document.getElementById('domTest').innerHTML = domStatus.replace(/\n/g, '<br>');
+            return { userWelcome, userPlan };
+        }
+        
+        function checkSessionStorage() {
+            const userData = sessionStorage.getItem('currentUser');
+            let storageStatus = '';
+            
+            if (!userData) {
+                storageStatus = '❌ Brak danych użytkownika w sessionStorage';
+            } else {
+                try {
+                    const user = JSON.parse(userData);
+                    storageStatus = `✅ Dane użytkownika w sessionStorage:\n`;
+                    storageStatus += `- Nazwa: ${user.name || user.email}\n`;
+                    storageStatus += `- Plan: ${user.plan}\n`;
+                    storageStatus += `- Email: ${user.email}`;
+                } catch (e) {
+                    storageStatus = `❌ Błąd parsowania danych: ${e.message}`;
+                }
+            }
+            
+            document.getElementById('storageTest').innerHTML = storageStatus.replace(/\n/g, '<br>');
+            return userData ? JSON.parse(userData) : null;
+        }
+        
+        function detectProblems() {
+            const { userWelcome, userPlan } = checkDOMElements();
+            const userData = checkSessionStorage();
+            
+            let problems = [];
+            
+            if (!userData) {
+                problems.push('🔴 Brak danych użytkownika - nie można sprawdzić synchronizacji');
+            } else if (userWelcome && userPlan) {
+                const welcomeContent = userWelcome.innerHTML;
+                const planContent = userPlan.innerHTML;
+                
+                // Sprawdź czy plan w danych pasuje do wyświetlanego
+                if (!planContent.includes(userData.plan)) {
+                    problems.push(`🔴 NIEZGODNOŚĆ PLANU: Dane mówią "${userData.plan}", wyświetla się "${planContent}"`);
+                }
+                
+                // Sprawdź czy nazwa użytkownika jest wyświetlana
+                if (!welcomeContent.includes(userData.name || userData.email)) {
+                    problems.push(`🔴 BRAK NAZWY: Dane mówią "${userData.name || userData.email}", wyświetla się "${welcomeContent}"`);
+                }
+                
+                if (problems.length === 0) {
+                    problems.push('✅ Wszystko synchronizuje się poprawnie!');
+                }
+            } else {
+                problems.push('ℹ️ Elementy DOM nie istnieją na tej stronie (strona testowa)');
+            }
+            
+            document.getElementById('problemDetection').innerHTML = problems.join('<br>');
+            return problems;
+        }
+        
+        function updateRealTimeStatus() {
+            const userData = sessionStorage.getItem('currentUser');
+            let status = '';
+            
+            if (!userData) {
+                status = '❌ Brak zalogowanego użytkownika';
+            } else {
+                const user = JSON.parse(userData);
+                status = `✅ Zalogowany: ${user.name || user.email} (${user.plan})`;
+            }
+            
+            document.getElementById('realTimeStatus').innerHTML = status;
+        }
+        
+        function simulatePremium() {
+            const userData = {
+                name: 'Test User',
+                email: 'test@example.com',
+                plan: 'Premium'
+            };
+            sessionStorage.setItem('currentUser', JSON.stringify(userData));
+            log('🔄 Ustawiono plan Premium');
+            runFullTest();
+        }
+        
+        function simulateEnterprise() {
+            const userData = {
+                name: 'Test User',
+                email: 'test@example.com',
+                plan: 'Enterprise'
+            };
+            sessionStorage.setItem('currentUser', JSON.stringify(userData));
+            log('🔄 Ustawiono plan Enterprise');
+            runFullTest();
+        }
+        
+        function simulateBusiness() {
+            const userData = {
+                name: 'Test User',
+                email: 'test@example.com',
+                plan: 'Business'
+            };
+            sessionStorage.setItem('currentUser', JSON.stringify(userData));
+            log('🔄 Ustawiono plan Business');
+            runFullTest();
+        }
+        
+        function clearStorage() {
+            sessionStorage.removeItem('currentUser');
+            log('🗑️ Wyczyszczono sessionStorage');
+            runFullTest();
+        }
+        
+        function runFullTest() {
+            log('🔍 Rozpoczynam pełny test...');
+            
+            setTimeout(() => {
+                updateRealTimeStatus();
+                checkDOMElements();
+                checkSessionStorage();
+                const problems = detectProblems();
+                
+                log(`📋 Test zakończony. Znaleziono ${problems.filter(p => p.includes('🔴')).length} problemów.`);
+            }, 100);
+        }
+        
+        // Monitorowanie zmian w sessionStorage
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'currentUser') {
+                log('🔄 Wykryto zmianę w sessionStorage');
+                runFullTest();
+            }
+        });
+        
+        // Override sessionStorage.setItem to catch same-tab changes
+        const originalSetItem = sessionStorage.setItem;
+        sessionStorage.setItem = function(key, value) {
+            originalSetItem.apply(this, arguments);
+            if (key === 'currentUser') {
+                log('🔄 Wykryto setItem na currentUser');
+                setTimeout(runFullTest, 50);
+            }
+        };
+        
+        // Uruchom test na starcie
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Strona załadowana, uruchamiam test...');
+            runFullTest();
+        });
+        
+        // Aktualizuj status co sekundę
+        setInterval(updateRealTimeStatus, 1000);
+    </script>
+</body>
+</html>

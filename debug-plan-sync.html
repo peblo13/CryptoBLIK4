@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Debug Synchronizacji Planu</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #000; 
+            color: #fff; 
+            padding: 20px; 
+        }
+        .nav-menu { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+            background: #222; 
+            padding: 10px; 
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .nav-menu li { 
+            font-weight: bold;
+        }
+        button { 
+            background: #00ff00; 
+            color: #000; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        .section { 
+            background: #222; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 8px; 
+        }
+        .debug-output {
+            background: #111;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #00ff00;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .highlight {
+            background: #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug Synchronizacji Planu w Bazie CV</h1>
+    
+    <!-- Dokładna kopia nawigacji z baza_cv_new.html -->
+    <div class="section">
+        <h3>📋 Aktualna Nawigacja (jak w baza_cv_new.html):</h3>
+        <nav>
+            <ul class="nav-menu">
+                <li>🏠 Strona główna</li>
+                <li>💼 Oferty pracy</li>
+                <li>📞 Kontakt</li>
+                <li id="userWelcome" style="color: #00ff00; font-weight: bold;">[userWelcome]</li>
+                <li id="userPlan" style="color: #00fff7; font-weight: bold; margin-left: 1rem;">[userPlan]</li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="section">
+        <h3>🧪 Testy Synchronizacji:</h3>
+        <button onclick="setUserData('Premium')">Ustaw Premium ⭐</button>
+        <button onclick="setUserData('Business')">Ustaw Business 🏢</button>
+        <button onclick="setUserData('Enterprise')">Ustaw Enterprise 💎</button>
+        <br>
+        <button onclick="forceUpdate()">🔄 Wymuś Aktualizację</button>
+        <button onclick="debugState()">🔍 Debug Stanu</button>
+        <button onclick="clearData()">🗑️ Wyczyść Dane</button>
+    </div>
+    
+    <div class="section">
+        <h3>📊 Live Status:</h3>
+        <div id="liveStatus" class="debug-output">Ładowanie...</div>
+    </div>
+    
+    <div class="section">
+        <h3>🔍 Debug Log:</h3>
+        <div id="debugLog" class="debug-output">Ready...</div>
+    </div>
+
+    <script>
+        // Copy exact functions from baza_cv_new.html
+        function updateUserPlanDisplay() {
+            logDebug('🔄 updateUserPlanDisplay() called');
+            
+            const userData = sessionStorage.getItem('currentUser');
+            if (!userData) {
+                logDebug('❌ No user data found in sessionStorage');
+                document.getElementById('userWelcome').innerHTML = '[NO DATA]';
+                document.getElementById('userPlan').innerHTML = '[NO DATA]';
+                return;
+            }
+            
+            let user;
+            try {
+                user = JSON.parse(userData);
+            } catch (e) {
+                logDebug('❌ Error parsing user data: ' + e.message);
+                return;
+            }
+            
+            logDebug('🔍 DEBUG: Current user data: ' + JSON.stringify(user));
+            logDebug('🔍 DEBUG: User plan: ' + user.plan);
+            
+            const userInfo = document.getElementById('userWelcome');
+            const userPlan = document.getElementById('userPlan');
+            
+            logDebug('🔍 DEBUG: userWelcome element found: ' + (userInfo ? 'YES' : 'NO'));
+            logDebug('🔍 DEBUG: userPlan element found: ' + (userPlan ? 'YES' : 'NO'));
+            
+            if (userInfo) {
+                const welcomeText = `<span style="color: #00ff00;">👋 Witaj, ${user.name || user.email}!</span>`;
+                userInfo.innerHTML = welcomeText;
+                logDebug('✅ Updated userWelcome: ' + welcomeText);
+            }
+            
+            if (userPlan) {
+                const planIcon = user.plan === 'Enterprise' ? '💎' : 
+                                user.plan === 'Business' ? '🏢' : 
+                                user.plan === 'Premium' ? '⭐' : '🆓';
+                const planText = `<span style="color: #00fff7;">📋 ${planIcon} ${user.plan || 'FREE'}</span>`;
+                userPlan.innerHTML = planText;
+                logDebug('✅ Updated userPlan: ' + planText);
+            }
+            
+            updateLiveStatus();
+            logDebug('✅ User plan updated in display: ' + user.plan);
+        }
+        
+        // Debug logging
+        function logDebug(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logDiv = document.getElementById('debugLog');
+            const currentLog = logDiv.innerHTML;
+            logDiv.innerHTML = `[${timestamp}] ${message}\n${currentLog}`;
+            console.log(message);
+        }
+        
+        // Update live status
+        function updateLiveStatus() {
+            const userData = sessionStorage.getItem('currentUser');
+            const userWelcomeEl = document.getElementById('userWelcome');
+            const userPlanEl = document.getElementById('userPlan');
+            
+            let status = `SessionStorage: ${userData ? 'EXISTS' : 'EMPTY'}\n`;
+            
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    status += `Plan w danych: ${user.plan || 'BRAK'}\n`;
+                    status += `Nazwa: ${user.name || 'BRAK'}\n`;
+                    status += `Email: ${user.email || 'BRAK'}\n`;
+                } catch (e) {
+                    status += `BŁĄD PARSOWANIA: ${e.message}\n`;
+                }
+            }
+            
+            status += `\nAktualne wyświetlanie:\n`;
+            status += `userWelcome: ${userWelcomeEl?.innerHTML || 'PUSTE'}\n`;
+            status += `userPlan: ${userPlanEl?.innerHTML || 'PUSTE'}\n`;
+            
+            document.getElementById('liveStatus').textContent = status;
+        }
+        
+        // Test functions
+        function setUserData(plan) {
+            logDebug(`🧪 Setting user data with plan: ${plan}`);
+            
+            const userData = {
+                email: 'test@ecvjob.pl',
+                name: 'Test User',
+                plan: plan,
+                timestamp: new Date().toISOString()
+            };
+            
+            sessionStorage.setItem('currentUser', JSON.stringify(userData));
+            logDebug(`💾 Saved to sessionStorage: ${JSON.stringify(userData)}`);
+            
+            // Force update
+            setTimeout(updateUserPlanDisplay, 50);
+        }
+        
+        function forceUpdate() {
+            logDebug('🔄 Forcing update...');
+            updateUserPlanDisplay();
+        }
+        
+        function debugState() {
+            logDebug('🔍 === COMPLETE DEBUG STATE ===');
+            
+            const userData = sessionStorage.getItem('currentUser');
+            logDebug('Raw sessionStorage data: ' + userData);
+            
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    logDebug('Parsed user object: ' + JSON.stringify(user, null, 2));
+                } catch (e) {
+                    logDebug('Parse error: ' + e.message);
+                }
+            }
+            
+            const userWelcome = document.getElementById('userWelcome');
+            const userPlan = document.getElementById('userPlan');
+            
+            logDebug('userWelcome element: ' + (userWelcome ? 'Found' : 'Not found'));
+            logDebug('userWelcome content: ' + (userWelcome?.innerHTML || 'Empty'));
+            logDebug('userPlan element: ' + (userPlan ? 'Found' : 'Not found'));
+            logDebug('userPlan content: ' + (userPlan?.innerHTML || 'Empty'));
+            
+            logDebug('=== END DEBUG STATE ===');
+        }
+        
+        function clearData() {
+            logDebug('🗑️ Clearing all data...');
+            sessionStorage.removeItem('currentUser');
+            updateUserPlanDisplay();
+        }
+        
+        // Monitor storage changes
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'currentUser') {
+                logDebug('🔄 Storage event detected');
+                setTimeout(updateUserPlanDisplay, 50);
+            }
+        });
+        
+        // Override sessionStorage.setItem
+        const originalSetItem = sessionStorage.setItem;
+        sessionStorage.setItem = function(key, value) {
+            originalSetItem.apply(this, arguments);
+            if (key === 'currentUser') {
+                logDebug('🔄 sessionStorage.setItem intercepted');
+                logDebug('New value: ' + value);
+                setTimeout(updateUserPlanDisplay, 50);
+            }
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            logDebug('🚀 Page loaded, initializing...');
+            updateUserPlanDisplay();
+            
+            // Update live status every 2 seconds
+            setInterval(updateLiveStatus, 2000);
+        });
+        
+        // Global access
+        window.updateUserPlanDisplay = updateUserPlanDisplay;
+        window.debugUserPlan = debugState;
+    </script>
+</body>
+</html>
