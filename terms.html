@@ -676,10 +676,7 @@
 
         backgroundVideo.addEventListener('loadeddata', function() {
             console.log('Wideo zostało załadowane');
-            // Dla iOS zawsze dodaj przycisk, ponieważ autoplay nie działa
-            if (isIOS()) {
-                addPlayButton();
-            }
+            // Nie dodajemy przycisku dla iOS - wideo uruchomi się po interakcji
         });
 
         backgroundVideo.addEventListener('error', function(e) {
@@ -709,10 +706,7 @@
                 userInteracted = true;
                 backgroundVideo.play().catch(function(error) {
                     console.warn('Odtwarzanie po interakcji zablokowane:', error);
-                    // Jeśli przycisk nie istnieje, dodaj go
-                    if (!document.querySelector('button[innerHTML*="Uruchom wideo"]')) {
-                        addPlayButton();
-                    }
+                    // Nie dodajemy przycisku na iOS - użytkownik chce go usunąć
                 });
             }
         }
