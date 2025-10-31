@@ -592,6 +592,167 @@
                 gap: 20px;
             }
         }
+
+        /* Responsywność dla iPhone'ów (do 414px) */
+        @media (max-width: 414px) {
+            .trading-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .trading-card {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+
+            .trading-card h3 {
+                font-size: 1.8rem;
+                margin-bottom: 25px;
+            }
+
+            .form-group {
+                margin-bottom: 25px;
+            }
+
+            .form-group label {
+                font-size: 1.1rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 15px 12px;
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 18px;
+                font-size: 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .crypto-card {
+                padding: 25px;
+            }
+        }
+
+        /* Responsywność dla bardzo małych ekranów (iPhone SE, starsze modele) */
+        @media (max-width: 375px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            nav a {
+                padding: 5px 8px;
+                font-size: 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .crypto-card {
+                padding: 15px;
+            }
+
+            .crypto-icon {
+                font-size: 2rem;
+            }
+
+            .crypto-name {
+                font-size: 1.2rem;
+            }
+
+            .crypto-price {
+                font-size: 1.4rem;
+            }
+
+            .trading-card {
+                padding: 15px;
+            }
+
+            .trading-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 12px 10px;
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+
+            footer {
+                padding: 30px 15px;
+            }
+
+            .contact-section {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Responsywność dla iPhone'ów w orientacji poziomej */
+        @media (max-height: 414px) and (orientation: landscape) {
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .trading-card {
+                padding: 30px 25px;
+            }
+
+            .trading-card h3 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+
+            main {
+                margin-top: 80px;
+                padding: 15px;
+            }
+
+            .crypto-card {
+                padding: 20px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="logo-fixed.css">
 </head>
@@ -601,7 +762,7 @@
         <img src="images/logocrblik.png" alt="CryptoBLIK Logo">
     </div>
     <!-- Background Video -->
-    <video autoplay muted loop id="backgroundVideo" poster="images/tlo.jpg">
+    <video autoplay muted loop playsinline id="backgroundVideo" poster="images/tlo.jpg">
         <source src="images/world.mp4" type="video/mp4">
         <source src="images/logo1.mp4" type="video/mp4">
         <source src="images/Facebook.mp4" type="video/mp4">
@@ -618,7 +779,10 @@
                     <li><a href="index.html#prices">Ceny</a></li>
                     <li><a href="index.html#trading">Trading</a></li>
                     <li><a href="about.html">O Nas</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Kontakt</a></li>
+                    <li><a href="privacy.html">Polityka Prywatności</a></li>
+                    <li><a href="terms.html">Regulamin</a></li>
                 </ul>
             </nav>
             <div class="hamburger">
@@ -782,16 +946,65 @@
         // Obsługa wideo tła
         const backgroundVideo = document.getElementById('backgroundVideo');
 
+        // Funkcja wykrywania iOS
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        }
+
+        // Funkcja dodawania przycisku uruchomienia wideo
+        function addPlayButton() {
+            const playButton = document.createElement('button');
+            playButton.innerHTML = '▶ Uruchom wideo tło';
+            playButton.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                padding: 12px 24px;
+                background: rgba(255, 215, 0, 0.95);
+                color: black;
+                border: 2px solid #FFD700;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 14px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: all 0.3s ease;
+            `;
+            playButton.onmouseover = function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 6px 16px rgba(0,0,0,0.4)';
+            };
+            playButton.onmouseout = function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+            };
+            playButton.onclick = function() {
+                backgroundVideo.play().then(() => {
+                    this.remove();
+                }).catch(err => {
+                    console.error('Nie można uruchomić wideo:', err);
+                    alert('Nie można uruchomić wideo tła. Sprawdź ustawienia przeglądarki.');
+                });
+            };
+            document.body.appendChild(playButton);
+        }
+
         backgroundVideo.addEventListener('loadstart', function() {
             console.log('Wideo zaczyna się ładować...');
         });
 
         backgroundVideo.addEventListener('loadeddata', function() {
             console.log('Wideo zostało załadowane');
+            // Dla iOS zawsze dodaj przycisk, ponieważ autoplay nie działa
+            if (isIOS()) {
+                addPlayButton();
+            }
         });
 
         backgroundVideo.addEventListener('error', function(e) {
             console.error('Błąd ładowania wideo:', e);
+            // Fallback - ustaw gradient jako tło jeśli wideo się nie ładuje
             document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)';
         });
 
@@ -799,46 +1012,46 @@
             console.log('Wideo odtwarzane');
         });
 
-        // Próba odtworzenia wideo po załadowaniu strony
+        // Próba odtworzenia wideo po załadowaniu strony (tylko dla nie-iOS)
         window.addEventListener('load', function() {
-            backgroundVideo.play().catch(function(error) {
-                console.warn('Automatyczne odtwarzanie zablokowane:', error);
-                const playButton = document.createElement('button');
-                playButton.innerHTML = '▶ Uruchom wideo tło';
-                playButton.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 10000;
-                    padding: 10px 20px;
-                    background: rgba(255, 215, 0, 0.9);
-                    color: black;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-weight: bold;
-                `;
-                playButton.onclick = function() {
-                    backgroundVideo.play();
-                    this.remove();
-                };
-                document.body.appendChild(playButton);
-            });
+            if (!isIOS()) {
+                backgroundVideo.play().catch(function(error) {
+                    console.warn('Automatyczne odtwarzanie zablokowane:', error);
+                    addPlayButton();
+                });
+            }
         });
 
-        // Próba odtworzenia po pierwszej interakcji użytkownika
+        // Próba odtworzenia po pierwszej interakcji użytkownika (dla wszystkich urządzeń)
         let userInteracted = false;
         function tryPlayVideo() {
             if (!userInteracted) {
                 userInteracted = true;
                 backgroundVideo.play().catch(function(error) {
                     console.warn('Odtwarzanie po interakcji zablokowane:', error);
+                    // Jeśli przycisk nie istnieje, dodaj go
+                    if (!document.querySelector('button[innerHTML*="Uruchom wideo"]')) {
+                        addPlayButton();
+                    }
                 });
             }
         }
 
+        // Dodatkowe eventy dla iOS i innych urządzeń
         document.addEventListener('touchstart', tryPlayVideo, { once: true });
+        document.addEventListener('touchend', tryPlayVideo, { once: true });
         document.addEventListener('click', tryPlayVideo, { once: true });
+        document.addEventListener('scroll', tryPlayVideo, { once: true });
+        document.addEventListener('gesturestart', tryPlayVideo, { once: true });
+
+        // Ponowna próba po każdej interakcji dla iOS
+        function forcePlayVideo() {
+            backgroundVideo.play().catch(() => {});
+        }
+
+        document.addEventListener('touchstart', forcePlayVideo);
+        document.addEventListener('click', forcePlayVideo);
+        document.addEventListener('scroll', forcePlayVideo);
 
         // Intersection Observer dla autoplay gdy widoczny
         const observer = new IntersectionObserver((entries) => {

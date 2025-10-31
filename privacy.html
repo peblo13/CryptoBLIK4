@@ -384,7 +384,7 @@
         <img src="images/logocrblik.png" alt="CryptoBLIK Logo">
     </div>
     <!-- Background Video -->
-    <video autoplay muted loop id="backgroundVideo" poster="images/tlo.jpg">
+    <video autoplay muted loop playsinline id="backgroundVideo" poster="images/tlo.jpg">
         <source src="images/world.mp4" type="video/mp4">
         <source src="images/logo1.mp4" type="video/mp4">
         <source src="images/Facebook.mp4" type="video/mp4">
@@ -562,16 +562,65 @@
         // Obsługa wideo tła
         const backgroundVideo = document.getElementById('backgroundVideo');
 
+        // Funkcja wykrywania iOS
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        }
+
+        // Funkcja dodawania przycisku uruchomienia wideo
+        function addPlayButton() {
+            const playButton = document.createElement('button');
+            playButton.innerHTML = '▶ Uruchom wideo tło';
+            playButton.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                padding: 12px 24px;
+                background: rgba(255, 215, 0, 0.95);
+                color: black;
+                border: 2px solid #FFD700;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 14px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: all 0.3s ease;
+            `;
+            playButton.onmouseover = function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 6px 16px rgba(0,0,0,0.4)';
+            };
+            playButton.onmouseout = function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+            };
+            playButton.onclick = function() {
+                backgroundVideo.play().then(() => {
+                    this.remove();
+                }).catch(err => {
+                    console.error('Nie można uruchomić wideo:', err);
+                    alert('Nie można uruchomić wideo tła. Sprawdź ustawienia przeglądarki.');
+                });
+            };
+            document.body.appendChild(playButton);
+        }
+
         backgroundVideo.addEventListener('loadstart', function() {
             console.log('Wideo zaczyna się ładować...');
         });
 
         backgroundVideo.addEventListener('loadeddata', function() {
             console.log('Wideo zostało załadowane');
+            // Dla iOS zawsze dodaj przycisk, ponieważ autoplay nie działa
+            if (isIOS()) {
+                addPlayButton();
+            }
         });
 
         backgroundVideo.addEventListener('error', function(e) {
             console.error('Błąd ładowania wideo:', e);
+            // Fallback - ustaw gradient jako tło jeśli wideo się nie ładuje
             document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)';
         });
 
@@ -579,46 +628,46 @@
             console.log('Wideo odtwarzane');
         });
 
-        // Próba odtworzenia wideo po załadowaniu strony
+        // Próba odtworzenia wideo po załadowaniu strony (tylko dla nie-iOS)
         window.addEventListener('load', function() {
-            backgroundVideo.play().catch(function(error) {
-                console.warn('Automatyczne odtwarzanie zablokowane:', error);
-                const playButton = document.createElement('button');
-                playButton.innerHTML = '▶ Uruchom wideo tło';
-                playButton.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 10000;
-                    padding: 10px 20px;
-                    background: rgba(255, 215, 0, 0.9);
-                    color: black;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-weight: bold;
-                `;
-                playButton.onclick = function() {
-                    backgroundVideo.play();
-                    this.remove();
-                };
-                document.body.appendChild(playButton);
-            });
+            if (!isIOS()) {
+                backgroundVideo.play().catch(function(error) {
+                    console.warn('Automatyczne odtwarzanie zablokowane:', error);
+                    addPlayButton();
+                });
+            }
         });
 
-        // Próba odtworzenia po pierwszej interakcji użytkownika
+        // Próba odtworzenia po pierwszej interakcji użytkownika (dla wszystkich urządzeń)
         let userInteracted = false;
         function tryPlayVideo() {
             if (!userInteracted) {
                 userInteracted = true;
                 backgroundVideo.play().catch(function(error) {
                     console.warn('Odtwarzanie po interakcji zablokowane:', error);
+                    // Jeśli przycisk nie istnieje, dodaj go
+                    if (!document.querySelector('button[innerHTML*="Uruchom wideo"]')) {
+                        addPlayButton();
+                    }
                 });
             }
         }
 
+        // Dodatkowe eventy dla iOS i innych urządzeń
         document.addEventListener('touchstart', tryPlayVideo, { once: true });
+        document.addEventListener('touchend', tryPlayVideo, { once: true });
         document.addEventListener('click', tryPlayVideo, { once: true });
+        document.addEventListener('scroll', tryPlayVideo, { once: true });
+        document.addEventListener('gesturestart', tryPlayVideo, { once: true });
+
+        // Ponowna próba po każdej interakcji dla iOS
+        function forcePlayVideo() {
+            backgroundVideo.play().catch(() => {});
+        }
+
+        document.addEventListener('touchstart', forcePlayVideo);
+        document.addEventListener('click', forcePlayVideo);
+        document.addEventListener('scroll', forcePlayVideo);
 
         // Intersection Observer dla autoplay gdy widoczny
         const observer = new IntersectionObserver((entries) => {
