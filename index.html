@@ -264,7 +264,11 @@
         .trading-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 60px;
+            justify-content: center;
+            align-items: start;
+            margin: 0 auto;
+            max-width: 1400px;
         }
 
         @media (max-width: 900px) {
@@ -275,58 +279,71 @@
         }
 
         .trading-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #FFD700;
-            border-radius: 15px;
-            padding: 30px;
+            background: rgba(0, 0, 0, 0.92);
+            border: 3px solid #FFD700;
+            border-radius: 25px;
+            padding: 60px 50px 50px 50px;
+            min-width: 420px;
+            box-shadow: 0 0 60px 0 rgba(0,255,0,0.10), 0 0 80px 0 rgba(255,215,0,0.10);
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            animation: glow 2.5s infinite alternate;
         }
 
         .trading-card h3 {
             color: #FFD700;
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
+            margin-bottom: 35px;
+            font-size: 2.4rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 18px #FFD70044;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 32px;
         }
 
         .form-group label {
             display: block;
-            color: #fff;
-            margin-bottom: 8px;
-            font-weight: 600;
+            color: #FFD700;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #FFD700;
-            border-radius: 8px;
-            background: #111;
+            padding: 20px 18px;
+            border: 2.5px solid #FFD700;
+            border-radius: 12px;
+            background: #181818;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+            box-shadow: 0 2px 12px #FFD70022;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: #00ff00;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 25px 0 #00ff0033;
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 22px;
             border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
+            border-radius: 14px;
+            font-size: 1.45rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            margin-top: 18px;
+            box-shadow: 0 2px 18px #FFD70033;
+            letter-spacing: 1px;
         }
 
         .btn-buy {
@@ -705,15 +722,16 @@
             <div class="trading-container">
                 <!-- KUPNO -->
                 <div class="trading-form buy-form">
-                    <form id="blikForm" style="margin:24px 0; padding:18px 12px; background:rgba(0,0,0,0.85); border:2px solid #FFD700; border-radius:12px; text-align:center;">
-                        <h2 style="color:#00ff00; font-size:2.2rem; font-weight:bold; letter-spacing:1px; text-shadow:0 2px 12px #000a; margin-bottom:18px;">Kupno Kryptowaluty</h2>
-                            <div style="margin-bottom:12px;">
-                                <label for="blikAmount" style="color:#FFD700; font-weight:bold;">Kwota w PLN:</label><br>
-                                <input id="blikAmount" type="number" min="1" step="0.01" placeholder="np. 500" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                    <div class="trading-card">
+                        <h3>🟢 Kup Kryptowalutę</h3>
+                        <form id="blikForm">
+                            <div class="form-group">
+                                <label for="blikAmount">Kwota w PLN:</label>
+                                <input id="blikAmount" type="number" min="1" step="0.01" placeholder="np. 500" required>
                             </div>
-                            <div style="margin-bottom:12px;">
-                                <label for="blikCrypto" style="color:#FFD700; font-weight:bold;">Wybierz kryptowalutę:</label><br>
-                                <select id="blikCrypto" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                            <div class="form-group">
+                                <label for="blikCrypto">Wybierz kryptowalutę:</label>
+                                <select id="blikCrypto" required>
                                     <option value="BTCUSDT">Bitcoin (BTC)</option>
                                     <option value="ETHUSDT">Ethereum (ETH)</option>
                                     <option value="USDCUSDT">USD Coin (USDC)</option>
@@ -767,16 +785,12 @@
                                     <option value="ALTUSDT">AltLayer (ALT)</option>
                                 </select>
                             </div>
-                            <div style="margin-bottom:12px;">
-                                <label for="blikCode" style="color:#FFD700; font-weight:bold;">Kod BLIK (6 cyfr):</label><br>
-                                <input type="text" id="blikCode" maxlength="6" pattern="[0-9]{6}" required placeholder="123456" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                            <div class="form-group">
+                                <span id="blikDynamicResult"></span>
                             </div>
-                            <div style="margin-bottom:12px;">
-                                <span id="blikDynamicResult" style="color:#FFD700;font-weight:bold;"></span>
-                            </div>
-                            <div style="margin-bottom:12px;">
-                                <label for="blikNetwork" style="color:#FFD700; font-weight:bold;">Sieć blockchain:</label><br>
-                                <select id="blikNetwork" style="width:60%;padding:8px 10px;border-radius:6px;border:1.5px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                            <div class="form-group">
+                                <label for="blikNetwork">Sieć blockchain:</label>
+                                <select id="blikNetwork" required>
                                     <option value="bitcoin">Bitcoin (BTC)</option>
                                     <option value="ethereum">Ethereum (ERC20)</option>
                                     <option value="bep20">Binance Smart Chain (BEP20)</option>
@@ -816,13 +830,117 @@
                                     <option value="other">Inna</option>
                                 </select>
                             </div>
-                            <div style="margin-bottom:12px;">
-                                <label for="blikWallet" style="color:#FFD700; font-weight:bold;">Adres portfela:</label><br>
-                                <input id="blikWallet" type="text" required placeholder="np. 0x... lub adres BTC" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                            <div class="form-group">
+                                <label for="blikWallet">Adres portfela:</label>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <input id="blikWallet" type="text" required placeholder="np. 0x... lub adres BTC" style="flex:1;">
+                                    <button type="button" id="buyScanQRBtn" title="Zeskanuj kod QR" style="padding:10px 16px; background:#FFD700; color:#111; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">QR</button>
+                                </div>
+                                <div id="buyQrScannerContainer" class="hidden" style="margin-top:10px;"></div>
                             </div>
-                            <button type="submit" class="btn btn-buy" style="margin-top:24px; width:100%; font-size:1.3rem; background:#00ff00; color:#111; font-weight:bold; border-radius:8px; border:none; padding:16px 0; box-shadow:0 2px 12px #00ff0040; transition:background 0.2s;">Kup teraz</button>
+                            <div class="form-group">
+                                <label for="blikCode">Kod BLIK (6 cyfr):</label>
+                                <input type="text" id="blikCode" maxlength="6" pattern="[0-9]{6}" required placeholder="123456">
+                            </div>
+                            <button type="submit" class="btn btn-buy">Kup teraz</button>
                         </form>
                         <script>
+        // Smooth scroll to section by id
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        // QR skaner dla nowych formularzy (kupno/sprzedaż)
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- KUPNO ---
+            const buyScanQRBtn = document.getElementById('buyScanQRBtn');
+            const buyQrScannerContainer = document.getElementById('buyQrScannerContainer');
+            const blikWalletInput = document.getElementById('blikWallet');
+            let buyQrScanner = null;
+            if (buyScanQRBtn && buyQrScannerContainer && blikWalletInput) {
+                buyScanQRBtn.addEventListener('click', function() {
+                    if (buyQrScannerContainer.classList.contains('hidden')) {
+                        buyQrScannerContainer.classList.remove('hidden');
+                        buyQrScannerContainer.innerHTML = '<div id="buy-qr-reader" style="width:100%"></div><div style="text-align:right;margin-top:5px;"><button id="buyCloseQRScan" style="background:#FFD700;color:#111;padding:6px 16px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">Zamknij skaner</button></div>';
+                        buyQrScanner = new Html5Qrcode("buy-qr-reader");
+                        buyQrScanner.start(
+                            { facingMode: "environment" },
+                            { fps: 10, qrbox: 250 },
+                            qrCodeMessage => {
+                                blikWalletInput.value = qrCodeMessage;
+                                buyQrScanner.stop().then(() => {
+                                    buyQrScanner.clear();
+                                    buyQrScannerContainer.classList.add('hidden');
+                                    buyQrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera kupna:', err));
+                            },
+                            errorMessage => {
+                                console.log('Błąd skanowania QR kupno:', errorMessage);
+                            }
+                        ).catch(err => {
+                            console.error('Błąd uruchamiania skanera QR kupno:', err);
+                            alert('Nie można uruchomić skanera QR. Sprawdź dostęp do kamery.');
+                            buyQrScannerContainer.classList.add('hidden');
+                            buyQrScannerContainer.innerHTML = '';
+                        });
+                        document.getElementById('buyCloseQRScan').onclick = function() {
+                            if (buyQrScanner) {
+                                buyQrScanner.stop().then(() => {
+                                    buyQrScanner.clear();
+                                    buyQrScannerContainer.classList.add('hidden');
+                                    buyQrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera kupna:', err));
+                            }
+                        };
+                    }
+                });
+            }
+            // --- SPRZEDAŻ ---
+            const sellScanQRBtn = document.getElementById('sellScanQRBtn');
+            const sellQrScannerContainer = document.getElementById('sellQrScannerContainer');
+            const sellWalletInput = document.getElementById('sellWallet');
+            let sellQrScanner = null;
+            if (sellScanQRBtn && sellQrScannerContainer && sellWalletInput) {
+                sellScanQRBtn.addEventListener('click', function() {
+                    if (sellQrScannerContainer.classList.contains('hidden')) {
+                        sellQrScannerContainer.classList.remove('hidden');
+                        sellQrScannerContainer.innerHTML = '<div id="sell-qr-reader" style="width:100%"></div><div style="text-align:right;margin-top:5px;"><button id="sellCloseQRScan" style="background:#FFD700;color:#111;padding:6px 16px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">Zamknij skaner</button></div>';
+                        sellQrScanner = new Html5Qrcode("sell-qr-reader");
+                        sellQrScanner.start(
+                            { facingMode: "environment" },
+                            { fps: 10, qrbox: 250 },
+                            qrCodeMessage => {
+                                sellWalletInput.value = qrCodeMessage;
+                                sellQrScanner.stop().then(() => {
+                                    sellQrScanner.clear();
+                                    sellQrScannerContainer.classList.add('hidden');
+                                    sellQrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera sprzedaży:', err));
+                            },
+                            errorMessage => {
+                                console.log('Błąd skanowania QR sprzedaż:', errorMessage);
+                            }
+                        ).catch(err => {
+                            console.error('Błąd uruchamiania skanera QR sprzedaż:', err);
+                            alert('Nie można uruchomić skanera QR. Sprawdź dostęp do kamery.');
+                            sellQrScannerContainer.classList.add('hidden');
+                            sellQrScannerContainer.innerHTML = '';
+                        });
+                        document.getElementById('sellCloseQRScan').onclick = function() {
+                            if (sellQrScanner) {
+                                sellQrScanner.stop().then(() => {
+                                    sellQrScanner.clear();
+                                    sellQrScannerContainer.classList.add('hidden');
+                                    sellQrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera sprzedaży:', err));
+                            }
+                        };
+                    }
+                });
+            }
+        });
                         // Przelicznik PLN -> krypto z dynamicznym kursem USD/PLN
                         (function() {
                             let prices = {}, usdpln = 4.0, pricesReady = false, usdReady = false;
@@ -872,6 +990,7 @@
                             });
                         })();
                         </script>
+                    </div>
                     </div>
                     <!-- SPRZEDAŻ -->
                     <div class="trading-form sell-form">
@@ -938,6 +1057,60 @@
                                     <label for="sellAmount">Ilość do sprzedaży:</label>
                                     <input type="number" id="sellAmount" min="0.000001" step="0.000001" required placeholder="np. 0.001">
                                     <div id="sellBlikResult" style="margin-top:8px;color:#FFD700;font-weight:bold;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sellNetwork">Sieć blockchain:</label>
+                                    <select id="sellNetwork" required>
+                                        <option value="bitcoin">Bitcoin (BTC)</option>
+                                        <option value="ethereum">Ethereum (ERC20)</option>
+                                        <option value="bep20">Binance Smart Chain (BEP20)</option>
+                                        <option value="polygon">Polygon (MATIC)</option>
+                                        <option value="tron">TRON (TRC20)</option>
+                                        <option value="arbitrum">Arbitrum</option>
+                                        <option value="optimism">Optimism</option>
+                                        <option value="solana">Solana</option>
+                                        <option value="avalanche">Avalanche (C-Chain)</option>
+                                        <option value="fantom">Fantom (FTM)</option>
+                                        <option value="base">Base</option>
+                                        <option value="zksync">zkSync</option>
+                                        <option value="linea">Linea</option>
+                                        <option value="opbnb">opBNB</option>
+                                        <option value="cronos">Cronos</option>
+                                        <option value="aptos">Aptos</option>
+                                        <option value="sui">Sui</option>
+                                        <option value="cosmos">Cosmos</option>
+                                        <option value="near">Near</option>
+                                        <option value="cardano">Cardano (ADA)</option>
+                                        <option value="polkadot">Polkadot (DOT)</option>
+                                        <option value="stellar">Stellar (XLM)</option>
+                                        <option value="ripple">Ripple (XRP)</option>
+                                        <option value="algorand">Algorand</option>
+                                        <option value="harmony">Harmony (ONE)</option>
+                                        <option value="celo">Celo</option>
+                                        <option value="kava">Kava</option>
+                                        <option value="eos">EOS</option>
+                                        <option value="tezos">Tezos (XTZ)</option>
+                                        <option value="flow">Flow</option>
+                                        <option value="hedera">Hedera (HBAR)</option>
+                                        <option value="kaspa">Kaspa</option>
+                                        <option value="ton">TON</option>
+                                        <option value="elrond">MultiversX (Elrond)</option>
+                                        <option value="mina">Mina</option>
+                                        <option value="waves">Waves</option>
+                                        <option value="other">Inna</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sellWallet">Adres portfela do przelewu kryptowaluty:</label>
+                                    <div style="display:flex; gap:10px; align-items:center;">
+                                        <input type="text" id="sellWallet" required placeholder="np. 0x... lub adres BTC" style="flex:1;">
+                                        <button type="button" id="sellScanQRBtn" title="Zeskanuj kod QR" style="padding:10px 16px; background:#FFD700; color:#111; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">QR</button>
+                                    </div>
+                                    <div id="sellQrScannerContainer" class="hidden" style="margin-top:10px;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sellPhoneNumber">Numer telefonu odbiorcy (na który mają trafić środki):</label>
+                                    <input type="tel" id="sellPhoneNumber" pattern="\d{9}" maxlength="9" required placeholder="np. 123456789">
                                 </div>
                                 <button type="submit" class="btn btn-sell">Sprzedaj Teraz</button>
                                 <script>
@@ -1044,13 +1217,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-sell">Przejdź dalej</button>
                             </form>
-                            <form id="sellBlikForm">
-                                <div class="form-group">
-                                    <label for="sellPhoneNumber">Podaj numer telefonu odbiorcy (na który mają być przekazane pieniądze):</label>
-                                    <input type="tel" id="sellPhoneNumber" pattern="\d{9}" maxlength="9" required placeholder="np. 123456789">
-                                </div>
-                                <button type="submit" class="btn btn-sell" style="width:100%;margin-top:20px;">Zakończ transakcję</button>
-                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -1635,4 +1802,3 @@
         observer.observe(backgroundVideo);
     </script><!-- NOWY FORMULARZ BLIK z dynamicznym przelicznikiem -->
 <!-- Universal Converter Script -->
-
