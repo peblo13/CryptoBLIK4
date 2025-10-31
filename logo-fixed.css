@@ -1,0 +1,13 @@
+.logo-fixed {
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    z-index: -1;
+    width: 150px;
+    height: auto;
+}
+.logo-fixed img {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+}

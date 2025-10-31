@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Polityka Prywatności - CryptoBLIK - Platforma do kupowania i sprzedawania kryptowalut">
+    <meta name="keywords" content="kryptowaluty, bitcoin, ethereum, trading, polityka prywatności, prywatność">
+    <meta name="author" content="CryptoBLIK">
+    <title>Polityka Prywatności - CryptoBLIK</title>
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#FFD700">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/crypto-logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/crypto-logo.png">
+
+    <!-- iOS icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CryptoBLIK">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/crypto-logo.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Video Styles */
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        /* Overlay to ensure text readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        /* Animacje */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #FFD700;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .logo::before {
+            content: "₿";
+            margin-right: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        nav a:hover {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #111;
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #FFD700;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Główna sekcja */
+        main {
+            margin-top: 120px;
+            padding: 40px 20px;
+        }
+
+        .privacy-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .privacy-content h1 {
+            text-align: center;
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .privacy-content h2 {
+            color: #FFD700;
+            font-size: 1.8rem;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .privacy-content h3 {
+            color: #FFA500;
+            font-size: 1.4rem;
+            margin: 30px 0 15px 0;
+        }
+
+        .privacy-content p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .privacy-content ul {
+            color: #ccc;
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .privacy-content li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #FFD700;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .contact-info {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #FFD700;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #FFD700;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsywność */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                padding: 20px 0;
+                border-bottom: 2px solid #FFD700;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav li {
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .privacy-content {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .privacy-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .privacy-content h2 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            main {
+                margin-top: 100px;
+                padding: 20px 15px;
+            }
+
+            .privacy-content {
+                padding: 20px 15px;
+                margin: 10px;
+            }
+
+            .privacy-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .privacy-content h2 {
+                font-size: 1.3rem;
+            }
+
+            .footer-links {
+                gap: 20px;
+            }
+        }
+            .logo-fixed {
+            position: fixed;
+            top: 80px;
+            right: 10px;
+            z-index: -1;
+            width: 150px;
+            height: auto;
+        }
+
+        .logo-fixed img {
+            width: 100%;
+            height: auto;
+            max-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-fixed">
+        <img src="images/logocrblik.png" alt="CryptoBLIK Logo">
+    </div>
+    <!-- Logo -->
+    <div class="logo-fixed">
+        <img src="images/logocrblik.png" alt="CryptoBLIK Logo">
+    </div>
+    <!-- Background Video -->
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="images/world.mp4" type="video/mp4">
+        <source src="images/logo1.mp4" type="video/mp4">
+        <source src="images/Facebook.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">CryptoBLIK</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#prices">Ceny</a></li>
+                    <li><a href="index.html#trading">Trading</a></li>
+                    <li><a href="about.html">O Nas</a></li>
+                    <li><a href="contact.html">Kontakt</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="privacy-content">
+            <h1>Polityka Prywatności</h1>
+
+            <p><strong>Ostatnia aktualizacja:</strong> 30 października 2025</p>
+
+            <p>Witamy w Polityce Prywatności platformy CryptoBLIK. Dbamy o prywatność naszych użytkowników i zobowiązujemy się do ochrony ich danych osobowych. Niniejsza polityka wyjaśnia, jakie informacje zbieramy, jak je wykorzystujemy i jakie prawa przysługują użytkownikom.</p>
+
+            <h2>1. Informacje, które zbieramy</h2>
+
+            <h3>1.1 Dane osobowe</h3>
+            <p>Podczas rejestracji i korzystania z naszych usług możemy zbierać następujące dane osobowe:</p>
+            <ul>
+                <li>Imię i nazwisko</li>
+                <li>Adres e-mail</li>
+                <li>Numer telefonu</li>
+                <li>Data urodzenia</li>
+                <li>Adres zamieszkania</li>
+                <li>Dane dotyczące transakcji kryptowalutowych</li>
+            </ul>
+
+            <h3>1.2 Dane techniczne</h3>
+            <p>Automatycznie zbieramy pewne informacje techniczne podczas korzystania z naszej platformy:</p>
+            <ul>
+                <li>Adres IP</li>
+                <li>Typ przeglądarki i systemu operacyjnego</li>
+                <li>Strony odwiedzone na naszej platformie</li>
+                <li>Czas spędzony na stronie</li>
+                <li>Cookies i podobne technologie</li>
+            </ul>
+
+            <h2>2. Jak wykorzystujemy zebrane informacje</h2>
+
+            <p>Zebrane dane wykorzystujemy do:</p>
+            <ul>
+                <li>Świadczenia usług tradingu kryptowalutami</li>
+                <li>Weryfikacji tożsamości użytkowników</li>
+                <li>Zapewnienia bezpieczeństwa transakcji</li>
+                <li>Komunikacji z użytkownikami</li>
+                <li>Poprawy jakości naszych usług</li>
+                <li>Przestrzegania wymogów prawnych</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Ważne:</strong> Nigdy nie sprzedajemy ani nie udostępniamy danych osobowych użytkowników osobom trzecim bez ich wyraźnej zgody, z wyjątkiem przypadków wymaganych przez prawo.
+            </div>
+
+            <h2>3. Cookies i technologie śledzące</h2>
+
+            <p>Używamy cookies i podobnych technologii w celu:</p>
+            <ul>
+                <li>Zapamiętywania preferencji użytkownika</li>
+                <li>Analizy ruchu na stronie</li>
+                <li>Zapewnienia bezpieczeństwa</li>
+                <li>Personalizacji doświadczenia użytkownika</li>
+            </ul>
+
+            <p>Użytkownicy mogą zarządzać ustawieniami cookies w swojej przeglądarce.</p>
+
+            <h2>4. Bezpieczeństwo danych</h2>
+
+            <p>Stosujemy najnowocześniejsze środki bezpieczeństwa, aby chronić dane użytkowników:</p>
+            <ul>
+                <li>Szyfrowanie danych w trakcie transmisji (HTTPS)</li>
+                <li>Szyfrowanie danych przechowywanych na serwerach</li>
+                <li>Regularne audyty bezpieczeństwa</li>
+                <li>Ograniczony dostęp do danych osobowych</li>
+                <li>Systemy monitorowania i wykrywania intruzji</li>
+            </ul>
+
+            <h2>5. Prawa użytkowników</h2>
+
+            <p>Zgodnie z RODO, przysługują użytkownikom następujące prawa:</p>
+            <ul>
+                <li><strong>Prawo dostępu:</strong> Możliwość uzyskania kopii swoich danych</li>
+                <li><strong>Prawo do sprostowania:</strong> Możliwość poprawienia nieprawidłowych danych</li>
+                <li><strong>Prawo do usunięcia:</strong> Możliwość usunięcia danych ("prawo do bycia zapomnianym")</li>
+                <li><strong>Prawo do ograniczenia przetwarzania:</strong> Możliwość ograniczenia wykorzystania danych</li>
+                <li><strong>Prawo do przenoszenia danych:</strong> Możliwość uzyskania danych w przenośnym formacie</li>
+                <li><strong>Prawo do sprzeciwu:</strong> Możliwość sprzeciwienia się przetwarzaniu danych</li>
+            </ul>
+
+            <h2>6. Przechowywanie danych</h2>
+
+            <p>Dane osobowe przechowujemy tylko tak długo, jak jest to konieczne do celów, dla których zostały zebrane, lub zgodnie z wymogami prawnych. Typowe okresy przechowywania to:</p>
+            <ul>
+                <li>Dane konta: przez okres aktywności konta plus 3 lata</li>
+                <li>Dane transakcyjne: 5 lat zgodnie z przepisami podatkowymi</li>
+                <li>Dane marketingowe: do momentu wycofania zgody</li>
+            </ul>
+
+            <h2>7. Międzynarodowe transfery danych</h2>
+
+            <p>CryptoBLIK może transferować dane do krajów poza Europejskim Obszarem Gospodarczym. W takich przypadkach zapewniamy odpowiednie zabezpieczenia, takie jak:</p>
+            <ul>
+                <li>Standardowe klauzule umowne zatwierdzone przez Komisję Europejską</li>
+                <li>Certyfikaty zgodności z ramami ochrony prywatności</li>
+                <li>Inne odpowiednie mechanizmy zgodności</li>
+            </ul>
+
+            <h2>8. Zmiany w polityce prywatności</h2>
+
+            <p>Możemy aktualizować niniejszą politykę prywatności od czasu do czasu. O wszelkich istotnych zmianach poinformujemy użytkowników poprzez:</p>
+            <ul>
+                <li>Powiadomienie na platformie</li>
+                <li>Wiadomość e-mail</li>
+                <li>Zaktualizowaną datę "ostatniej aktualizacji" na górze dokumentu</li>
+            </ul>
+
+            <h2>9. Kontakt</h2>
+
+            <div class="contact-info">
+                <h3>Masz pytania dotyczące prywatności?</h3>
+                <p>Skontaktuj się z naszym Inspektorem Ochrony Danych:</p>
+                <p><strong>E-mail:</strong> privacy@cryptoblik.com</p>
+                <p><strong>Telefon:</strong> +48 123 456 789</p>
+                <p><strong>Adres:</strong> ul. Kryptowalutowa 123, 00-001 Warszawa, Polska</p>
+            </div>
+
+            <p>Korzystając z usług CryptoBLIK, użytkownik wyraża zgodę na warunki opisane w niniejszej polityce prywatności.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">CryptoBLIK</div>
+            <div class="footer-links">
+                <a href="privacy.html">Polityka Prywatności</a>
+                <a href="terms.html">Regulamin</a>
+                <a href="contact.html">Kontakt</a>
+                <a href="about.html">O Nas</a>
+            </div>
+            <div class="copyright">
+                © 2025 CryptoBLIK. Wszystkie prawa zastrzeżone. Trading kryptowalut wiąże się z ryzykiem.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Inicjalizacja
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Polityka prywatności załadowana');
+        });
+
+        // Obsługa wideo tła
+        const backgroundVideo = document.getElementById('backgroundVideo');
+
+        backgroundVideo.addEventListener('loadstart', function() {
+            console.log('Wideo zaczyna się ładować...');
+        });
+
+        backgroundVideo.addEventListener('loadeddata', function() {
+            console.log('Wideo zostało załadowane');
+        });
+
+        backgroundVideo.addEventListener('error', function(e) {
+            console.error('Błąd ładowania wideo:', e);
+            document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)';
+        });
+
+        backgroundVideo.addEventListener('play', function() {
+            console.log('Wideo odtwarzane');
+        });
+
+        // Próba odtworzenia wideo po załadowaniu strony
+        window.addEventListener('load', function() {
+            backgroundVideo.play().catch(function(error) {
+                console.warn('Automatyczne odtwarzanie zablokowane:', error);
+                const playButton = document.createElement('button');
+                playButton.innerHTML = '▶ Uruchom wideo tło';
+                playButton.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 10000;
+                    padding: 10px 20px;
+                    background: rgba(255, 215, 0, 0.9);
+                    color: black;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-weight: bold;
+                `;
+                playButton.onclick = function() {
+                    backgroundVideo.play();
+                    this.remove();
+                };
+                document.body.appendChild(playButton);
+            });
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navUl = document.querySelector('nav ul');
+        hamburger.addEventListener('click', function() {
+            navUl.classList.toggle('active');
+        });
+    </script>
+</body>
+        .logo-fixed {
+            position: fixed;
+            top: 80px;
+            right: 10px;
+            z-index: -1;
+            width: 150px;
+            height: auto;
+        }
+
+        .logo-fixed img {
+            width: 100%;
+            height: auto;
+            max-width: 150px;
+        }
+</html>

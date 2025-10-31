@@ -1,3 +1,12 @@
+<div style="margin-bottom:18px; text-align:left;">
+                            <button type="button" id="blikBackBtn" style="background:none;border:none;cursor:pointer;padding:0;outline:none;">
+                                <span style="display:inline-block;width:36px;height:36px;border-radius:50%;background:#222;border:2px solid #FFD700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px #0003;transition:background 0.2s;">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 16L7 10L13 4" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -13,14 +22,14 @@
     <meta name="theme-color" content="#FFD700">
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="images/crypto-logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/crypto-logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logocrblik.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logocrblik.png">
 
     <!-- iOS icons -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CryptoBLIK">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/crypto-logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/logocrblik.png">
 
     <style>
         * {
@@ -254,8 +263,15 @@
 
         .trading-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .trading-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
         }
 
         .trading-card {
@@ -333,53 +349,12 @@
             box-shadow: 0 8px 25px rgba(255, 68, 68, 0.4);
         }
 
-        /* Portfel */
-        .wallet-section {
-            margin: 60px 0;
+        .btn.active {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #111;
+            transform: translateY(-2px);
         }
 
-        .wallet-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #00fff7;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0, 255, 247, 0.2);
-        }
-
-        .wallet-balance {
-            font-size: 2.5rem;
-            color: #00fff7;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(0, 255, 247, 0.5);
-        }
-
-        .wallet-assets {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .asset-item {
-            background: rgba(0, 255, 247, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #00fff7;
-        }
-
-        .asset-name {
-            font-weight: bold;
-            color: #00fff7;
-            margin-bottom: 5px;
-        }
-
-        .asset-amount {
-            color: #fff;
-            font-size: 1.1rem;
-        }
 
         /* Footer */
         footer {
@@ -424,28 +399,65 @@
             font-size: 0.9rem;
         }
 
-        /* Responsywność */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
+        /* Sekcja kontaktowa */
+        .contact-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff00;
+            border-radius: 20px;
+            padding: 50px 30px;
+            margin: 60px auto;
+            max-width: 800px;
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.2);
+            animation: fadeInUp 1s ease-out;
+        }
 
-            .crypto-grid {
-                grid-template-columns: 1fr;
-            }
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
 
-            .trading-container {
-                grid-template-columns: 1fr;
-            }
+        .contact-info {
+            color: #fff;
+        }
 
-            nav ul {
-                gap: 15px;
-            }
+        .contact-info h2 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
 
-            nav a {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
+        .contact-info p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .contact-form h2 {
+            color: #FFD700;
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            background: #111;
+            color: #fff;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }
 
         /* Responsywność dla iPhone'ów i małych ekranów */
@@ -518,11 +530,6 @@
                 margin: 40px 0;
             }
 
-            .trading-container {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
             .trading-card {
                 padding: 20px;
             }
@@ -541,19 +548,6 @@
             .btn {
                 padding: 12px;
                 font-size: 1rem;
-            }
-
-            .wallet-card {
-                padding: 20px;
-            }
-
-            .wallet-balance {
-                font-size: 2rem;
-            }
-
-            .wallet-assets {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
             }
 
             .asset-item {
@@ -627,50 +621,6 @@
                 font-size: 1.3rem;
             }
 
-            .wallet-assets {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        /* Responsywność dla najmniejszych ekranów */
-        @media (max-width: 320px) {
-            main {
-                padding: 15px 10px;
-            }
-
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-
-            .hero p {
-                font-size: 0.95rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .crypto-card {
-                padding: 12px;
-            }
-
-            .trading-section {
-                padding: 20px 15px;
-            }
-
-            .wallet-card {
-                padding: 15px;
-            }
-
-            .wallet-balance {
-                font-size: 1.8rem;
-            }
-
             footer {
                 padding: 30px 15px;
             }
@@ -690,6 +640,23 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .logo-fixed {
+            position: fixed;
+            top: 80px;
+            right: 10px;
+            z-index: -1;
+            width: 150px;
+            height: auto;
+        }
+
+        .logo-fixed img {
+            width: 100%;
+            height: auto;
+            max-width: 150px;
+        }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -707,14 +674,20 @@
             <div class="logo">CryptoBLIK</div>
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="#">Home</a></li>
                     <li><a href="#prices">Ceny</a></li>
                     <li><a href="#trading">Trading</a></li>
-                    <li><a href="#wallet">Portfel</a></li>
+                    <li><a href="about.html">O Nas</a></li>
+                    <li><a href="contact.html">Kontakt</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <!-- Logo -->
+    <div class="logo-fixed">
+        <img src="images/logocrblik.png" alt="CryptoBLIK Logo">
+    </div>
 
     <!-- Main Content -->
     <main>
@@ -723,8 +696,364 @@
             <h1>Handluj Kryptowalutami</h1>
             <p>Odkryj świat cyfrowych walut. Kupuj i sprzedawaj Bitcoin, Ethereum i inne kryptowaluty z najlepszymi kursami na rynku.</p>
             <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <button class="btn btn-buy" onclick="scrollToSection('trading')">Zacznij Trading</button>
+                <button class="btn btn-buy" onclick="scrollToSection('trading')">Kup / Sprzedaj</button>
                 <button class="btn btn-sell" onclick="scrollToSection('prices')">Sprawdź Ceny</button>
+            </div>
+        </section>
+
+        <section class="trading-section" id="trading">
+            <div class="trading-container">
+                <!-- KUPNO -->
+                <div class="trading-form buy-form">
+                    <form id="blikForm" style="margin:24px 0; padding:18px 12px; background:rgba(0,0,0,0.85); border:2px solid #FFD700; border-radius:12px; text-align:center;">
+                        <h2 style="color:#00ff00; font-size:2.2rem; font-weight:bold; letter-spacing:1px; text-shadow:0 2px 12px #000a; margin-bottom:18px;">Kupno Kryptowaluty</h2>
+                            <div style="margin-bottom:12px;">
+                                <label for="blikAmount" style="color:#FFD700; font-weight:bold;">Kwota w PLN:</label><br>
+                                <input id="blikAmount" type="number" min="1" step="0.01" placeholder="np. 500" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                            </div>
+                            <div style="margin-bottom:12px;">
+                                <label for="blikCrypto" style="color:#FFD700; font-weight:bold;">Wybierz kryptowalutę:</label><br>
+                                <select id="blikCrypto" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                                    <option value="BTCUSDT">Bitcoin (BTC)</option>
+                                    <option value="ETHUSDT">Ethereum (ETH)</option>
+                                    <option value="USDCUSDT">USD Coin (USDC)</option>
+                                    <option value="MATICUSDT">Polygon (MATIC)</option>
+                                    <option value="DAIUSDT">Dai (DAI)</option>
+                                    <option value="DOGEUSDT">Dogecoin (DOGE)</option>
+                                    <option value="SHIBUSDT">Shiba Inu (SHIB)</option>
+                                    <option value="BCHUSDT">Bitcoin Cash (BCH)</option>
+                                    <option value="TRXUSDT">TRON (TRX)</option>
+                                    <option value="TUSDUSDT">TrueUSD (TUSD)</option>
+                                    <option value="WBTCUSDT">Wrapped Bitcoin (WBTC)</option>
+                                    <option value="PEPEUSDT">Pepe (PEPE)</option>
+                                    <option value="ARBUSDT">Arbitrum (ARB)</option>
+                                    <option value="OPUSDT">Optimism (OP)</option>
+                                    <option value="RNDRUSDT">Render (RNDR)</option>
+                                    <option value="WLDUSDT">Worldcoin (WLD)</option>
+                                    <option value="INJUSDT">Injective (INJ)</option>
+                                    <option value="LDOUSDT">Lido DAO (LDO)</option>
+                                    <option value="SANDUSDT">The Sandbox (SAND)</option>
+                                    <option value="APEUSDT">ApeCoin (APE)</option>
+                                    <option value="GALAUSDT">Gala (GALA)</option>
+                                    <option value="CHZUSDT">Chiliz (CHZ)</option>
+                                    <option value="XLMUSDT">Stellar (XLM)</option>
+                                    <option value="FILUSDT">Filecoin (FIL)</option>
+                                    <option value="NEARUSDT">NEAR Protocol (NEAR)</option>
+                                    <option value="ATOMUSDT">Cosmos (ATOM)</option>
+                                    <option value="CRVUSDT">Curve DAO (CRV)</option>
+                                    <option value="SNXUSDT">Synthetix (SNX)</option>
+                                    <option value="DYDXUSDT">dYdX (DYDX)</option>
+                                    <option value="GMXUSDT">GMX (GMX)</option>
+                                    <option value="ENSUSDT">Ethereum Name Service (ENS)</option>
+                                    <option value="1INCHUSDT">1inch (1INCH)</option>
+                                    <option value="COMPUSDT">Compound (COMP)</option>
+                                    <option value="BLURUSDT">Blur (BLUR)</option>
+                                    <option value="TIAUSDT">Celestia (TIA)</option>
+                                    <option value="BONKUSDT">Bonk (BONK)</option>
+                                    <option value="MEMEUSDT">Memecoin (MEME)</option>
+                                    <option value="JUPUSDT">Jupiter (JUP)</option>
+                                    <option value="PYTHUSDT">Pyth Network (PYTH)</option>
+                                    <option value="JASMYUSDT">JasmyCoin (JASMY)</option>
+                                    <option value="FLOKIUSDT">Floki (FLOKI)</option>
+                                    <option value="ORDIUSDT">ORDI (ORDI)</option>
+                                    <option value="SATSUSDT">SATS (SATS)</option>
+                                    <option value="BOMEUSDT">BOOK OF MEME (BOME)</option>
+                                    <option value="NOTUSDT">Notcoin (NOT)</option>
+                                    <option value="WIFUSDT">dogwifhat (WIF)</option>
+                                    <option value="AEVOUSDT">Aevo (AEVO)</option>
+                                    <option value="STRKUSDT">Starknet (STRK)</option>
+                                    <option value="ZETAUSDT">ZetaChain (ZETA)</option>
+                                    <option value="MANTAUSDT">Manta Network (MANTA)</option>
+                                    <option value="ALTUSDT">AltLayer (ALT)</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom:12px;">
+                                <label for="blikCode" style="color:#FFD700; font-weight:bold;">Kod BLIK (6 cyfr):</label><br>
+                                <input type="text" id="blikCode" maxlength="6" pattern="[0-9]{6}" required placeholder="123456" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                            </div>
+                            <div style="margin-bottom:12px;">
+                                <span id="blikDynamicResult" style="color:#FFD700;font-weight:bold;"></span>
+                            </div>
+                            <div style="margin-bottom:12px;">
+                                <label for="blikNetwork" style="color:#FFD700; font-weight:bold;">Sieć blockchain:</label><br>
+                                <select id="blikNetwork" style="width:60%;padding:8px 10px;border-radius:6px;border:1.5px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                                    <option value="bitcoin">Bitcoin (BTC)</option>
+                                    <option value="ethereum">Ethereum (ERC20)</option>
+                                    <option value="bep20">Binance Smart Chain (BEP20)</option>
+                                    <option value="polygon">Polygon (MATIC)</option>
+                                    <option value="tron">TRON (TRC20)</option>
+                                    <option value="arbitrum">Arbitrum</option>
+                                    <option value="optimism">Optimism</option>
+                                    <option value="solana">Solana</option>
+                                    <option value="avalanche">Avalanche (C-Chain)</option>
+                                    <option value="fantom">Fantom (FTM)</option>
+                                    <option value="base">Base</option>
+                                    <option value="zksync">zkSync</option>
+                                    <option value="linea">Linea</option>
+                                    <option value="opbnb">opBNB</option>
+                                    <option value="cronos">Cronos</option>
+                                    <option value="aptos">Aptos</option>
+                                    <option value="sui">Sui</option>
+                                    <option value="cosmos">Cosmos</option>
+                                    <option value="near">Near</option>
+                                    <option value="cardano">Cardano (ADA)</option>
+                                    <option value="polkadot">Polkadot (DOT)</option>
+                                    <option value="stellar">Stellar (XLM)</option>
+                                    <option value="ripple">Ripple (XRP)</option>
+                                    <option value="algorand">Algorand</option>
+                                    <option value="harmony">Harmony (ONE)</option>
+                                    <option value="celo">Celo</option>
+                                    <option value="kava">Kava</option>
+                                    <option value="eos">EOS</option>
+                                    <option value="tezos">Tezos (XTZ)</option>
+                                    <option value="flow">Flow</option>
+                                    <option value="hedera">Hedera (HBAR)</option>
+                                    <option value="kaspa">Kaspa</option>
+                                    <option value="ton">TON</option>
+                                    <option value="elrond">MultiversX (Elrond)</option>
+                                    <option value="mina">Mina</option>
+                                    <option value="waves">Waves</option>
+                                    <option value="other">Inna</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom:12px;">
+                                <label for="blikWallet" style="color:#FFD700; font-weight:bold;">Adres portfela:</label><br>
+                                <input id="blikWallet" type="text" required placeholder="np. 0x... lub adres BTC" style="width:60%;padding:8px 10px;border-radius:6px;border:1px solid #FFD700; background:#181818; color:#FFD700; outline:none; transition:border 0.2s;">
+                            </div>
+                            <button type="submit" class="btn btn-buy" style="margin-top:24px; width:100%; font-size:1.3rem; background:#00ff00; color:#111; font-weight:bold; border-radius:8px; border:none; padding:16px 0; box-shadow:0 2px 12px #00ff0040; transition:background 0.2s;">Kup teraz</button>
+                        </form>
+                        <script>
+                        // Przelicznik PLN -> krypto z dynamicznym kursem USD/PLN
+                        (function() {
+                            let prices = {}, usdpln = 4.0, pricesReady = false, usdReady = false;
+                            async function fetchUsdPln() {
+                                try {
+                                    const res = await fetch('https://api.nbp.pl/api/exchangerates/rates/A/USD/?format=json');
+                                    const data = await res.json();
+                                    usdpln = data.rates[0].mid;
+                                    usdReady = true;
+                                } catch {
+                                    usdpln = 4.0;
+                                    usdReady = true;
+                                }
+                            }
+                            async function fetchPrices() {
+                                try {
+                                    const res = await fetch('https://api.bybit.com/v5/market/tickers?category=spot');
+                                    const data = await res.json();
+                                    data.result.list.forEach(ticker => {
+                                        if (ticker.symbol.endsWith('USDT')) {
+                                            prices[ticker.symbol] = parseFloat(ticker.lastPrice || ticker.price);
+                                        }
+                                    });
+                                    pricesReady = true;
+                                } catch {
+                                    pricesReady = false;
+                                }
+                            }
+                            async function updateBlikDynamic() {
+                                const pln = parseFloat(document.getElementById('blikAmount').value);
+                                const symbol = document.getElementById('blikCrypto').value;
+                                const result = document.getElementById('blikDynamicResult');
+                                if (!pricesReady) await fetchPrices();
+                                if (!usdReady) await fetchUsdPln();
+                                if (pln > 0 && prices[symbol] && usdpln > 0) {
+                                    const usd = pln / usdpln;
+                                    const amount = usd / prices[symbol];
+                                    result.textContent = `Za ${pln} PLN kupisz około ${amount.toFixed(6)} ${symbol.replace('USDT','')}`;
+                                } else {
+                                    result.textContent = '';
+                                }
+                            }
+                            document.addEventListener('DOMContentLoaded', async function() {
+                                await Promise.all([fetchUsdPln(), fetchPrices()]);
+                                document.getElementById('blikAmount').addEventListener('input', updateBlikDynamic);
+                                document.getElementById('blikCrypto').addEventListener('change', updateBlikDynamic);
+                            });
+                        })();
+                        </script>
+                    </div>
+                    <!-- SPRZEDAŻ -->
+                    <div class="trading-form sell-form">
+                        <div class="trading-card">
+                            <h3>🔴 Sprzedaj Kryptowalutę</h3>
+                            <form id="sellForm">
+                                <div class="form-group">
+                                    <label for="sellCrypto">Wybierz kryptowalutę:</label>
+                                    <select id="sellCrypto" required>
+                                        <option value="BTCUSDT">Bitcoin (BTC)</option>
+                                        <option value="ETHUSDT">Ethereum (ETH)</option>
+                                        <option value="MATICUSDT">Polygon (MATIC)</option>
+                                        <option value="USDCUSDT">USD Coin (USDC)</option>
+                                        <option value="DAIUSDT">Dai (DAI)</option>
+                                        <option value="TUSDUSDT">TrueUSD (TUSD)</option>
+                                        <option value="TRXUSDT">TRON (TRX)</option>
+                                        <option value="DOGEUSDT">Dogecoin (DOGE)</option>
+                                        <option value="SHIBUSDT">Shiba Inu (SHIB)</option>
+                                        <option value="BCHUSDT">Bitcoin Cash (BCH)</option>
+                                        <option value="WBTCUSDT">Wrapped Bitcoin (WBTC)</option>
+                                        <option value="PEPEUSDT">Pepe (PEPE)</option>
+                                        <option value="ARBUSDT">Arbitrum (ARB)</option>
+                                        <option value="OPUSDT">Optimism (OP)</option>
+                                        <option value="RNDRUSDT">Render (RNDR)</option>
+                                        <option value="WLDUSDT">Worldcoin (WLD)</option>
+                                        <option value="INJUSDT">Injective (INJ)</option>
+                                        <option value="LDOUSDT">Lido DAO (LDO)</option>
+                                        <option value="SANDUSDT">The Sandbox (SAND)</option>
+                                        <option value="APEUSDT">ApeCoin (APE)</option>
+                                        <option value="GALAUSDT">Gala (GALA)</option>
+                                        <option value="CHZUSDT">Chiliz (CHZ)</option>
+                                        <option value="XLMUSDT">Stellar (XLM)</option>
+                                        <option value="FILUSDT">Filecoin (FIL)</option>
+                                        <option value="NEARUSDT">NEAR Protocol (NEAR)</option>
+                                        <option value="ATOMUSDT">Cosmos (ATOM)</option>
+                                        <option value="CRVUSDT">Curve DAO (CRV)</option>
+                                        <option value="SNXUSDT">Synthetix (SNX)</option>
+                                        <option value="DYDXUSDT">dYdX (DYDX)</option>
+                                        <option value="GMXUSDT">GMX (GMX)</option>
+                                        <option value="ENSUSDT">Ethereum Name Service (ENS)</option>
+                                        <option value="1INCHUSDT">1inch (1INCH)</option>
+                                        <option value="COMPUSDT">Compound (COMP)</option>
+                                        <option value="BLURUSDT">Blur (BLUR)</option>
+                                        <option value="TIAUSDT">Celestia (TIA)</option>
+                                        <option value="BONKUSDT">Bonk (BONK)</option>
+                                        <option value="MEMEUSDT">Memecoin (MEME)</option>
+                                        <option value="JUPUSDT">Jupiter (JUP)</option>
+                                        <option value="PYTHUSDT">Pyth Network (PYTH)</option>
+                                        <option value="JASMYUSDT">JasmyCoin (JASMY)</option>
+                                        <option value="FLOKIUSDT">Floki (FLOKI)</option>
+                                        <option value="ORDIUSDT">ORDI (ORDI)</option>
+                                        <option value="SATSUSDT">SATS (SATS)</option>
+                                        <option value="BOMEUSDT">BOOK OF MEME (BOME)</option>
+                                        <option value="NOTUSDT">Notcoin (NOT)</option>
+                                        <option value="WIFUSDT">dogwifhat (WIF)</option>
+                                        <option value="AEVOUSDT">Aevo (AEVO)</option>
+                                        <option value="STRKUSDT">Starknet (STRK)</option>
+                                        <option value="ZETAUSDT">ZetaChain (ZETA)</option>
+                                        <option value="MANTAUSDT">Manta Network (MANTA)</option>
+                                        <option value="ALTUSDT">AltLayer (ALT)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sellAmount">Ilość do sprzedaży:</label>
+                                    <input type="number" id="sellAmount" min="0.000001" step="0.000001" required placeholder="np. 0.001">
+                                    <div id="sellBlikResult" style="margin-top:8px;color:#FFD700;font-weight:bold;"></div>
+                                </div>
+                                <button type="submit" class="btn btn-sell">Sprzedaj Teraz</button>
+                                <script>
+                                (function() {
+                                    let prices = {}, usdpln = 4.0, pricesReady = false, usdReady = false;
+                                    async function fetchUsdPln() {
+                                        try {
+                                            const res = await fetch('https://api.nbp.pl/api/exchangerates/rates/A/USD/?format=json');
+                                            const data = await res.json();
+                                            usdpln = data.rates[0].mid;
+                                            usdReady = true;
+                                        } catch {
+                                            usdpln = 4.0;
+                                            usdReady = true;
+                                        }
+                                    }
+                                    async function fetchPrices() {
+                                        try {
+                                            const res = await fetch('https://api.bybit.com/v5/market/tickers?category=spot');
+                                            const data = await res.json();
+                                            data.result.list.forEach(ticker => {
+                                                if (ticker.symbol.endsWith('USDT')) {
+                                                    prices[ticker.symbol] = parseFloat(ticker.lastPrice || ticker.price);
+                                                }
+                                            });
+                                            pricesReady = true;
+                                        } catch {
+                                            pricesReady = false;
+                                        }
+                                    }
+                                    async function updateSellBlikResult() {
+                                        const amount = parseFloat(document.getElementById('sellAmount').value);
+                                        const symbol = document.getElementById('sellCrypto').value;
+                                        const result = document.getElementById('sellBlikResult');
+                                        if (!pricesReady) await fetchPrices();
+                                        if (!usdReady) await fetchUsdPln();
+                                        if (amount > 0 && prices[symbol] && usdpln > 0) {
+                                            const usd = amount * prices[symbol];
+                                            const pln = usd * usdpln;
+                                            result.textContent = `Otrzymasz około ${pln.toFixed(2)} PLN na BLIK`;
+                                        } else {
+                                            result.textContent = '';
+                                        }
+                                    }
+                                    document.addEventListener('DOMContentLoaded', async function() {
+                                        await Promise.all([fetchUsdPln(), fetchPrices()]);
+                                        document.getElementById('sellAmount').addEventListener('input', updateSellBlikResult);
+                                        document.getElementById('sellCrypto').addEventListener('change', updateSellBlikResult);
+                                    });
+                                })();
+                                </script>
+                            </form>
+                            <form id="sellWalletForm" class="hidden">
+                                <div class="form-group">
+                                    <label for="sellWalletNetwork">Wybierz sieć blockchain odbiorcy:</label>
+                                    <select id="sellWalletNetwork" required>
+                                        <option value="">-- Wybierz sieć --</option>
+                                        <option value="bitcoin">Bitcoin (BTC)</option>
+                                        <option value="ethereum">Ethereum (ERC20)</option>
+                                        <option value="bep20">Binance Smart Chain (BEP20)</option>
+                                        <option value="polygon">Polygon (MATIC)</option>
+                                        <option value="tron">TRON (TRC20)</option>
+                                        <option value="arbitrum">Arbitrum</option>
+                                        <option value="optimism">Optimism</option>
+                                        <option value="solana">Solana</option>
+                                        <option value="avalanche">Avalanche (C-Chain)</option>
+                                        <option value="fantom">Fantom (FTM)</option>
+                                        <option value="base">Base</option>
+                                        <option value="zksync">zkSync</option>
+                                        <option value="linea">Linea</option>
+                                        <option value="opbnb">opBNB</option>
+                                        <option value="cronos">Cronos</option>
+                                        <option value="aptos">Aptos</option>
+                                        <option value="sui">Sui</option>
+                                        <option value="cosmos">Cosmos</option>
+                                        <option value="near">Near</option>
+                                        <option value="cardano">Cardano (ADA)</option>
+                                        <option value="polkadot">Polkadot (DOT)</option>
+                                        <option value="stellar">Stellar (XLM)</option>
+                                        <option value="ripple">Ripple (XRP)</option>
+                                        <option value="algorand">Algorand</option>
+                                        <option value="harmony">Harmony (ONE)</option>
+                                        <option value="celo">Celo</option>
+                                        <option value="kava">Kava</option>
+                                        <option value="eos">EOS</option>
+                                        <option value="tezos">Tezos (XTZ)</option>
+                                        <option value="flow">Flow</option>
+                                        <option value="hedera">Hedera (HBAR)</option>
+                                        <option value="kaspa">Kaspa</option>
+                                        <option value="ton">TON</option>
+                                        <option value="elrond">MultiversX (Elrond)</option>
+                                        <option value="mina">Mina</option>
+                                        <option value="waves">Waves</option>
+                                        <option value="other">Inna</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sellWalletAddress">Podaj adres portfela odbiorcy (gdzie wyślesz kryptowalutę):</label>
+                                    <div style="display:flex; gap:10px; align-items:center;">
+                                        <input type="text" id="sellWalletAddress" required placeholder="np. 0x... lub adres BTC" style="flex:1;">
+                                        <button type="button" id="sellScanQRBtn" title="Zeskanuj kod QR" style="padding:10px 16px; background:#FFD700; color:#111; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">QR</button>
+                                    </div>
+                                    <div id="sellQrScannerContainer" class="hidden" style="margin-top:10px;"></div>
+                                </div>
+                                <button type="submit" class="btn btn-sell">Przejdź dalej</button>
+                            </form>
+                            <form id="sellBlikForm">
+                                <div class="form-group">
+                                    <label for="sellPhoneNumber">Podaj numer telefonu odbiorcy (na który mają być przekazane pieniądze):</label>
+                                    <input type="tel" id="sellPhoneNumber" pattern="\d{9}" maxlength="9" required placeholder="np. 123456789">
+                                </div>
+                                <button type="submit" class="btn btn-sell" style="width:100%;margin-top:20px;">Zakończ transakcję</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -732,632 +1061,504 @@
         <section class="prices-section" id="prices">
             <h2 class="section-title">Aktualne Ceny Kryptowalut</h2>
             <div class="crypto-grid" id="cryptoGrid">
-                <div class="crypto-card">
-                    <div class="crypto-icon">₿</div>
-                    <div class="crypto-name">Bitcoin (BTC)</div>
-                    <div class="crypto-price" id="btc-price">--</div>
-                    <div class="crypto-change" id="btc-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">⟠</div>
-                    <div class="crypto-name">Ethereum (ETH)</div>
-                    <div class="crypto-price" id="eth-price">--</div>
-                    <div class="crypto-change" id="eth-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">₿</div>
-                    <div class="crypto-name">Binance Coin (BNB)</div>
-                    <div class="crypto-price" id="bnb-price">--</div>
-                    <div class="crypto-change" id="bnb-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">◊</div>
-                    <div class="crypto-name">Cardano (ADA)</div>
-                    <div class="crypto-price" id="ada-price">--</div>
-                    <div class="crypto-change" id="ada-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">◎</div>
-                    <div class="crypto-name">Solana (SOL)</div>
-                    <div class="crypto-price" id="sol-price">--</div>
-                    <div class="crypto-change" id="sol-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">△</div>
-                    <div class="crypto-name">Polkadot (DOT)</div>
-                    <div class="crypto-price" id="dot-price">--</div>
-                    <div class="crypto-change" id="dot-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">✱</div>
-                    <div class="crypto-name">XRP (XRP)</div>
-                    <div class="crypto-price" id="xrp-price">--</div>
-                    <div class="crypto-change" id="xrp-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">Ł</div>
-                    <div class="crypto-name">Litecoin (LTC)</div>
-                    <div class="crypto-price" id="ltc-price">--</div>
-                    <div class="crypto-change" id="ltc-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">🔗</div>
-                    <div class="crypto-name">Chainlink (LINK)</div>
-                    <div class="crypto-price" id="link-price">--</div>
-                    <div class="crypto-change" id="link-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">🏔️</div>
-                    <div class="crypto-name">Avalanche (AVAX)</div>
-                    <div class="crypto-price" id="avax-price">--</div>
-                    <div class="crypto-change" id="avax-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">⬡</div>
-                    <div class="crypto-name">Polygon (MATIC)</div>
-                    <div class="crypto-price" id="matic-price">--</div>
-                    <div class="crypto-change" id="matic-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">🦄</div>
-                    <div class="crypto-name">Uniswap (UNI)</div>
-                    <div class="crypto-price" id="uni-price">--</div>
-                    <div class="crypto-change" id="uni-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">💲</div>
-                    <div class="crypto-name">Tether (USDT)</div>
-                    <div class="crypto-price" id="usdt-price">--</div>
-                    <div class="crypto-change" id="usdt-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">💵</div>
-                    <div class="crypto-name">USD Coin (USDC)</div>
-                    <div class="crypto-price" id="usdc-price">--</div>
-                    <div class="crypto-change" id="usdc-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">🏦</div>
-                    <div class="crypto-name">Binance USD (BUSD)</div>
-                    <div class="crypto-price" id="busd-price">--</div>
-                    <div class="crypto-change" id="busd-change">--</div>
-                </div>
-                <div class="crypto-card">
-                    <div class="crypto-icon">🏛️</div>
-                    <div class="crypto-name">Dai (DAI)</div>
-                    <div class="crypto-price" id="dai-price">--</div>
-                    <div class="crypto-change" id="dai-change">--</div>
-                </div>
+                <!-- Najpopularniejsze 15 -->
+                <div class="crypto-card" data-symbol="BTCUSDT"><div class="crypto-icon">₿</div><div class="crypto-name">Bitcoin (BTC)</div><div class="crypto-price" id="btc-price">--</div><div class="crypto-change" id="btc-change">--</div></div>
+                <div class="crypto-card" data-symbol="ETHUSDT"><div class="crypto-icon">⟠</div><div class="crypto-name">Ethereum (ETH)</div><div class="crypto-price" id="eth-price">--</div><div class="crypto-change" id="eth-change">--</div></div>
+                <div class="crypto-card" data-symbol="MATICUSDT"><div class="crypto-icon">⬡</div><div class="crypto-name">Polygon (MATIC)</div><div class="crypto-price" id="matic-price">--</div><div class="crypto-change" id="matic-change">--</div></div>
+                <div class="crypto-card" data-symbol="USDCUSDT"><div class="crypto-icon">💵</div><div class="crypto-name">USD Coin (USDC)</div><div class="crypto-price" id="usdc-price">--</div><div class="crypto-change" id="usdc-change">--</div></div>
+                <div class="crypto-card" data-symbol="DAIUSDT"><div class="crypto-icon">🪙</div><div class="crypto-name">Dai (DAI)</div><div class="crypto-price" id="dai-price">--</div><div class="crypto-change" id="dai-change">--</div></div>
+                <div class="crypto-card" data-symbol="TUSDUSDT"><div class="crypto-icon">💲</div><div class="crypto-name">TrueUSD (TUSD)</div><div class="crypto-price" id="tusd-price">--</div><div class="crypto-change" id="tusd-change">--</div></div>
+                <div class="crypto-card" data-symbol="TRXUSDT"><div class="crypto-icon">⚡</div><div class="crypto-name">TRON (TRX)</div><div class="crypto-price" id="trx-price">--</div><div class="crypto-change" id="trx-change">--</div></div>
+                <div class="crypto-card" data-symbol="DOGEUSDT"><div class="crypto-icon">🐕</div><div class="crypto-name">Dogecoin (DOGE)</div><div class="crypto-price" id="doge-price">--</div><div class="crypto-change" id="doge-change">--</div></div>
+                <div class="crypto-card" data-symbol="SHIBUSDT"><div class="crypto-icon">🐶</div><div class="crypto-name">Shiba Inu (SHIB)</div><div class="crypto-price" id="shib-price">--</div><div class="crypto-change" id="shib-change">--</div></div>
+                <div class="crypto-card" data-symbol="BCHUSDT"><div class="crypto-icon">₿</div><div class="crypto-name">Bitcoin Cash (BCH)</div><div class="crypto-price" id="bch-price">--</div><div class="crypto-change" id="bch-change">--</div></div>
+                <div class="crypto-card" data-symbol="WBTCUSDT"><div class="crypto-icon">₿</div><div class="crypto-name">Wrapped Bitcoin (WBTC)</div><div class="crypto-price" id="wbtc-price">--</div><div class="crypto-change" id="wbtc-change">--</div></div>
+                <div class="crypto-card" data-symbol="PEPEUSDT"><div class="crypto-icon">🐸</div><div class="crypto-name">Pepe (PEPE)</div><div class="crypto-price" id="pepe-price">--</div><div class="crypto-change" id="pepe-change">--</div></div>
+                <div class="crypto-card" data-symbol="ARBUSDT"><div class="crypto-icon">🪂</div><div class="crypto-name">Arbitrum (ARB)</div><div class="crypto-price" id="arb-price">--</div><div class="crypto-change" id="arb-change">--</div></div>
+                <div class="crypto-card" data-symbol="OPUSDT"><div class="crypto-icon">🟢</div><div class="crypto-name">Optimism (OP)</div><div class="crypto-price" id="op-price">--</div><div class="crypto-change" id="op-change">--</div></div>
+                <div class="crypto-card" data-symbol="RNDRUSDT"><div class="crypto-icon">🖼️</div><div class="crypto-name">Render (RNDR)</div><div class="crypto-price" id="rndr-price">--</div><div class="crypto-change" id="rndr-change">--</div></div>
+                <!-- Pozostałe ukryte domyślnie -->
+                <div class="crypto-card hidden" data-symbol="WLDUSDT"><div class="crypto-icon">🌐</div><div class="crypto-name">Worldcoin (WLD)</div><div class="crypto-price" id="wld-price">--</div><div class="crypto-change" id="wld-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="INJUSDT"><div class="crypto-icon">🧬</div><div class="crypto-name">Injective (INJ)</div><div class="crypto-price" id="inj-price">--</div><div class="crypto-change" id="inj-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="LDOUSDT"><div class="crypto-icon">🦾</div><div class="crypto-name">Lido DAO (LDO)</div><div class="crypto-price" id="ldo-price">--</div><div class="crypto-change" id="ldo-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="SANDUSDT"><div class="crypto-icon">🏖️</div><div class="crypto-name">The Sandbox (SAND)</div><div class="crypto-price" id="sand-price">--</div><div class="crypto-change" id="sand-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="APEUSDT"><div class="crypto-icon">🦍</div><div class="crypto-name">ApeCoin (APE)</div><div class="crypto-price" id="ape-price">--</div><div class="crypto-change" id="ape-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="GALAUSDT"><div class="crypto-icon">🎮</div><div class="crypto-name">Gala (GALA)</div><div class="crypto-price" id="gala-price">--</div><div class="crypto-change" id="gala-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="CHZUSDT"><div class="crypto-icon">⚽</div><div class="crypto-name">Chiliz (CHZ)</div><div class="crypto-price" id="chz-price">--</div><div class="crypto-change" id="chz-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="XLMUSDT"><div class="crypto-icon">⭐</div><div class="crypto-name">Stellar (XLM)</div><div class="crypto-price" id="xlm-price">--</div><div class="crypto-change" id="xlm-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="XMRUSDT"><div class="crypto-icon">🕵️</div><div class="crypto-name">Monero (XMR)</div><div class="crypto-price" id="xmr-price">--</div><div class="crypto-change" id="xmr-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="FILUSDT"><div class="crypto-icon">📁</div><div class="crypto-name">Filecoin (FIL)</div><div class="crypto-price" id="fil-price">--</div><div class="crypto-change" id="fil-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="NEARUSDT"><div class="crypto-icon">⛓️</div><div class="crypto-name">NEAR Protocol (NEAR)</div><div class="crypto-price" id="near-price">--</div><div class="crypto-change" id="near-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="ATOMUSDT"><div class="crypto-icon">🌌</div><div class="crypto-name">Cosmos (ATOM)</div><div class="crypto-price" id="atom-price">--</div><div class="crypto-change" id="atom-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="MKRUSDT"><div class="crypto-icon">🏛️</div><div class="crypto-name">Maker (MKR)</div><div class="crypto-price" id="mkr-price">--</div><div class="crypto-change" id="mkr-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="CRVUSDT"><div class="crypto-icon">💧</div><div class="crypto-name">Curve DAO (CRV)</div><div class="crypto-price" id="crv-price">--</div><div class="crypto-change" id="crv-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="SNXUSDT"><div class="crypto-icon">🧪</div><div class="crypto-name">Synthetix (SNX)</div><div class="crypto-price" id="snx-price">--</div><div class="crypto-change" id="snx-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="DYDXUSDT"><div class="crypto-icon">⚖️</div><div class="crypto-name">dYdX (DYDX)</div><div class="crypto-price" id="dydx-price">--</div><div class="crypto-change" id="dydx-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="GMXUSDT"><div class="crypto-icon">🧑‍💻</div><div class="crypto-name">GMX (GMX)</div><div class="crypto-price" id="gmx-price">--</div><div class="crypto-change" id="gmx-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="ENSUSDT"><div class="crypto-icon">🔤</div><div class="crypto-name">Ethereum Name Service (ENS)</div><div class="crypto-price" id="ens-price">--</div><div class="crypto-change" id="ens-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="1INCHUSDT"><div class="crypto-icon">1️⃣</div><div class="crypto-name">1inch (1INCH)</div><div class="crypto-price" id="1inch-price">--</div><div class="crypto-change" id="1inch-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="COMPUSDT"><div class="crypto-icon">🏦</div><div class="crypto-name">Compound (COMP)</div><div class="crypto-price" id="comp-price">--</div><div class="crypto-change" id="comp-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="BLURUSDT"><div class="crypto-icon">🖼️</div><div class="crypto-name">Blur (BLUR)</div><div class="crypto-price" id="blur-price">--</div><div class="crypto-change" id="blur-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="LINAUSDT"><div class="crypto-icon">📈</div><div class="crypto-name">Linear (LINA)</div><div class="crypto-price" id="lina-price">--</div><div class="crypto-change" id="lina-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="TIAUSDT"><div class="crypto-icon">🌞</div><div class="crypto-name">Celestia (TIA)</div><div class="crypto-price" id="tia-price">--</div><div class="crypto-change" id="tia-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="BONKUSDT"><div class="crypto-icon">🐶</div><div class="crypto-name">Bonk (BONK)</div><div class="crypto-price" id="bonk-price">--</div><div class="crypto-change" id="bonk-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="MEMEUSDT"><div class="crypto-icon">🧠</div><div class="crypto-name">Memecoin (MEME)</div><div class="crypto-price" id="meme-price">--</div><div class="crypto-change" id="meme-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="JUPUSDT"><div class="crypto-icon">🚀</div><div class="crypto-name">Jupiter (JUP)</div><div class="crypto-price" id="jup-price">--</div><div class="crypto-change" id="jup-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="PYTHUSDT"><div class="crypto-icon">🦉</div><div class="crypto-name">Pyth Network (PYTH)</div><div class="crypto-price" id="pyth-price">--</div><div class="crypto-change" id="pyth-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="JASMYUSDT"><div class="crypto-icon">💾</div><div class="crypto-name">JasmyCoin (JASMY)</div><div class="crypto-price" id="jasmy-price">--</div><div class="crypto-change" id="jasmy-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="FLOKIUSDT"><div class="crypto-icon">🐕</div><div class="crypto-name">Floki (FLOKI)</div><div class="crypto-price" id="floki-price">--</div><div class="crypto-change" id="floki-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="ORDIUSDT"><div class="crypto-icon">🟠</div><div class="crypto-name">ORDI (ORDI)</div><div class="crypto-price" id="ordi-price">--</div><div class="crypto-change" id="ordi-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="SATSUSDT"><div class="crypto-icon">⚡</div><div class="crypto-name">SATS (SATS)</div><div class="crypto-price" id="sats-price">--</div><div class="crypto-change" id="sats-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="BOMEUSDT"><div class="crypto-icon">📚</div><div class="crypto-name">BOOK OF MEME (BOME)</div><div class="crypto-price" id="bome-price">--</div><div class="crypto-change" id="bome-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="NOTUSDT"><div class="crypto-icon">🟡</div><div class="crypto-name">Notcoin (NOT)</div><div class="crypto-price" id="not-price">--</div><div class="crypto-change" id="not-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="WIFUSDT"><div class="crypto-icon">🐶</div><div class="crypto-name">dogwifhat (WIF)</div><div class="crypto-price" id="wif-price">--</div><div class="crypto-change" id="wif-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="AEVOUSDT"><div class="crypto-icon">🟢</div><div class="crypto-name">Aevo (AEVO)</div><div class="crypto-price" id="aevo-price">--</div><div class="crypto-change" id="aevo-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="STRKUSDT"><div class="crypto-icon">🟣</div><div class="crypto-name">Starknet (STRK)</div><div class="crypto-price" id="strk-price">--</div><div class="crypto-change" id="strk-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="ZETAUSDT"><div class="crypto-icon">⚡</div><div class="crypto-name">ZetaChain (ZETA)</div><div class="crypto-price" id="zeta-price">--</div><div class="crypto-change" id="zeta-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="MANTAUSDT"><div class="crypto-icon">🌊</div><div class="crypto-name">Manta Network (MANTA)</div><div class="crypto-price" id="manta-price">--</div><div class="crypto-change" id="manta-change">--</div></div>
+                <div class="crypto-card hidden" data-symbol="ALTUSDT"><div class="crypto-icon">🟧</div><div class="crypto-name">AltLayer (ALT)</div><div class="crypto-price" id="alt-price">--</div><div class="crypto-change" id="alt-change">--</div></div>
+            </div>
+            <div style="text-align:center; margin-top:20px;">
+                <button id="toggleMoreCoins" class="btn btn-buy" style="width:auto;">Pokaż więcej</button>
             </div>
         </section>
 
-        <!-- Trading Section -->
-        <section class="trading-section" id="trading">
-            <div class="trading-container">
-                <!-- Buy Form -->
-                <div class="trading-card">
-                    <h3>🟢 Kup Kryptowalutę</h3>
-                    <form id="buyForm">
-                        <div class="form-group">
-                            <label for="buyCrypto">Wybierz kryptowalutę:</label>
-                            <select id="buyCrypto" required>
-                                <option value="BTC-USDT">Bitcoin (BTC)</option>
-                                <option value="ETH-USDT">Ethereum (ETH)</option>
-                                <option value="BNB-USDT">Binance Coin (BNB)</option>
-                                <option value="ADA-USDT">Cardano (ADA)</option>
-                                <option value="SOL-USDT">Solana (SOL)</option>
-                                <option value="DOT-USDT">Polkadot (DOT)</option>
-                                <option value="XRP-USDT">XRP (XRP)</option>
-                                <option value="LTC-USDT">Litecoin (LTC)</option>
-                                <option value="LINK-USDT">Chainlink (LINK)</option>
-                                <option value="AVAX-USDT">Avalanche (AVAX)</option>
-                                <option value="MATIC-USDT">Polygon (MATIC)</option>
-                                <option value="UNI-USDT">Uniswap (UNI)</option>
-                                <option value="USDT-USDT">Tether (USDT)</option>
-                                <option value="USDC-USDT">USD Coin (USDC)</option>
-                                <option value="BUSD-USDT">Binance USD (BUSD)</option>
-                                <option value="DAI-USDT">Dai (DAI)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="buyAmount">Kwota w PLN:</label>
-                            <input type="number" id="buyAmount" min="60" step="0.01" required placeholder="np. 100">
-                        </div>
-                        <button type="submit" class="btn btn-buy">Kup Teraz</button>
-                    </form>
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">CryptoBLIK</div>
+                <div class="footer-links">
+                    <a href="privacy.html">Polityka prywatności</a>
+                    <a href="terms.html">Regulamin</a>
+                    <a href="contact.html">Kontakt</a>
+                    <a href="about.html">O nas</a>
                 </div>
-
-                <!-- Sell Form -->
-                <div class="trading-card">
-                    <h3>🔴 Sprzedaj Kryptowalutę</h3>
-                    <form id="sellForm">
-                        <div class="form-group">
-                            <label for="sellCrypto">Wybierz kryptowalutę:</label>
-                            <select id="sellCrypto" required>
-                                <option value="BTC-USDT">Bitcoin (BTC)</option>
-                                <option value="ETH-USDT">Ethereum (ETH)</option>
-                                <option value="BNB-USDT">Binance Coin (BNB)</option>
-                                <option value="ADA-USDT">Cardano (ADA)</option>
-                                <option value="SOL-USDT">Solana (SOL)</option>
-                                <option value="DOT-USDT">Polkadot (DOT)</option>
-                                <option value="XRP-USDT">XRP (XRP)</option>
-                                <option value="LTC-USDT">Litecoin (LTC)</option>
-                                <option value="LINK-USDT">Chainlink (LINK)</option>
-                                <option value="AVAX-USDT">Avalanche (AVAX)</option>
-                                <option value="MATIC-USDT">Polygon (MATIC)</option>
-                                <option value="UNI-USDT">Uniswap (UNI)</option>
-                                <option value="USDT-USDT">Tether (USDT)</option>
-                                <option value="USDC-USDT">USD Coin (USDC)</option>
-                                <option value="BUSD-USDT">Binance USD (BUSD)</option>
-                                <option value="DAI-USDT">Dai (DAI)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="sellAmount">Ilość do sprzedaży:</label>
-                            <input type="number" id="sellAmount" min="0.000001" step="0.000001" required placeholder="np. 0.001">
-                        </div>
-                        <button type="submit" class="btn btn-sell">Sprzedaj Teraz</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Wallet Section -->
-        <section class="wallet-section" id="wallet">
-            <h2 class="section-title">Twój Portfel</h2>
-            <div class="wallet-card">
-                <div class="wallet-balance" id="walletBalance">$0.00</div>
-                <p style="color: #ccc; margin-bottom: 30px;">Łączna wartość Twoich aktywów</p>
-
-                <div class="wallet-assets" id="walletAssets">
-                    <div class="asset-item">
-                        <div class="asset-name">BTC</div>
-                        <div class="asset-amount" id="btc-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">ETH</div>
-                        <div class="asset-amount" id="eth-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">BNB</div>
-                        <div class="asset-amount" id="bnb-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">ADA</div>
-                        <div class="asset-amount" id="ada-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">SOL</div>
-                        <div class="asset-amount" id="sol-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">DOT</div>
-                        <div class="asset-amount" id="dot-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">XRP</div>
-                        <div class="asset-amount" id="xrp-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">LTC</div>
-                        <div class="asset-amount" id="ltc-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">LINK</div>
-                        <div class="asset-amount" id="link-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">AVAX</div>
-                        <div class="asset-amount" id="avax-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">MATIC</div>
-                        <div class="asset-amount" id="matic-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">UNI</div>
-                        <div class="asset-amount" id="uni-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">USDT</div>
-                        <div class="asset-amount" id="usdt-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">USDC</div>
-                        <div class="asset-amount" id="usdc-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">BUSD</div>
-                        <div class="asset-amount" id="busd-balance">0.00000000</div>
-                    </div>
-                    <div class="asset-item">
-                        <div class="asset-name">DAI</div>
-                        <div class="asset-amount" id="dai-balance">0.00000000</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">CryptoBLIK</div>
-            <div class="footer-links">
-                <a href="#privacy">Polityka Prywatności</a>
-                <a href="#terms">Regulamin</a>
-                <a href="#support">Wsparcie</a>
-                <a href="#about">O Nas</a>
             </div>
             <div class="copyright">
                 © 2025 CryptoBLIK. Wszystkie prawa zastrzeżone. Trading kryptowalut wiąże się z ryzykiem.
             </div>
-        </div>
-    </footer>
+        </footer>
 
+    <!-- html5-qrcode (skaner QR) -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.10/html5-qrcode.min.js"></script>
     <!-- JavaScript -->
     <script>
-        // Symulowany portfel użytkownika
-        let wallet = {
-            USD: 10000, // Początkowe saldo w USD
-            BTC: 0,
-            ETH: 0,
-            BNB: 0,
-            ADA: 0,
-            SOL: 0,
-            DOT: 0,
-            XRP: 0,
-            LTC: 0,
-            LINK: 0,
-            AVAX: 0,
-            MATIC: 0,
-            UNI: 0,
-            USDT: 0,
-            USDC: 0,
-            BUSD: 0,
-            DAI: 0
-        };
+        // Obsługa strzałki Wstecz w formularzu BLIK (kupno)
+        document.addEventListener('DOMContentLoaded', function() {
+            const blikBackBtn = document.getElementById('blikBackBtn');
+            const blikForm = document.getElementById('blikForm');
+            const buyForm = document.getElementById('buyForm');
+            if (blikBackBtn && blikForm && buyForm) {
+                blikBackBtn.addEventListener('click', function() {
+                    blikForm.classList.add('hidden');
+                    document.getElementById('blikConverter').style.display = 'none';
+                    buyForm.classList.remove('hidden');
+                });
+            }
+        });
+        // Przelicznik PLN -> wybrana krypto nad formularzem BLIK
+        (function() {
+            let lastPrices = {};
+            function updateBlikConverter() {
+                const plnInput = document.getElementById('buyAmount');
+                const cryptoSelect = document.getElementById('buyCrypto');
+                const result = document.getElementById('blikConverterResult');
+                if (!plnInput || !cryptoSelect || !result) return;
+                const pln = parseFloat(plnInput.value);
+                const symbol = cryptoSelect.value;
+                if (pln > 0 && lastPrices[symbol] && lastPrices[symbol].price > 0) {
+                    const usd = pln / (window.usdpln || 4.0);
+                    const amount = usd / lastPrices[symbol].price;
+                    result.textContent = `Za ${pln} PLN kupisz około ${amount.toFixed(6)} ${symbol.replace('USDT','')}`;
+                } else {
+                    result.textContent = '';
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                const plnInput = document.getElementById('buyAmount');
+                const cryptoSelect = document.getElementById('buyCrypto');
+                if (plnInput && cryptoSelect) {
+                    plnInput.addEventListener('input', updateBlikConverter);
+                    cryptoSelect.addEventListener('change', updateBlikConverter);
+                }
+            });
+            // Podpinamy się pod updateMultipliers, by mieć aktualne ceny
+            const origUpdateMultipliers = window.updateMultipliers;
+            window.updateMultipliers = function(prices) {
+                lastPrices = prices;
+                if (origUpdateMultipliers) origUpdateMultipliers(prices);
+                updateBlikConverter();
+            };
+        })();
+        // Przelicznik PLN ↔ BTC w formularzach BLIK (kupno i sprzedaż)
+        (function() {
+            let btcPrice = null, usdpln = 4.0;
+            async function fetchBTC() {
+                try {
+                    const res = await fetch('https://api.bybit.com/v5/market/tickers?category=spot?symbol=BTCUSDT');
+                    const data = await res.json();
+                    return parseFloat(data.price);
+                } catch { return null; }
+            }
+            function updateBlikResult() {
+                const pln = parseFloat(document.getElementById('blikPlnInput')?.value);
+                const btc = parseFloat(document.getElementById('blikBtcInput')?.value);
+                const result = document.getElementById('blikExchangeResult');
+                if (document.activeElement?.id === 'blikPlnInput' && pln > 0 && btcPrice) {
+                    const btcVal = (pln / usdpln) / btcPrice;
+                    document.getElementById('blikBtcInput').value = btcVal ? btcVal.toFixed(6) : '';
+                    result.textContent = `Za ${pln} PLN kupisz około ${btcVal.toFixed(6)} BTC`;
+                } else if (document.activeElement?.id === 'blikBtcInput' && btc > 0 && btcPrice) {
+                    const plnVal = btc * btcPrice * usdpln;
+                    document.getElementById('blikPlnInput').value = plnVal ? plnVal.toFixed(2) : '';
+                    result.textContent = `Za ${btc} BTC otrzymasz około ${plnVal.toFixed(2)} PLN`;
+                } else {
+                    result.textContent = '';
+                }
+            }
+            function updateSellBlikResult() {
+                const pln = parseFloat(document.getElementById('sellBlikPlnInput')?.value);
+                const btc = parseFloat(document.getElementById('sellBlikBtcInput')?.value);
+                const result = document.getElementById('sellBlikExchangeResult');
+                if (document.activeElement?.id === 'sellBlikPlnInput' && pln > 0 && btcPrice) {
+                    const btcVal = (pln / usdpln) / btcPrice;
+                    document.getElementById('sellBlikBtcInput').value = btcVal ? btcVal.toFixed(6) : '';
+                    result.textContent = `Za ${pln} PLN kupisz około ${btcVal.toFixed(6)} BTC`;
+                } else if (document.activeElement?.id === 'sellBlikBtcInput' && btc > 0 && btcPrice) {
+                    const plnVal = btc * btcPrice * usdpln;
+                    document.getElementById('sellBlikPlnInput').value = plnVal ? plnVal.toFixed(2) : '';
+                    result.textContent = `Za ${btc} BTC otrzymasz około ${plnVal.toFixed(2)} PLN`;
+                } else {
+                    result.textContent = '';
+                }
+            }
+            document.addEventListener('DOMContentLoaded', async function() {
+                btcPrice = await fetchBTC();
+                if(document.getElementById('blikPlnInput')){
+                    document.getElementById('blikPlnInput').addEventListener('input', updateBlikResult);
+                    document.getElementById('blikBtcInput').addEventListener('input', updateBlikResult);
+                }
+                if(document.getElementById('sellBlikPlnInput')){
+                    document.getElementById('sellBlikPlnInput').addEventListener('input', updateSellBlikResult);
+                    document.getElementById('sellBlikBtcInput').addEventListener('input', updateSellBlikResult);
+                }
+            });
+        })();
+        // Obsługa procesu kupna: przekierowania do formularza portfela i BLIK
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- MNOŻNIK PLN/KRYPTO ---
+            const buyAmountInput = document.getElementById('buyAmount');
+            const buyCryptoSelect = document.getElementById('buyCrypto');
+            const buyMultiplier = document.getElementById('buyMultiplier');
+            let lastPrices = {};
+            function updateBuyMultiplier() {
+                const pln = parseFloat(buyAmountInput.value);
+                const symbol = buyCryptoSelect.value;
+                if (pln > 0 && lastPrices[symbol] && lastPrices[symbol].price > 0) {
+                    const usd = pln / (window.usdpln || 4.0); // domyślnie 4.0 jeśli brak kursu
+                    const amount = usd / lastPrices[symbol].price;
+                    buyMultiplier.textContent = `Otrzymasz około ${amount.toFixed(6)} ${symbol.replace('USDT','')}`;
+                } else {
+                    buyMultiplier.textContent = '';
+                }
+            }
+            if (buyAmountInput && buyCryptoSelect && buyMultiplier) {
+                buyAmountInput.addEventListener('input', updateBuyMultiplier);
+                buyCryptoSelect.addEventListener('change', updateBuyMultiplier);
+            }
 
-        // Funkcje pomocnicze
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
+            // Mnożnik krypto -> PLN
+            const sellAmountInput = document.getElementById('sellAmount');
+            const sellCryptoSelect = document.getElementById('sellCrypto');
+            const sellMultiplier = document.getElementById('sellMultiplier');
+            function updateSellMultiplier() {
+                const amount = parseFloat(sellAmountInput.value);
+                const symbol = sellCryptoSelect.value;
+                if (amount > 0 && lastPrices[symbol] && lastPrices[symbol].price > 0) {
+                    const usd = amount * lastPrices[symbol].price;
+                    const pln = usd * (window.usdpln || 4.0);
+                    sellMultiplier.textContent = `Otrzymasz około ${pln.toFixed(2)} PLN`;
+                } else {
+                    sellMultiplier.textContent = '';
+                }
+            }
+            if (sellAmountInput && sellCryptoSelect && sellMultiplier) {
+                sellAmountInput.addEventListener('input', updateSellMultiplier);
+                sellCryptoSelect.addEventListener('change', updateSellMultiplier);
+            }
 
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('pl-PL', {
-                style: 'currency',
-                currency: 'PLN'
-            }).format(amount);
-        }
-
-        function formatCrypto(amount, decimals = 8) {
-            return parseFloat(amount).toFixed(decimals);
-        }
-
-        function updateWalletDisplay() {
-            // Oblicz całkowitą wartość portfela
-            let totalValue = wallet.USD;
-
-            // Zaktualizuj wyświetlanie aktywów
-            document.getElementById('btc-balance').textContent = formatCrypto(wallet.BTC);
-            document.getElementById('eth-balance').textContent = formatCrypto(wallet.ETH);
-            document.getElementById('bnb-balance').textContent = formatCrypto(wallet.BNB);
-            document.getElementById('ada-balance').textContent = formatCrypto(wallet.ADA);
-            document.getElementById('sol-balance').textContent = formatCrypto(wallet.SOL);
-            document.getElementById('dot-balance').textContent = formatCrypto(wallet.DOT);
-            document.getElementById('xrp-balance').textContent = formatCrypto(wallet.XRP);
-            document.getElementById('ltc-balance').textContent = formatCrypto(wallet.LTC);
-            document.getElementById('link-balance').textContent = formatCrypto(wallet.LINK);
-            document.getElementById('avax-balance').textContent = formatCrypto(wallet.AVAX);
-            document.getElementById('matic-balance').textContent = formatCrypto(wallet.MATIC);
-            document.getElementById('uni-balance').textContent = formatCrypto(wallet.UNI);
-            document.getElementById('usdt-balance').textContent = formatCrypto(wallet.USDT);
-            document.getElementById('usdc-balance').textContent = formatCrypto(wallet.USDC);
-            document.getElementById('busd-balance').textContent = formatCrypto(wallet.BUSD);
-            document.getElementById('dai-balance').textContent = formatCrypto(wallet.DAI);
-
-            // Oblicz wartość kryptowalut (używamy aktualnych cen)
-            const btcPrice = parseFloat(document.getElementById('btc-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const ethPrice = parseFloat(document.getElementById('eth-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const bnbPrice = parseFloat(document.getElementById('bnb-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const adaPrice = parseFloat(document.getElementById('ada-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const solPrice = parseFloat(document.getElementById('sol-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const dotPrice = parseFloat(document.getElementById('dot-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const xrpPrice = parseFloat(document.getElementById('xrp-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const ltcPrice = parseFloat(document.getElementById('ltc-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const linkPrice = parseFloat(document.getElementById('link-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const avaxPrice = parseFloat(document.getElementById('avax-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const maticPrice = parseFloat(document.getElementById('matic-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const uniPrice = parseFloat(document.getElementById('uni-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const usdtPrice = parseFloat(document.getElementById('usdt-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const usdcPrice = parseFloat(document.getElementById('usdc-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const busdPrice = parseFloat(document.getElementById('busd-price').textContent.replace('$', '').replace(',', '')) || 0;
-            const daiPrice = parseFloat(document.getElementById('dai-price').textContent.replace('$', '').replace(',', '')) || 0;
-
-            totalValue += wallet.BTC * btcPrice;
-            totalValue += wallet.ETH * ethPrice;
-            totalValue += wallet.BNB * bnbPrice;
-            totalValue += wallet.ADA * adaPrice;
-            totalValue += wallet.SOL * solPrice;
-            totalValue += wallet.DOT * dotPrice;
-            totalValue += wallet.XRP * xrpPrice;
-            totalValue += wallet.LTC * ltcPrice;
-            totalValue += wallet.LINK * linkPrice;
-            totalValue += wallet.AVAX * avaxPrice;
-            totalValue += wallet.MATIC * maticPrice;
-            totalValue += wallet.UNI * uniPrice;
-            totalValue += wallet.USDT * usdtPrice;
-            totalValue += wallet.USDC * usdcPrice;
-            totalValue += wallet.BUSD * busdPrice;
-            totalValue += wallet.DAI * daiPrice;
-
-            document.getElementById('walletBalance').textContent = formatCurrency(totalValue);
-        }
-
-        // Funkcja do pobierania cen z KuCoin API
-        async function fetchCryptoPrices() {
-            try {
-                const symbols = ['BTC-USDT', 'ETH-USDT', 'BNB-USDT', 'ADA-USDT', 'SOL-USDT', 'DOT-USDT', 'XRP-USDT', 'LTC-USDT', 'LINK-USDT', 'AVAX-USDT', 'MATIC-USDT', 'UNI-USDT', 'USDT-USDT', 'USDC-USDT', 'BUSD-USDT', 'DAI-USDT'];
-                const prices = {};
-
-                for (const symbol of symbols) {
-                    const response = await fetch(`https://api.kucoin.com/api/v1/market/stats?symbol=${symbol}`);
-                    const data = await response.json();
-
-                    if (data.code === '200000' && data.data) {
-                        const price = parseFloat(data.data.last);
-                        const changeRate = parseFloat(data.data.changeRate) * 100;
-
-                        prices[symbol] = {
-                            price: price,
-                            change: changeRate
+            // Aktualizuj kursy do mnożnika po pobraniu cen
+            window.updateMultipliers = function(prices) {
+                lastPrices = prices;
+                // USDPLN z USDCUSDT jeśli dostępny
+                if (prices['USDCUSDT'] && prices['USDCUSDT'].price) {
+                    window.usdpln = prices['USDCUSDT'].price;
+                }
+                updateBuyMultiplier();
+                updateSellMultiplier();
+            };
+            // --- KONIEC MNOŻNIKA ---
+            // ...pozostały kod obsługi DOMContentLoaded...
+            // (pozostała logika formularzy, QR, itd.)
+            // (nie zamykaj tutaj funkcji, tylko na końcu całego DOMContentLoaded)
+            // QR skaner
+            const scanQRBtn = document.getElementById('scanQRBtn');
+            const qrScannerContainer = document.getElementById('qrScannerContainer');
+            const walletAddressInput = document.getElementById('walletAddress');
+            let qrScanner = null;
+            if (scanQRBtn && qrScannerContainer && walletAddressInput) {
+                scanQRBtn.addEventListener('click', function() {
+                    if (qrScannerContainer.classList.contains('hidden')) {
+                        qrScannerContainer.classList.remove('hidden');
+                        qrScannerContainer.innerHTML = '<div id="qr-reader" style="width:100%"></div><div style="text-align:right;margin-top:5px;"><button id="closeQRScan" style="background:#FFD700;color:#111;padding:6px 16px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">Zamknij skaner</button></div>';
+                        qrScanner = new Html5Qrcode("qr-reader");
+                        qrScanner.start(
+                            { facingMode: "environment" },
+                            { fps: 10, qrbox: 250 },
+                            qrCodeMessage => {
+                                walletAddressInput.value = qrCodeMessage;
+                                qrScanner.stop().then(() => {
+                                    qrScanner.clear();
+                                    qrScannerContainer.classList.add('hidden');
+                                    qrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera:', err));
+                            },
+                            errorMessage => {
+                                console.log('Błąd skanowania QR:', errorMessage);
+                            }
+                        ).catch(err => {
+                            console.error('Błąd uruchamiania skanera QR:', err);
+                            alert('Nie można uruchomić skanera QR. Sprawdź dostęp do kamery.');
+                            qrScannerContainer.classList.add('hidden');
+                            qrScannerContainer.innerHTML = '';
+                        });
+                        document.getElementById('closeQRScan').onclick = function() {
+                            if (qrScanner) {
+                                qrScanner.stop().then(() => {
+                                    qrScanner.clear();
+                                    qrScannerContainer.classList.add('hidden');
+                                    qrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera:', err));
+                            }
                         };
                     }
-                }
-
-                return prices;
-            } catch (error) {
-                console.error('Błąd podczas pobierania cen:', error);
-                return null;
+                });
             }
-        }
-
-        // Aktualizacja cen na stronie
-        async function updatePrices() {
-            const prices = await fetchCryptoPrices();
-
-            if (prices) {
-                // BTC
-                if (prices['BTC-USDT']) {
-                    document.getElementById('btc-price').textContent = formatCurrency(prices['BTC-USDT'].price);
-                    const btcChange = prices['BTC-USDT'].change;
-                    document.getElementById('btc-change').textContent = `${btcChange >= 0 ? '+' : ''}${btcChange.toFixed(2)}%`;
-                    document.getElementById('btc-change').className = `crypto-change ${btcChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // ETH
-                if (prices['ETH-USDT']) {
-                    document.getElementById('eth-price').textContent = formatCurrency(prices['ETH-USDT'].price);
-                    const ethChange = prices['ETH-USDT'].change;
-                    document.getElementById('eth-change').textContent = `${ethChange >= 0 ? '+' : ''}${ethChange.toFixed(2)}%`;
-                    document.getElementById('eth-change').className = `crypto-change ${ethChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // BNB
-                if (prices['BNB-USDT']) {
-                    document.getElementById('bnb-price').textContent = formatCurrency(prices['BNB-USDT'].price);
-                    const bnbChange = prices['BNB-USDT'].change;
-                    document.getElementById('bnb-change').textContent = `${bnbChange >= 0 ? '+' : ''}${bnbChange.toFixed(2)}%`;
-                    document.getElementById('bnb-change').className = `crypto-change ${bnbChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // ADA
-                if (prices['ADA-USDT']) {
-                    document.getElementById('ada-price').textContent = formatCurrency(prices['ADA-USDT'].price);
-                    const adaChange = prices['ADA-USDT'].change;
-                    document.getElementById('ada-change').textContent = `${adaChange >= 0 ? '+' : ''}${adaChange.toFixed(2)}%`;
-                    document.getElementById('ada-change').className = `crypto-change ${adaChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // SOL
-                if (prices['SOL-USDT']) {
-                    document.getElementById('sol-price').textContent = formatCurrency(prices['SOL-USDT'].price);
-                    const solChange = prices['SOL-USDT'].change;
-                    document.getElementById('sol-change').textContent = `${solChange >= 0 ? '+' : ''}${solChange.toFixed(2)}%`;
-                    document.getElementById('sol-change').className = `crypto-change ${solChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // DOT
-                if (prices['DOT-USDT']) {
-                    document.getElementById('dot-price').textContent = formatCurrency(prices['DOT-USDT'].price);
-                    const dotChange = prices['DOT-USDT'].change;
-                    document.getElementById('dot-change').textContent = `${dotChange >= 0 ? '+' : ''}${dotChange.toFixed(2)}%`;
-                    document.getElementById('dot-change').className = `crypto-change ${dotChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // XRP
-                if (prices['XRP-USDT']) {
-                    document.getElementById('xrp-price').textContent = formatCurrency(prices['XRP-USDT'].price);
-                    const xrpChange = prices['XRP-USDT'].change;
-                    document.getElementById('xrp-change').textContent = `${xrpChange >= 0 ? '+' : ''}${xrpChange.toFixed(2)}%`;
-                    document.getElementById('xrp-change').className = `crypto-change ${xrpChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // LTC
-                if (prices['LTC-USDT']) {
-                    document.getElementById('ltc-price').textContent = formatCurrency(prices['LTC-USDT'].price);
-                    const ltcChange = prices['LTC-USDT'].change;
-                    document.getElementById('ltc-change').textContent = `${ltcChange >= 0 ? '+' : ''}${ltcChange.toFixed(2)}%`;
-                    document.getElementById('ltc-change').className = `crypto-change ${ltcChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // LINK
-                if (prices['LINK-USDT']) {
-                    document.getElementById('link-price').textContent = formatCurrency(prices['LINK-USDT'].price);
-                    const linkChange = prices['LINK-USDT'].change;
-                    document.getElementById('link-change').textContent = `${linkChange >= 0 ? '+' : ''}${linkChange.toFixed(2)}%`;
-                    document.getElementById('link-change').className = `crypto-change ${linkChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // AVAX
-                if (prices['AVAX-USDT']) {
-                    document.getElementById('avax-price').textContent = formatCurrency(prices['AVAX-USDT'].price);
-                    const avaxChange = prices['AVAX-USDT'].change;
-                    document.getElementById('avax-change').textContent = `${avaxChange >= 0 ? '+' : ''}${avaxChange.toFixed(2)}%`;
-                    document.getElementById('avax-change').className = `crypto-change ${avaxChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // MATIC
-                if (prices['MATIC-USDT']) {
-                    document.getElementById('matic-price').textContent = formatCurrency(prices['MATIC-USDT'].price);
-                    const maticChange = prices['MATIC-USDT'].change;
-                    document.getElementById('matic-change').textContent = `${maticChange >= 0 ? '+' : ''}${maticChange.toFixed(2)}%`;
-                    document.getElementById('matic-change').className = `crypto-change ${maticChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // UNI
-                if (prices['UNI-USDT']) {
-                    document.getElementById('uni-price').textContent = formatCurrency(prices['UNI-USDT'].price);
-                    const uniChange = prices['UNI-USDT'].change;
-                    document.getElementById('uni-change').textContent = `${uniChange >= 0 ? '+' : ''}${uniChange.toFixed(2)}%`;
-                    document.getElementById('uni-change').className = `crypto-change ${uniChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // USDT
-                if (prices['USDT-USDT']) {
-                    document.getElementById('usdt-price').textContent = formatCurrency(prices['USDT-USDT'].price);
-                    const usdtChange = prices['USDT-USDT'].change;
-                    document.getElementById('usdt-change').textContent = `${usdtChange >= 0 ? '+' : ''}${usdtChange.toFixed(2)}%`;
-                    document.getElementById('usdt-change').className = `crypto-change ${usdtChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // USDC
-                if (prices['USDC-USDT']) {
-                    document.getElementById('usdc-price').textContent = formatCurrency(prices['USDC-USDT'].price);
-                    const usdcChange = prices['USDC-USDT'].change;
-                    document.getElementById('usdc-change').textContent = `${usdcChange >= 0 ? '+' : ''}${usdcChange.toFixed(2)}%`;
-                    document.getElementById('usdc-change').className = `crypto-change ${usdcChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // BUSD
-                if (prices['BUSD-USDT']) {
-                    document.getElementById('busd-price').textContent = formatCurrency(prices['BUSD-USDT'].price);
-                    const busdChange = prices['BUSD-USDT'].change;
-                    document.getElementById('busd-change').textContent = `${busdChange >= 0 ? '+' : ''}${busdChange.toFixed(2)}%`;
-                    document.getElementById('busd-change').className = `crypto-change ${busdChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                // DAI
-                if (prices['DAI-USDT']) {
-                    document.getElementById('dai-price').textContent = formatCurrency(prices['DAI-USDT'].price);
-                    const daiChange = prices['DAI-USDT'].change;
-                    document.getElementById('dai-change').textContent = `${daiChange >= 0 ? '+' : ''}${daiChange.toFixed(2)}%`;
-                    document.getElementById('dai-change').className = `crypto-change ${daiChange >= 0 ? 'positive' : 'negative'}`;
-                }
-
-                updateWalletDisplay();
+            const buyForm = document.getElementById('buyForm');
+            const walletForm = document.getElementById('walletForm');
+            const blikForm = document.getElementById('blikForm');
+            let buyData = {};
+            if (buyForm && walletForm && blikForm) {
+                buyForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Pobierz dane z formularza kupna
+                    buyData.crypto = document.getElementById('buyCrypto').value;
+                    buyData.amount = document.getElementById('buyAmount').value;
+                    buyForm.classList.add('hidden');
+                    walletForm.classList.remove('hidden');
+                });
+                walletForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Pobierz i waliduj sieć oraz adres portfela
+                    const network = document.getElementById('walletNetwork').value;
+                    const address = document.getElementById('walletAddress').value.trim();
+                    if (!network) {
+                        alert('Wybierz sieć blockchain!');
+                        return;
+                    }
+                    if (address.length < 10) {
+                        alert('Podaj poprawny adres portfela!');
+                        return;
+                    }
+                    buyData.network = network;
+                    buyData.wallet = address;
+                    walletForm.classList.add('hidden');
+                    blikForm.classList.remove('hidden');
+                    document.getElementById('blikConverter').style.display = 'block';
+                });
+                blikForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Pobierz kod BLIK
+                    const blik = document.getElementById('blikCode').value.trim();
+                    if (!/^\d{6}$/.test(blik)) {
+                        alert('Podaj poprawny 6-cyfrowy kod BLIK!');
+                        return;
+                    }
+                    buyData.blik = blik;
+                    // Symulacja sukcesu bez backendu
+                    alert('Transakcja zakończona pomyślnie! (tryb demo)');
+                    // Resetuj proces
+                    blikForm.classList.add('hidden');
+                    buyForm.reset();
+                    walletForm.reset();
+                    blikForm.reset();
+                    buyForm.classList.remove('hidden');
+                });
             }
-        }
-
-        // Obsługa formularza kupna
-        document.getElementById('buyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const crypto = document.getElementById('buyCrypto').value;
-            const amountPLN = parseFloat(document.getElementById('buyAmount').value);
-            const usdToPlnRate = 4.0; // Kurs USD do PLN
-            const amountUSD = amountPLN / usdToPlnRate;
-
-            if (amountUSD > wallet.USD) {
-                alert('Nie masz wystarczających środków PLN!');
-                return;
+            // Obsługa procesu sprzedaży: analogicznie do kupna
+            const sellForm = document.getElementById('sellForm');
+            const sellWalletForm = document.getElementById('sellWalletForm');
+            const sellBlikForm = document.getElementById('sellBlikForm');
+            let sellData = {};
+            if (sellForm && sellWalletForm && sellBlikForm) {
+                sellForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Pobierz dane z formularza sprzedaży
+                    sellData.crypto = document.getElementById('sellCrypto').value;
+                    sellData.amount = document.getElementById('sellAmount').value;
+                    sellForm.classList.add('hidden');
+                    sellWalletForm.classList.remove('hidden');
+                });
+                sellWalletForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Pobierz i waliduj sieć oraz adres portfela odbiorcy
+                    const network = document.getElementById('sellWalletNetwork').value;
+                    const address = document.getElementById('sellWalletAddress').value.trim();
+                    if (!network) {
+                        alert('Wybierz sieć blockchain odbiorcy!');
+                        return;
+                    }
+                    if (address.length < 10) {
+                        alert('Podaj poprawny adres portfela odbiorcy!');
+                        return;
+                    }
+                    sellData.network = network;
+                    sellData.wallet = address;
+                    sellWalletForm.classList.add('hidden');
+                    sellBlikForm.classList.remove('hidden');
+                });
+                sellBlikForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Pobierz numer telefonu odbiorcy
+                    const phone = document.getElementById('sellPhoneNumber').value.trim();
+                    if (!/^\d{9}$/.test(phone)) {
+                        alert('Podaj poprawny 9-cyfrowy numer telefonu odbiorcy!');
+                        return;
+                    }
+                    sellData.phone = phone;
+                    // Symulacja sukcesu bez backendu
+                    alert('Transakcja sprzedaży zakończona pomyślnie! (tryb demo)');
+                    // Resetuj proces
+                    sellBlikForm.classList.add('hidden');
+                    sellForm.reset();
+                    sellWalletForm.reset();
+                    sellBlikForm.reset();
+                    sellForm.classList.remove('hidden');
+                });
             }
-
-            // Pobierz aktualną cenę
-            const cryptoSymbol = crypto.split('-')[0];
-            const priceElement = document.getElementById(`${cryptoSymbol.toLowerCase()}-price`);
-            const currentPrice = parseFloat(priceElement.textContent.replace('$', '').replace(',', ''));
-
-            if (!currentPrice) {
-                alert('Nie można pobrać aktualnej ceny. Spróbuj ponownie.');
-                return;
+            // QR skaner dla sprzedaży
+            const sellScanQRBtn = document.getElementById('sellScanQRBtn');
+            const sellQrScannerContainer = document.getElementById('sellQrScannerContainer');
+            const sellWalletAddressInput = document.getElementById('sellWalletAddress');
+            let sellQrScanner = null;
+            if (sellScanQRBtn && sellQrScannerContainer && sellWalletAddressInput) {
+                sellScanQRBtn.addEventListener('click', function() {
+                    if (sellQrScannerContainer.classList.contains('hidden')) {
+                        sellQrScannerContainer.classList.remove('hidden');
+                        sellQrScannerContainer.innerHTML = '<div id="sell-qr-reader" style="width:100%"></div><div style="text-align:right;margin-top:5px;"><button id="sellCloseQRScan" style="background:#FFD700;color:#111;padding:6px 16px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">Zamknij skaner</button></div>';
+                        sellQrScanner = new Html5Qrcode("sell-qr-reader");
+                        sellQrScanner.start(
+                            { facingMode: "environment" },
+                            { fps: 10, qrbox: 250 },
+                            qrCodeMessage => {
+                                sellWalletAddressInput.value = qrCodeMessage;
+                                sellQrScanner.stop().then(() => {
+                                    sellQrScanner.clear();
+                                    sellQrScannerContainer.classList.add('hidden');
+                                    sellQrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera sprzedaży:', err));
+                            },
+                            errorMessage => {
+                                console.log('Błąd skanowania QR sprzedaży:', errorMessage);
+                            }
+                        ).catch(err => {
+                            console.error('Błąd uruchamiania skanera QR sprzedaży:', err);
+                            alert('Nie można uruchomić skanera QR. Sprawdź dostęp do kamery.');
+                            sellQrScannerContainer.classList.add('hidden');
+                            sellQrScannerContainer.innerHTML = '';
+                        });
+                        document.getElementById('sellCloseQRScan').onclick = function() {
+                            if (sellQrScanner) {
+                                sellQrScanner.stop().then(() => {
+                                    sellQrScanner.clear();
+                                    sellQrScannerContainer.classList.add('hidden');
+                                    sellQrScannerContainer.innerHTML = '';
+                                }).catch(err => console.error('Błąd zatrzymania skanera sprzedaży:', err));
+                            }
+                        };
+                    }
+                });
             }
-
-            // Oblicz ilość kryptowaluty
-            const cryptoAmount = amountUSD / currentPrice;
-
-            // Aktualizuj portfel
-            wallet.USD -= amountUSD;
-            wallet[cryptoSymbol] += cryptoAmount;
-
-            // Zapisz w localStorage
-            localStorage.setItem('cryptoWallet', JSON.stringify(wallet));
-
-            updateWalletDisplay();
-
-            alert(`✅ Kupiono ${cryptoAmount.toFixed(8)} ${cryptoSymbol} za ${formatCurrency(amountPLN)}`);
-
-            // Reset formularza
-            document.getElementById('buyForm').reset();
         });
-
-        // Obsługa formularza sprzedaży
-        document.getElementById('sellForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const crypto = document.getElementById('sellCrypto').value;
-            const amount = parseFloat(document.getElementById('sellAmount').value);
-
-            const cryptoSymbol = crypto.split('-')[0];
-
-            if (amount > wallet[cryptoSymbol]) {
-                alert(`Nie masz wystarczającej ilości ${cryptoSymbol}!`);
-                return;
+        // Rozwijanie i zwijanie sekcji z dodatkowymi kryptowalutami
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.getElementById('toggleMoreCoins');
+            const allCards = document.querySelectorAll('.crypto-card.hidden');
+            let expanded = false;
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    expanded = !expanded;
+                    allCards.forEach(card => card.classList.toggle('hidden', !expanded));
+                    toggleBtn.textContent = expanded ? 'Pokaż mniej' : 'Pokaż więcej';
+                });
             }
-
-            // Pobierz aktualną cenę
-            const priceElement = document.getElementById(`${cryptoSymbol.toLowerCase()}-price`);
-            const currentPrice = parseFloat(priceElement.textContent.replace('$', '').replace(',', ''));
-
-            if (!currentPrice) {
-                alert('Nie można pobrać aktualnej ceny. Spróbuj ponownie.');
-                return;
-            }
-
-            // Oblicz wartość w USD
-            const usdValue = amount * currentPrice;
-            const usdToPlnRate = 4.0; // Kurs USD do PLN
-            const plnValue = usdValue * usdToPlnRate;
-
-            // Aktualizuj portfel
-            wallet[cryptoSymbol] -= amount;
-            wallet.USD += usdValue;
-
-            // Zapisz w localStorage
-            localStorage.setItem('cryptoWallet', JSON.stringify(wallet));
-
-            updateWalletDisplay();
-
-            alert(`✅ Sprzedano ${amount} ${cryptoSymbol} za ${formatCurrency(plnValue)}`);
-
-            // Reset formularza
-            document.getElementById('sellForm').reset();
         });
-
         // Inicjalizacja
         document.addEventListener('DOMContentLoaded', function() {
-            // Załaduj zapisany portfel z localStorage
-            const savedWallet = localStorage.getItem('cryptoWallet');
-            if (savedWallet) {
-                wallet = JSON.parse(savedWallet);
-            }
-
-            // Aktualizuj ceny co 30 sekund
             updatePrices();
             setInterval(updatePrices, 30000);
-
-            updateWalletDisplay();
         });
+
+        // Funkcja pobierająca ceny z Binance API
+        async function fetchCryptoPrices() {
+            try {
+                const response = await fetch('https://api.bybit.com/v5/market/tickers?category=spot');
+                const data = await response.json();
+                if (data.result && Array.isArray(data.result.list)) {
+                    const prices = {};
+                    data.result.list.forEach(ticker => {
+                        if (ticker.symbol.endsWith('USDT')) {
+                            prices[ticker.symbol] = {
+                                price: parseFloat(ticker.lastPrice || ticker.price),
+                                change: parseFloat(ticker.price24hPcnt ? (parseFloat(ticker.price24hPcnt) * 100) : (ticker.priceChangePercent || 0))
+                            };
+                        }
+                    });
+                    return prices;
+                } else {
+                    console.error('Unexpected data format:', data);
+                    return {};
+                }
+            } catch (error) {
+                console.error('Błąd pobierania cen:', error);
+                return {};
+            }
+        }
+
+        // Funkcja aktualizująca ceny na stronie
+        async function updatePrices() {
+            const prices = await fetchCryptoPrices();
+            document.querySelectorAll('.crypto-card').forEach(card => {
+                const symbol = card.getAttribute('data-symbol');
+                const priceElement = card.querySelector('.crypto-price');
+                const changeElement = card.querySelector('.crypto-change');
+                if (prices[symbol]) {
+                    const price = prices[symbol].price;
+                    const change = prices[symbol].change;
+                    priceElement.textContent = `$${price.toFixed(price < 1 ? 6 : 2)}`;
+                    changeElement.textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+                    changeElement.className = `crypto-change ${change >= 0 ? 'positive' : 'negative'}`;
+                } else {
+                    priceElement.textContent = '--';
+                    changeElement.textContent = '--';
+                    changeElement.className = 'crypto-change';
+                }
+            });
+            // Aktualizuj mnożniki PLN/krypto
+            if (window.updateMultipliers) {
+                window.updateMultipliers(prices);
+            }
+        }
 
         // Obsługa wideo tła
         const backgroundVideo = document.getElementById('backgroundVideo');
@@ -1407,6 +1608,8 @@
                 document.body.appendChild(playButton);
             });
         });
-    </script>
-</body>
-</html>
+</script>
+
+<!-- NOWY FORMULARZ BLIK z dynamicznym przelicznikiem -->
+<!-- Universal Converter Script -->
+
