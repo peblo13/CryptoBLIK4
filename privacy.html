@@ -372,19 +372,6 @@
             height: auto;
             max-width: 150px;
         }
-
-        /* Mobile fallback for background video */
-        @media (max-width: 768px) {
-            #backgroundVideo {
-                display: none;
-            }
-            body {
-                background-image: url('images/tlo.jpg');
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
-            }
-        }
     </style>
 </head>
 <body>
@@ -397,7 +384,7 @@
         <img src="images/logocrblik.png" alt="CryptoBLIK Logo">
     </div>
     <!-- Background Video -->
-    <video autoplay muted loop id="backgroundVideo">
+    <video autoplay muted loop id="backgroundVideo" poster="images/tlo.jpg">
         <source src="images/world.mp4" type="video/mp4">
         <source src="images/logo1.mp4" type="video/mp4">
         <source src="images/Facebook.mp4" type="video/mp4">
@@ -618,6 +605,31 @@
                 document.body.appendChild(playButton);
             });
         });
+
+        // Próba odtworzenia po pierwszej interakcji użytkownika
+        let userInteracted = false;
+        function tryPlayVideo() {
+            if (!userInteracted) {
+                userInteracted = true;
+                backgroundVideo.play().catch(function(error) {
+                    console.warn('Odtwarzanie po interakcji zablokowane:', error);
+                });
+            }
+        }
+
+        document.addEventListener('touchstart', tryPlayVideo, { once: true });
+        document.addEventListener('click', tryPlayVideo, { once: true });
+
+        // Intersection Observer dla autoplay gdy widoczny
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && backgroundVideo.paused) {
+                    backgroundVideo.play().catch(() => {});
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(backgroundVideo);
 
         // Hamburger menu toggle
         const hamburger = document.querySelector('.hamburger');
