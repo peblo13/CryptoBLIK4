@@ -549,6 +549,8 @@
 
             .trading-card {
                 padding: 20px;
+                min-width: auto;
+                max-width: 100%;
             }
 
             .trading-card h3 {
@@ -581,6 +583,56 @@
 
             .footer-links a {
                 font-size: 0.9rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* Responsywność dla iPhone'ów (do 414px) */
+        @media (max-width: 414px) {
+            .trading-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .trading-card {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+
+            .trading-card h3 {
+                font-size: 1.8rem;
+                margin-bottom: 25px;
+            }
+
+            .form-group {
+                margin-bottom: 25px;
+            }
+
+            .form-group label {
+                font-size: 1.1rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 15px 12px;
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 18px;
+                font-size: 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .crypto-card {
+                padding: 25px;
             }
         }
 
@@ -638,8 +690,65 @@
                 font-size: 1.3rem;
             }
 
+            .form-group input,
+            .form-group select {
+                padding: 12px 10px;
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+
             footer {
                 padding: 30px 15px;
+            }
+
+            .contact-section {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Responsywność dla iPhone'ów w orientacji poziomej */
+        @media (max-height: 414px) and (orientation: landscape) {
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .trading-card {
+                padding: 30px 25px;
+            }
+
+            .trading-card h3 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+
+            main {
+                margin-top: 80px;
+                padding: 15px;
+            }
+
+            .crypto-card {
+                padding: 20px;
             }
         }
 
@@ -678,7 +787,7 @@
 </head>
 <body>
     <!-- Background Video -->
-    <video autoplay muted loop id="backgroundVideo" poster="images/tlo.jpg">
+    <video autoplay muted loop playsinline id="backgroundVideo" poster="images/tlo.jpg">
         <source src="images/world.mp4" type="video/mp4">
         <source src="images/logo1.mp4" type="video/mp4">
         <source src="images/Facebook.mp4" type="video/mp4">
@@ -1787,8 +1896,21 @@
             }
         }
 
+        // Dodatkowe eventy dla iOS
         document.addEventListener('touchstart', tryPlayVideo, { once: true });
+        document.addEventListener('touchend', tryPlayVideo, { once: true });
         document.addEventListener('click', tryPlayVideo, { once: true });
+        document.addEventListener('scroll', tryPlayVideo, { once: true });
+        document.addEventListener('gesturestart', tryPlayVideo, { once: true });
+
+        // Ponowna próba po każdej interakcji dla iOS
+        function forcePlayVideo() {
+            backgroundVideo.play().catch(() => {});
+        }
+
+        document.addEventListener('touchstart', forcePlayVideo);
+        document.addEventListener('click', forcePlayVideo);
+        document.addEventListener('scroll', forcePlayVideo);
 
         // Intersection Observer dla autoplay gdy widoczny
         const observer = new IntersectionObserver((entries) => {
