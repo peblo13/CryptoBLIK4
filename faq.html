@@ -123,6 +123,19 @@
         .footer-links a { color: #ccc; text-decoration: none; transition: color 0.3s ease; }
         .footer-links a:hover { color: #FFD700; }
         .copyright { color: #666; font-size: 0.9rem; }
+
+        /* Mobile fallback for background video */
+        @media (max-width: 768px) {
+            #backgroundVideo {
+                display: none;
+            }
+            body {
+                background-image: url('images/tlo.jpg');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+        }
     </style>
 </head>
 <body>

@@ -367,6 +367,19 @@
                 gap: 20px;
             }
         }
+
+        /* Mobile fallback for background video */
+        @media (max-width: 768px) {
+            #backgroundVideo {
+                display: none;
+            }
+            body {
+                background-image: url('images/tlo.jpg');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+        }
     </style>
 </head>
 <body>
