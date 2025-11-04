@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>O nas | eCVjob.pl</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/cv3.css">
@@ -10,20 +10,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <style>
+        /* Pełnoekranowe tło wideo jak na stronie głównej */
+        #bg-video { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -2; pointer-events: none; background: #000; }
+        body::after { content:''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(135deg, rgba(10,10,10,0.70) 0%, rgba(26,26,46,0.70) 50%, rgba(22,33,62,0.70) 100%); }
+        body::before { transition: opacity .6s ease; }
+        body.video-ready::before { opacity: 0; }
+        /* Tło jak na stronie głównej: desktop */
         body {
-            background: url('images/tlo.jpg') no-repeat center center fixed;
+            background: #0b0b0b url('images/tlo.jpg') no-repeat center top fixed;
             background-size: cover;
             color: #fff;
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
+
+        /* Mobile: nieruchome, dopasowane tło w pseudoelemencie (ostre na iOS) */
+        @media (max-width: 768px) {
+            body { background: none !important; position: relative; }
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                z-index: -3;
+                background: #f7f7f7 url('images/tlo.jpg') no-repeat center top;
+                background-size: cover;
+                transform: translateZ(0);
+                will-change: transform;
+            }
+        }
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px;
-            background: rgba(24,24,24,0.85);
-            border-radius: 20px;
+            background: none; /* usunięta globalna nakładka */
+            border-radius: 0;
         }
         h1, h2 {
             color: #00ff00;
@@ -58,6 +79,7 @@
             border-radius: 50%;
             margin-bottom: 15px;
             border: 2px solid #00ff00;
+            object-fit: cover;
         }
         .team-member h3 {
             color: #00ff00;
@@ -67,6 +89,7 @@
             color: #fff;
             font-size: 1rem;
         }
+        /* Stopka strony */
         footer {
             text-align: center;
             padding: 30px 0 10px 0;
@@ -74,10 +97,67 @@
             font-size: 1rem;
             background: rgba(0,0,0,0.8);
             margin-top: 60px;
+            border-top: 2px solid #00ff00;
+        }
+        footer a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #00ff00;
+            border-radius: 28px;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.5);
+            box-shadow: 0 2px 12px rgba(0,255,0,0.12);
+            transition: background .2s, color .2s, box-shadow .2s, transform .1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        footer a:hover { background: rgba(0,255,0,0.12); color: #b6ffb6; box-shadow: 0 4px 14px rgba(0,255,0,0.22); }
+        footer a:active { transform: translateY(1px); }
+
+        /* Znak wodny z logiem (jak na innych podstronach) */
+        .watermark-logo {
+            position: fixed;
+            right: max(10px, env(safe-area-inset-right));
+            top: max(10px, env(safe-area-inset-top));
+            z-index: 1; /* ponad tłem, pod sekcjami */
+            opacity: 0.08;
+            pointer-events: none;
+            user-select: none;
+        }
+        .watermark-logo img {
+            width: clamp(120px, 20vw, 240px);
+            height: auto;
+            filter: drop-shadow(0 0 12px rgba(0,255,0,0.25));
+        }
+        @media (max-width: 768px) {
+            .watermark-logo img { width: clamp(100px, 28vw, 180px); }
         }
     </style>
 </head>
 <body>
+    <video id="bg-video" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto" poster="images/tlo.jpg" aria-hidden="true" tabindex="-1">
+        <source src="/images/ecvjob.mp4" type="video/mp4" />
+    </video>
+    <script>
+        (function(){
+            const v = document.getElementById('bg-video');
+            if (!v) return;
+            v.muted = true; v.setAttribute('muted',''); v.playsInline = true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+            const sources = ['/images/ecvjob.mp4','images/ecvjob.mp4','images/logo1.mp4','images/Facebook.mp4'];
+            let cur = 0; const setSrc = (i)=>{ cur=i; try{v.pause();}catch(e){}; v.removeAttribute('src'); v.querySelectorAll('source').forEach(s=>s.remove()); const s=document.createElement('source'); s.src=sources[i]; s.type='video/mp4'; v.appendChild(s); v.src=sources[i]; try{v.load();}catch(e){} };
+            const ready=()=>document.body.classList.add('video-ready');
+            const play=()=>{ const p=v.play(); if(p&&p.catch)p.catch(()=>{}); };
+            setSrc(0); if(v.readyState<2){try{v.load();}catch(e){}}
+            if(document.readyState==='complete') play(); else addEventListener('load', play);
+            ['touchstart','click'].forEach(ev=>document.addEventListener(ev, function once(){ play(); document.removeEventListener(ev, once, {capture:false}); }, {capture:false, once:true}));
+            v.addEventListener('loadeddata', play); v.addEventListener('canplay', play); v.addEventListener('playing', ready); v.addEventListener('canplaythrough', ready);
+            let t; const retry=()=>{ if(t)clearTimeout(t); t=setTimeout(()=>{ if(!document.body.classList.contains('video-ready') && cur < sources.length-1){ setSrc(cur+1); play(); } }, 4000); };
+            v.addEventListener('error', retry); v.addEventListener('stalled', retry); v.addEventListener('abort', retry); v.addEventListener('emptied', retry);
+            document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) play(); });
+        })();
+    </script>
     <header style="background: transparent; box-shadow: none;">
         <div class="container" style="background: none; box-shadow: none;">
             <h1>O nas</h1>
@@ -122,23 +202,19 @@
                 <h2>Nasz zespół</h2>
                 <div class="about-team">
                     <div class="team-member">
-                        <img src="img/team1.jpg" alt="Jan Kowalski">
-                        <h3>Jan Kowalski</h3>
+                        <img src="images/pawela1.jpg" alt="Paweł Śliwiński" onerror="this.onerror=null; this.src='img/team1.jpg';">
+                        <h3>Paweł Śliwiński</h3>
                         <p>Założyciel & CEO</p>
-                        <p style="font-size:0.95rem; color:#00fff7;">Twórca wizji i strategii, pasjonat nowych technologii.</p>
+                        <p style="font-size:0.95rem; color:#00fff7;">Twórca wizji, strategii i główny architekt platformy eCVjob.pl.</p>
                     </div>
+                    <!--
                     <div class="team-member">
-                        <img src="img/team2.jpg" alt="Anna Nowak">
-                        <h3>Anna Nowak</h3>
-                        <p>CTO & Programistka</p>
-                        <p style="font-size:0.95rem; color:#00fff7;">Odpowiada za rozwój platformy i wdrażanie innowacji.</p>
+                        <img src="img/team-lawyer.jpg" alt="Imię Nazwisko">
+                        <h3>Imię Nazwisko</h3>
+                        <p>Prawnik</p>
+                        <p style="font-size:0.95rem; color:#00fff7;">Opis roli prawnika w zespole.</p>
                     </div>
-                    <div class="team-member">
-                        <img src="img/team3.jpg" alt="Piotr Zieliński">
-                        <h3>Piotr Zieliński</h3>
-                        <p>Specjalista ds. HR</p>
-                        <p style="font-size:0.95rem; color:#00fff7;">Ekspert w rekrutacji, wspiera kandydatów i firmy.</p>
-                    </div>
+                    -->
                 </div>
             </div>
             <div class="about-box">
@@ -162,7 +238,79 @@
         </div>
     </main>
     <footer>
-        &copy; 2025 eCVjob.pl. Wszelkie prawa zastrzeżone.
+        <div style="max-width:1100px;margin:0 auto;padding:0 16px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-bottom:10px;">
+                <a href="polityka-prywatnosci.html">🔒 Polityka prywatności</a>
+                <a href="regulamin.html">📄 Regulamin</a>
+                <a href="kontakt.html">✉️ Kontakt</a>
+            </div>
+            <div style="color:#9aff9a;font-size:0.95rem;opacity:0.9;">&copy; 2025 eCVjob.pl — Wszystkie prawa zastrzeżone</div>
+        </div>
     </footer>
+
+    <!-- Znak wodny z logiem -->
+    <div class="watermark-logo" aria-hidden="true">
+        <img src="images/logo.png" alt="eCVjob.pl">
+    </div>
+
+    <!-- PWA: Przycisk "Wstecz" widoczny tylko w trybie standalone (iOS z ekranu głównego) -->
+    <style>
+        .pwa-back-btn {
+            position: fixed;
+            top: max(10px, env(safe-area-inset-top));
+            left: max(10px, env(safe-area-inset-left));
+            z-index: 9999;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.2);
+            backdrop-filter: blur(4px);
+            display: none;
+        }
+        .pwa-back-btn--show { display: block; }
+    </style>
+    <script>
+    (function () {
+        function isStandalone() {
+            var mq = false;
+            try { mq = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches; } catch (e) {}
+            var ns = false;
+            try { ns = !!window.navigator.standalone; } catch (e) {}
+            return mq || ns;
+        }
+        if (!isStandalone()) return;
+
+        var existing = document.querySelector('.pwa-back-btn');
+        if (existing) { existing.className = 'pwa-back-btn pwa-back-btn--show'; return; }
+
+        var btn = document.createElement('button');
+        btn.className = 'pwa-back-btn pwa-back-btn--show';
+        btn.setAttribute('aria-label', 'Wstecz');
+        btn.textContent = '← Wstecz';
+        btn.addEventListener('click', function () {
+            try {
+                if (window.history && window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } catch (e) {
+                window.location.href = 'index.html';
+            }
+        });
+        document.body.appendChild(btn);
+
+        // Usuń ewentualne duplikaty
+        window.addEventListener('DOMContentLoaded', function () {
+            var all = document.querySelectorAll('.pwa-back-btn');
+            for (var i = 1; i < all.length; i++) {
+                if (all[i].parentNode) all[i].parentNode.removeChild(all[i]);
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

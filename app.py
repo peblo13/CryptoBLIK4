@@ -26,7 +26,7 @@ def create_app():
     # Health check endpoint
     @app.route('/health')
     def health_check():
-        return {"status": "OK", "service": "CryptoBLIK Production API"}
+        return {"status": "OK", "message": "CryptoBLIK Production API", "version": "1.0.0"}
     
     @app.route('/')
     def root():
