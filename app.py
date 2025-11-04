@@ -30,7 +30,16 @@ def create_app():
     
     @app.route('/')
     def root():
-        return app.send_static_file('index.html')
+        try:
+            with open('index.html', 'r', encoding='utf-8') as f:
+                return f.read(), 200, {'Content-Type': 'text/html'}
+        except FileNotFoundError:
+            return {"endpoints": {
+                "blik_payment": "/api/payment/blik",
+                "bybit_prices": "/api/market-price/<symbol>",
+                "crypto_buy": "/api/crypto/buy",
+                "health": "/health"
+            }, "message": "CryptoBLIK Production API", "version": "1.0.0"}
     
     # Bybit API functions
     def generate_signature(params, secret):
