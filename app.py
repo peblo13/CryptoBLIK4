@@ -18,7 +18,7 @@ from config import get_api_credentials, BYBIT_BASE_URL, SUPPORTED_CRYPTOS
 
 def create_app():
     """Stwórz unified Flask app dla produkcji"""
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='.')
     
     # CORS dla https://cryptoblik.pl i innych
     CORS(app, methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type", "Authorization"])
@@ -30,16 +30,7 @@ def create_app():
     
     @app.route('/')
     def root():
-        return {
-            "message": "CryptoBLIK Production API",
-            "version": "1.0.0",
-            "endpoints": {
-                "health": "/health",
-                "bybit_prices": "/api/market-price/<symbol>",
-                "crypto_buy": "/api/crypto/buy",
-                "blik_payment": "/api/payment/blik"
-            }
-        }
+        return app.send_static_file('index.html')
     
     # Bybit API functions
     def generate_signature(params, secret):
@@ -253,3 +244,4 @@ if __name__ == '__main__':
     print(f"🌐 CORS origins: https://cryptoblik.pl")
 
     app.run(host='0.0.0.0', port=port, debug=debug)
+
