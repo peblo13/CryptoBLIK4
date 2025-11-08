@@ -1,316 +1,201 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>O nas | eCVjob.pl</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/cv3.css">
-    <link rel="stylesheet" href="css/logo.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <style>
-        /* Pełnoekranowe tło wideo jak na stronie głównej */
-        #bg-video { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -2; pointer-events: none; background: #000; }
-        body::after { content:''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(135deg, rgba(10,10,10,0.70) 0%, rgba(26,26,46,0.70) 50%, rgba(22,33,62,0.70) 100%); }
-        body::before { transition: opacity .6s ease; }
-        body.video-ready::before { opacity: 0; }
-        /* Tło jak na stronie głównej: desktop */
-        body {
-            background: #0b0b0b url('images/tlo.jpg') no-repeat center top fixed;
-            background-size: cover;
-            color: #fff;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Mobile: nieruchome, dopasowane tło w pseudoelemencie (ostre na iOS) */
-        @media (max-width: 768px) {
-            body { background: none !important; position: relative; }
-            body::before {
-                content: "";
-                position: fixed;
-                inset: 0;
-                z-index: -3;
-                background: #f7f7f7 url('images/tlo.jpg') no-repeat center top;
-                background-size: cover;
-                transform: translateZ(0);
-                will-change: transform;
-            }
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background: none; /* usunięta globalna nakładka */
-            border-radius: 0;
-        }
-        h1, h2 {
-            color: #00ff00;
-            text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px #00ff00;
-        }
-        .about-box {
-            background: rgba(0,0,0,0.7);
-            border: 2px solid #00ff00;
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(0,255,0,0.2);
-            padding: 40px 30px;
-            margin-bottom: 40px;
-        }
-        .about-team {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .team-member {
-            background: rgba(0,255,0,0.08);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            border: 2px solid #00ff00;
-        }
-        .team-member img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 2px solid #00ff00;
-            object-fit: cover;
-        }
-        .team-member h3 {
-            color: #00ff00;
-            margin-bottom: 8px;
-        }
-        .team-member p {
-            color: #fff;
-            font-size: 1rem;
-        }
-        /* Stopka strony */
-        footer {
-            text-align: center;
-            padding: 30px 0 10px 0;
-            color: #00ff00;
-            font-size: 1rem;
-            background: rgba(0,0,0,0.8);
-            margin-top: 60px;
-            border-top: 2px solid #00ff00;
-        }
-        footer a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: 600;
-            border: 2px solid #00ff00;
-            border-radius: 28px;
-            padding: 8px 16px;
-            background: rgba(0,0,0,0.5);
-            box-shadow: 0 2px 12px rgba(0,255,0,0.12);
-            transition: background .2s, color .2s, box-shadow .2s, transform .1s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        footer a:hover { background: rgba(0,255,0,0.12); color: #b6ffb6; box-shadow: 0 4px 14px rgba(0,255,0,0.22); }
-        footer a:active { transform: translateY(1px); }
-
-        /* Znak wodny z logiem (jak na innych podstronach) */
-        .watermark-logo {
-            position: fixed;
-            right: max(10px, env(safe-area-inset-right));
-            top: max(10px, env(safe-area-inset-top));
-            z-index: 1; /* ponad tłem, pod sekcjami */
-            opacity: 0.08;
-            pointer-events: none;
-            user-select: none;
-        }
-        .watermark-logo img {
-            width: clamp(120px, 20vw, 240px);
-            height: auto;
-            filter: drop-shadow(0 0 12px rgba(0,255,0,0.25));
-        }
-        @media (max-width: 768px) {
-            .watermark-logo img { width: clamp(100px, 28vw, 180px); }
-        }
-    </style>
+	<!-- SEO Meta Tags -->
+	<title>CryptoBLIK - O nas</title>
+	<meta name="description" content="Dowiedz się więcej o zespole CryptoBLIK, naszej misji i wartościach. Poznaj platformę do kupna i sprzedaży kryptowalut przez BLIK.">
+	<meta name="keywords" content="o nas, zespół, misja, wartości, kryptowaluty, BLIK, CryptoBLIK, PayU">
+	<meta name="robots" content="index, follow">
+	<meta property="og:title" content="CryptoBLIK - O nas">
+	<meta property="og:description" content="Dowiedz się więcej o zespole CryptoBLIK, naszej misji i wartościach. Poznaj platformę do kupna i sprzedaży kryptowalut przez BLIK.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://cryptoblik.pl/O_nas.html">
+	<meta property="og:image" content="https://cryptoblik.pl/logo.png">
+	<!-- Google AdSense -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9110227480064306" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CryptoBLIK - O nas</title>
+	<link rel="icon" type="image/png" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkQ3MDAiLz4KPHN2ZyB4PSI2IiB5PSI2IiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiMwMDBmZjAiLz4KPC9zdmc+">
+	<style>
+		/* Particle background animation */
+		#particles-bg {
+			position: fixed;
+			top: 0; left: 0; width: 100vw; height: 100vh;
+			z-index: -1;
+			pointer-events: none;
+		}
+		body {
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+			color: #fff;
+			font-family: 'Segoe UI', Arial, sans-serif;
+			min-height: 100vh;
+			overflow-x: hidden;
+		}
+		.main {
+			margin-top: 40px;
+			padding: 2.5rem 1rem;
+		}
+		.container {
+			max-width: 900px;
+			margin: 0 auto;
+		}
+		.hero-title {
+			font-size: 2.7rem;
+			font-weight: 900;
+			background: linear-gradient(90deg, #FFD700, #00ffae, #00ff00, #FFD700);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			margin-bottom: 1.5rem;
+			text-shadow: 0 0 32px #FFD70099, 0 0 16px #00ffae99;
+			letter-spacing: 1.5px;
+			animation: glow 2s infinite alternate;
+		}
+		@keyframes glow {
+			from { filter: drop-shadow(0 0 16px #FFD700); }
+			to { filter: drop-shadow(0 0 32px #00ffae); }
+		}
+		.hero-subtitle {
+			color: #00ffae;
+			margin-bottom: 2.2rem;
+			font-size: 1.2rem;
+			text-shadow: 0 0 8px #00ffae55;
+		}
+		.content-section {
+			background: linear-gradient(120deg, #111 80%, #00ffae11 100%);
+			border-radius: 18px;
+			box-shadow: 0 0 32px #00ffae33, 0 0 0 4px #FFD70022;
+			padding: 2.2rem 2rem;
+			border: 1.5px solid #FFD70044;
+			position: relative;
+		}
+		h2, h3 {
+			background: linear-gradient(90deg, #FFD700, #00ffae, #00ff00, #FFD700);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			text-shadow: 0 0 12px #FFD70055, 0 0 8px #00ffae55;
+		}
+		ul {
+			margin-bottom: 2rem;
+			padding-left: 1.2rem;
+		}
+		a {
+			color: #00ffae;
+			text-shadow: 0 0 8px #00ffae99;
+			transition: color 0.2s;
+		}
+		a:hover {
+			color: #FFD700;
+			text-shadow: 0 0 12px #FFD70099;
+		}
+		hr {
+			border: none;
+			border-top: 2px solid #FFD700;
+			margin: 2rem 0;
+			box-shadow: 0 0 8px #FFD70055;
+		}
+		.content-section::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 18px;
+			background: linear-gradient(120deg, #FFD70022 0%, #00ffae11 100%);
+			opacity: 0.18;
+			z-index: 0;
+			pointer-events: none;
+			filter: blur(8px);
+		}
+	</style>
+	</style>
+	<script>
+	// Particle animation
+	document.addEventListener('DOMContentLoaded', function() {
+		const canvas = document.createElement('canvas');
+		canvas.id = 'particles-bg';
+		document.body.prepend(canvas);
+		const ctx = canvas.getContext('2d');
+		let w = window.innerWidth, h = window.innerHeight;
+		canvas.width = w; canvas.height = h;
+		let particles = [];
+		for(let i=0;i<60;i++){
+			particles.push({
+				x: Math.random()*w,
+				y: Math.random()*h,
+				r: Math.random()*2+1,
+				dx: (Math.random()-0.5)*0.7,
+				dy: (Math.random()-0.5)*0.7,
+				c: `hsl(${Math.random()*360},100%,60%)`
+			});
+		}
+		function draw(){
+			ctx.clearRect(0,0,w,h);
+			for(let p of particles){
+				ctx.beginPath();
+				ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+				ctx.fillStyle=p.c;
+				ctx.shadowColor=p.c;
+				ctx.shadowBlur=16;
+				ctx.fill();
+			}
+		}
+		function update(){
+			for(let p of particles){
+				p.x+=p.dx; p.y+=p.dy;
+				if(p.x<0||p.x>w) p.dx*=-1;
+				if(p.y<0||p.y>h) p.dy*=-1;
+			}
+		}
+		function loop(){
+			draw(); update(); requestAnimationFrame(loop);
+		}
+		loop();
+		window.addEventListener('resize',()=>{
+			w=window.innerWidth; h=window.innerHeight;
+			canvas.width=w; canvas.height=h;
+		});
+	});
+	</script>
 </head>
 <body>
-    <video id="bg-video" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto" poster="images/tlo.jpg" aria-hidden="true" tabindex="-1">
-        <source src="/images/ecvjob.mp4" type="video/mp4" />
-    </video>
-    <script>
-        (function(){
-            const v = document.getElementById('bg-video');
-            if (!v) return;
-            v.muted = true; v.setAttribute('muted',''); v.playsInline = true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
-            const sources = ['/images/ecvjob.mp4','images/ecvjob.mp4','images/logo1.mp4','images/Facebook.mp4'];
-            let cur = 0; const setSrc = (i)=>{ cur=i; try{v.pause();}catch(e){}; v.removeAttribute('src'); v.querySelectorAll('source').forEach(s=>s.remove()); const s=document.createElement('source'); s.src=sources[i]; s.type='video/mp4'; v.appendChild(s); v.src=sources[i]; try{v.load();}catch(e){} };
-            const ready=()=>document.body.classList.add('video-ready');
-            const play=()=>{ const p=v.play(); if(p&&p.catch)p.catch(()=>{}); };
-            setSrc(0); if(v.readyState<2){try{v.load();}catch(e){}}
-            if(document.readyState==='complete') play(); else addEventListener('load', play);
-            ['touchstart','click'].forEach(ev=>document.addEventListener(ev, function once(){ play(); document.removeEventListener(ev, once, {capture:false}); }, {capture:false, once:true}));
-            v.addEventListener('loadeddata', play); v.addEventListener('canplay', play); v.addEventListener('playing', ready); v.addEventListener('canplaythrough', ready);
-            let t; const retry=()=>{ if(t)clearTimeout(t); t=setTimeout(()=>{ if(!document.body.classList.contains('video-ready') && cur < sources.length-1){ setSrc(cur+1); play(); } }, 4000); };
-            v.addEventListener('error', retry); v.addEventListener('stalled', retry); v.addEventListener('abort', retry); v.addEventListener('emptied', retry);
-            document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) play(); });
-        })();
-    </script>
-    <header style="background: transparent; box-shadow: none;">
-        <div class="container" style="background: none; box-shadow: none;">
-            <h1>O nas</h1>
-            <p style="color:#fff; text-align:center; font-size:1.2rem; margin-bottom:30px;">Poznaj zespół i misję eCVjob.pl</p>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            <div class="about-box">
-                <h2>Kim jesteśmy?</h2>
-                <p>eCVjob.pl to nowoczesna platforma łącząca kandydatów z pracodawcami. Naszą misją jest uproszczenie procesu rekrutacji, zapewnienie wygodnego kreatora CV oraz dostęp do aktualnych ofert pracy i bazy kandydatów.</p>
-                <ul style="color:#00fff7; font-size:1.1rem; margin-top:20px;">
-                    <li>Innowacyjne narzędzia rekrutacyjne</li>
-                    <li>Automatyczne dopasowanie ofert do kandydatów</li>
-                    <li>Bezpieczne przechowywanie danych</li>
-                    <li>Wsparcie ekspertów HR</li>
-                </ul>
-            </div>
-            <div class="about-box">
-                <h2>Nasza misja</h2>
-                <p>Stawiamy na innowacje, bezpieczeństwo danych i intuicyjność. Chcemy, aby każdy użytkownik mógł szybko znaleźć wymarzoną pracę lub idealnego pracownika.</p>
-                <blockquote style="color:#00ff00; border-left:4px solid #00ff00; padding-left:16px; margin:20px 0; font-size:1.15rem; background:rgba(0,255,0,0.07);">„Łączymy ludzi z możliwościami, budujemy lepszy rynek pracy.”</blockquote>
-            </div>
-            <div class="about-box">
-                <h2>Nasze wartości</h2>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
-                    <div style="background:rgba(0,255,0,0.08);border-radius:12px;padding:18px;text-align:center;border:2px solid #00ff00;">
-                        <h3 style="color:#00ff00;">Zaufanie</h3>
-                        <p>Dbamy o bezpieczeństwo i prywatność danych użytkowników.</p>
-                    </div>
-                    <div style="background:rgba(0,255,0,0.08);border-radius:12px;padding:18px;text-align:center;border:2px solid #00ff00;">
-                        <h3 style="color:#00ff00;">Innowacja</h3>
-                        <p>Wdrażamy najnowsze technologie, by ułatwić rekrutację.</p>
-                    </div>
-                    <div style="background:rgba(0,255,0,0.08);border-radius:12px;padding:18px;text-align:center;border:2px solid #00ff00;">
-                        <h3 style="color:#00ff00;">Wsparcie</h3>
-                        <p>Pomagamy kandydatom i pracodawcom na każdym etapie procesu.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="about-box">
-                <h2>Nasz zespół</h2>
-                <div class="about-team">
-                    <div class="team-member">
-                        <img src="images/pawela1.jpg" alt="Paweł Śliwiński" onerror="this.onerror=null; this.src='img/team1.jpg';">
-                        <h3>Paweł Śliwiński</h3>
-                        <p>Założyciel & CEO</p>
-                        <p style="font-size:0.95rem; color:#00fff7;">Twórca wizji, strategii i główny architekt platformy eCVjob.pl.</p>
-                    </div>
-                    <!--
-                    <div class="team-member">
-                        <img src="img/team-lawyer.jpg" alt="Imię Nazwisko">
-                        <h3>Imię Nazwisko</h3>
-                        <p>Prawnik</p>
-                        <p style="font-size:0.95rem; color:#00fff7;">Opis roli prawnika w zespole.</p>
-                    </div>
-                    -->
-                </div>
-            </div>
-            <div class="about-box">
-                <h2>Dlaczego warto nam zaufać?</h2>
-                <ul style="color:#00fff7; font-size:1.1rem; margin-top:20px;">
-                    <li>Ponad 15 000 utworzonych CV</li>
-                    <li>Setki zadowolonych pracodawców i kandydatów</li>
-                    <li>Intuicyjny kreator CV i szybka aplikacja do ofert</li>
-                    <li>Wsparcie na każdym etapie rekrutacji</li>
-                </ul>
-            </div>
-            <div class="about-box">
-                <h2>Kontakt</h2>
-                <p>Masz pytania? Skontaktuj się z nami:</p>
-                <ul style="color:#00fff7; font-size:1.1rem;">
-                    <li>Email: kontakt@ecvjob.pl</li>
-                    <li>Telefon: +48 123 456 789</li>
-                    <li>Adres: ul. Przykładowa 1, 00-001 Warszawa</li>
-                </ul>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <div style="max-width:1100px;margin:0 auto;padding:0 16px;">
-            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-bottom:10px;">
-                <a href="polityka-prywatnosci.html">🔒 Polityka prywatności</a>
-                <a href="regulamin.html">📄 Regulamin</a>
-                <a href="kontakt.html">✉️ Kontakt</a>
-            </div>
-            <div style="color:#9aff9a;font-size:0.95rem;opacity:0.9;">&copy; 2025 eCVjob.pl — Wszystkie prawa zastrzeżone</div>
-        </div>
-    </footer>
 
-    <!-- Znak wodny z logiem -->
-    <div class="watermark-logo" aria-hidden="true">
-        <img src="images/logo.png" alt="eCVjob.pl">
-    </div>
+	<main class="main">
+		<!-- Google AdSense Banner -->
+		<div style="display:flex;justify-content:center;margin-bottom:32px;">
+			<div style="width:100%;max-width:970px;min-width:320px;min-height:100px;height:90px;display:flex;align-items:center;justify-content:center;background:rgba(20,20,20,0.7);border:2px dashed #FFD700;border-radius:16px;box-shadow:0 0 24px #FFD70055;position:relative;">
+				<ins class="adsbygoogle"
+					style="display:block;width:100%;height:90px;"
+					data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+					data-ad-slot="1234567890"
+					data-ad-format="auto"
+					data-full-width-responsive="true"></ins>
+				<span style="position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:1.1rem;pointer-events:none;opacity:0.7;z-index:2;">Miejsce na reklamę Google AdSense</span>
+			</div>
+			<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+		</div>
+		<div class="container">
+			<section class="hero">
+				<h1 class="hero-title">O CryptoBLIK</h1>
+				<p class="hero-subtitle">Poznaj nasz zespół i misję. Tworzymy przyszłość płatności krypto w Polsce.</p>
+			</section>
+			<section class="content-section">
+				<h2>Kim jesteśmy?</h2>
+				<p>CryptoBLIK to zespół pasjonatów technologii blockchain i finansów. Naszym celem jest uproszczenie dostępu do kryptowalut dla każdego.</p>
+				<h2>Nasza misja</h2>
+				<p>Chcemy, aby zakup i sprzedaż kryptowalut był szybki, bezpieczny i dostępny dla wszystkich – z wykorzystaniem BLIK.</p>
+				<h2>Dlaczego CryptoBLIK?</h2>
+				<ul>
+					<li>Nowoczesna, intuicyjna platforma</li>
+					<li>Błyskawiczne transakcje przez BLIK</li>
+					<li>Bezpieczeństwo i transparentność</li>
+					<li>Wsparcie dla wielu kryptowalut</li>
+				</ul>
+				<h2>Kontakt</h2>
+				<p>Masz pytania? Napisz do nas: <a href="mailto:support@cryptoblik.pl">support@cryptoblik.pl</a></p>
+			</section>
+		</div>
+	</main>
 
-    <!-- PWA: Przycisk "Wstecz" widoczny tylko w trybie standalone (iOS z ekranu głównego) -->
-    <style>
-        .pwa-back-btn {
-            position: fixed;
-            top: max(10px, env(safe-area-inset-top));
-            left: max(10px, env(safe-area-inset-left));
-            z-index: 9999;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.2);
-            backdrop-filter: blur(4px);
-            display: none;
-        }
-        .pwa-back-btn--show { display: block; }
-    </style>
-    <script>
-    (function () {
-        function isStandalone() {
-            var mq = false;
-            try { mq = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches; } catch (e) {}
-            var ns = false;
-            try { ns = !!window.navigator.standalone; } catch (e) {}
-            return mq || ns;
-        }
-        if (!isStandalone()) return;
-
-        var existing = document.querySelector('.pwa-back-btn');
-        if (existing) { existing.className = 'pwa-back-btn pwa-back-btn--show'; return; }
-
-        var btn = document.createElement('button');
-        btn.className = 'pwa-back-btn pwa-back-btn--show';
-        btn.setAttribute('aria-label', 'Wstecz');
-        btn.textContent = '← Wstecz';
-        btn.addEventListener('click', function () {
-            try {
-                if (window.history && window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    window.location.href = 'index.html';
-                }
-            } catch (e) {
-                window.location.href = 'index.html';
-            }
-        });
-        document.body.appendChild(btn);
-
-        // Usuń ewentualne duplikaty
-        window.addEventListener('DOMContentLoaded', function () {
-            var all = document.querySelectorAll('.pwa-back-btn');
-            for (var i = 1; i < all.length; i++) {
-                if (all[i].parentNode) all[i].parentNode.removeChild(all[i]);
-            }
-        });
-    })();
-    </script>
 </body>
 </html>

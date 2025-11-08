@@ -1,549 +1,256 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - eCVjob.pl</title>
-    <link rel="stylesheet" href="css/logo.css">
-    <style>
-        /* Basic reset and body styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: url('images/tlo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        /* Page header styling */
-        #page-header {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-bottom: 2px solid #00ff00;
-            width: 100%;
-        }
-
-        #page-header h1 {
-            color: #00ff00;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        /* Header styling - usuń logo z headera */
-        header {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 10px 20px;
-            position: relative;
-            z-index: 10;
-            animation: slideIn 1s ease-in-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        /* Header and Navigation */
-        header {
-            margin-bottom: 20px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            background-color: rgba(0, 0, 0, 0.8);
-            border-radius: 5px;
-        }
-
-        nav ul li {
-            margin: 0;
-        }
-
-        nav ul li a {
-            display: block;
-            padding: 15px 20px;
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            background-color: rgba(0, 255, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul li a {
-                padding: 12px 15px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .menu-toggle-wrapper {
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                gap: 12px !important;
-            }
-            .menu-toggle, .menu-toggle-label {
-                display: block !important;
-            }
-            .navbar-main {
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 8px 0;
-            }
-            .navbar-main li {
-                margin: 4px 2px;
-                flex: 1 1 80px;
-                min-width: 60px;
-                max-width: 120px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 38px;
-            }
-            .navbar-main li a {
-                font-size: 0.8rem;
-                padding: 8px 4px;
-                width: 100%;
-                box-sizing: border-box;
-                text-align: center;
-                background: rgba(34,34,34,0.95);
-                border-radius: 6px;
-                transition: background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                line-height: 1.2;
-            }
-            .navbar-main li a:hover {
-                background: #00ff00;
-                color: #222;
-                box-shadow: 0 2px 12px rgba(0,255,0,0.15);
-            }
-            .navbar-extra {
-                position: static;
-                width: 100vw;
-                background: none;
-                box-shadow: none;
-                z-index: 2002;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-items: center;
-                padding: 8px 0 0 0;
-                margin: 0 auto 0 auto;
-                display: none !important;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
-                gap: 8px 0;
-            }
-            .navbar-extra.showing {
-                display: flex !important;
-                opacity: 1;
-                pointer-events: auto;
-                transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
-            }
-            .navbar-extra li {
-                margin: 4px 2px;
-                flex: 1 1 80px;
-                min-width: 60px;
-                max-width: 120px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 38px;
-            }
-            .navbar-extra li a {
-                font-size: 0.8rem;
-                padding: 8px 4px;
-                width: 100%;
-                box-sizing: border-box;
-                text-align: center;
-                background: rgba(34,34,34,0.95);
-                border-radius: 6px;
-                transition: background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                line-height: 1.2;
-            }
-            .navbar-extra li a:hover {
-                background: #00ff00;
-                color: #222;
-                box-shadow: 0 2px 12px rgba(0,255,0,0.15);
-            }
-            main {
-                margin-top: 0 !important;
-                transition: margin-top 0.3s cubic-bezier(.4,0,.2,1);
-            }
-            .navbar-extra.showing ~ main {
-                margin-top: 60px !important;
-            }
-        }
-        @media (max-width: 600px) {
-            .navbar-main li {
-                flex: 1 1 40px;
-                min-width: 30px;
-                max-width: 60px;
-                margin: 2px 1px;
-                height: 28px;
-            }
-            .navbar-main li a {
-                font-size: 0.6rem;
-                padding: 6px 2px;
-                height: 100%;
-                line-height: 1.1;
-            }
-            .navbar-extra li {
-                flex: 1 1 40px;
-                min-width: 30px;
-                max-width: 60px;
-                margin: 2px 1px;
-                height: 28px;
-            }
-            .navbar-extra li a {
-                font-size: 0.6rem;
-                padding: 6px 2px;
-                height: 100%;
-                line-height: 1.1;
-            }
-            .menu-toggle-wrapper {
-                margin-top: 1px;
-                margin-bottom: 1px;
-            }
-            .navbar {
-                margin-bottom: 4px;
-            }
-            .navbar-extra.showing {
-                margin-bottom: 24px;
-            }
-            .navbar-extra.showing ~ main {
-                margin-top: 80px !important;
-            }
-        }
-        
-        /* Specjalne style dla długich tekstów w nawigacji */
-        .navbar-main li a, .navbar-extra li a {
-            color: #fff;
-            padding: 14px 18px !important;
-            text-decoration: none;
-            display: block;
-            border-radius: 5px;
-            transition: background 0.2s, color 0.2s;
-            background: rgba(34,34,34,0.95);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-            min-height: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.3 !important;
-            word-spacing: -1px;
-        }
-        
-        .navbar-main li a:hover, .navbar-extra li a:hover {
-            background: #00ff00;
-            color: #222;
-            box-shadow: 0 2px 12px rgba(0,255,0,0.15);
-        }
-
-        /* Responsywne dostosowania dla długich tekstów */
-        @media (max-width: 900px) {
-            .navbar-main li a, .navbar-extra li a {
-                padding: 10px 6px !important;
-                font-size: 0.75rem !important;
-                line-height: 1.1 !important;
-                white-space: normal !important;
-                word-wrap: break-word;
-                text-align: center !important;
-                min-height: 32px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .navbar-main li a, .navbar-extra li a {
-                padding: 8px 3px !important;
-                font-size: 0.55rem !important;
-                line-height: 1.0 !important;
-                min-height: 24px;
-                white-space: normal !important;
-                word-wrap: break-word;
-                text-align: center !important;
-            }
-        }
-
-        /* Logo styling - fixed position po prawej stronie jak w index.html */
-        .logo {
-            position: fixed;
-            right: 20px;
-            top: 80px;
-            width: 150px;
-            height: 150px;
-            z-index: 9999;
-        }
-
-        .logo img {
-            width: 100%;
-            height: auto;
-            filter: drop-shadow(0 2px 8px rgba(0, 255, 0, 0.3));
-        }
-
-        /* Main content styling */
-        main {
-            width: 80%;
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        /* FAQ section */
-        #faq {
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        #faq h2 {
-            color: #00ff00;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: bold;
-        }
-
-        #faq ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        #faq li {
-            margin-bottom: 1rem;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid #00ff00;
-            border-radius: 8px;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        #faq li:hover {
-            transform: translateY(-2px);
-            background: rgba(0, 255, 0, 0.1);
-        }
-
-        #faq li a {
-            display: block;
-            padding: 20px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        #faq li a:hover {
-            color: #00ff00;
-        }
-
-        #faq li a::before {
-            content: "❓ ";
-            color: #00ff00;
-            font-size: 1.2rem;
-            margin-right: 10px;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.7);
-            color: #00ff00;
-            padding: 20px;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 8px;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        footer p {
-            margin: 0;
-            color: #00ff00;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            main {
-                width: 95%;
-                padding: 1rem;
-            }
-
-            #faq {
-                padding: 2rem 1rem;
-            }
-
-            #faq h2 {
-                font-size: 2rem;
-            }
-
-            #faq li a {
-                padding: 15px;
-                font-size: 1rem;
-            }
-
-            #page-header h1 {
-                font-size: 2rem;
-            }
-
-            .logo img {
-                width: 80px;
-            }
-
-            .logo {
-                width: 80px;
-                height: 80px;
-                top: 60px;
-                right: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #faq li a {
-                padding: 12px;
-                font-size: 0.9rem;
-            }
-
-            #page-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .logo img {
-                width: 60px;
-            }
-
-            .logo {
-                width: 60px;
-                height: 60px;
-                top: 40px;
-                right: 10px;
-            }
-        }
-    </style>
-    <style>
-        #bg-video{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:-2;pointer-events:none;background:#000}
-        body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,rgba(10,10,10,.70) 0%,rgba(26,26,46,.70) 50%,rgba(22,33,62,.70) 100%)}
-        body::before{transition:opacity .6s ease}
-        body.video-ready::before{opacity:0}
-    </style>
+	<!-- SEO Meta Tags -->
+	<title>CryptoBLIK - FAQ | Najczęstsze pytania</title>
+	<meta name="description" content="Najczęściej zadawane pytania dotyczące korzystania z platformy CryptoBLIK. Dowiedz się więcej o płatnościach BLIK, bezpieczeństwie i obsłudze kryptowalut.">
+	<meta name="keywords" content="FAQ, pytania, odpowiedzi, pomoc, kryptowaluty, BLIK, CryptoBLIK, PayU">
+	<meta name="robots" content="index, follow">
+	<meta property="og:title" content="CryptoBLIK - FAQ">
+	<meta property="og:description" content="Najczęściej zadawane pytania dotyczące korzystania z platformy CryptoBLIK. Dowiedz się więcej o płatnościach BLIK, bezpieczeństwie i obsłudze kryptowalut.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://cryptoblik.pl/FAQ.html">
+	<meta property="og:image" content="https://cryptoblik.pl/logo.png">
+	<!-- Google AdSense -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9110227480064306" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CryptoBLIK - FAQ</title>
+	<link rel="icon" type="image/png" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkQ3MDAiLz4KPHN2ZyB4PSI2IiB5PSI2IiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiMwMDBmZjAiLz4KPC9zdmc+">
+	<style>
+		/* Particle background animation */
+		#particles-bg {
+			position: fixed;
+			top: 0; left: 0; width: 100vw; height: 100vh;
+			z-index: -1;
+			pointer-events: none;
+		}
+		body {
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+			color: #fff;
+			font-family: 'Segoe UI', Arial, sans-serif;
+			min-height: 100vh;
+			overflow-x: hidden;
+		}
+		.main {
+			margin-top: 40px;
+			padding: 2.5rem 1rem;
+		}
+		.container {
+			max-width: 900px;
+			margin: 0 auto;
+		}
+		.hero-title {
+			font-size: 2.7rem;
+			font-weight: 900;
+			background: linear-gradient(90deg, #FFD700, #00ffae, #00ff00, #FFD700);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			margin-bottom: 1.5rem;
+			text-shadow: 0 0 32px #FFD70099, 0 0 16px #00ffae99;
+			letter-spacing: 1.5px;
+			animation: glow 2s infinite alternate;
+		}
+		@keyframes glow {
+			from { filter: drop-shadow(0 0 16px #FFD700); }
+			to { filter: drop-shadow(0 0 32px #00ffae); }
+		}
+		.hero-subtitle {
+			color: #00ffae;
+			margin-bottom: 2.2rem;
+			font-size: 1.2rem;
+			text-shadow: 0 0 8px #00ffae55;
+		}
+		.content-section {
+			background: linear-gradient(120deg, #111 80%, #00ffae11 100%);
+			border-radius: 18px;
+			box-shadow: 0 0 32px #00ffae33, 0 0 0 4px #FFD70022;
+			padding: 2.2rem 2rem;
+			border: 1.5px solid #FFD70044;
+			position: relative;
+		}
+		h2, h3 {
+			background: linear-gradient(90deg, #FFD700, #00ffae, #00ff00, #FFD700);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			text-shadow: 0 0 12px #FFD70055, 0 0 8px #00ffae55;
+		}
+		ol {
+			margin-bottom: 2rem;
+			padding-left: 1.2rem;
+		}
+		a {
+			color: #00ffae;
+			text-shadow: 0 0 8px #00ffae99;
+			transition: color 0.2s;
+		}
+		a:hover {
+			color: #FFD700;
+			text-shadow: 0 0 12px #FFD70099;
+		}
+		hr {
+			border: none;
+			border-top: 2px solid #FFD700;
+			margin: 2rem 0;
+			box-shadow: 0 0 8px #FFD70055;
+		}
+		.content-section::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 18px;
+			background: linear-gradient(120deg, #FFD70022 0%, #00ffae11 100%);
+			opacity: 0.18;
+			z-index: 0;
+			pointer-events: none;
+			filter: blur(8px);
+		}
+	</style>
+	</style>
+	<script>
+	// Particle animation
+	document.addEventListener('DOMContentLoaded', function() {
+		const canvas = document.createElement('canvas');
+		canvas.id = 'particles-bg';
+		document.body.prepend(canvas);
+		const ctx = canvas.getContext('2d');
+		let w = window.innerWidth, h = window.innerHeight;
+		canvas.width = w; canvas.height = h;
+		let particles = [];
+		for(let i=0;i<60;i++){
+			particles.push({
+				x: Math.random()*w,
+				y: Math.random()*h,
+				r: Math.random()*2+1,
+				dx: (Math.random()-0.5)*0.7,
+				dy: (Math.random()-0.5)*0.7,
+				c: `hsl(${Math.random()*360},100%,60%)`
+			});
+		}
+		function draw(){
+			ctx.clearRect(0,0,w,h);
+			for(let p of particles){
+				ctx.beginPath();
+				ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+				ctx.fillStyle=p.c;
+				ctx.shadowColor=p.c;
+				ctx.shadowBlur=16;
+				ctx.fill();
+			}
+		}
+		function update(){
+			for(let p of particles){
+				p.x+=p.dx; p.y+=p.dy;
+				if(p.x<0||p.x>w) p.dx*=-1;
+				if(p.y<0||p.y>h) p.dy*=-1;
+			}
+		}
+		function loop(){
+			draw(); update(); requestAnimationFrame(loop);
+		}
+		loop();
+		window.addEventListener('resize',()=>{
+			w=window.innerWidth; h=window.innerHeight;
+			canvas.width=w; canvas.height=h;
+		});
+	});
+	</script>
+	<!-- FAQ structured data -->
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "FAQPage",
+	  "mainEntity": [
+	    {
+	      "@type": "Question",
+	      "name": "Czym jest CryptoBLIK?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "CryptoBLIK to nowoczesna platforma umożliwiająca szybki zakup i sprzedaż kryptowalut przez BLIK."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Jak kupić kryptowaluty?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Wybierz kryptowalutę, podaj kwotę, adres portfela i opłać zamówienie przez BLIK."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Czy to bezpieczne?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Tak, stosujemy zaawansowane zabezpieczenia i szyfrowanie danych."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Jaka jest minimalna kwota?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Minimalna kwota zakupu to 60 PLN."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Jak się skontaktować?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Skorzystaj z formularza kontaktowego lub napisz na support@cryptoblik.pl."
+	      }
+	    }
+	  ]
+	}
+	</script>
 </head>
 <body>
-    <video id="bg-video" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto" poster="images/tlo.jpg" aria-hidden="true" tabindex="-1"><source src="/images/ecvjob.mp4" type="video/mp4" /></video>
-    <script>(function(){const v=document.getElementById('bg-video');if(!v)return;v.muted=true;v.setAttribute('muted','');v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');const sources=['/images/ecvjob.mp4','images/ecvjob.mp4','images/logo1.mp4','images/Facebook.mp4'];let c=0;const setSrc=i=>{c=i;try{v.pause()}catch(e){}v.removeAttribute('src');v.querySelectorAll('source').forEach(s=>s.remove());const s=document.createElement('source');s.src=sources[i];s.type='video/mp4';v.appendChild(s);v.src=sources[i];try{v.load()}catch(e){}};const ready=()=>document.body.classList.add('video-ready');const play=()=>{const p=v.play();if(p&&p.catch)p.catch(()=>{})};setSrc(0);if(v.readyState<2){try{v.load()}catch(e){}}if(document.readyState==='complete')play();else addEventListener('load',play);['touchstart','click'].forEach(ev=>document.addEventListener(ev,function once(){play();document.removeEventListener(ev,once,{capture:false})},{capture:false,once:true}));v.addEventListener('loadeddata',play);v.addEventListener('canplay',play);v.addEventListener('playing',ready);v.addEventListener('canplaythrough',ready);let t;const retry=()=>{if(t)clearTimeout(t);t=setTimeout(()=>{if(!document.body.classList.contains('video-ready')&&c<sources.length-1){setSrc(c+1);play()}},4000)};['error','stalled','abort','emptied'].forEach(e=>v.addEventListener(e,retry));document.addEventListener('visibilitychange',()=>{if(!document.hidden)play()})})();</script>
-    <div id="menu"></div>
-    <!-- Page header -->
-    <div id="page-header">
-        <h1>FAQ - Najczęściej zadawane pytania</h1>
-    </div>
 
-    <!-- Header -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Start</a></li>
-                <li><a href="O_nas.html">O nas</a></li>
-                <li><a href="kreator-cv-new.html">Kreator CV</a></li>
-                <li><a href="baza_cv.html">Baza CV</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="cv-tips.html">CV Tips</a></li>
-                <li><a href="webresume.html">WebResume</a></li>
-                <li><a href="cv-europass.html">CV Europass</a></li>
-                <li><a href="login.html">Logowanie/Rejestracja</a></li>
-                <li><a href="faq.html">FAQ</a></li>
-                <li><a href="index.html#kontakt">Kontakt</a></li>
-            </ul>
-        </nav>
-    </header>
+	<main class="main">
+		<!-- Google AdSense Banner -->
+		<div style="display:flex;justify-content:center;margin-bottom:32px;">
+			<div style="width:100%;max-width:970px;min-width:320px;min-height:100px;height:90px;display:flex;align-items:center;justify-content:center;background:rgba(20,20,20,0.7);border:2px dashed #FFD700;border-radius:16px;box-shadow:0 0 24px #FFD70055;position:relative;">
+				<ins class="adsbygoogle"
+					style="display:block;width:100%;height:90px;"
+					data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+					data-ad-slot="1234567890"
+					data-ad-format="auto"
+					data-full-width-responsive="true"></ins>
+				<span style="position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:1.1rem;pointer-events:none;opacity:0.7;z-index:2;">Miejsce na reklamę Google AdSense</span>
+			</div>
+			<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+		</div>
+		<div class="container">
+			<section class="hero">
+				<h1 class="hero-title">FAQ - Najczęstsze pytania</h1>
+				<p class="hero-subtitle">Odpowiedzi na najczęściej zadawane pytania dotyczące CryptoBLIK.</p>
+			</section>
+			<section class="content-section">
+				<h2>Spis treści</h2>
+				<ol>
+					<li><a href="#co-to">Czym jest CryptoBLIK?</a></li>
+					<li><a href="#jak-kupic">Jak kupić kryptowaluty?</a></li>
+					<li><a href="#bezpieczenstwo">Czy to bezpieczne?</a></li>
+					<li><a href="#min-kwota">Jaka jest minimalna kwota?</a></li>
+					<li><a href="#kontakt">Jak się skontaktować?</a></li>
+				</ol>
+				<hr>
+				<h3 id="co-to">1. Czym jest CryptoBLIK?</h3>
+				<p>CryptoBLIK to nowoczesna platforma umożliwiająca szybki zakup i sprzedaż kryptowalut przez BLIK.</p>
+				<h3 id="jak-kupic">2. Jak kupić kryptowaluty?</h3>
+				<p>Wybierz kryptowalutę, podaj kwotę, adres portfela i opłać zamówienie przez BLIK.</p>
+				<h3 id="bezpieczenstwo">3. Czy to bezpieczne?</h3>
+				<p>Tak, stosujemy zaawansowane zabezpieczenia i szyfrowanie danych.</p>
+				<h3 id="min-kwota">4. Jaka jest minimalna kwota?</h3>
+				<p>Minimalna kwota zakupu to 60 PLN.</p>
+				<h3 id="kontakt">5. Jak się skontaktować?</h3>
+				<p>Skorzystaj z formularza kontaktowego lub napisz na <a href="mailto:support@cryptoblik.pl">support@cryptoblik.pl</a></p>
+			</section>
+		</div>
+	</main>
 
-    <!-- Logo - fixed position po prawej stronie -->
-    <div class="logo">
-        <img src="images/logo.png" alt="Logo eCVjob.pl">
-    </div>
-
-    <!-- Main content -->
-    <main>
-        <section id="faq">
-            <h2>Najczęściej zadawane pytania</h2>
-            <ul>
-                <li><a href="odpowiedz1.html">Jak mogę się zarejestrować na stronie?</a></li>
-                <li><a href="odpowiedz2.html">Jak mogę dodać ofertę pracy na eCVjob.pl?</a></li>
-                <li><a href="odpowiedz3.html">Jak mogę skontaktować się z obsługą klienta?</a></li>
-                <li><a href="odpowiedz4.html">Jak mogę stworzyć profesjonalne CV?</a></li>
-                <li><a href="odpowiedz5.html">Jak mogę znaleźć pracę przez eCVjob.pl?</a></li>
-                <li><a href="odpowiedz6.html">Czy korzystanie z kreatora CV jest bezpłatne?</a></li>
-                <li><a href="odpowiedz7.html">Jakie formaty CV mogę pobrać?</a></li>
-                <li><a href="odpowiedz8.html">Czy są gotowe wzory CV?</a></li>
-                <li><a href="odpowiedz9.html">Czy mogę edytować CV później?</a></li>
-                <li><a href="odpowiedz10.html">Jakie są płatne funkcje?</a></li>
-            </ul>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 eCVjob.pl. Wszelkie prawa zastrzeżone.</p>
-    </footer>
-
-    <script>
-        // Responsive menu toggle function
-        function toggleExtraMenu() {
-            const navbarExtra = document.querySelector('.navbar-extra');
-            if (navbarExtra) {
-                navbarExtra.classList.toggle('showing');
-            }
-        }
-
-        // Console log for debugging
-        console.log('FAQ page loaded successfully');
-    </script>
-    <script src="js/logo.js"></script>
-    <script>
-    // Dynamiczne ładowanie menu
-    fetch('menu.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('menu').innerHTML = html;
-      });
-    </script>
 </body>
 </html>

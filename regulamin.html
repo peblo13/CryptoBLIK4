@@ -1,176 +1,213 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regulamin | eCVjob.pl</title>
-        <link rel="stylesheet" href="css/logo.css">
-    <style>
-        body {
-            font-family: 'Montserrat', Arial, sans-serif;
-            background: url('/moj_projek/eCVjob.pl/src/images/tlo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #e6e6e6;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            overflow-x: hidden;
-        }
-        .regulamin-main-container {
-            max-width: 950px;
-            margin: 48px auto 48px auto;
-            background: rgba(0,0,0,0.78);
-            border: 2.5px solid #00ff00;
-            border-radius: 22px;
-            box-shadow: 0 0 40px #00ff0033;
-            padding: 60px 32px 40px 32px;
-            position: relative;
-        }
-        /* Centered glowing logo inside container (mirrors privacy page) */
-        .regulamin-logo {
-            position: absolute;
-            top: -65px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            background: rgba(0,0,0,0.7);
-            border-radius: 50%;
-            padding: 12px;
-            box-shadow: 0 0 32px #00fff7cc, 0 0 0 6px rgba(0,255,247,0.18);
-            animation: neon-pulse 1.5s infinite alternate;
-            border: 4px solid #00fff7;
-        }
-        .regulamin-logo img {
-            width: 90px;
-            height: 90px;
-            opacity: 0.93;
-            z-index: 10;
-            border-radius: 30px;
-            box-shadow: 0 0 0 4px #00fff7, 0 0 18px #00fff7cc;
-        }
-        @keyframes neon-pulse {
-            0% {
-                box-shadow: 0 0 32px #00fff7cc, 0 0 0 6px rgba(0,255,247,0.18);
-                border-color: #00fff7;
-            }
-            100% {
-                box-shadow: 0 0 64px #00fff7, 0 0 0 12px rgba(0,255,247,0.32);
-                border-color: #00ffe0;
-            }
-        }
-        h1 {
-            color: #00ff00;
-            text-align: center;
-            margin-top: 60px;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-shadow: 0 0 12px #00ff00;
-        }
-        .regulamin-section {
-            background: rgba(0,0,0,0.55);
-            border-radius: 14px;
-            box-shadow: 0 0 18px #00ff0033;
-            margin-bottom: 32px;
-            padding: 28px 22px 18px 22px;
-        }
-        h2 {
-            color: #00ff00;
-            margin-top: 1.5rem;
-            font-size: 1.3rem;
-        }
-        a {
-            color: #00fff7;
-            text-decoration: underline;
-        }
-        ul, ol {
-            margin-left: 1.5rem;
-        }
-        @media (max-width: 600px) {
-            .regulamin-main-container {
-                padding: 18px 2vw 18px 2vw;
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
-            .regulamin-logo img {
-                width: 60px;
-                height: 60px;
-            }
-            .regulamin-section {
-                padding: 12px 6px 10px 6px;
-            }
-        }
-        
-    </style>
-    <style>
-        #bg-video{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:-2;pointer-events:none;background:#000}
-        body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,rgba(10,10,10,.70) 0%,rgba(26,26,46,.70) 50%,rgba(22,33,62,.70) 100%)}
-        body::before{transition:opacity .6s ease}
-        body.video-ready::before{opacity:0}
-    </style>
+	<!-- SEO Meta Tags -->
+	<title>CryptoBLIK - Regulamin</title>
+	<meta name="description" content="Regulamin korzystania z platformy CryptoBLIK. Zasady, prawa i obowiązki użytkowników serwisu do kupna i sprzedaży kryptowalut przez BLIK.">
+	<meta name="keywords" content="regulamin, zasady, prawa, obowiązki, kryptowaluty, BLIK, CryptoBLIK, PayU">
+	<meta name="robots" content="index, follow">
+	<meta property="og:title" content="CryptoBLIK - Regulamin">
+	<meta property="og:description" content="Regulamin korzystania z platformy CryptoBLIK. Zasady, prawa i obowiązki użytkowników serwisu do kupna i sprzedaży kryptowalut przez BLIK.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://cryptoblik.pl/regulamin.html">
+	<meta property="og:image" content="https://cryptoblik.pl/logo.png">
+	<!-- Google AdSense -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9110227480064306" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CryptoBLIK - Regulamin</title>
+	<link rel="icon" type="image/png" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkQ3MDAiLz4KPHN2ZyB4PSI2IiB5PSI2IiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiMwMDBmZjAiLz4KPC9zdmc+">
+	<style>
+		/* Particle background animation */
+		#particles-bg {
+			position: fixed;
+			top: 0; left: 0; width: 100vw; height: 100vh;
+			z-index: -1;
+			pointer-events: none;
+		}
+		body {
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+			color: #fff;
+			font-family: 'Segoe UI', Arial, sans-serif;
+			min-height: 100vh;
+			overflow-x: hidden;
+		}
+		.main {
+			margin-top: 40px;
+			padding: 2.5rem 1rem;
+		}
+		.container {
+			max-width: 900px;
+			margin: 0 auto;
+		}
+		.hero-title {
+			font-size: 2.7rem;
+			font-weight: 900;
+			background: linear-gradient(90deg, #FFD700, #00ffae, #00ff00, #FFD700);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			margin-bottom: 1.5rem;
+			text-shadow: 0 0 32px #FFD70099, 0 0 16px #00ffae99;
+			letter-spacing: 1.5px;
+			animation: glow 2s infinite alternate;
+		}
+		@keyframes glow {
+			from { filter: drop-shadow(0 0 16px #FFD700); }
+			to { filter: drop-shadow(0 0 32px #00ffae); }
+		}
+		.hero-subtitle {
+			color: #00ffae;
+			margin-bottom: 2.2rem;
+			font-size: 1.2rem;
+			text-shadow: 0 0 8px #00ffae55;
+		}
+		.content-section {
+			background: linear-gradient(120deg, #111 80%, #00ffae11 100%);
+			border-radius: 18px;
+			box-shadow: 0 0 32px #00ffae33, 0 0 0 4px #FFD70022;
+			padding: 2.2rem 2rem;
+			border: 1.5px solid #FFD70044;
+			position: relative;
+		}
+		h2, h3 {
+			background: linear-gradient(90deg, #FFD700, #00ffae, #00ff00, #FFD700);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			text-shadow: 0 0 12px #FFD70055, 0 0 8px #00ffae55;
+		}
+		ol {
+			margin-bottom: 2rem;
+			padding-left: 1.2rem;
+		}
+		a {
+			color: #00ffae;
+			text-shadow: 0 0 8px #00ffae99;
+			transition: color 0.2s;
+		}
+		a:hover {
+			color: #FFD700;
+			text-shadow: 0 0 12px #FFD70099;
+		}
+		hr {
+			border: none;
+			border-top: 2px solid #FFD700;
+			margin: 2rem 0;
+			box-shadow: 0 0 8px #FFD70055;
+		}
+		.content-section::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 18px;
+			background: linear-gradient(120deg, #FFD70022 0%, #00ffae11 100%);
+			opacity: 0.18;
+			z-index: 0;
+			pointer-events: none;
+			filter: blur(8px);
+		}
+	</style>
+	</style>
+	<script>
+	// Particle animation
+	document.addEventListener('DOMContentLoaded', function() {
+		const canvas = document.createElement('canvas');
+		canvas.id = 'particles-bg';
+		document.body.prepend(canvas);
+		const ctx = canvas.getContext('2d');
+		let w = window.innerWidth, h = window.innerHeight;
+		canvas.width = w; canvas.height = h;
+		let particles = [];
+		for(let i=0;i<60;i++){
+			particles.push({
+				x: Math.random()*w,
+				y: Math.random()*h,
+				r: Math.random()*2+1,
+				dx: (Math.random()-0.5)*0.7,
+				dy: (Math.random()-0.5)*0.7,
+				c: `hsl(${Math.random()*360},100%,60%)`
+			});
+		}
+		function draw(){
+			ctx.clearRect(0,0,w,h);
+			for(let p of particles){
+				ctx.beginPath();
+				ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+				ctx.fillStyle=p.c;
+				ctx.shadowColor=p.c;
+				ctx.shadowBlur=16;
+				ctx.fill();
+			}
+		}
+		function update(){
+			for(let p of particles){
+				p.x+=p.dx; p.y+=p.dy;
+				if(p.x<0||p.x>w) p.dx*=-1;
+				if(p.y<0||p.y>h) p.dy*=-1;
+			}
+		}
+		function loop(){
+			draw(); update(); requestAnimationFrame(loop);
+		}
+		loop();
+		window.addEventListener('resize',()=>{
+			w=window.innerWidth; h=window.innerHeight;
+			canvas.width=w; canvas.height=h;
+		});
+	});
+	</script>
 </head>
 <body>
-    <video id="bg-video" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto" poster="images/tlo.jpg" aria-hidden="true" tabindex="-1"><source src="/images/ecvjob.mp4" type="video/mp4" /></video>
-    <script>(function(){const v=document.getElementById('bg-video');if(!v)return;v.muted=true;v.setAttribute('muted','');v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');const sources=['/images/ecvjob.mp4','images/ecvjob.mp4','images/logo1.mp4','images/Facebook.mp4'];let c=0;const setSrc=i=>{c=i;try{v.pause()}catch(e){}v.removeAttribute('src');v.querySelectorAll('source').forEach(s=>s.remove());const s=document.createElement('source');s.src=sources[i];s.type='video/mp4';v.appendChild(s);v.src=sources[i];try{v.load()}catch(e){}};const ready=()=>document.body.classList.add('video-ready');const play=()=>{const p=v.play();if(p&&p.catch)p.catch(()=>{})};setSrc(0);if(v.readyState<2){try{v.load()}catch(e){}}if(document.readyState==='complete')play();else addEventListener('load',play);['touchstart','click'].forEach(ev=>document.addEventListener(ev,function once(){play();document.removeEventListener(ev,once,{capture:false})},{capture:false,once:true}));v.addEventListener('loadeddata',play);v.addEventListener('canplay',play);v.addEventListener('playing',ready);v.addEventListener('canplaythrough',ready);let t;const retry=()=>{if(t)clearTimeout(t);t=setTimeout(()=>{if(!document.body.classList.contains('video-ready')&&c<sources.length-1){setSrc(c+1);play()}},4000)};['error','stalled','abort','emptied'].forEach(e=>v.addEventListener(e,retry));document.addEventListener('visibilitychange',()=>{if(!document.hidden)play()})})();</script>
     
-    <div class="regulamin-main-container">
-        <!-- Centered glowing logo -->
-        <div class="regulamin-logo">
-            <img src="images/logo.png" alt="Logo eCVjob.pl">
-        </div>
-        <h1>Regulamin serwisu eCVjob.pl</h1>
-        <div class="regulamin-section">
-            <h2>1. Postanowienia ogólne</h2>
-            <ul>
-                <li>Serwis eCVjob.pl jest platformą internetową umożliwiającą tworzenie CV, publikację ogłoszeń oraz kontakt między kandydatami a pracodawcami.</li>
-                <li>Korzystanie z serwisu oznacza akceptację niniejszego regulaminu.</li>
-            </ul>
-        </div>
-        <div class="regulamin-section">
-            <h2>2. Rejestracja i konto użytkownika</h2>
-            <ul>
-        </div>
-        <div class="regulamin-section">
-            <h2>3. Zasady korzystania z serwisu</h2>
-            <ul>
-                <li>Użytkownik zobowiązuje się do korzystania z serwisu zgodnie z przepisami prawa oraz dobrymi obyczajami.</li>
-                <li>Zakazane jest publikowanie treści niezgodnych z prawem, obraźliwych lub naruszających prawa osób trzecich.</li>
-                <li>Administrator ma prawo do usunięcia treści lub konta naruszającego regulamin.</li>
-            </ul>
-        </div>
-        <div class="regulamin-section">
-            <h2>4. Odpowiedzialność</h2>
-            <ul>
-                <li>Administrator nie ponosi odpowiedzialności za treści publikowane przez użytkowników.</li>
-                <li>Administrator dokłada starań, aby serwis działał bez zakłóceń, ale nie gwarantuje pełnej dostępności i braku błędów.</li>
-            </ul>
-        </div>
-        <div class="regulamin-section">
-            <h2>5. Prywatność i dane osobowe</h2>
-            <ul>
-                <li>Dane osobowe użytkowników są przetwarzane zgodnie z Polityką Prywatności serwisu.</li>
-                <li>Użytkownik ma prawo do wglądu, poprawiania i usunięcia swoich danych.</li>
-            </ul>
-        </div>
-        <div class="regulamin-section">
-            <h2>6. Zmiany regulaminu</h2>
-            <ul>
-                <li>Administrator zastrzega sobie prawo do zmiany regulaminu w dowolnym momencie.</li>
-                <li>O zmianach użytkownicy zostaną poinformowani na stronie internetowej serwisu.</li>
-            </ul>
-        </div>
-        <div class="regulamin-section">
-            <h2>7. Kontakt</h2>
-            <p>Wszelkie pytania dotyczące regulaminu prosimy kierować na adres: <a href="mailto:kontakt@ecvjob.pl">kontakt@ecvjob.pl</a>.</p>
-        </div>
-        <div style="margin-top: 32px; text-align: center;">
-            <span style="display: inline-block; color: #00fff7; font-weight: bold; font-size: 1.13rem; letter-spacing: 1px; text-shadow: 0 0 12px #00fff7, 0 0 24px #00fff7cc; border-radius: 16px; padding: 10px 28px; background: rgba(0,0,0,0.38); box-shadow: 0 0 18px #00fff7cc; border: 2px solid #00fff7; animation: neon-pulse 1.5s infinite alternate;">Wykonał Paweł Śliwiński</span>
-        </div>
-        <div style="margin-top: 18px; text-align: center;">
-            <span id="cv-counter" style="display: inline-block; color: #00ff00; font-weight: bold; font-size: 1.5rem; letter-spacing: 1px; text-shadow: 0 0 12px #00ff00, 0 0 24px #00ff00cc; border-radius: 16px; padding: 10px 28px; background: rgba(0,0,0,0.38); box-shadow: 0 0 18px #00ff00cc; border: 2px solid #00ff00; animation: neon-pulse 1.5s infinite alternate;">Liczba użytkowników: <span id="cv-count-value">15&nbsp;847</span></span>
-        </div>
-    </div>
-    <script src="js/logo.js"></script>
+	<main class="main">
+		<!-- Google AdSense Banner -->
+		<div style="display:flex;justify-content:center;margin-bottom:32px;">
+			<div style="width:100%;max-width:970px;min-width:320px;min-height:100px;height:90px;display:flex;align-items:center;justify-content:center;background:rgba(20,20,20,0.7);border:2px dashed #FFD700;border-radius:16px;box-shadow:0 0 24px #FFD70055;position:relative;">
+				<ins class="adsbygoogle"
+					style="display:block;width:100%;height:90px;"
+					data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+					data-ad-slot="1234567890"
+					data-ad-format="auto"
+					data-full-width-responsive="true"></ins>
+				<span style="position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:1.1rem;pointer-events:none;opacity:0.7;z-index:2;">Miejsce na reklamę Google AdSense</span>
+			</div>
+			<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+		</div>
+		<div class="container">
+			<section class="hero">
+				<h1 class="hero-title">Regulamin CryptoBLIK</h1>
+				<p class="hero-subtitle">Zapoznaj się z zasadami korzystania z platformy CryptoBLIK. Bezpieczeństwo, przejrzystość i nowoczesność.</p>
+			</section>
+			<section class="content-section">
+				<h2>Spis treści</h2>
+				<ol>
+					<li><a href="#definicje">Definicje</a></li>
+					<li><a href="#uslugi">Zakres Usług</a></li>
+					<li><a href="#rejestracja">Rejestracja i Konto</a></li>
+					<li><a href="#platnosci">Płatności</a></li>
+					<li><a href="#bezpieczenstwo">Bezpieczeństwo</a></li>
+					<li><a href="#odpowiedzialnosc">Odpowiedzialność</a></li>
+					<li><a href="#kontakt">Kontakt</a></li>
+				</ol>
+				<hr>
+				<h3 id="definicje">1. Definicje</h3>
+				<p>Kryptowaluty – cyfrowe aktywa wymienialne na platformie CryptoBLIK.<br>Użytkownik – osoba korzystająca z platformy.</p>
+				<h3 id="uslugi">2. Zakres Usług</h3>
+				<p>CryptoBLIK umożliwia zakup i sprzedaż kryptowalut online z wykorzystaniem BLIK.</p>
+				<h3 id="rejestracja">3. Rejestracja i Konto</h3>
+				<p>Do korzystania z pełnej funkcjonalności wymagane jest założenie konta i akceptacja regulaminu.</p>
+				<h3 id="platnosci">4. Płatności</h3>
+				<p>Płatności realizowane są przez BLIK oraz inne dostępne metody. Minimalna kwota transakcji to 60 PLN.</p>
+				<h3 id="bezpieczenstwo">5. Bezpieczeństwo</h3>
+				<p>Dbamy o bezpieczeństwo środków i danych użytkowników. Zalecamy stosowanie silnych haseł i uwierzytelniania dwuskładnikowego.</p>
+				<h3 id="odpowiedzialnosc">6. Odpowiedzialność</h3>
+				<p>CryptoBLIK nie ponosi odpowiedzialności za decyzje inwestycyjne użytkowników. Handel kryptowalutami wiąże się z ryzykiem.</p>
+				<h3 id="kontakt">7. Kontakt</h3>
+				<p>W sprawach związanych z regulaminem prosimy o kontakt: <a href="mailto:support@cryptoblik.pl">support@cryptoblik.pl</a></p>
+			</section>
+		</div>
+	</main>
+
 </body>
 </html>

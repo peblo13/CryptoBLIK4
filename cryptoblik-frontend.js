@@ -7,7 +7,7 @@ class CryptoBLIKFrontend {
     constructor() {
         // API Proxy - używa bezpośrednich wywołań zamiast iframe
         this.useProxy = false; // WŁĄCZ REAL API - użyj lokalnego Flask servera
-        this.apiUrl = this.useProxy ? 'http://localhost:3000' : 'http://localhost:5000';
+        this.apiUrl = this.useProxy ? 'http://localhost:3000' : 'http://localhost:10000';
         this.currentTransaction = null;
         this.requestId = 0;
         this.pendingRequests = new Map();
@@ -23,7 +23,7 @@ class CryptoBLIKFrontend {
         
         // Konfiguracja Bybit API
         this.bybitConfig = {
-            apiKey: 'cSid7NTVRHJ7wuT7S8',
+            apiKey: 'MbFVpWCO6CYd2bwLoi',
             apiSecret: 'Bbkgm5MYlIylyBd7zCs3tpskKlDPSDppfUZl',
             baseURL: 'https://api.bybit.com'
         };

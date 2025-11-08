@@ -51,15 +51,16 @@ def create_app():
     def market_price(symbol):
         """Get crypto price from Bybit"""
         try:
+            from config import SYMBOL_WHITELIST
+            if symbol not in SYMBOL_WHITELIST:
+                return jsonify({'error': 'Symbol not allowed'}), 403
             url = f'{BYBIT_BASE_URL}/v5/market/tickers'
             params = {
                 'category': 'spot',
                 'symbol': symbol
             }
-            
             response = requests.get(url, params=params, timeout=10)
             data = response.json()
-            
             if data.get('retCode') == 0 and data.get('result'):
                 ticker = data['result']['list'][0]
                 return jsonify({
@@ -71,7 +72,6 @@ def create_app():
                 })
             else:
                 return jsonify({'error': 'Symbol not found'}), 404
-                
         except Exception as e:
             return jsonify({'error': str(e)}), 500
 
@@ -127,11 +127,18 @@ def create_app():
                 if field not in data:
                     return jsonify({'error': f'Missing field: {field}'}), 400
 
+
             # Parametry wejściowe
             amount_pln = float(data['amount'])
             crypto_symbol = data['crypto']
             wallet = data['wallet']
             email = data['email']
+
+            # Whitelist symboli
+            from config import SYMBOL_WHITELIST
+            if f'{crypto_symbol}USDT' not in SYMBOL_WHITELIST:
+                return jsonify({'error': 'Symbol not allowed'}), 403
+
             # Prowizja 5%
             fee_percent = 0.05
             fee_pln = round(amount_pln * fee_percent, 2)

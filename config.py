@@ -8,7 +8,7 @@ import os
 # =============================================================================
 
 # Klucze API Bybit - prawdziwe klucze produkcyjne
-BYBIT_API_KEY = "cSid7NTVRHJ7wuT7S8"
+BYBIT_API_KEY = "MbFVpWCO6CYd2bwLoi"
 BYBIT_API_SECRET = "Bbkgm5MYlIylyBd7zCs3tpskKlDPSDppfUZl"
 
 # UWAGA: Prawdziwe klucze produkcyjne!
@@ -127,8 +127,10 @@ PAYU_ENV = os.environ.get('PAYU_ENV', 'sandbox')  # 'sandbox' lub 'production'
 # ...
 
 def get_api_credentials():
-    """Zwraca klucze API"""
-    return BYBIT_API_KEY, BYBIT_API_SECRET
+    """Zwraca klucz i sekret Bybit API z bezpiecznych zmiennych środowiskowych lub zdefiniowanych w pliku"""
+    api_key = os.environ.get('BYBIT_API_KEY', BYBIT_API_KEY)
+    api_secret = os.environ.get('BYBIT_API_SECRET', BYBIT_API_SECRET)
+    return api_key, api_secret
 
 def validate_config():
     """Sprawdza czy konfiguracja jest poprawna"""
@@ -155,3 +157,11 @@ if __name__ == "__main__":
     validate_config()
     print(f"API Key: {BYBIT_API_KEY[:8]}..." if len(BYBIT_API_KEY) > 8 else "BRAK")
     print(f"Obsługiwane crypto: {list(SUPPORTED_CRYPTOS.keys())}")
+
+# ===============================
+# Whitelist symboli (dozwolone pary do handlu)
+# ===============================
+SYMBOL_WHITELIST = [
+    'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'XRPUSDT', 'ADAUSDT', 'SOLUSDT',
+    'DOTUSDT', 'MATICUSDT', 'LTCUSDT', 'AVAXUSDT', 'USDTUSDT', 'USDCUSDT'
+]
